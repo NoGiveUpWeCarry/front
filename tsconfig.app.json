@@ -20,7 +20,18 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@_components/*": ["./src/components/*"],
+      "@_constants/*": ["./src/constants/*"],
+      "@_hooks/*": ["./src/hooks/*"],
+      "@_layouts/*": ["./src/layouts/*"],
+      "@_mock/*": ["./src/mock/*"],
+      "@_store/*": ["./src/store/*"],
+      "@_styles/*": ["./src/styles/*"],
+      "@_types/*": ["./src/types/*"],
+      "@_utils/*": ["./src/utils/*"]
+    }
   },
   "include": ["src"]
 }
