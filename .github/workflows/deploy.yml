@@ -7,27 +7,33 @@ on:
   pull_request:
     branches: [main]
 
-# 워크 플로우가 깃 레포에 대한 권한을 읽기 만 가능하게 설정한다.
-permissions:
-  contents: read
-
 # 워크플로우에서 할 작업 정의한다.
 jobs:
-  deploy:
+  build:
     name: deploy
     runs-on: ubuntu-latest # 실행될 인스턴스 OS와 버전
 
     steps:
-      - name: excuting remote ssh commands
-        uses: appleboy/ssh-action@v0.1.6 # ssh 접속하는 오픈소스
-        with:
-          host: ${{ secrets.EC2_IP }} # 인스턴스 IP
-          username: ${{ secrets.EC2_USERNAME }} # 우분투 아이디
-          key: ${{ secrets.EC2_SSH_KEY }} # SSH Key
-          port: ${{ secrets.EC2_SSH_PORT }} # 접속포트
-          script: | # 실행할 스크립트
+      - name: Chack out Git repository
+        uses: actions/checkout@v4
+
+      - name: Execute Deployment Commands on EC2
+        env:
+          EC2_HOST: ${{ secrets.EC2_HOST }} # EC2 서버의 퍼블릭 IP
+          EC2_USER: ${{ secrets.EC2_USER }} # EC2 접속 사용자 (ex: ubuntu, ec2-user 등)
+        run: |
+          # 비공개 키를 임시 파일로 저장
+          echo "${{ secrets.EC2_SSH_KEY }}" > ec2_key.pem
+          chmod 600 ec2_key.pem
+
+          # SSH를 통해 EC2 서버에 접속하여 명령 실행
+          ssh -o StrictHostKeyChecking=no -i ec2_key.pem $EC2_USER@$EC2_HOST << 'EOF'
             cd /home/ubuntu/front
             git pull origin main
             pnpm install
-            npm run build 
+            npm run build
             pm2 restart 0
+          EOF
+
+          # 임시 키 파일 삭제
+          rm -f ec2_key.pem
