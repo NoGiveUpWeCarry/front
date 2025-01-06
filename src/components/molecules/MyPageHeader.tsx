@@ -1,7 +1,8 @@
 import Button from '@/components/atoms/Button';
 import FollowButton from '@/components/atoms/FollowButton';
-import { LinkIcon } from '@heroicons/react/16/solid';
+import { Cog6ToothIcon, LinkIcon } from '@heroicons/react/16/solid';
 import { EnvelopeIcon } from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
 
 const LINKS = {
   notion: '/src/assets/icons/notion.svg',
@@ -11,6 +12,8 @@ const LINKS = {
 };
 
 const MyPageHeader = () => {
+  const isMyPage = true;
+
   return (
     <div className='h-[166px] flex items-center gap-7'>
       <div className='w-[120px] h-[120px]'>
@@ -22,9 +25,9 @@ const MyPageHeader = () => {
         />
       </div>
       <div className='flex-1 flex flex-col gap-5 justify-center relative'>
-        <div className='flex items-center gap-[10px]'>
+        <div className='flex items-center gap-[10px] h-[29px]'>
           <h1 className='text-heading2 font-semibold'>테스트용계정</h1>
-          <FollowButton isFollowing={true} />
+          {!isMyPage && <FollowButton isFollowing={true} />}
         </div>
         <p className='text-body1 font-regular line-clamp-2'>
           프로젝트 구인 중입니다. 프로젝트 구인 중입니다. 프로젝트 구인
@@ -43,16 +46,21 @@ const MyPageHeader = () => {
           </button>
         </div>
         <div className='absolute right-0 top-0'>
-          <Button
-            width='92px'
-            height='29px'
-            radius='sm'
-            variants='outline'
-            borderColor='black'
-            className='font-semibold text-[15px] flex items-center justify-center gap-[10px]'
-          >
-            메세지 <EnvelopeIcon width={18} />
-          </Button>
+          {isMyPage ? (
+            <Link to='/settings'>
+              <Cog6ToothIcon width={24} />
+            </Link>
+          ) : (
+            <Button
+              width='92px'
+              height='29px'
+              radius='sm'
+              variants='outline'
+              className='font-semibold text-[15px] flex items-center justify-center gap-[10px] border border-black'
+            >
+              메세지 <EnvelopeIcon width={18} />
+            </Button>
+          )}
         </div>
       </div>
     </div>
