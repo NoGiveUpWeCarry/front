@@ -38,6 +38,9 @@ dependencies:
   react-dom:
     specifier: ^18.3.1
     version: 18.3.1(react@18.3.1)
+  react-github-calendar:
+    specifier: ^4.5.3
+    version: 4.5.3(react@18.3.1)
   react-router-dom:
     specifier: ^7.1.1
     version: 7.1.1(react-dom@18.3.1)(react@18.3.1)
@@ -318,7 +321,6 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.1
-    dev: true
 
   /@babel/template@7.25.9:
     resolution: {integrity: sha512-9DGttpmPvIxBb/2uwpVo3dqJ+O6RooAFOS+lB+xDqoE2PVCE8nfoHMdZLpfCQRLwvohzXISPZcgxt80xLfsuwg==}
@@ -2531,6 +2533,10 @@ packages:
       is-data-view: 1.0.2
     dev: true
 
+  /date-fns@4.1.0:
+    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
+    dev: false
+
   /debug@3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
     peerDependencies:
@@ -4475,6 +4481,15 @@ packages:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
     dev: true
 
+  /react-activity-calendar@2.7.6(react@18.3.1):
+    resolution: {integrity: sha512-Qgb0/W8I9bHDQZ9EsjgNwufYXMPDY8me5pVI+/PavuhUk21ukWhF9rsa06JEkAf4HXEZyWr8xWueNA//iEmyPQ==}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+    dependencies:
+      date-fns: 4.1.0
+      react: 18.3.1
+    dev: false
+
   /react-confetti@6.2.2(react@18.3.1):
     resolution: {integrity: sha512-K+kTyOPgX+ZujMZ+Rmb7pZdHBvg+DzinG/w4Eh52WOB8/pfO38efnnrtEZNJmjTvLxc16RBYO+tPM68Fg8viBA==}
     engines: {node: '>=16'}
@@ -4519,6 +4534,25 @@ packages:
       loose-envify: 1.4.0
       react: 18.3.1
       scheduler: 0.23.2
+
+  /react-error-boundary@5.0.0(react@18.3.1):
+    resolution: {integrity: sha512-tnjAxG+IkpLephNcePNA7v6F/QpWLH8He65+DmedchDwg162JZqx4NmbXj0mlAYVVEd81OW7aFhmbsScYfiAFQ==}
+    peerDependencies:
+      react: '>=16.13.1'
+    dependencies:
+      '@babel/runtime': 7.26.0
+      react: 18.3.1
+    dev: false
+
+  /react-github-calendar@4.5.3(react@18.3.1):
+    resolution: {integrity: sha512-ZrNpWqzY8PmYj1+Ms0ydH9eW5F9pKCv8Xg6UZpUssABczsn6GIeY3LrIJWP2E6JMp/HwTAzQBK55PM3Qs+CiVQ==}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+    dependencies:
+      react: 18.3.1
+      react-activity-calendar: 2.7.6(react@18.3.1)
+      react-error-boundary: 5.0.0(react@18.3.1)
+    dev: false
 
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -4617,7 +4651,6 @@ packages:
 
   /regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
-    dev: true
 
   /regexp.prototype.flags@1.5.4:
     resolution: {integrity: sha512-dYqgNSZbDwkaJ2ceRd9ojCGjBq+mOm9LmtXnAnEGyHhN/5R7iDW2TRw3h+o/jCFxus3P2LfWIIiwowAjANm7IA==}
