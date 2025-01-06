@@ -6,6 +6,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Pretendard', 'sans-serif'],
+        pretendard: ['Pretendard', 'sans-serif'],
       },
       colors: {
         background: '#F5F5F5',
@@ -24,9 +25,6 @@ export default {
         bold: '700',
         extrabold: '800',
         black: '900',
-      },
-      fontFamily: {
-        pretendard: ['Pretendard', 'sans-serif'],
       },
       fontSize: {
         heading1: ['24px', '29px'],
