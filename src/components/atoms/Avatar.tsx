@@ -1,0 +1,27 @@
+import { cn } from '@/utils/cn';
+import { cva, VariantProps } from 'class-variance-authority';
+
+export const AvatarVariants = cva(`rounded-full`, {
+  variants: {
+    size: {
+      xs: 'w-[40px] h-[40px]',
+      sm: 'w-[50px] h-[50px]',
+      md: 'w-[80px] h-[80px]',
+      lg: 'w-[120px] h-[120px]',
+    },
+  },
+  defaultVariants: {
+    size: 'sm',
+  },
+});
+
+export interface AvatarProps extends VariantProps<typeof AvatarVariants> {
+  src?: string;
+  className?: string;
+}
+
+const Avatar = ({ size, src = '', className }: AvatarProps) => {
+  return <img src={src} className={cn(AvatarVariants({ size, className }))} />;
+};
+
+export default Avatar;
