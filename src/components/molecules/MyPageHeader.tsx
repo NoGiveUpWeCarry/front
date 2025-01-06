@@ -1,3 +1,4 @@
+import Avatar from '@/components/atoms/Avatar';
 import Button from '@/components/atoms/Button';
 import FollowButton from '@/components/atoms/FollowButton';
 import { Cog6ToothIcon, LinkIcon } from '@heroicons/react/16/solid';
@@ -17,11 +18,9 @@ const MyPageHeader = () => {
   return (
     <div className='h-[166px] flex items-center gap-7'>
       <div className='w-[120px] h-[120px]'>
-        <img
-          src={
-            'https://images.unsplash.com/photo-1735437629103-0fac198c7c2e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-          }
-          className='w-full h-full object-cover rounded-full'
+        <Avatar
+          size='lg'
+          src='https://images.unsplash.com/photo-1735437629103-0fac198c7c2e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
         />
       </div>
       <div className='flex-1 flex flex-col gap-5 justify-center relative'>
