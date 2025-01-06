@@ -19,8 +19,10 @@ const MyPageTemplate = () => {
     useShallow((state) => [state.activeTab])
   ) as [keyof typeof MyPageTabs];
 
+  const ActiveComponent = MyPageTabs[activeTab];
+
   return (
-    <div className='w-full min-h-screen max-w-[1920px]'>
+    <div className='w-full min-h-screen max-w-[1920px] bg-background'>
       <div className='max-w-screen-center h-full mx-auto py-5 px-[30px] flex flex-col gap-[17px]'>
         <MyPageHeader />
         <div className='h-[38px]'>
@@ -32,9 +34,7 @@ const MyPageTemplate = () => {
             ))}
           </Tabs>
         </div>
-        {typeof MyPageTabs[activeTab] === 'function'
-          ? MyPageTabs[activeTab]()
-          : null}
+        {ActiveComponent ? <ActiveComponent /> : null}
       </div>
     </div>
   );
