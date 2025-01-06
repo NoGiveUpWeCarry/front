@@ -1,11 +1,12 @@
-import { MouseEvent, ReactNode } from 'react';
+import { MouseEvent, PropsWithChildren } from 'react';
 
-interface ListItemProps {
-  children?: ReactNode;
+interface ListItemProps extends PropsWithChildren {
   className?: string;
 }
 
-export interface ListItemMainProps extends ListItemProps {}
+export interface ListItemColProps extends ListItemProps {}
+
+export interface ItemMainProps extends ListItemProps {}
 
 export interface ItemTitleProps extends ListItemProps {}
 

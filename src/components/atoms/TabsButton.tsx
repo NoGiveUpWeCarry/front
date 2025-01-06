@@ -15,7 +15,7 @@ const TabsButton = ({ isActive, onClick, children }: IProps) => {
       radius='sm'
       variants='outline'
       className={
-        isActive ? 'bg-white font-medium' : 'bg-none text-darkgray font-regular'
+        isActive ? 'bg-white font-medium' : 'bg-none text-darkgray font-normal'
       }
       onClick={onClick}
     >
