@@ -34,7 +34,7 @@ const IntroductionTemplate = () => {
           height='36px'
           variants='filled'
           radius='md'
-          className='!text-black border border-[#DCDCDC]'
+          className='!text-black border border-[#DCDCDC] bg-white'
         >
           + 작업물 추가하기
         </Button>
