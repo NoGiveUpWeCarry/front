@@ -46,9 +46,9 @@ const Button = ({
         buttonStyles({ variants, radius }),
         bgColor && bgColor,
         borderColor && `border border-${borderColor}`,
-        `w-[${width}] h-[${height}]`,
         className
       )}
+      style={{ width, height }}
       {...props}
     >
       {children}
