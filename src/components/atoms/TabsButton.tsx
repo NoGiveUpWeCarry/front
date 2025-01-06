@@ -1,3 +1,4 @@
+import Button from '@/components/atoms/Button';
 import { ReactNode } from 'react';
 
 interface IProps {
@@ -8,12 +9,18 @@ interface IProps {
 
 const TabsButton = ({ isActive, onClick, children }: IProps) => {
   return (
-    <button
-      className={`w-[164px] h-[28px] flex items-center justify-center rounded-[5px] ${isActive ? 'bg-white font-medium' : 'bg-none text-darkgray font-regular'}`}
+    <Button
+      width='164px'
+      height='28px'
+      radius='sm'
+      variants='outline'
+      className={
+        isActive ? 'bg-white font-medium' : 'bg-none text-darkgray font-regular'
+      }
       onClick={onClick}
     >
       {children}
-    </button>
+    </Button>
   );
 };
 
