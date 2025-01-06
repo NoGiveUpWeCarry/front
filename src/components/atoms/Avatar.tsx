@@ -1,5 +1,6 @@
 import { cn } from '@/utils/cn';
 import { cva, VariantProps } from 'class-variance-authority';
+import { ImgHTMLAttributes } from 'react';
 
 export const AvatarVariants = cva(`rounded-full`, {
   variants: {
@@ -15,13 +16,12 @@ export const AvatarVariants = cva(`rounded-full`, {
   },
 });
 
-export interface AvatarProps extends VariantProps<typeof AvatarVariants> {
-  src?: string;
-  className?: string;
-}
+export interface AvatarProps
+  extends VariantProps<typeof AvatarVariants>,
+    ImgHTMLAttributes<HTMLImageElement> {}
 
-const Avatar = ({ size, src = '', className }: AvatarProps) => {
-  return <img src={src} className={cn(AvatarVariants({ size, className }))} />;
+const Avatar = ({ size, className, ...props }: AvatarProps) => {
+  return <img {...props} className={cn(AvatarVariants({ size, className }))} />;
 };
 
 export default Avatar;
