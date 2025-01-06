@@ -1,17 +1,18 @@
 import Button from '@/components/atoms/Button';
 import ContributionBox from '@/components/molecules/ContributionBox';
-import MyPageProjectCard from '@/components/molecules/MyPageProjectCard';
 import { useTabsStore } from '@/store/tabStore';
 import { useShallow } from 'zustand/shallow';
-import GitHubCalendar from 'react-github-calendar';
-import { Link } from 'react-router-dom';
+import WorkList from '@/components/organisms/WorkList';
+import { useState } from 'react';
 
 const IntroductionTemplate = () => {
   const [setActiveTab] = useTabsStore(
     useShallow((state) => [state.setActiveTab])
   );
 
-  const githubId = 'chaeyun-sim';
+  const [role] = useState<'Programmer' | 'Designer' | 'Artist'>('Designer');
+  const [countWorks, setCountWorks] = useState(0);
+  // 디자이너 - 프로젝트 4, 아티스트 - 음악 3, 개발자 - 프로젝트 2 + 깃허브
 
   return (
     <>
@@ -45,32 +46,25 @@ const IntroductionTemplate = () => {
           </div>
         </div>
       </div>
-
-      {/* 작업물 목록 */}
-      {githubId ? (
-        <Link
-          to={`https://github.com/${githubId}`}
-          className='flex justify-center bg-white border border-[#e1e1e1] rounded-[5px] pb-[10px] pt-4'
-        >
-          <GitHubCalendar
-            username={githubId}
-            blockSize={9.4}
-            fontSize={11}
-            showWeekdayLabels
-            blockMargin={3.2}
-          />
-        </Link>
-      ) : (
-        <div className='flex justify-center bg-white border border-[#e1e1e1] rounded-[5px] pb-[10px] pt-4 h-[158px]'>
-          hi
-        </div>
+      {role == 'Artist' && (
+        <WorkList>
+          <WorkList.SoundCloud url='https://soundcloud.com/rudeadyet/ony-if-you-stayed?in=sc-playlists-kr/sets/dreamy-folk&si=fe25f7c999a844678e9ce1a0121b6061&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing' />
+          <WorkList.Spotify url='https://open.spotify.com/playlist/37i9dQZF1E4A4Wx1igYfpM?si=STijBj6ET82XA_jOJKnUzQ' />
+          <WorkList.Spotify url='https://open.spotify.com/artist/6YVMFz59CuY7ngCxTxjpxE?si=_sK-4EzWS8WDKMbLJwKjvQ' />
+        </WorkList>
       )}
-      <div className='grid grid-cols-2 gap-5'>
-        <MyPageProjectCard />
-        <MyPageProjectCard />
-        <MyPageProjectCard />
-        <MyPageProjectCard />
-      </div>
+      {role == 'Programmer' && (
+        <WorkList>
+          <WorkList.Github githubId={'chaeyun-sim'} />
+          <WorkList.Projects projectData={[{}, {}]} />
+        </WorkList>
+      )}
+      {role == 'Designer' && (
+        <WorkList>
+          <WorkList.Projects projectData={[{}, {}, {}, {}]} />
+        </WorkList>
+      )}
+
       <div className='flex items-center justify-center h-9'>
         <Button
           width='235px'
