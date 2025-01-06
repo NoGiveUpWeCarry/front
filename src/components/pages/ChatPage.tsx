@@ -1,5 +1,4 @@
 import ChatSidebar from '@/components/organisms/ChatSidebar';
-import React from 'react';
 
 const ChatPage = () => {
   return (

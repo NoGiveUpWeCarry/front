@@ -13,6 +13,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@tanstack/react-query": "4",
     "@tiptap/extension-bubble-menu": "^2.11.0",
     "@tiptap/pm": "^2.11.0",
