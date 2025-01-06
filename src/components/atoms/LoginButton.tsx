@@ -18,9 +18,7 @@ export const LoginButtonVariants = cva(
         google: 'bg-white',
       },
     },
-    defaultVariants: {
-      icon: 'github',
-    },
+    defaultVariants: {},
   }
 );
 
@@ -42,7 +40,7 @@ const LoginButton = (props: ButtonProps) => {
       {iconType === 'google' && (
         <img src={GoogleIcon} alt='Google Icon' className='w-6 h-6' />
       )}
-      {label && <span>{label}</span>}
+      {label ? label && <span>{label}</span> : <span>{label}</span>}
     </button>
   );
 };
