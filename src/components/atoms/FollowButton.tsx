@@ -13,10 +13,11 @@ const FollowButton = ({ isFollowing }: IProps) => {
       radius='lg'
       variants='filled'
       className={clsx(
-        isFollowing ? '!text-[#373A3A]' : 'text-white',
+        isFollowing
+          ? '!text-[#373A3A] bg-lightgray'
+          : 'text-white bg-[#FF7E5F]',
         'text-[15px]'
       )}
-      bgColor={isFollowing ? 'bg-lightgray' : 'bg-[#FF7E5F]'}
     >
       {isFollowing ? '팔로잉' : '팔로우'}
     </Button>

@@ -5,8 +5,6 @@ import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   width: string;
   height: string;
-  bgColor?: string;
-  borderColor?: string;
   variants: 'filled' | 'outline' | 'text';
   radius: 'sm' | 'md' | 'lg';
 }
@@ -15,8 +13,6 @@ const Button = ({
   width,
   height,
   className,
-  bgColor = 'white',
-  borderColor,
   variants = 'filled',
   radius,
   children,
@@ -42,12 +38,7 @@ const Button = ({
 
   return (
     <button
-      className={clsx(
-        buttonStyles({ variants, radius }),
-        bgColor && bgColor,
-        borderColor && `border border-${borderColor}`,
-        className
-      )}
+      className={clsx(buttonStyles({ variants, radius }), className)}
       style={{ width, height }}
       {...props}
     >
