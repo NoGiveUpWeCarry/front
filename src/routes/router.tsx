@@ -1,6 +1,7 @@
 import ChatPage from '@/components/pages/ChatPage';
 import LoginPage from '@/components/pages/LoginPage';
 import MainPage from '@/components/pages/MainPage';
+import MyPage from '@/components/pages/MyPage';
 
 const router = [
   {
@@ -14,6 +15,10 @@ const router = [
   {
     path: '/chat',
     element: <ChatPage />,
+  },
+  {
+    path: '/mypage',
+    element: <MyPage />,
   },
 ];
 
