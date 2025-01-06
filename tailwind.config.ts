@@ -42,6 +42,7 @@ export default {
         offline: 'linear-gradient(to right, #FF383B, #FFBCBD)',
         close: 'linear-gradient(to right, #000000, #FFFFFF)',
         outsourcing: 'linear-gradient(to right, #FF8800, #84FF74)',
+        status: 'linear-gradient(to bottom, #7593F4, #71ECFF)',
       },
     },
   },
