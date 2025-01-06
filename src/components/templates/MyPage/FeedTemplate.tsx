@@ -1,7 +1,12 @@
-import React from 'react';
+import DateText from '@/components/atoms/DateText';
 
 const FeedTemplate = () => {
-  return <div>Feed</div>;
+  return (
+    <div>
+      Feed
+      <DateText date={new Date().toISOString()} />
+    </div>
+  );
 };
 
 export default FeedTemplate;
