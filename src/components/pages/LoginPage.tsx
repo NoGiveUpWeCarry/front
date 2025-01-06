@@ -5,33 +5,14 @@ import DefaultLogo from '@/assets/logos/DefaultLogo.svg';
 import axios from 'axios'; // axios import
 
 const LoginPage = () => {
-  const navigate = useNavigate(); // useNavigate 훅을 사용하여 페이지 이동
-
-  useEffect(() => {
-    // URL에서 Authorization Code 추출
-    const urlParams = new URLSearchParams(window.location.search);
-    const authorizationCode = urlParams.get('code');
-
-    if (authorizationCode) {
-      // Authorization Code가 존재하면 백엔드에 전달
-      axios
-        .post('http://localhost:8080/auth/google/callback', {
-          code: authorizationCode, // Authorization Code 전달
-        })
-        .then((response) => {
-          // 토큰이나 사용자 정보 처리 후 메인 페이지로 리디렉션
-          console.log(response.data); // 예시로 사용자 정보를 로그에 출력
-          localStorage.setItem('auth_token', response.data.accessToken); // JWT 토큰 저장
-          navigate('/'); // 메인 페이지로 이동
-        })
-        .catch((error) => {
-          console.error('Error sending authorization code:', error);
-        });
-    }
-  }, [navigate]);
-
   const handleGoogleLogin = () => {
+    // Google OAuth 로그인 페이지로 리다이렉트
     window.location.href = 'http://localhost:8080/auth/google';
+  };
+
+  const handleGitHubLogin = () => {
+    // GitHub OAuth 로그인 페이지로 리다이렉트
+    window.location.href = 'http://localhost:8080/auth/github';
   };
 
   return (
