@@ -1,15 +1,26 @@
 import ChatPage from '@/components/pages/ChatPage';
 import LoginPage from '@/components/pages/LoginPage';
-import MainPage from '@/components/pages/MainPage';
+import HomePage from '@/components/pages/HomePage';
+import Layouts from '@/layouts/Layouts';
 
 const router = [
   {
-    path: '/login',
-    element: <LoginPage />,
+    path: '/',
+    element: (
+      <Layouts>
+        <HomePage />
+      </Layouts>
+    ),
+    children: [
+      {
+        path: '/',
+        element: <HomePage />,
+      },
+    ],
   },
   {
-    path: '/',
-    element: <MainPage />,
+    path: '/login',
+    element: <LoginPage />,
   },
   {
     path: '/chat',
