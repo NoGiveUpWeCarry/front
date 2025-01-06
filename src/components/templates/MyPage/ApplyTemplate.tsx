@@ -1,92 +1,115 @@
 import Button from '@/components/atoms/Button';
-import Label from '@/components/atoms/Label';
-import InputWithLabel from '@/components/molecules/InputWithLabel';
-import { ChangeEvent, useState } from 'react';
+import HorizontalDivider from '@/components/atoms/HorizontalDivider';
+import ApplyFormSection from '@/components/organisms/ApplyFormSection/ApplyFormSection';
+import { ApplyFormData, useApplyFormStore } from '@/store/applyFormStore';
+import { FormEvent } from 'react';
+import { useShallow } from 'zustand/shallow';
 
-interface FormData {
-  title: string;
-  category: string;
-  link: string;
-  content: string;
-}
+const formData = {
+  title: '제목',
+  category: '지원 분야',
+  link: '포트폴리오 링크',
+  content: '상세 설명',
+};
 
 const ApplyTemplate = () => {
-  const initialInputs = {
-    title: '',
-    category: '',
-    link: '',
-    content: '',
+  const { isEditing, setIsEditing, inputs, onSetInputs, resetInputs } =
+    useApplyFormStore(useShallow((state) => state));
+
+  const commonSubmitHandlers = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!inputs.title || !inputs.category || !inputs.content) {
+      alert('모든 항목을 입력해주세요.');
+      return;
+    }
   };
 
-  const [inputs, setInputs] = useState<FormData>(initialInputs);
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    commonSubmitHandlers(e);
 
-  const handleReset = () => setInputs(initialInputs);
+    // ...api
+  };
 
-  const handleSetValue = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setInputs({ ...inputs, [name]: value });
+  const handleUpdate = (e: FormEvent<HTMLFormElement>) => {
+    commonSubmitHandlers(e);
+
+    // ...api
   };
 
   return (
     <div className='flex flex-col gap-[17px]'>
-      <InputWithLabel
-        text='제목'
-        name='title'
-        required
-        placeholder='제목을 입력해주세요'
-        value={inputs.title}
-        setValue={handleSetValue}
-      />
-      <InputWithLabel
-        text='지원 분야'
-        name='category'
-        required
-        placeholder='지원 분야를 입력해주세요'
-        value={inputs.category}
-        setValue={handleSetValue}
-      />
-      <InputWithLabel
-        text='포트폴리오 링크'
-        name='link'
-        placeholder='포트폴리오 링크를 입력해주세요'
-        value={inputs.link}
-        setValue={handleSetValue}
-      />
-      <Label text='상세 설명' required />
-      <div className='relative'>
-        <textarea
-          className='w-full h-[398px] bg-white rounded-[10px] border border-[#838383] outline-none resize-none p-5'
-          placeholder='자세한 내용을 입력해주세요'
-          maxLength={200}
-          wrap='hard'
-          value={inputs.content}
-          onChange={(e) => setInputs({ ...inputs, content: e.target.value })}
-        />
-        <span className='absolute bottom-[30px] right-[30px] text-[#838383] p-2 bg-white'>
-          {inputs.content.length} / 200
-        </span>
-      </div>
-      <div className='flex gap-[17px] justify-center mb-5'>
-        <Button
-          width='227px'
-          height='36px'
-          variants='outline'
-          radius='sm'
-          className='border border-[#838383]'
-          onClick={handleReset}
-        >
-          초기화
-        </Button>
-        <Button
-          width='227px'
-          height='36px'
-          variants='filled'
-          radius='sm'
-          className='bg-[#00C859]'
-        >
-          저장
-        </Button>
-      </div>
+      {isEditing ? (
+        <form onSubmit={handleSubmit}>
+          <ApplyFormSection>
+            {Object.entries(formData)
+              .slice(0, 3)
+              .map(([key, value]) => (
+                <ApplyFormSection.Input
+                  key={key}
+                  name={[key, value]}
+                  value={inputs[key as keyof ApplyFormData]}
+                  setValue={onSetInputs}
+                />
+              ))}
+            <ApplyFormSection.TextArea
+              value={inputs.content}
+              setValue={onSetInputs}
+            />
+          </ApplyFormSection>
+          <div className='flex gap-[17px] justify-center my-5'>
+            <Button
+              type='button'
+              width='227px'
+              height='36px'
+              variants='outline'
+              radius='sm'
+              className='border border-[#838383]'
+              onClick={resetInputs}
+            >
+              초기화
+            </Button>
+            <Button
+              type='submit'
+              width='227px'
+              height='36px'
+              variants='filled'
+              radius='sm'
+              className='bg-[#00C859]'
+            >
+              저장
+            </Button>
+          </div>
+        </form>
+      ) : (
+        <form onSubmit={handleUpdate}>
+          <div className='border border-[#D9D9D9] flex flex-col gap-[10px] rounded-[10px] p-[30px] text-[15px] text-black'>
+            {Object.entries(formData)
+              .slice(0, 3)
+              .map(([key, value]) => (
+                <span className='font-light' key={key}>
+                  <strong className='font-medium'>{value}: </strong>
+                  {inputs[key as keyof ApplyFormData]}
+                </span>
+              ))}
+            <HorizontalDivider className='my-5' />
+            <span className='font-light'>{inputs.content}</span>
+          </div>
+          <div className='flex gap-[17px] justify-center my-5'>
+            <Button
+              type='submit'
+              width='227px'
+              height='36px'
+              variants='outline'
+              radius='sm'
+              className='border border-[#838383]'
+              onClick={() => setIsEditing(true)}
+            >
+              수정
+            </Button>
+          </div>
+        </form>
+      )}
     </div>
   );
 };
