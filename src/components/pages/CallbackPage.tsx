@@ -12,7 +12,7 @@ const CallbackPage = () => {
     if (authorizationCode && provider) {
       authMutation.mutate({ authorizationCode, provider });
     }
-  }, [authMutation]);
+  }, []);
 
   return (
     <div>
