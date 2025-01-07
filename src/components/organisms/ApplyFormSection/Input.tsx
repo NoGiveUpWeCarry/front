@@ -21,7 +21,7 @@ const ApplyFormInput = ({
       <input
         value={value}
         onChange={(e) => setValue(e.target.name, e.target.value)}
-        name={name[1]}
+        name={name[0]}
         className='w-full h-10 rounded-[10px] border border-[#838383] outline-none bg-transparent px-[16px]'
         placeholder={`${name[1]}${getChar()} 입력해주세요`}
       />
