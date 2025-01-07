@@ -1,28 +1,7 @@
+import { AuthAction, AuthState } from '@/types/auth.type';
+import { User } from '@/types/user.type';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
-export interface User {
-  id: string;
-  email: string;
-  name: string;
-  nickname: string;
-  profile_url: string;
-  auth_provider: string;
-  role_id: number;
-}
-
-interface AuthState {
-  isLoggedIn: boolean;
-  accessToken: string;
-  userInfo: User | null;
-}
-
-interface AuthAction {
-  login: (user: User, token: string) => void;
-  logout: () => void;
-  setUserRole: (userRole: number) => void;
-  setAccessToken: (token: string) => void;
-}
 
 const useAuth = create<AuthState & AuthAction>()(
   persist(
