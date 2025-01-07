@@ -10,7 +10,7 @@ const GoogleCallbackPage = () => {
     if (authorizationCode) {
       mutation.mutate(authorizationCode);
     }
-  }, [mutation]);
+  }, []);
 
   return (
     <div>

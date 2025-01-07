@@ -16,7 +16,7 @@ export const useGoogleAuth = (): UseMutationResult<
       login(user, accessToken);
       console.log('로그인 성공:', user);
       if (isExistingUser) {
-        navigate('/role');
+        navigate('/roleselect');
       } else {
         navigate('/');
       }

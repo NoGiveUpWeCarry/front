@@ -69,8 +69,4 @@ const useAuth = create<AuthState & AuthAction>()(
   )
 );
 
-window.addEventListener('storage', () => {
-  useAuth.getState().setAccessToken(localStorage.getItem('@token') || '');
-});
-
 export default useAuth;
