@@ -8,6 +8,7 @@ export interface User {
   nickname: string;
   profile_url: string;
   auth_provider: string;
+  role_id: number;
 }
 
 interface AuthState {
@@ -19,7 +20,7 @@ interface AuthState {
 interface AuthAction {
   login: (user: User, token: string) => void;
   logout: () => void;
-  setUserRole: (userRole: string) => void;
+  setUserRole: (userRole: number) => void;
   setAccessToken: (token: string) => void;
 }
 
@@ -49,11 +50,11 @@ const useAuth = create<AuthState & AuthAction>()(
         });
         localStorage.removeItem('@token');
       },
-      setUserRole: (userRole: string) => {
+      setUserRole: (userRole: number) => {
         const currentUserInfo = get().userInfo;
         if (currentUserInfo) {
           set({
-            userInfo: { ...currentUserInfo, auth_provider: userRole },
+            userInfo: { ...currentUserInfo, role_id: userRole },
           });
         }
       },

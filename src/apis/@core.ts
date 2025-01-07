@@ -3,7 +3,7 @@ import axios from 'axios';
 
 axios.defaults.baseURL = `${import.meta.env.SERVER_BASE_URL}`;
 
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   withCredentials: true,
 });
 

@@ -1,50 +1,65 @@
-import { useState } from 'react';
 import DefaultLogo from '@/assets/logos/DefaultLogo.svg';
 import ProgrammerLogo from '@/assets/logos/ProgrammerLogo.svg';
 import DesignerLogo from '@/assets/logos/DesignerLogo.svg';
 import ArtistLogo from '@/assets/logos/ArtistLogo.svg';
+import { Role } from '@/constants/Role';
 
-type Role = 'Programmer' | 'Designer' | 'Artist';
+interface RoleSelectLogoProps {
+  selectedRole: Role | null;
+  setSelectedRole: (role: Role | null) => void;
+}
 
-type LogoProp = {
-  logo: Role;
-};
-
-const RoleSelectLogo = () => {
-  const [logo, setLogo] = useState<string>(ProgrammerLogo);
-
-  const handleHover = (role: string) => {
-    if (role === 'P') {
-      setLogo(ProgrammerLogo);
-    } else if (role === 'A') {
-      setLogo(ArtistLogo);
-    } else if (role === 'D') {
-      setLogo(DesignerLogo);
+const RoleSelectLogo: React.FC<RoleSelectLogoProps> = ({
+  selectedRole,
+  setSelectedRole,
+}) => {
+  const getLogoByRole = (role: Role | null): string => {
+    switch (role) {
+      case Role.Programmer:
+        return ProgrammerLogo;
+      case Role.Artist:
+        return ArtistLogo;
+      case Role.Designer:
+        return DesignerLogo;
+      default:
+        return DefaultLogo;
     }
+  };
+
+  const handleHover = (role: Role) => {
+    setSelectedRole(role);
+  };
+
+  const handleLeave = () => {
+    setSelectedRole(null);
   };
 
   return (
     <div className='relative flex justify-center items-center w-[420px] h-[165px]'>
       <div
         className='w-[136px] h-full cursor-pointer z-10'
-        onMouseEnter={() => handleHover('P')}
-        onMouseLeave={() => setLogo(DefaultLogo)}
-        onClick={() => setLogo(ProgrammerLogo)}
+        onMouseEnter={() => handleHover(Role.Programmer)}
+        onMouseLeave={handleLeave}
+        onClick={() => setSelectedRole(Role.Programmer)}
       ></div>
       <div
         className='w-[136px] h-full cursor-pointer z-10'
-        onMouseEnter={() => handleHover('A')}
-        onClick={() => setLogo(ArtistLogo)}
-        onMouseLeave={() => setLogo(DefaultLogo)}
+        onMouseEnter={() => handleHover(Role.Artist)}
+        onMouseLeave={handleLeave}
+        onClick={() => setSelectedRole(Role.Artist)}
       ></div>
       <div
         className='w-[136px] h-full cursor-pointer z-10'
-        onMouseEnter={() => handleHover('D')}
-        onClick={() => setLogo(DesignerLogo)}
-        onMouseLeave={() => setLogo(DefaultLogo)}
+        onMouseEnter={() => handleHover(Role.Designer)}
+        onMouseLeave={handleLeave}
+        onClick={() => setSelectedRole(Role.Designer)}
       ></div>
       <div className='absolute'>
-        <img src={logo} alt='Role Logo' className='max-w-full max-h-full' />
+        <img
+          src={getLogoByRole(selectedRole)}
+          alt='Role Logo'
+          className='max-w-full max-h-full'
+        />
       </div>
     </div>
   );

@@ -1,6 +1,11 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { postAuthorizationCode, AuthResponse } from '@/apis/auth';
+import {
+  postAuthorizationCode,
+  AuthResponse,
+  fetchUserRole,
+  RoleResponse,
+} from '@/apis/auth';
 import useAuth from '@/store/useAuth';
 
 export const useAuthMutation = (): UseMutationResult<
@@ -10,7 +15,6 @@ export const useAuthMutation = (): UseMutationResult<
 > => {
   const navigate = useNavigate();
   const { login } = useAuth();
-
   return useMutation(
     ({ authorizationCode, provider }) =>
       postAuthorizationCode(authorizationCode, provider),
@@ -32,4 +36,23 @@ export const useAuthMutation = (): UseMutationResult<
       },
     }
   );
+};
+
+export const useRoleMutation = (): UseMutationResult<
+  RoleResponse,
+  unknown,
+  { userRole: number }
+> => {
+  const { setUserRole } = useAuth();
+  return useMutation(({ userRole }) => fetchUserRole(userRole), {
+    onSuccess: (data) => {
+      const { user } = data;
+      setUserRole(user.role_id);
+      console.log('유저 롤 변경 성공 성공:', user.role_id);
+    },
+    onError: (error) => {
+      console.error('Authorization Code 전송 중 오류:', error);
+      alert('로그인에 실패했습니다. 다시 시도해주세요.');
+    },
+  });
 };
