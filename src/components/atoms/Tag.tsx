@@ -39,22 +39,16 @@ type TagProps =
   | ContentsFeedTagProps;
 
 const tagStyles = cva(
-  // 기본 공통 스타일:
-  // - inline-flex, 가운데 정렬, 좌우 패딩(px-3), 세로 패딩(py-1) 등
-  // - 기본 글씨 크기를 12px, 모서리는 둥근 형태(full)로
   'inline-flex items-center px-3 py-1 text-[12px] font-medium rounded-full',
   {
     variants: {
       type: {
-        role: 'bg-[#eaeaea]', // role 타입일 때 배경
-        project: '', // 필요하다면 색상 지정
-        hub: '', // 필요하다면 색상 지정
-        contentsFeed: '', // 필요하다면 색상 지정
+        role: 'bg-[#eaeaea]',
+        project: '',
+        hub: '',
+        contentsFeed: '',
       },
       variant: {
-        // ---------------------------------------------
-        // 1) 12px + rounded-[5px] 세트
-        // ---------------------------------------------
         고민: 'bg-[#CDF4FF] text-[#729CFF] px-2 text-[12px] rounded-[5px]',
         회고: 'bg-[#FFCDCD] text-[#FF5E5E] px-2 text-[12px] rounded-[5px]',
         아이디어: 'bg-[#ECD1FF] text-[#AA5DFF] px-2 text-[12px] rounded-[5px]',
@@ -64,9 +58,6 @@ const tagStyles = cva(
         추천: 'bg-[#F5E4D2] text-[#D69655] px-2  text-[12px] rounded-[5px]',
         질문: 'bg-[#FFE7D4] text-[#FF9F5E] px-2 text-[12px] rounded-[5px]',
 
-        // ---------------------------------------------
-        // 2) 14px + rounded-full 세트
-        // ---------------------------------------------
         PROJECT:
           'bg-gradient-to-r from-[#87DBFF] to-[#FFA9BE] text-[14px] rounded-full',
         OUTSOURCING:
@@ -79,10 +70,6 @@ const tagStyles = cva(
         CLOSE:
           'bg-gradient-to-r from-[#000000] to-[#FFFFFF] text-[14px] rounded-full',
 
-        // ---------------------------------------------
-        // 3) 그 외(개발자/디자이너/기타)
-        //    → 12px + rounded-full
-        // ---------------------------------------------
         '서버/백엔드 개발자': 'text-[#7d7d7d] text-[12px] rounded-full',
         '프론트엔드 개발자': 'text-[#7d7d7d] text-[12px] rounded-full',
         '웹 풀스택 개발자': 'text-[#7d7d7d] text-[12px] rounded-full',
@@ -134,7 +121,7 @@ const tagStyles = cva(
         로큰롤: 'text-[#7d7d7d] text-[12px] rounded-full',
       },
     },
-    // type 기본값 (예: 'role')은 기존과 동일하게 두거나 수정 가능
+
     defaultVariants: {
       type: 'role',
     },
