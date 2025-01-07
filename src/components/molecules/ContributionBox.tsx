@@ -11,9 +11,9 @@ const ContributionBox = ({ text, amount, onClick }: ContributionBoxProps) => {
       onClick={onClick}
     >
       <span className='text-darkgray font-medium text-[15px]'>{text}</span>
-      <span className='text-[30px] font-semibold text-black text-right'>
-        {amount}
-      </span>
+      <p className='w-full flex justify-end'>
+        <span className='text-[30px] font-semibold text-black'>{amount}</span>
+      </p>
     </button>
   );
 };
