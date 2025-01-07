@@ -62,6 +62,7 @@ export default [
       'react/self-closing-comp': 'off',
       'react/button-has-type': 'off',
       'react/jsx-no-useless-fragment': 'off',
+      'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     },
     settings: {
       react: {
