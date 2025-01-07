@@ -3,7 +3,7 @@ import { hubItem } from '@/mock/hubItem';
 
 const Hub = () => {
   return (
-    <div className='flex flex-col gap-[30px] w-[783px]'>
+    <div className='flex flex-col gap-[30px] w-full'>
       {hubItem.map((item, index) => (
         <HubContents
           key={index}
