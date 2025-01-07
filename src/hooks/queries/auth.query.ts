@@ -1,12 +1,9 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import {
-  postAuthorizationCode,
-  AuthResponse,
-  fetchUserRole,
-  RoleResponse,
-} from '@/apis/auth';
+import { postAuthorizationCode, fetchUserRole } from '@/apis/auth';
 import useAuth from '@/store/useAuth';
+import { AuthResponse } from '@/types/auth.type';
+import { RoleResponse } from '@/types/role.type';
 
 export const useAuthMutation = (): UseMutationResult<
   AuthResponse,

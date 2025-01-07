@@ -1,43 +1,26 @@
-import { axiosInstance } from '@/apis/@core';
-import { User } from '@/store/useAuth';
-import axios from 'axios';
+import { API_PATH } from '@/apis/api-path';
+import { AuthRequest, AuthResponse } from '@/types/auth.type';
+import { RoleRequest, RoleResponse } from '@/types/role.type';
+import { FetcherResponse, fetcher } from '@/utils/fetcher';
 
-export interface AuthResponse {
-  accessToken: string;
-  user: User;
-  isExistingUser: boolean;
-}
-
-export interface RoleResponse {
-  message: {
-    code: number;
-    text: string;
-  };
-  user: User;
-}
-
-export const postAuthorizationCode = async (
-  authorizationCode: string,
-  provider: string
-): Promise<AuthResponse> => {
-  const response = await axios.post(
-    `http://localhost:8080/auth/${provider}/callback`,
-    {
-      code: authorizationCode,
-    }
-  );
-  return response.data;
+export const postAuthorizationCode = async ({
+  authorizationCode,
+  provider,
+}: AuthRequest): Promise<FetcherResponse<AuthResponse>> => {
+  const apiPath = API_PATH.login.replace(':provider', provider);
+  return fetcher<AuthResponse>({
+    url: apiPath,
+    method: 'POST',
+    data: { code: authorizationCode },
+  });
 };
 
-export const fetchUserRole = async (
-  userRole: number
-): Promise<RoleResponse> => {
-  const response = await axiosInstance.put(
-    `http://localhost:8080/auth/roleselect`,
-    {
-      role_id: userRole,
-    }
-  );
-  console.log('fetchUserRole 호출:' + response.data);
-  return response.data;
+export const fetchUserRole = async ({
+  userRole,
+}: RoleRequest): Promise<FetcherResponse<RoleResponse>> => {
+  return fetcher<RoleResponse>({
+    url: API_PATH.roleSelect,
+    method: 'PUT',
+    data: { role_id: userRole },
+  });
 };

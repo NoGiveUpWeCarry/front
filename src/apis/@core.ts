@@ -1,7 +1,7 @@
 import useAuth from '@/store/useAuth';
 import axios from 'axios';
 
-axios.defaults.baseURL = `${import.meta.env.SERVER_BASE_URL}`;
+axios.defaults.baseURL = `${import.meta.env.BASE_SERVER_URL}`;
 
 export const axiosInstance = axios.create({
   withCredentials: true,
