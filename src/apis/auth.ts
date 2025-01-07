@@ -1,8 +1,20 @@
+import { User } from '@/store/useAuth';
 import axios from 'axios';
-import { API_PATH } from './api-path';
 
-export const useLogin = async () => {
-  const response = await axios.get(`${API_PATH.login}`);
-  console.log(response);
+export interface GoogleAuthResponse {
+  accessToken: string;
+  user: User;
+  isExistingUser: boolean;
+}
+
+export const postGoogleAuth = async (
+  authorizationCode: string
+): Promise<GoogleAuthResponse> => {
+  const response = await axios.post(
+    'http://localhost:8080/auth/google/callback',
+    {
+      code: authorizationCode,
+    }
+  );
   return response.data;
 };

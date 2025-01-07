@@ -1,26 +1,31 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface UserInfo {
-  userId: string;
-  userRole: string;
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  nickname: string;
+  profile_url: string;
+  auth_provider: string;
 }
 
 interface AuthState {
   isLoggedIn: boolean;
   accessToken: string;
-  userInfo: UserInfo | null;
+  userInfo: User | null;
 }
 
 interface AuthAction {
-  login: (userId: string, userRole: string, token: string) => void;
+  login: (user: User, token: string) => void;
   logout: () => void;
+  setUserRole: (userRole: string) => void;
   setAccessToken: (token: string) => void;
 }
 
 const useAuth = create<AuthState & AuthAction>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       isLoggedIn: false,
       accessToken: '',
       userInfo: null,
@@ -28,11 +33,11 @@ const useAuth = create<AuthState & AuthAction>()(
         set({ accessToken: token, isLoggedIn: !!token });
         localStorage.setItem('@token', token);
       },
-      login: (userId: string, userRole: string, token: string) => {
+      login: (user: User, token: string) => {
         set({
           accessToken: token,
           isLoggedIn: true,
-          userInfo: { userId, userRole },
+          userInfo: user,
         });
         localStorage.setItem('@token', token);
       },
@@ -43,6 +48,14 @@ const useAuth = create<AuthState & AuthAction>()(
           userInfo: null,
         });
         localStorage.removeItem('@token');
+      },
+      setUserRole: (userRole: string) => {
+        const currentUserInfo = get().userInfo;
+        if (currentUserInfo) {
+          set({
+            userInfo: { ...currentUserInfo, auth_provider: userRole },
+          });
+        }
       },
     }),
     {
