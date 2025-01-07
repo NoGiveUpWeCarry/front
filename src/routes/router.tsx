@@ -1,20 +1,21 @@
 import ChatPage from '@/components/pages/ChatPage';
 import LoginPage from '@/components/pages/LoginPage';
 import HomePage from '@/components/pages/HomePage';
-import Layouts from '@/layouts/Layouts';
+import MainLayout from '@/layouts/MainLayout';
+import ConnectionHubPage from '@/components/pages/ConnectionHubPage';
 
 const router = [
   {
     path: '/',
-    element: (
-      <Layouts>
-        <HomePage />
-      </Layouts>
-    ),
+    element: <MainLayout />,
     children: [
       {
         path: '/',
         element: <HomePage />,
+      },
+      {
+        path: '/connectionhub',
+        element: <ConnectionHubPage />,
       },
     ],
   },
