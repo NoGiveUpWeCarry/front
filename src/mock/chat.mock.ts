@@ -24,6 +24,7 @@ const createMessage = (id: string): Message => {
     content: faker.lorem.paragraph(),
     sender: faker.person.fullName(),
     type: faker.helpers.arrayElement(['text']),
+    date: faker.date.past().toISOString(),
   };
 };
 

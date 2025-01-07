@@ -21,4 +21,5 @@ export interface Message {
   content: string;
   sender: string;
   channelId: string;
+  date: string;
 }
