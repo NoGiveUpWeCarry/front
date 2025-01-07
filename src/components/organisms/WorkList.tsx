@@ -1,3 +1,4 @@
+import Input from '@/components/atoms/Input';
 import MyPageProjectCard from '@/components/molecules/MyPageProjectCard';
 import { ReactNode, useEffect, useState } from 'react';
 import GitHubCalendar from 'react-github-calendar';
@@ -7,8 +8,11 @@ const WorkList = ({ children }: { children: ReactNode }) => {
   return <div className='flex flex-col gap-[17px] w-full'>{children}</div>;
 };
 
-WorkList.Github = ({ githubId }: { githubId: string }) => {
-  return githubId ? (
+WorkList.Github = () => {
+  const [githubId, setGithubId] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  return isSubmitted ? (
     <Link
       to={`https://github.com/${githubId}`}
       className='flex justify-center bg-white border border-[#e1e1e1] rounded-[5px] pb-[10px] pt-4'
@@ -22,8 +26,22 @@ WorkList.Github = ({ githubId }: { githubId: string }) => {
       />
     </Link>
   ) : (
-    <div className='flex justify-center bg-white border border-[#e1e1e1] rounded-[5px] pb-[10px] pt-4 h-[158px]'>
-      hi
+    <div className='flex flex-col items-center justify-center bg-white border border-[#e1e1e1] rounded-[5px] pb-[10px] pt-4 h-[158px]'>
+      <span className='text-[15px] font-medium text-[#838383]'>
+        깃허브 계정을 연결해주세요
+      </span>
+      <Input
+        placeholder='깃허브 아이디 입력'
+        className='w-[164px] mt-3'
+        bgColor='transparent'
+        value={githubId}
+        onChange={(e) => setGithubId(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            setIsSubmitted(true);
+          }
+        }}
+      />
     </div>
   );
 };
