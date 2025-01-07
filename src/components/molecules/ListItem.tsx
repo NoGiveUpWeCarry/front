@@ -56,7 +56,7 @@ const ListItemCol = ({ children, className }: ListItemColProps) => {
 // 메인 컴포넌트
 const ListItemMain = ({ children, className }: ItemMainProps) => {
   const cols = getListItemComponent(children, (<ListItemCol />).type);
-  return <div className={cn('flex', 'items-center', className)}>{cols}</div>;
+  return <div className={cn('flex', className)}>{cols}</div>;
 };
 
 export const ListItem = Object.assign(ListItemMain, {

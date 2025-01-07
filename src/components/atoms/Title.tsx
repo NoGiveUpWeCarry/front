@@ -5,8 +5,8 @@ import { HTMLAttributes, PropsWithChildren } from 'react';
 const TitleVariants = cva('', {
   variants: {
     fontWeight: {
-      medium: 'text-medium',
-      bold: 'text-simebold',
+      medium: 'font-medium',
+      bold: 'font-semibold',
     },
     size: {
       xs: 'text-[14px]',
@@ -41,7 +41,6 @@ const Title = ({
   size,
   ...props
 }: TitleProps) => {
-  console.log(cn(TitleVariants({ lineClamp, fontWeight, size, className })));
   return (
     <div
       {...props}

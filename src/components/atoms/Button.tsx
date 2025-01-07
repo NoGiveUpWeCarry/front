@@ -5,8 +5,8 @@ import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   width: string;
   height: string;
-  variants: 'filled' | 'outline' | 'text';
-  radius: 'sm' | 'md' | 'lg';
+  variants?: 'filled' | 'outline' | 'text';
+  radius: 'sm' | 'md' | 'lg' | 'full';
 }
 
 const Button = ({
@@ -29,6 +29,7 @@ const Button = ({
         sm: 'rounded-[5px]',
         md: 'rounded-[10px]',
         lg: 'rounded-[20px]',
+        full: 'rounded-full',
       },
     },
     defaultVariants: {

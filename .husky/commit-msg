@@ -7,7 +7,7 @@ commit_message_file=$1
 commit_message=$(cat "$commit_message_file")
 
 # 커밋 메시지 패턴 (예: [feat], [fix])
-pattern="^\[(Feat|Fix|Chore|Docs|Style|Refactor|Test|Rename|Remove|Add|Merge)\] .+"
+pattern="^\[(Feat|Fix|Chore|Docs|Style|Refactor|Test|Rename|Remove|Add|Merge|Move|Lint)\] .+"
 
 # 커밋 메시지 검증
 if ! echo "$commit_message" | grep -Eq "$pattern"; then

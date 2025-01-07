@@ -25,9 +25,6 @@ export default {
         extrabold: '800',
         black: '900',
       },
-      fontFamily: {
-        pretendard: ['Pretendard', 'sans-serif'],
-      },
       fontSize: {
         heading1: ['24px', '29px'],
         heading2: ['20px', '24px'],
