@@ -1,9 +1,8 @@
 export interface Channel {
-  id: number;
-  roomThumbnailURL?: string; // 기본 이미지 필요
+  id: string;
+  channelThumbnailURL?: string; // 기본 이미지 필요
   people: string[];
-  lastTime: string;
-  selected: boolean;
+  lastSendTime: string;
   title: string;
 }
 
@@ -14,3 +13,12 @@ export interface GroupChannel extends Channel {}
 export interface PersonalChannel extends Channel {}
 
 // 종료된 채팅
+
+type MessageTypes = 'image' | 'text';
+
+export interface Message {
+  type: MessageTypes;
+  content: string;
+  sender: string;
+  channelId: string;
+}
