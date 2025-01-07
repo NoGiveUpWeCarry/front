@@ -57,6 +57,10 @@ export default [
           namedComponents: 'arrow-function', // 네임드 컴포넌트를 화살표 함수로 강제
         },
       ],
+      'react/require-default-props': 'off',
+      'react/jsx-props-no-spreading': 'off',
+      'react/self-closing-comp': 'off',
+      'react/button-has-type': 'off',
     },
     settings: {
       react: {

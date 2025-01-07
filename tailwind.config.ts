@@ -3,10 +3,11 @@ import type { Config } from 'tailwindcss';
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    fontFamily: {
-      sans: ['Pretendard', 'sans-serif'],
-    },
     extend: {
+      fontFamily: {
+        sans: ['Pretendard', 'sans-serif'],
+        pretendard: ['Pretendard', 'sans-serif'],
+      },
       colors: {
         background: '#F5F5F5',
         darkgray: '#7D7D7D',
@@ -32,6 +33,9 @@ export default {
         caption1: ['12px', '14px'],
         caption2: ['10px', '12px'],
       },
+      maxWidth: {
+        'screen-center': '783px',
+      },
       backgroundImage: {
         online: 'linear-gradient(to right, #039160, #96FFDA)',
         open: 'linear-gradient(to right, #9340FF, #FFDCDC)',
@@ -39,8 +43,9 @@ export default {
         offline: 'linear-gradient(to right, #FF383B, #FFBCBD)',
         close: 'linear-gradient(to right, #000000, #FFFFFF)',
         outsourcing: 'linear-gradient(to right, #FF8800, #84FF74)',
+        status: 'linear-gradient(to bottom, #7593F4, #71ECFF)',
       },
     },
+    plugins: [],
   },
-  plugins: [],
 } satisfies Config;
