@@ -10,6 +10,7 @@ export default {
         mediumgray: '#C7C7C7',
         lightgray: '#EAEAEA',
         softblue: '#7593F4',
+        gray: '#838383',
       },
       fontFamily: {
         pretendard: ['Pretendard', 'sans-serif'],

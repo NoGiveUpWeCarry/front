@@ -1,3 +1,4 @@
+import Logo from '@/components/atoms/Logo';
 import { cn } from '@/utils/cn';
 import { cva, VariantProps } from 'class-variance-authority';
 import { ImgHTMLAttributes } from 'react';
@@ -20,8 +21,25 @@ export interface AvatarProps
   extends VariantProps<typeof AvatarVariants>,
     ImgHTMLAttributes<HTMLImageElement> {}
 
-const Avatar = ({ size, className, ...props }: AvatarProps) => {
-  return <img {...props} className={cn(AvatarVariants({ size, className }))} />;
+const Avatar = ({ size, className, src, ...props }: AvatarProps) => {
+  return src ? (
+    <img
+      src={src}
+      className={cn(AvatarVariants({ size, className }))}
+      {...props}
+    />
+  ) : (
+    <div
+      className={cn(
+        AvatarVariants({ size, className }),
+        'rounded-full',
+        'p-[5px]',
+        'bg-lightgray'
+      )}
+    >
+      <Logo width='100%' height='100%' />
+    </div>
+  );
 };
 
 export default Avatar;

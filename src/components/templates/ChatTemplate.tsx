@@ -12,8 +12,10 @@ const ChatTemplate = () => {
         </div>
         <div className='w-[870px] flex flex-col'>
           <ChatRoomHeader />
-          <ChatRoomBody />
-          <ChatRoomInput />
+          <div className='px-[56px] flex flex-col grow'>
+            <ChatRoomBody />
+            <ChatRoomInput />
+          </div>
         </div>
       </div>
     </div>

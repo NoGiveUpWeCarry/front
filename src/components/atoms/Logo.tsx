@@ -1,10 +1,14 @@
 interface LogoProps {
-  width?: number;
-  height?: number;
+  width?: string;
+  height?: string;
   className?: string;
 }
 
-const Logo = ({ width = 60, height = 24, className = '' }: LogoProps) => {
+const Logo = ({
+  width = '60px',
+  height = '24px',
+  className = '',
+}: LogoProps) => {
   return (
     <div
       className={`flex items-center justify-center ${className}`}

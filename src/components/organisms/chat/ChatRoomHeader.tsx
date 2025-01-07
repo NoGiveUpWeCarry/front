@@ -3,7 +3,7 @@ import SearchInput from '@/components/molecules/chat/SearchInput';
 
 const ChatRoomHeader = () => {
   return (
-    <div className='flex justify-between items-center min-h-[76px] pl-[40px] pr-[20px] border-b-[2px] border-solid border-b-[#CCCCCC]'>
+    <div className='flex justify-between items-center min-h-[76px] pl-[40px] pr-[20px] border-b-[2px] border-solid border-b-[#CCCCCC] mb-[20px]'>
       <div className='flex flex-col h-full'>
         <Title size='md' fontWeight='bold'>
           Project Chat
