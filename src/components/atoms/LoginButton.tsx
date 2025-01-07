@@ -30,7 +30,7 @@ interface ButtonProps
 }
 
 const LoginButton = (props: ButtonProps) => {
-  const { iconType = 'github', label, ...rest } = props;
+  const { iconType, label, ...rest } = props;
 
   return (
     <button className={cn(LoginButtonVariants({ icon: iconType }))} {...rest}>
@@ -40,7 +40,7 @@ const LoginButton = (props: ButtonProps) => {
       {iconType === 'google' && (
         <img src={GoogleIcon} alt='Google Icon' className='w-6 h-6' />
       )}
-      {label ? label && <span>{label}</span> : <span>{label}</span>}
+      {label && <span>{label}</span>}
     </button>
   );
 };

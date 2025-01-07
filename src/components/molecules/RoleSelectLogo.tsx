@@ -4,6 +4,12 @@ import ProgrammerLogo from '@/assets/logos/ProgrammerLogo.svg';
 import DesignerLogo from '@/assets/logos/DesignerLogo.svg';
 import ArtistLogo from '@/assets/logos/ArtistLogo.svg';
 
+type Role = 'Programmer' | 'Designer' | 'Artist';
+
+type LogoProp = {
+  logo: Role;
+};
+
 const RoleSelectLogo = () => {
   const [logo, setLogo] = useState<string>(ProgrammerLogo);
 
@@ -18,7 +24,7 @@ const RoleSelectLogo = () => {
   };
 
   return (
-    <div className='relative flex justify-center items-center w-[410px] h-[165px]'>
+    <div className='relative flex justify-center items-center w-[420px] h-[165px]'>
       <div
         className='w-[136px] h-full cursor-pointer z-10'
         onMouseEnter={() => handleHover('P')}
