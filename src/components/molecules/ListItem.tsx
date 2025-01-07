@@ -4,7 +4,7 @@ import {
   ItemSubtitleProps,
   ItemMainProps,
   ListItemColProps,
-} from '@/types/ListItem.type';
+} from '@/types/listItem.type';
 import { cn } from '@/utils/cn';
 import { Children, isValidElement, ReactNode } from 'react';
 
