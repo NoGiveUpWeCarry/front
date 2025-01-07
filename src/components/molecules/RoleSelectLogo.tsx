@@ -6,7 +6,7 @@ import { Role } from '@/constants/Role';
 
 interface RoleSelectLogoProps {
   selectedRole: Role | null;
-  setSelectedRole: (role: Role | null) => void;
+  setSelectedRole: (role: Role | null) => void; // 수정된 타입
 }
 
 const RoleSelectLogo: React.FC<RoleSelectLogoProps> = ({
@@ -40,19 +40,19 @@ const RoleSelectLogo: React.FC<RoleSelectLogoProps> = ({
         className='w-[136px] h-full cursor-pointer z-10'
         onMouseEnter={() => handleHover(Role.Programmer)}
         onMouseLeave={handleLeave}
-        onClick={() => setSelectedRole(Role.Programmer)}
+        onClick={() => setSelectedRole(Role.Programmer)} // 클릭 시 setSelectedRole 호출
       ></div>
       <div
         className='w-[136px] h-full cursor-pointer z-10'
         onMouseEnter={() => handleHover(Role.Artist)}
         onMouseLeave={handleLeave}
-        onClick={() => setSelectedRole(Role.Artist)}
+        onClick={() => setSelectedRole(Role.Artist)} // 클릭 시 setSelectedRole 호출
       ></div>
       <div
         className='w-[136px] h-full cursor-pointer z-10'
         onMouseEnter={() => handleHover(Role.Designer)}
         onMouseLeave={handleLeave}
-        onClick={() => setSelectedRole(Role.Designer)}
+        onClick={() => setSelectedRole(Role.Designer)} // 클릭 시 setSelectedRole 호출
       ></div>
       <div className='absolute'>
         <img
