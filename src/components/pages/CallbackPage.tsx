@@ -1,18 +1,19 @@
-import { useAuthMutation } from '@/hooks/queries/auth.query';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useAuthMutation } from '@/hooks/queries/auth.query';
 
 const CallbackPage = () => {
+  const { provider } = useParams();
   const authMutation = useAuthMutation();
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const authorizationCode = urlParams.get('code');
-    const provider = urlParams.get('provider');
 
     if (authorizationCode && provider) {
       authMutation.mutate({ authorizationCode, provider });
     }
-  }, []);
+  }, [authMutation, provider]);
 
   return (
     <div>

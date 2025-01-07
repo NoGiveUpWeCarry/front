@@ -13,7 +13,7 @@ const router = [
     element: <RolePage />,
   },
   {
-    path: '/auth/*/callback',
+    path: '/auth/:provider/callback',
     element: <CallbackPage />,
   },
   {
