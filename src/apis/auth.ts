@@ -38,5 +38,6 @@ export const fetchUserRole = async (
       role_id: userRole,
     }
   );
+  console.log('fetchUserRole 호출:' + response.data);
   return response.data;
 };
