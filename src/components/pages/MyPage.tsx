@@ -1,4 +1,4 @@
-import MyPageTemplate from '@/components/templates/MyPageTemplate';
+import MyPageTemplate from '@/components/templates/MyPage/MyPageTemplate';
 
 const MyPage = () => {
   return <MyPageTemplate />;

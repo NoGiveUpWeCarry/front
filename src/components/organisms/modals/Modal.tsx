@@ -6,6 +6,7 @@ interface ModalProps {
   height?: string;
   hasCloseButton?: boolean;
   onClose: () => void;
+  className?: string;
 }
 
 const Modal = ({
@@ -14,6 +15,7 @@ const Modal = ({
   hasCloseButton = true,
   onClose,
   children,
+  className,
 }: PropsWithChildren<ModalProps>) => {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -34,7 +36,7 @@ const Modal = ({
         onClick={(e) => e.stopPropagation()}
       >
         {hasCloseButton && <Modal.CloseButton onClose={onClose} />}
-        <Modal.InnerModal>{children}</Modal.InnerModal>
+        <Modal.InnerModal className={className}>{children}</Modal.InnerModal>
       </div>
     </div>
   );

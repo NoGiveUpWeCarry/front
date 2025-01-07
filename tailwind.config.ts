@@ -4,6 +4,10 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Pretendard', 'sans-serif'],
+        pretendard: ['Pretendard', 'sans-serif'],
+      },
       colors: {
         background: '#F5F5F5',
         darkgray: '#7D7D7D',
@@ -11,9 +15,6 @@ export default {
         lightgray: '#EAEAEA',
         softblue: '#7593F4',
         gray: '#838383',
-      },
-      fontFamily: {
-        pretendard: ['Pretendard', 'sans-serif'],
       },
       fontWeight: {
         thin: '100',
@@ -43,6 +44,7 @@ export default {
         offline: 'linear-gradient(to right, #FF383B, #FFBCBD)',
         close: 'linear-gradient(to right, #000000, #FFFFFF)',
         outsourcing: 'linear-gradient(to right, #FF8800, #84FF74)',
+        status: 'linear-gradient(to bottom, #7593F4, #71ECFF)',
       },
     },
     plugins: [],
