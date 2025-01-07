@@ -3,7 +3,7 @@ import UserList from '@/components/organisms/UserList';
 
 const ChatSidebar = () => {
   return (
-    <div>
+    <div className='flex flex-col gap-[24px]'>
       <SearchInput />
       <UserList />
     </div>
