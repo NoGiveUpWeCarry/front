@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import typography from '@tailwindcss/typography';
 
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -8,12 +9,32 @@ export default {
         sans: ['Pretendard', 'sans-serif'],
         pretendard: ['Pretendard', 'sans-serif'],
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            h1: {
+              color: '#1E3A8A', // h1 텍스트 색상
+              fontSize: '2.25rem', // h1 폰트 크기
+              fontWeight: 'bold', // h1 폰트 굵기
+            },
+            p: {
+              color: '#4B5563', // p 텍스트 색상
+              fontSize: '1rem', // p 폰트 크기
+            },
+            blockquote: {
+              fontStyle: 'italic', // blockquote 기울임꼴
+              borderLeftColor: '#E5E7EB', // blockquote 왼쪽 테두리 색상
+            },
+          },
+        },
+      },
       colors: {
         background: '#F5F5F5',
         darkgray: '#7D7D7D',
         mediumgray: '#C7C7C7',
         lightgray: '#EAEAEA',
         softblue: '#7593F4',
+        gray: '#838383',
       },
       fontWeight: {
         thin: '100',
@@ -46,6 +67,6 @@ export default {
         status: 'linear-gradient(to bottom, #7593F4, #71ECFF)',
       },
     },
-    plugins: [],
+    plugins: [typography],
   },
 } satisfies Config;
