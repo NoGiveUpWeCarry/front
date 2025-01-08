@@ -22,7 +22,11 @@ export interface AvatarProps
     ImgHTMLAttributes<HTMLImageElement> {}
 
 const Avatar = ({ size, className, ...props }: AvatarProps) => {
-  return <img {...props} className={cn(AvatarVariants({ size, className }))} />;
+  return props.src ? (
+    <img {...props} className={cn(AvatarVariants({ size, className }))} />
+  ) : (
+    <div className={cn(AvatarVariants({ size, className }))} />
+  );
 };
 
 export default Avatar;
