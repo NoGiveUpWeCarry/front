@@ -15,10 +15,16 @@ axiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
-axiosInstance.interceptors.response.use((config) => {
-  const token = useAuth.getState().accessToken;
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+axiosInstance.interceptors.response.use(
+  (response) => {
+    const { message, ...rest } = response.data;
+    response.data = {
+      message,
+      data: rest,
+    };
+    return response;
+  },
+  (error) => {
+    return Promise.reject(error);
   }
-  return config;
-});
+);

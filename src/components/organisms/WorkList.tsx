@@ -70,7 +70,7 @@ WorkList.Projects = ({ children }: { children: ReactNode }) => {
   return <div className='grid grid-cols-2 gap-5'>{children}</div>;
 };
 
-WorkList.ProjectItem = (project: ProjectData) => <MyPageProjectCard />;
+WorkList.ProjectItem = (_project: ProjectData) => <MyPageProjectCard />;
 
 WorkList.Spotify = ({ url }: { url: string }) => {
   const [iframeUrl, setIframeUrl] = useState('');

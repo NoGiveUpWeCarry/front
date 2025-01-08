@@ -5,13 +5,6 @@ import { Cog6ToothIcon, LinkIcon } from '@heroicons/react/16/solid';
 import { EnvelopeIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 
-const LINKS = {
-  notion: '/src/assets/icons/notion.svg',
-  github: '/src/assets/icons/github.svg',
-  figma: '/src/assets/icons/figma.svg',
-  linkedin: '/src/assets/icons/linkedin.svg',
-};
-
 const MyPageHeader = () => {
   const isMyPage = true;
 

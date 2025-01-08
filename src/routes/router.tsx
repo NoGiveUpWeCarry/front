@@ -2,15 +2,16 @@ import CallbackPage from '@/components/pages/CallbackPage';
 import RolePage from '@/components/pages/RolePage';
 import ChatPage from '@/components/pages/ChatPage';
 import LoginPage from '@/components/pages/LoginPage';
-import MyPage from '@/components/pages/MyPage';
 import HomePage from '@/components/pages/HomePage';
-import Layouts from '@/layouts/Layouts';
 import SettingsPage from '@/components/pages/SettingsPage';
+import MainLayout from '@/layouts/MainLayout';
+import ConnectionHubPage from '@/components/pages/ConnectionHubPage';
+import MyPage from '@/components/pages/MyPage';
 
 const router = [
   {
     path: '/',
-    element: <Layouts />,
+    element: <MainLayout />,
     children: [
       {
         path: '/',
@@ -39,6 +40,10 @@ const router = [
       {
         path: '/settings',
         element: <SettingsPage />,
+      },
+      {
+        path: '/connectionhub',
+        element: <ConnectionHubPage />,
       },
     ],
   },

@@ -13,12 +13,12 @@ const IntroductionTemplate = () => {
   const [setActiveTab] = useTabsStore(
     useShallow((state) => [state.setActiveTab])
   );
-  const [setFollows] = useFollowsStore(
+  const [_setFollows] = useFollowsStore(
     useShallow((state) => [state.setFollows])
   );
 
   const [role] = useState<'Programmer' | 'Designer' | 'Artist'>('Artist');
-  const [countWorks, setCountWorks] = useState(0);
+  const [countWorks, _setCountWorks] = useState(0);
   const [isAddProjectOpen, setIsAddProjectOpen] = useState(false);
   const [isFollowersOpen, setIsFollowersOpen] = useState(false);
 

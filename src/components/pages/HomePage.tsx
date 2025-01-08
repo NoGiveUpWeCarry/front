@@ -1,5 +1,11 @@
+import Feed from '@/components/organisms/Feed';
+
 function HomePage() {
-  return <div>HomePage</div>;
+  return (
+    <div>
+      <Feed />
+    </div>
+  );
 }
 
 export default HomePage;

@@ -1,7 +1,7 @@
 import LoginButton from '@/components/atoms/LoginButton';
 import RoleSelectLogo from '@/components/molecules/RoleSelectLogo';
-import { Role } from '@/constants/Role';
 import { useRoleMutation } from '@/hooks/queries/auth.query';
+import { Role } from '@/types/role.type';
 import { useState } from 'react';
 
 const RolePage = () => {

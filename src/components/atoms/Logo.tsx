@@ -11,7 +11,7 @@ const Logo = ({ width = 60, height = 24, className = '' }: LogoProps) => {
       style={{ width, height }}
     >
       <img
-        src='/src/assets/logo/PAD.svg'
+        src='/src/assets/logos/PAD.svg'
         alt='PAD Logo'
         style={{ width: '100%', height: '100%' }}
       />

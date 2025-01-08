@@ -14,7 +14,7 @@ export const useAuthMutation = (): UseMutationResult<
   const { login } = useAuth();
   return useMutation(
     ({ authorizationCode, provider }) =>
-      postAuthorizationCode(authorizationCode, provider),
+      postAuthorizationCode({ authorizationCode, provider }),
     {
       onSuccess: (data) => {
         const { accessToken, user, isExistingUser } = data;
@@ -41,7 +41,7 @@ export const useRoleMutation = (): UseMutationResult<
   { userRole: number }
 > => {
   const { setUserRole } = useAuth();
-  return useMutation(({ userRole }) => fetchUserRole(userRole), {
+  return useMutation(({ userRole }) => fetchUserRole({ userRole }), {
     onSuccess: (data) => {
       const { user } = data;
       setUserRole(user.role_id);

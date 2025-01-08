@@ -1,11 +1,12 @@
 import Label from '@/components/atoms/Label';
+import { ChangeEvent } from 'react';
 
 interface InputWithLabelProps {
   text: string;
   name: string;
   required?: boolean;
   value: string;
-  setValue: (e) => void;
+  setValue: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   placeholder: string;
 }
 

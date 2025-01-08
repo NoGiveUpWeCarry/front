@@ -1,26 +1,24 @@
+import { axiosInstance } from '@/apis/@core';
 import { API_PATH } from '@/apis/api-path';
 import { AuthRequest, AuthResponse } from '@/types/auth.type';
 import { RoleRequest, RoleResponse } from '@/types/role.type';
-import { FetcherResponse, fetcher } from '@/utils/fetcher';
 
 export const postAuthorizationCode = async ({
   authorizationCode,
   provider,
-}: AuthRequest): Promise<FetcherResponse<AuthResponse>> => {
+}: AuthRequest): Promise<AuthResponse> => {
   const apiPath = API_PATH.login.replace(':provider', provider);
-  return fetcher<AuthResponse>({
-    url: apiPath,
-    method: 'POST',
-    data: { code: authorizationCode },
+  const response = await axiosInstance.post(apiPath, {
+    code: authorizationCode,
   });
+  return response.data;
 };
 
 export const fetchUserRole = async ({
   userRole,
-}: RoleRequest): Promise<FetcherResponse<RoleResponse>> => {
-  return fetcher<RoleResponse>({
-    url: API_PATH.roleSelect,
-    method: 'PUT',
-    data: { role_id: userRole },
+}: RoleRequest): Promise<RoleResponse> => {
+  const response = await axiosInstance.put(API_PATH.roleSelect, {
+    role_id: userRole,
   });
+  return response.data;
 };
