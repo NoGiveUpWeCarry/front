@@ -1,3 +1,4 @@
+import Button from '@/components/atoms/Button';
 import Input from '@/components/atoms/Input';
 import Toggle from '@/components/atoms/Toggle';
 import { cn } from '@/utils/cn';
@@ -43,27 +44,27 @@ SettingsSection.Content = ({
 SettingsSection.InputWithLabel = ({
   label,
   className,
+  value,
+  onSetValue,
   children,
   button,
 }: {
   label: string;
   className?: string;
+  value?: string;
+  onSetValue?: (value: string) => void;
   children?: ReactNode;
-  button?: {
-    text: string;
-    color: 'normal' | 'delete' | 'disabled';
-  };
+  button?: { text: string; color: 'normal' | 'disabled' };
 }) => {
   const buttonStyle = {
     normal: 'bg-[#FF7E5F] text-white',
-    delete: 'bg-red-500 text-white',
-    disabled: 'bg-[#CCCCCC] text-[#7D7D7D]',
+    disabled: 'bg-[#CCCCCC] text-[#7D7D7D] w-[66px] h-10',
   };
 
   return (
     <div className={`flex flex-col gap-2 ${className}`}>
       <label className='text-[15px] font-medium'>{label}</label>
-      <div className='flex items-center justify-between gap-[20px]'>
+      <div className='flex items-center justify-between gap-[30px]'>
         {children ? (
           children
         ) : (
@@ -71,17 +72,19 @@ SettingsSection.InputWithLabel = ({
             height={40}
             bgColor='transparent'
             className={`border border-[#838383]`}
+            value={value}
+            onChange={(e) => onSetValue?.(e.target.value)}
           />
         )}
         {button?.text && (
-          <button
-            className={cn(
-              'w-[66px] h-10 rounded-[10px]',
-              buttonStyle[button?.color]
-            )}
+          <Button
+            radius='md'
+            width='66px'
+            height='40px'
+            className={cn('w-[66px] h-10', buttonStyle[button?.color])}
           >
-            {button?.text}
-          </button>
+            변경
+          </Button>
         )}
       </div>
     </div>
