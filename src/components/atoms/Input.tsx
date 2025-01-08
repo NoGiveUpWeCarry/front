@@ -30,9 +30,9 @@ export const InputVariants = cva(
         lg: 'rounded-[20px]',
       },
       borderColor: {
-        light: 'border-[#DCDCDC]',
-        medium: 'border-[#CCCCCC]',
-        dark: 'border-[#838383]',
+        light: 'border border-[#DCDCDC]',
+        medium: 'border border-[#CCCCCC]',
+        dark: 'border border-[#838383]',
       },
     },
     defaultVariants: {

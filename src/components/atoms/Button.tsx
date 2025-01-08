@@ -1,5 +1,5 @@
+import { cn } from '@/utils/cn';
 import { cva } from 'class-variance-authority';
-import clsx from 'clsx';
 import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -7,6 +7,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   height: string;
   variants?: 'filled' | 'outline' | 'text';
   radius: 'sm' | 'md' | 'lg' | 'full';
+  className?: string;
 }
 
 const Button = ({
@@ -39,7 +40,7 @@ const Button = ({
 
   return (
     <button
-      className={clsx(buttonStyles({ variants, radius }), className)}
+      className={cn(buttonStyles({ variants, radius }), className)}
       style={{ width, height }}
       {...props}
     >
