@@ -1,6 +1,6 @@
 import LoginButton from '@/components/atoms/LoginButton';
 import RoleSelectLogo from '@/components/molecules/RoleSelectLogo';
-import { Role } from '@/constants/Role';
+import { Role } from '@/types/role.type';
 import { useRoleMutation } from '@/hooks/queries/auth.query';
 import { useState } from 'react';
 
@@ -32,7 +32,7 @@ const RolePage = () => {
       <div className='w-[700px] min-h-full flex flex-col items-center gap-[20%] pt-[10%]'>
         <RoleSelectLogo
           selectedRole={selectedRole}
-          setSelectedRole={(role) => {
+          setSelectedRole={(role: Role) => {
             setSelectedRole(role);
             role && handleRoleChange(role);
           }}

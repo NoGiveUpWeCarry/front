@@ -19,7 +19,7 @@ type MessageTypes = 'image' | 'text';
 export interface Message {
   type: MessageTypes;
   content: string;
-  sender: string;
+  sender: string; // 중복 X
   channelId: string;
   date: string;
 }

@@ -2,7 +2,7 @@ import DefaultLogo from '@/assets/logos/DefaultLogo.svg';
 import ProgrammerLogo from '@/assets/logos/ProgrammerLogo.svg';
 import DesignerLogo from '@/assets/logos/DesignerLogo.svg';
 import ArtistLogo from '@/assets/logos/ArtistLogo.svg';
-import { Role } from '@/constants/Role';
+import { Role } from '@/types/role.type';
 
 interface RoleSelectLogoProps {
   selectedRole: Role | null;

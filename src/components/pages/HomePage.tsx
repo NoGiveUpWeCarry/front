@@ -1,11 +1,11 @@
 import Feed from '@/components/organisms/Feed';
 
-function HomePage() {
+const HomePage = () => {
   return (
     <div>
       <Feed />
     </div>
   );
-}
+};
 
 export default HomePage;

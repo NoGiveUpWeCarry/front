@@ -1,6 +1,4 @@
-import ChatRoomBody from '@/components/organisms/chat/ChatRoomBody';
-import ChatRoomHeader from '@/components/organisms/chat/ChatRoomHeader';
-import ChatRoomInput from '@/components/organisms/chat/ChatRoomInput';
+import ChatRoom from '@/components/organisms/chat/ChatRoom';
 import ChatSidebar from '@/components/organisms/chat/ChatSidebar';
 
 const ChatTemplate = () => {
@@ -11,11 +9,7 @@ const ChatTemplate = () => {
           <ChatSidebar />
         </div>
         <div className='w-[870px] flex flex-col'>
-          <ChatRoomHeader />
-          <div className='px-[56px] flex flex-col grow'>
-            <ChatRoomBody />
-            <ChatRoomInput />
-          </div>
+          <ChatRoom />
         </div>
       </div>
     </div>

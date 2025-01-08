@@ -1,18 +1,34 @@
+import Avatar from '@/components/atoms/Avatar';
 import Date from '@/components/atoms/Date';
+import MessageBubble from '@/components/atoms/MessageBubble';
 import WelcomeMessage from '@/components/molecules/chat/WelcomeMessage';
-import Message from '@/components/organisms/chat/Message';
-import { useChatStore } from '@/store/chatStore';
+import { Message as IMessage } from '@/types/chat.type';
 
-const ChatMessages = () => {
-  const messages = useChatStore((state) => state.messages);
-  console.log(messages);
+interface ChatMessagesProps {
+  messages: IMessage[];
+}
+
+const ChatMessages = ({ messages }: ChatMessagesProps) => {
   return (
-    <div className='grow px-[56px] flex flex-col'>
+    <div className='grow px-[56px] flex flex-col gap-[20px]'>
       <WelcomeMessage />
       <Date className='text-gray text-caption2 text-center mt-[20px]'>
         2025년 1월 2일
       </Date>
-      <Message />
+      {messages.map((message, i) => (
+        <>
+          {i > 0 && message.sender === messages[i - 1].sender ? (
+            <MessageBubble content={message.content} />
+          ) : (
+            <div>
+              <Avatar />
+              <div>{message.sender}</div>
+              <div>role</div>
+              <MessageBubble content={message.content} />
+            </div>
+          )}
+        </>
+      ))}
     </div>
   );
 };

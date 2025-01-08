@@ -13,7 +13,7 @@ const TerminatedChannel = ({ channel }: TerminatedChannelProps) => {
   return (
     <ListItem
       className={clsx([
-        'h-[62px] rounded-[8px] cursor-pointer items-center p-[10px]',
+        'h-[62px] rounded-[8px] cursor-pointer items-center p-[10px] gap-[10px]',
         channel.id === currentChannelId
           ? 'bg-[#EDECF3]'
           : 'hover:bg-[#EDECF3] ',
