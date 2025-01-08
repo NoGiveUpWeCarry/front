@@ -1,5 +1,8 @@
+import CallbackPage from '@/components/pages/CallbackPage';
+import RolePage from '@/components/pages/RolePage';
 import ChatPage from '@/components/pages/ChatPage';
 import LoginPage from '@/components/pages/LoginPage';
+import MyPage from '@/components/pages/MyPage';
 import HomePage from '@/components/pages/HomePage';
 import Layouts from '@/layouts/Layouts';
 import SettingsPage from '@/components/pages/SettingsPage';
@@ -18,8 +21,20 @@ const router = [
         element: <LoginPage />,
       },
       {
+        path: '/roleselect',
+        element: <RolePage />,
+      },
+      {
+        path: '/auth/:provider/callback',
+        element: <CallbackPage />,
+      },
+      {
         path: '/chat',
         element: <ChatPage />,
+      },
+      {
+        path: '/mypage',
+        element: <MyPage />,
       },
       {
         path: '/settings',
