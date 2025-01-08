@@ -1,7 +1,7 @@
 import { XMarkIcon } from '@heroicons/react/20/solid';
-import { useEffect, PropsWithChildren } from 'react';
+import { useEffect, PropsWithChildren, ReactNode } from 'react';
 
-interface ModalProps {
+interface IProps {
   width?: string;
   height?: string;
   hasCloseButton?: boolean;
@@ -16,7 +16,7 @@ const Modal = ({
   onClose,
   children,
   className,
-}: PropsWithChildren<ModalProps>) => {
+}: PropsWithChildren<IProps>) => {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
@@ -60,5 +60,9 @@ Modal.InnerModal = ({
     {children}
   </div>
 );
+
+Modal.Title = ({ children }: { children: ReactNode }) => {
+  return <h1 className='text-[22px] font-medium mb-3'>{children}</h1>;
+};
 
 export default Modal;
