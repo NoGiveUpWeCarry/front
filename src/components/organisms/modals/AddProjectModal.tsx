@@ -2,14 +2,11 @@ import Button from '@/components/atoms/Button';
 import Input from '@/components/atoms/Input';
 import UrlInput from '@/components/molecules/UrlInput';
 import Modal from '@/components/organisms/modals/Modal';
+import { ModalProps } from '@/components/organisms/modals/modalProps';
 import { useAddProjectFormStore } from '@/store/addProjectFormStore';
 import { CameraIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
 import { ChangeEvent, useRef } from 'react';
 import { useShallow } from 'zustand/shallow';
-
-interface ModalProps {
-  onClose: () => void;
-}
 
 const AddProjectModal = ({ onClose }: ModalProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -35,7 +32,7 @@ const AddProjectModal = ({ onClose }: ModalProps) => {
 
   return (
     <Modal onClose={onClose} width='444px' height='494px' className='!p-5'>
-      <h1 className='text-[22px] font-medium mb-3'>프로젝트 추가</h1>
+      <Modal.Title>프로젝트 추가</Modal.Title>
       <div className='flex gap-3'>
         <div
           className={`w-[98px] h-[98px] rounded-[10px] ${formData.imageUrl ? null : 'border border-[#838383]'} flex justify-center items-center cursor-pointer`}
