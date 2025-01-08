@@ -94,3 +94,24 @@ body {
     url(./woff2-subset/Pretendard-Thin.subset.woff2) format('woff2'),
     url(./woff-subset/Pretendard-Thin.subset.woff) format('woff');
 }
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 12px;
+    height: 20px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #dfdfdf;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #bbbbbb;
+    border-radius: 100vh;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #ababab;
+  }
+}
