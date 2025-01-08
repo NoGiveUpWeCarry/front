@@ -19,24 +19,27 @@ const Button = ({
   children,
   ...props
 }: PropsWithChildren<ButtonProps>) => {
-  const buttonStyles = cva('inline-flex items-center justify-center', {
-    variants: {
+  const buttonStyles = cva(
+    'inline-flex items-center justify-center cursor-pointer',
+    {
       variants: {
-        filled: `text-white`,
-        outline: `text-black`,
-        text: 'text-black',
+        variants: {
+          filled: `text-white`,
+          outline: `text-black`,
+          text: 'text-black',
+        },
+        radius: {
+          sm: 'rounded-[5px]',
+          md: 'rounded-[10px]',
+          lg: 'rounded-[20px]',
+          full: 'rounded-full',
+        },
       },
-      radius: {
-        sm: 'rounded-[5px]',
-        md: 'rounded-[10px]',
-        lg: 'rounded-[20px]',
-        full: 'rounded-full',
+      defaultVariants: {
+        variants: 'filled',
       },
-    },
-    defaultVariants: {
-      variants: 'filled',
-    },
-  });
+    }
+  );
 
   return (
     <button
