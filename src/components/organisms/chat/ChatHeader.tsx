@@ -1,7 +1,7 @@
 import Title from '@/components/atoms/Title';
 import SearchInput from '@/components/molecules/chat/SearchInput';
 
-const ChatRoomHeader = () => {
+const ChatHeader = () => {
   return (
     <div className='flex justify-between items-center min-h-[76px] pl-[40px] pr-[20px] border-b-[2px] border-solid border-b-[#CCCCCC] mb-[20px]'>
       <div className='flex flex-col h-full'>
@@ -19,4 +19,4 @@ const ChatRoomHeader = () => {
   );
 };
 
-export default ChatRoomHeader;
+export default ChatHeader;
