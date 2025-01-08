@@ -3,7 +3,7 @@ import { User } from '@/types/user.type';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-const useAuth = create<AuthState & AuthAction>()(
+const useAuthStore = create<AuthState & AuthAction>()(
   persist(
     (set, get) => ({
       isLoggedIn: false,
@@ -49,4 +49,4 @@ const useAuth = create<AuthState & AuthAction>()(
   )
 );
 
-export default useAuth;
+export default useAuthStore;
