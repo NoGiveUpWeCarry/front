@@ -1,39 +1,22 @@
 import { Channel } from '@/types/chat.type';
-import Avatar from '@/components/atoms/Avatar';
 import Title from '@/components/atoms/Title';
 import clsx from 'clsx';
 import { ListItem } from '@/components/molecules/ListItem';
-import { useChatStore } from '@/store/chatStore';
 
 interface PersonalChannelProps {
   channel: Channel;
 }
 
 const PersonalChannel = ({ channel }: PersonalChannelProps) => {
-  const currentChannelId = useChatStore((state) => state.currentChannelId);
   return (
-    <ListItem
-      className={clsx([
-        'h-[62px] rounded-[8px] cursor-pointer items-center p-[10px] gap-[10px]',
-        channel.id === currentChannelId
-          ? 'bg-[#EDECF3]'
-          : 'hover:bg-[#EDECF3] ',
-      ])}
-    >
-      <ListItem.Col className='w-[40px] h-[40px] shrink-0'>
-        <Avatar src={channel.channelThumbnailURL} size='xs' />
-      </ListItem.Col>
-      <ListItem.Col className='w-[calc(100% - 40px)] flex-auto p'>
-        <div className='flex justify-between'>
-          <Title size='xs' fontWeight='medium' lineClamp={1}>
-            {channel.title}
-          </Title>
-          <ListItem.Label className={clsx('text-caption1', 'text-mediumgray')}>
-            {channel.lastSendTime}
-          </ListItem.Label>
-        </div>
-      </ListItem.Col>
-    </ListItem>
+    <div className='flex justify-between'>
+      <Title size='xs' fontWeight='medium' lineClamp={1}>
+        {channel.title}
+      </Title>
+      <ListItem.Label className={clsx('text-caption1', 'text-mediumgray')}>
+        {channel.lastSendTime}
+      </ListItem.Label>
+    </div>
   );
 };
 
