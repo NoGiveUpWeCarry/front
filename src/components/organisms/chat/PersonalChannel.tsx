@@ -20,13 +20,10 @@ const PersonalChannel = ({ channel }: PersonalChannelProps) => {
           : 'hover:bg-[#EDECF3] ',
       ])}
     >
-      <ListItem.Col className='w-[44px] h-[44px] shrink-0'>
-        <Avatar
-          src={channel.channelThumbnailURL}
-          className='w-[44px] h-[44px]'
-        />
+      <ListItem.Col className='w-[40px] h-[40px] shrink-0'>
+        <Avatar src={channel.channelThumbnailURL} size='xs' />
       </ListItem.Col>
-      <ListItem.Col className='w-[calc(100% - 44px)] flex-auto p'>
+      <ListItem.Col className='w-[calc(100% - 40px)] flex-auto p'>
         <div className='flex justify-between'>
           <Title size='xs' fontWeight='medium' lineClamp={1}>
             {channel.title}

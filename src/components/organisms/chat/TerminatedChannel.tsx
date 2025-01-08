@@ -19,13 +19,10 @@ const TerminatedChannel = ({ channel }: TerminatedChannelProps) => {
           : 'hover:bg-[#EDECF3] ',
       ])}
     >
-      <ListItem.Col className='w-[44px] h-[44px] shrink-0'>
-        <Avatar
-          src={channel.channelThumbnailURL}
-          className='w-[44px] h-[44px] grayscale'
-        />
+      <ListItem.Col className='w-[40px] h-[40px] shrink-0'>
+        <Avatar src={channel.channelThumbnailURL} size='xs' />
       </ListItem.Col>
-      <ListItem.Col className='w-[calc(100% - 44px)] flex-auto p'>
+      <ListItem.Col className='w-[calc(100% - 40px)] flex-auto p'>
         <ListItem.Subtitle className={clsx('text-caption1', 'text-mediumgray')}>
           종료된 채팅입니다.
         </ListItem.Subtitle>
