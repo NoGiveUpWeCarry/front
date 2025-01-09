@@ -6,6 +6,7 @@ import HomePage from '@/components/pages/HomePage';
 import MainLayout from '@/layouts/MainLayout';
 import ConnectionHubPage from '@/components/pages/ConnectionHubPage';
 import MyPage from '@/components/pages/MyPage';
+import SubLayout from '@/layouts/SubLayout';
 
 const router = [
   {
@@ -36,7 +37,13 @@ const router = [
   },
   {
     path: '/chat',
-    element: <ChatPage />,
+    element: <SubLayout />,
+    children: [
+      {
+        path: '/chat',
+        element: <ChatPage />,
+      },
+    ],
   },
   {
     path: '/mypage',
