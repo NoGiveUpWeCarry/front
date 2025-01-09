@@ -13,7 +13,7 @@ const SideMenu = () => {
     onClick?: () => void;
   }[] = [
     { type: 'bell', onClick: () => alert('네비게이션 걸어주세요') },
-    { type: 'mail', onClick: () => alert('네비게이션 걸어주세요') },
+    { type: 'mail', onClick: () => navigate('/chat') },
     { type: 'home', onClick: () => navigate('/') },
     { type: 'search', onClick: () => alert('네비게이션 걸어주세요') },
     { type: 'star', onClick: () => navigate('/connectionhub') },
