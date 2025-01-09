@@ -11,6 +11,7 @@ import {
   HeartIcon,
   EyeIcon,
   BookmarkIcon,
+  H1Icon,
 } from '@heroicons/react/24/outline';
 import { UserCircleIcon } from '@heroicons/react/24/solid';
 import { cva, VariantProps } from 'class-variance-authority';

@@ -1,0 +1,37 @@
+.floating-menu {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 0.25rem; /* 줄어든 패딩 */
+  border-radius: 0.4rem; /* 더 작은 반경 */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08); /* 더 가벼운 그림자 */
+  border: 1px solid #e0e0e0;
+
+  button {
+    background-color: unset;
+    padding: 0.25rem 0.5rem; /* 줄어든 버튼 패딩 */
+    border-radius: 0.3rem;
+    text-align: left;
+    width: 100%;
+    font-size: 0.875rem; /* 텍스트 크기 줄임 */
+
+    &:hover {
+      background-color: #f7f7f7; /* 더 가벼운 호버 색상 */
+    }
+
+    &.is-active {
+      background-color: #e8e8e8;
+      color: var(--purple);
+      font-weight: bold;
+
+      &:hover {
+        color: var(--purple-contrast);
+      }
+    }
+  }
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}

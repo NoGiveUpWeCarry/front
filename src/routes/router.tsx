@@ -6,6 +6,7 @@ import HomePage from '@/components/pages/HomePage';
 import MainLayout from '@/layouts/MainLayout';
 import ConnectionHubPage from '@/components/pages/ConnectionHubPage';
 import MyPage from '@/components/pages/MyPage';
+import TestPage from '@/components/pages/RichTextPage';
 
 const router = [
   {
@@ -41,6 +42,10 @@ const router = [
   {
     path: '/mypage',
     element: <MyPage />,
+  },
+  {
+    path: '/test',
+    element: <TestPage />,
   },
 ];
 
