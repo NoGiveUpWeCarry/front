@@ -11,18 +11,13 @@ interface FeedItemProps {
 
 const FeedItem = ({ title, body, tags, thumbnail }: FeedItemProps) => {
   return (
-    <div className='flex w-full'>
-      <div className='flex items-start gap-10'>
-        <div className='flex-1 min-w-0'>
-          <FeedBody title={title} body={body} tags={tags} />
+    <div className='flex w-full justify-between items-center gap-10'>
+      <FeedBody title={title} body={body} tags={tags} />
+      {thumbnail && (
+        <div className='w-[180px] flex-shrink-0'>
+          <ContentsThumbnail src={thumbnail} />
         </div>
-
-        {thumbnail && (
-          <div className='w-[180px] flex-shrink-0'>
-            <ContentsThumbnail src={thumbnail} />
-          </div>
-        )}
-      </div>
+      )}
     </div>
   );
 };
