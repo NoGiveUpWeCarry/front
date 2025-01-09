@@ -70,7 +70,7 @@ WorkList.Projects = function ({ children }: { children: ReactNode }) {
   return <div className='grid grid-cols-2 gap-5'>{children}</div>;
 };
 
-WorkList.ProjectItem = function (project: ProjectData) {
+WorkList.ProjectItem = function (_project: ProjectData) {
   return <MyPageProjectCard />;
 };
 

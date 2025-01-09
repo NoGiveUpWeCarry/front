@@ -3,11 +3,11 @@ import { axiosInstance } from '@/apis/@core';
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 export interface FetcherOptions {
-  url: string; // 요청할 URL
-  method: HttpMethod; // HTTP 메서드
-  data?: unknown; // 요청에 필요한 데이터
-  params?: Record<string, unknown>; // 쿼리 파라미터
-  headers?: Record<string, string>; // 추가 헤더
+  url: string;
+  method: HttpMethod;
+  data?: unknown;
+  params?: Record<string, unknown>;
+  headers?: Record<string, string>;
 }
 
 export interface FetcherResponse<T> {
@@ -18,35 +18,24 @@ export interface FetcherResponse<T> {
   data: T;
 }
 
-export const fetcher = async <T>({
-  url,
-  method,
-  data,
-  params,
-  headers,
-}: FetcherOptions): Promise<FetcherResponse<T>> => {
-  let response;
+const fetcher = async <T>(
+  options: FetcherOptions
+): Promise<FetcherResponse<T>> => {
+  const { url, method, data, params, headers } = options;
 
-  switch (method) {
-    case 'GET':
-      response = await axiosInstance.get(url, { params, headers });
-      break;
-    case 'POST':
-      response = await axiosInstance.post(url, data, { headers });
-      break;
-    case 'PUT':
-      response = await axiosInstance.put(url, data, { headers });
-      break;
-    case 'DELETE':
-      response = await axiosInstance.delete(url, { params, headers });
-      break;
-    default:
-      throw new Error(`HTTP 메서드 오류: ${method}`);
+  try {
+    const response = await axiosInstance({
+      url,
+      method,
+      data,
+      params,
+      headers,
+    });
+    return response.data as FetcherResponse<T>;
+  } catch (error) {
+    console.error('API 요청 중 오류 발생:', error);
+    throw error;
   }
-
-  const { message, ...rest } = response.data;
-  return {
-    message,
-    data: rest as T,
-  };
 };
+
+export default fetcher;

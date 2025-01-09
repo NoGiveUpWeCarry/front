@@ -4,11 +4,13 @@ export interface AuthRequest {
   authorizationCode: string;
   provider: string;
 }
-
 export interface AuthResponse {
   accessToken: string;
   user: User;
   isExistingUser: boolean;
+}
+export interface TokenResponse {
+  accessToken: string;
 }
 export interface AuthState {
   isLoggedIn: boolean;

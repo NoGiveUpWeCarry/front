@@ -3,12 +3,10 @@ import WelcomeMessage from '@/components/molecules/chat/WelcomeMessage';
 import Message from '@/components/organisms/chat/Message';
 import { user } from '@/mock/user.mock';
 import { useChatStore } from '@/store/chatStore';
-// import useAuthStore from '@/store/authStore';
 import clsx from 'clsx';
 import { useShallow } from 'zustand/shallow';
 
 const ChatMessages = () => {
-  // const userInfo = useAuthStore((state) => state.userInfo);
   const { messages, currentChannelId } = useChatStore(
     useShallow((state) => ({
       messages: state.messages,
