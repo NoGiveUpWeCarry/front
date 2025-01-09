@@ -24,7 +24,7 @@ const ChatInput = () => {
     const message: Omit<SendMessage, 'channelId'> = {
       type: 'text',
       content: content,
-      user: user,
+      user: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTE2MjM5MDIyfQ.gzxyYmzn56YpGQ7Y_c1eCbUQDdIKc2AxKCQjwYyJxV0',
     };
     setContent('');
     sendMessage(message);

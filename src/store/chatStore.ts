@@ -18,6 +18,7 @@ interface ChatAction {
   sendMessage: (message: Omit<SendMessage, 'channelId'>) => void;
   joinChannel: (channelId: string) => void;
   setChannel: (channelId: string) => void;
+  startPrivateChat: (userId: string) => void;
 }
 
 export const useChatStore = create<ChatState & ChatAction>()(
@@ -36,9 +37,10 @@ export const useChatStore = create<ChatState & ChatAction>()(
       channels: [], //channels
       currentChannelId: 'ch1',
       connectSocket: () => {
+        const protocol = window.location.protocol;
         const socket =
           get().socket ||
-          io('https://localhost:4000', {
+          io(`${protocol}//localhost:8080/chat`, {
             secure: true,
             rejectUnauthorized: false, // 로컬 자체 서명된 인증서의 경우 false 설정
           });
@@ -61,10 +63,19 @@ export const useChatStore = create<ChatState & ChatAction>()(
           });
         }
       },
+      startPrivateChat: (userId) => {
+        const { socket } = get();
+        if (!socket) return;
+        socket.emit('private', userId);
+      },
       joinChannel: (channelId) => {
         const { socket } = get();
         if (socket) {
-          socket.emit('joinChannel', channelId);
+          socket.emit('joinChannel', {
+            channelId,
+            userId:
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTE2MjM5MDIyfQ.gzxyYmzn56YpGQ7Y_c1eCbUQDdIKc2AxKCQjwYyJxV0',
+          });
         }
       },
       setChannel: (channelId) => {
