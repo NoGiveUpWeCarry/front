@@ -1,9 +1,9 @@
-import Tiptap from '@/components/molecules/tiptap/Tiptap';
+import TiptapEditor from '@/components/molecules/tiptap/TiptapEditor';
 
 const Testpage = () => {
   return (
     <>
-      <Tiptap />
+      <TiptapEditor />
     </>
   );
 };

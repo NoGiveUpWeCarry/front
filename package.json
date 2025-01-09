@@ -21,6 +21,7 @@
     "@tiptap/extension-floating-menu": "^2.11.0",
     "@tiptap/extension-heading": "^2.11.0",
     "@tiptap/extension-image": "^2.11.0",
+    "@tiptap/extension-link": "^2.11.0",
     "@tiptap/extension-paragraph": "^2.11.0",
     "@tiptap/extension-task-item": "^2.11.0",
     "@tiptap/extension-task-list": "^2.11.0",
