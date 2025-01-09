@@ -6,7 +6,7 @@ import HomePage from '@/components/pages/HomePage';
 import MainLayout from '@/layouts/MainLayout';
 import ConnectionHubPage from '@/components/pages/ConnectionHubPage';
 import MyPage from '@/components/pages/MyPage';
-import TestPage from '@/components/pages/RichTextPage';
+import TestPage from '@/components/pages/TestPage';
 
 const router = [
   {

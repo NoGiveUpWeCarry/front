@@ -1,5 +1,4 @@
 import { FloatingMenu } from '@tiptap/react';
-import React from 'react';
 import { Editor } from '@tiptap/react';
 import {
   CheckCircleIcon,
@@ -14,7 +13,7 @@ interface TiptapFloatingMenuProps {
   editor: Editor | null;
 }
 
-const TiptapFloatingMenu: React.FC<TiptapFloatingMenuProps> = ({ editor }) => {
+const TiptapFloatingMenu = ({ editor }: TiptapFloatingMenuProps) => {
   if (!editor) {
     return null;
   }
@@ -24,9 +23,10 @@ const TiptapFloatingMenu: React.FC<TiptapFloatingMenuProps> = ({ editor }) => {
       editor={editor}
       tippyOptions={{
         duration: 100,
-        placement: 'bottom',
-        arrow: true,
+        placement: 'bottom-start',
+        arrow: false,
         theme: 'dark',
+        offset: [0, 5],
       }}
       className='floating-menu'
     >
