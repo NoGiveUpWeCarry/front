@@ -8,14 +8,13 @@ import clsx from 'clsx';
 import { useShallow } from 'zustand/shallow';
 
 const ChannelList = () => {
-  const [channels, setChannel, currentChannelId] = useChatStore(
-    useShallow((state) => [
-      state.channels,
-      state.setChannel,
-      state.currentChannelId,
-    ])
+  const { channels, setChannel, currentChannelId } = useChatStore(
+    useShallow((state) => ({
+      channels: state.channels,
+      setChannel: state.setChannel,
+      currentChannelId: state.currentChannelId,
+    }))
   );
-
   return (
     <ul className='grow flex flex-col gap-[24px]'>
       {channels.map((channel) => (
@@ -32,11 +31,11 @@ const ChannelList = () => {
               <Avatar src={channel.channelThumbnailURL} size='xs' />
             </ListItem.Col>
             <ListItem.Col className='w-[calc(100% - 40px)] flex-auto p'>
-              {channel.people.length > 2 && <GroupChannel channel={channel} />}
-              {channel.people.length === 2 && (
+              {channel.users.length > 2 && <GroupChannel channel={channel} />}
+              {channel.users.length === 2 && (
                 <PersonalChannel channel={channel} />
               )}
-              {channel.people.length < 2 && <TerminatedChannel />}
+              {channel.users.length < 2 && <TerminatedChannel />}
             </ListItem.Col>
           </ListItem>
         </li>

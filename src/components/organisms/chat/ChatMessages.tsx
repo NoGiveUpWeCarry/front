@@ -1,43 +1,49 @@
 import Date from '@/components/atoms/Date';
 import WelcomeMessage from '@/components/molecules/chat/WelcomeMessage';
 import Message from '@/components/organisms/chat/Message';
+import { user } from '@/mock/user.mock';
+import { useChatStore } from '@/store/chatStore';
 // import useAuthStore from '@/store/authStore';
-import { Message as IMessage } from '@/types/chat.type';
 import clsx from 'clsx';
+import { useShallow } from 'zustand/shallow';
 
-interface ChatMessagesProps {
-  messages: IMessage[];
-}
-
-const ChatMessages = ({ messages }: ChatMessagesProps) => {
+const ChatMessages = () => {
   // const userInfo = useAuthStore((state) => state.userInfo);
-  const userInfo = {
-    id: 'me',
-  };
-  if (!userInfo) return null;
+  const { messages, currentChannelId } = useChatStore(
+    useShallow((state) => ({
+      messages: state.messages,
+      currentChannelId: state.currentChannelId,
+    }))
+  );
 
+  const userInfo = user;
+  const currentMessages = messages[currentChannelId];
+  if (!userInfo) return null;
   return (
     <div
       className={clsx(
-        'grow pl-[56px] pr-[44px] flex flex-col gap-[24px] scrollbar overflow-hidden hover:overflow-auto mr-[12px] hover:mr-0'
+        'grow pl-[56px] pr-[44px] flex flex-col scrollbar overflow-hidden hover:overflow-y-scroll mr-[12px] hover:mr-0'
       )}
     >
       <WelcomeMessage />
       <Date className='text-gray text-caption2 text-center mt-[20px]'>
         2025년 1월 2일
       </Date>
-      {messages.map((message, i) => {
-        return (
-          <Message
-            key={message.sender.id}
-            message={message}
-            sameBefore={
-              i > 1 && message.sender.id === messages[i - 1].sender.id
-            }
-            isMyMessage={message.sender.id === userInfo.id}
-          />
-        );
-      })}
+      {currentMessages?.length &&
+        currentMessages.map((message, i) => {
+          const isMyMessage = message.user.id === userInfo.id;
+          const sameBefore =
+            i > 0 && message.user.id === currentMessages[i - 1].user.id;
+          return (
+            <Message
+              key={i}
+              message={message}
+              sameBefore={sameBefore}
+              isMyMessage={isMyMessage}
+              className={sameBefore ? 'mt-[10px]' : 'mt-[24px]'}
+            />
+          );
+        })}
     </div>
   );
 };

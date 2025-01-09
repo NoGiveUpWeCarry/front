@@ -2,14 +2,44 @@ import Avatar from '@/components/atoms/Avatar';
 import Button from '@/components/atoms/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
-import avatar from '@/assets/images/avatar.png';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { SendMessage } from '@/types/chat.type';
+import { useChatStore } from '@/store/chatStore';
+import { useShallow } from 'zustand/shallow';
+import { user } from '@/mock/user.mock';
 
 const ChatInput = () => {
+  const [content, setContent] = useState('');
+  const { sendMessage } = useChatStore(
+    useShallow((state) => ({
+      sendMessage: state.sendMessage,
+    }))
+  );
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setContent(e.target.value);
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const message: Omit<SendMessage, 'channelId'> = {
+      type: 'text',
+      content: content,
+      user: user,
+    };
+    setContent('');
+    sendMessage(message);
+  };
   return (
     <div className='flex items-center gap-[10px]'>
-      <Avatar src={avatar} className='h-[38px] w-[38px]' />
-      <div className='relative flex-1'>
-        <Input radius='lg' spacing='sm' className='h-[38px] px-[20px]' />
+      <Avatar src={user.profile_url} className='h-[38px] w-[38px]' />
+      <form className='relative flex-1' onSubmit={handleSubmit}>
+        <Input
+          radius='lg'
+          spacing='sm'
+          className='h-[38px] px-[20px]'
+          onChange={handleInput}
+          value={content}
+        />
         <Button
           width='30px'
           height='30px'
@@ -19,7 +49,7 @@ const ChatInput = () => {
         >
           <Icon type='arrow' className='w-[20px] h-[20px]' />
         </Button>
-      </div>
+      </form>
       <Button
         width='38px'
         height='38px'

@@ -1,4 +1,5 @@
 import ChatRoom from '@/components/organisms/chat/ChatRoom';
+import ChatRoomInput from '@/components/organisms/chat/ChatRoomInput';
 import ChatSidebar from '@/components/organisms/chat/ChatSidebar';
 
 const ChatTemplate = () => {
@@ -10,6 +11,7 @@ const ChatTemplate = () => {
         </div>
         <div className='w-[870px] flex flex-col'>
           <ChatRoom />
+          <ChatRoomInput />
         </div>
       </div>
     </div>

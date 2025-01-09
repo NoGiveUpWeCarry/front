@@ -19,7 +19,7 @@ const GroupChannel = ({ channel }: GroupChannelProps) => {
         </ListItem.Label>
       </div>
       <ListItem.Subtitle className={clsx('text-caption1', 'text-mediumgray')}>
-        {channel.people.join(', ')}
+        {channel.users.map((user) => user.nickname).join(', ')}
       </ListItem.Subtitle>
     </>
   );
