@@ -1,6 +1,6 @@
 import Avatar from '@/components/atoms/Avatar';
 import MessageBubble from '@/components/atoms/MessageBubble';
-import { ReceiveMeesage } from '@/types/chat.type';
+import { ReceiveMeesage } from '@/types/message.type';
 import { Role } from '@/types/role.type';
 import { cn } from '@/utils/cn';
 import { memo } from 'react';

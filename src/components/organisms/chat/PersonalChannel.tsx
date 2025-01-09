@@ -1,7 +1,7 @@
-import { Channel } from '@/types/chat.type';
 import Title from '@/components/atoms/Title';
 import clsx from 'clsx';
 import { ListItem } from '@/components/molecules/ListItem';
+import { Channel } from '@/types/channel.type';
 
 interface PersonalChannelProps {
   channel: Channel;
@@ -11,10 +11,10 @@ const PersonalChannel = ({ channel }: PersonalChannelProps) => {
   return (
     <div className='flex justify-between'>
       <Title size='xs' fontWeight='medium' lineClamp={1}>
-        {channel.title}
+        {channel.users.map((user) => user.nickname).join(', ')}
       </Title>
       <ListItem.Label className={clsx('text-caption1', 'text-mediumgray')}>
-        {channel.lastSendTime}
+        1h
       </ListItem.Label>
     </div>
   );

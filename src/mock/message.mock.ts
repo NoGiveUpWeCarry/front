@@ -1,19 +1,7 @@
-import { createUser, createUsers } from '@/mock/user.mock';
-import { Channel, ReceiveMeesage, SendMessage } from '@/types/chat.type';
+import { channelIds } from '@/mock/channel.mock';
+import { users } from '@/mock/user.mock';
+import { ReceiveMeesage, SendMessage } from '@/types/message.type';
 import { fakerKO as faker } from '@faker-js/faker';
-
-const channelIds = ['ch1', 'ch2', 'ch3', 'ch4', 'ch5'];
-const users = [...createUsers(5), createUser('me')];
-
-const createChannel = (id: string): Channel => {
-  return {
-    id,
-    channelThumbnailURL: faker.image.avatar(), // 개인 채팅일 경우 상대방 프로필, 단체 채팅일 경우 방장 프로필, 종료된 채팅일 경우 뭐로 하지
-    title: faker.lorem.text(),
-    users: users,
-    lastSendTime: '1h',
-  };
-};
 
 const createMessage = (id: string): SendMessage => {
   return {
@@ -32,7 +20,6 @@ const createMessages = (id: string): ReceiveMeesage[] => {
     () => ({ ...createMessage(id), date: new Date().toISOString() })
   );
 };
-export const channels: Channel[] = channelIds.map((id) => createChannel(id));
 
 export const messages: Record<string, ReceiveMeesage[]> = channelIds.reduce(
   (acc, cur) => {

@@ -3,7 +3,7 @@ import Button from '@/components/atoms/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { SendMessage } from '@/types/chat.type';
+import { SendMessage } from '@/types/message.type';
 import { useChatStore } from '@/store/chatStore';
 import { useShallow } from 'zustand/shallow';
 import { user } from '@/mock/user.mock';
