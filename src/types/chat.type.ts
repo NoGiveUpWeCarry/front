@@ -1,7 +1,9 @@
+import { User } from '@/types/user.type';
+
 export interface Channel {
   id: string;
   channelThumbnailURL?: string; // 기본 이미지 필요
-  people: string[];
+  users: User[];
   lastSendTime: string;
   title: string;
 }
@@ -16,10 +18,17 @@ export interface PersonalChannel extends Channel {}
 
 type MessageTypes = 'image' | 'text';
 
-export interface Message {
+export interface SendMessage {
   type: MessageTypes;
   content: string;
-  sender: string; // 중복 X
+  user: User;
   channelId: string;
+}
+
+export interface ReceiveMeesage extends SendMessage {
   date: string;
 }
+
+// export type MessageResponse = Required<Message>;
+
+export type Sender = Pick<User, 'id' | 'nickname' | 'profile_url' | 'role_id'>;
