@@ -1,7 +1,7 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { postAuthorizationCode, fetchUserRole } from '@/apis/auth';
-import useAuth from '@/store/useAuth';
+import useAuthStore from '@/store/authStore';
 import { AuthResponse } from '@/types/auth.type';
 import { RoleResponse } from '@/types/role.type';
 
@@ -11,7 +11,7 @@ export const useAuthMutation = (): UseMutationResult<
   { authorizationCode: string; provider: string }
 > => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login } = useAuthStore();
   return useMutation(
     ({ authorizationCode, provider }) =>
       postAuthorizationCode(authorizationCode, provider),
@@ -40,7 +40,7 @@ export const useRoleMutation = (): UseMutationResult<
   unknown,
   { userRole: number }
 > => {
-  const { setUserRole } = useAuth();
+  const { setUserRole } = useAuthStore();
   return useMutation(({ userRole }) => fetchUserRole(userRole), {
     onSuccess: (data) => {
       const { user } = data;

@@ -1,4 +1,4 @@
-import useAuth from '@/store/useAuth';
+import useAuthStore from '@/store/authStore';
 import axios from 'axios';
 
 axios.defaults.baseURL = `${import.meta.env.BASE_SERVER_URL}`;
@@ -8,7 +8,7 @@ export const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((config) => {
-  const token = useAuth.getState().accessToken;
+  const token = useAuthStore.getState().accessToken;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -16,7 +16,7 @@ axiosInstance.interceptors.request.use((config) => {
 });
 
 axiosInstance.interceptors.response.use((config) => {
-  const token = useAuth.getState().accessToken;
+  const token = useAuthStore.getState().accessToken;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
