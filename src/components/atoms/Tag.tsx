@@ -1,12 +1,10 @@
 import React from 'react';
 import { cn } from '@/utils/cn';
 import { cva } from 'class-variance-authority';
-import {
-  RoleTagVariant,
-  ProjectTagVariant,
-  HubTagVariant,
-  ContentsFeedTagVariant,
-} from '@/types/tags/index.tag';
+import { RoleTagVariant } from '@/types/tags/roleTag.type';
+import { ProjectTagVariant } from '@/types/tags/projectTag.type';
+import { HubTagVariant } from '@/types/tags/hubTag.type';
+import { ContentsFeedTagVariant } from '@/types/tags/contentsFeedTag.type';
 
 interface RoleTagProps {
   type: 'role';
