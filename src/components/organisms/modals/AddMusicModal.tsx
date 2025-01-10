@@ -1,9 +1,10 @@
 import Button from '@/components/atoms/Button';
 import Input from '@/components/atoms/Input';
 import Modal from '@/components/organisms/modals/Modal';
+import { ModalProps } from '@/components/organisms/modals/modalProps';
 import { useState } from 'react';
 
-const AddMusicModal = ({ onClose }: { onClose: () => void }) => {
+const AddMusicModal = ({ onClose }: ModalProps) => {
   const [url, setUrl] = useState('');
 
   const handleAddMusic = () => {
@@ -12,7 +13,7 @@ const AddMusicModal = ({ onClose }: { onClose: () => void }) => {
 
   return (
     <Modal onClose={onClose} width='444px' height='134px' className='!p-5'>
-      <h1 className='text-[22px] font-medium mb-3'>음악 작업 추가</h1>
+      <Modal.Title>음악 작업 추가</Modal.Title>
       <div className='flex gap-[10px]'>
         <Input
           placeholder='url을 입력해주세요.'

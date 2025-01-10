@@ -1,6 +1,6 @@
 // import { messages, channels } from '@/mock/chat.mock';
 import { SendMessage, ReceiveMeesage } from '@/types/message.type';
-import { Channel } from 'diagnostics_channel';
+import { Channel } from '@/types/channel.type';
 import { io, Socket } from 'socket.io-client';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
