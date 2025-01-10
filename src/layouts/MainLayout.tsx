@@ -1,8 +1,11 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import SideMenu from '@/components/organisms/sides/SideMenu';
 import SideBarRight from '@/components/organisms/sides/SideBar';
 
 const MainLayout = () => {
+  const preventInfo = ['/login', '/settings'];
+  const location = useLocation();
+
   return (
     <div className='min-h-screen flex'>
       <div className='sticky top-0 h-screen w-[68px] '>
@@ -15,9 +18,11 @@ const MainLayout = () => {
         </div>
       </div>
 
-      <div className='sticky top-0 h-screen w-[300px] p-2 hidden lg:block'>
-        <SideBarRight />
-      </div>
+      {!preventInfo.includes(location.pathname) && (
+        <div className='sticky top-0 h-screen w-[300px] p-2 hidden lg:block'>
+          <SideBarRight />
+        </div>
+      )}
     </div>
   );
 };

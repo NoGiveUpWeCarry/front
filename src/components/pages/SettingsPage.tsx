@@ -1,15 +1,15 @@
-import MyPageTemplate from '@/components/templates/MyPage/MyPageTemplate';
+import SettingsTemplate from '@/components/templates/SettingsTemplate';
 import useAuth from '@/store/useAuth';
 import { useEffect } from 'react';
 
-const MyPage = () => {
+const SettingsPage = () => {
   const { isLoggedIn } = useAuth.getState();
 
   useEffect(() => {
     if (!isLoggedIn) window.location.href = '/login';
   }, [isLoggedIn]);
 
-  return <MyPageTemplate />;
+  return <SettingsTemplate />;
 };
 
-export default MyPage;
+export default SettingsPage;

@@ -17,13 +17,14 @@ export const useAuthMutation = (): UseMutationResult<
       postAuthorizationCode({ authorizationCode, provider }),
     {
       onSuccess: (data) => {
-        const { accessToken, user, isExistingUser } = data;
+        const { accessToken, user, isExistingUser, message } = data;
+        console.log('accessToken: ' + accessToken);
         login(user, accessToken);
         console.log('로그인 성공:', user);
         if (isExistingUser) {
-          navigate('/roleselect');
-        } else {
           navigate('/');
+        } else {
+          navigate('/roleselect');
         }
       },
       onError: (error) => {
@@ -44,11 +45,11 @@ export const useRoleMutation = (): UseMutationResult<
   return useMutation(({ userRole }) => fetchUserRole({ userRole }), {
     onSuccess: (data) => {
       const { user } = data;
-      setUserRole(user.role_id);
       console.log('유저 롤 변경 성공 성공:', user.role_id);
+      setUserRole(user.role_id);
     },
     onError: (error) => {
-      console.error('Authorization Code 전송 중 오류:', error);
+      console.error('롤 변경 중 오류:', error);
       alert('로그인에 실패했습니다. 다시 시도해주세요.');
     },
   });

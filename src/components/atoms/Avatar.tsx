@@ -3,7 +3,7 @@ import { cn } from '@/utils/cn';
 import { cva, VariantProps } from 'class-variance-authority';
 import { ImgHTMLAttributes } from 'react';
 
-export const AvatarVariants = cva(`rounded-full`, {
+export const AvatarVariants = cva(`rounded-full object-cover`, {
   variants: {
     size: {
       xxs: 'w-[20px] h-[20px]',
@@ -22,24 +22,12 @@ export interface AvatarProps
   extends VariantProps<typeof AvatarVariants>,
     ImgHTMLAttributes<HTMLImageElement> {}
 
-const Avatar = ({ size, className, src, ...props }: AvatarProps) => {
-  return src ? (
-    <img
-      src={src}
-      className={cn(AvatarVariants({ size, className }))}
-      {...props}
-    />
+
+const Avatar = ({ size, className, ...props }: AvatarProps) => {
+  return props.src ? (
+    <img {...props} className={cn(AvatarVariants({ size, className }))} />
   ) : (
-    <div
-      className={cn(
-        AvatarVariants({ size, className }),
-        'rounded-full',
-        'p-[5px]',
-        'bg-lightgray'
-      )}
-    >
-      <Logo width='100%' height='100%' />
-    </div>
+    <div className={cn(AvatarVariants({ size, className }))} />
   );
 };
 

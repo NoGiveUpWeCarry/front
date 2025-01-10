@@ -5,6 +5,10 @@ export interface AuthRequest {
   provider: string;
 }
 export interface AuthResponse {
+  message: {
+    code: number;
+    text: string;
+  };
   accessToken: string;
   user: User;
   isExistingUser: boolean;
