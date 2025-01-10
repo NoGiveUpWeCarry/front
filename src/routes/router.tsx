@@ -45,18 +45,6 @@ const router = [
     ],
   },
   {
-    path: '/login',
-    element: <LoginPage />,
-  },
-  {
-    path: '/roleselect',
-    element: <RolePage />,
-  },
-  {
-    path: '/auth/:provider/callback',
-    element: <CallbackPage />,
-  },
-  {
     path: '/chat',
     element: <SubLayout />,
     children: [
@@ -65,10 +53,6 @@ const router = [
         element: <ChatPage />,
       },
     ],
-  },
-  {
-    path: '/mypage',
-    element: <MyPage />,
   },
 ];
 
