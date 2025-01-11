@@ -23,6 +23,11 @@ export const axiosInstance = axios.create({
   withCredentials: true,
 });
 
+const getUserId = (): number | null => {
+  const userInfo = useAuth.getState().userInfo;
+  return userInfo?.id || null;
+};
+
 axiosInstance.interceptors.request.use((config) => {
   const token = useAuth.getState().accessToken;
   if (token) {
@@ -40,9 +45,9 @@ axiosInstance.interceptors.response.use(
     if (error.response?.status === 401) {
       try {
         console.log('updateToken 패칭 요청됨.');
-        const user_id = useAuth.getState().userInfo?.id;
-        console.log('user_id:', user_id);
-        // getUserId 함수로 user_id 안전하게 가져오기
+
+        // getUserId로 user_id 가져오기
+        const user_id = getUserId();
         if (!user_id) {
           console.error('User ID가 존재하지 않습니다. 로그아웃 처리 중...');
           window.location.href = '/login';
