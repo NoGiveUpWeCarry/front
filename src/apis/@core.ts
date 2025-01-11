@@ -4,7 +4,7 @@ import useAuth from '@/store/useAuth.store';
 import { User } from '@/types/user.type';
 
 interface RefreshRequest {
-  user_id: Pick<User, 'id'>;
+  user_id: Pick<User, 'user_id'>;
 }
 
 interface Message {
@@ -45,8 +45,6 @@ axiosInstance.interceptors.response.use(
     if (error.response?.status === 401) {
       try {
         console.log('updateToken 패칭 요청됨.');
-
-        // getUserId로 user_id 가져오기
         const user_id = getUserId();
         if (!user_id) {
           console.error('User ID가 존재하지 않습니다. 로그아웃 처리 중...');
