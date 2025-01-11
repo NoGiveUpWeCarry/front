@@ -40,11 +40,7 @@ axiosInstance.interceptors.response.use(
     if (error.response?.status === 401) {
       try {
         console.log('updateToken 패칭 요청됨.');
-        const getUserId = (): number | null => {
-          const state = useAuth.getState();
-          return state.userInfo?.id || null;
-        };
-        const user_id = getUserId();
+        const user_id = useAuth.getState().userInfo?.id;
         console.log('user_id:', user_id);
         // getUserId 함수로 user_id 안전하게 가져오기
         if (!user_id) {
