@@ -12,7 +12,6 @@ const HomePage = () => {
         console.log('홈페이지의 user_id: ' + userId);
       }
     );
-
     // 컴포넌트 언마운트 시 구독 해제
     return () => unsubscribe();
   }, []);

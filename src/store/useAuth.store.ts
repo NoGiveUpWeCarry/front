@@ -18,12 +18,13 @@ const useAuth = create(
             set({ accessToken: token, isLoggedIn: !!token });
             localStorage.setItem('@token', token);
           },
-          login: (user: User, token: string) => {
-            set({
+          login: async (user: User, token: string) => {
+            await set({
               accessToken: token,
               isLoggedIn: true,
               userInfo: user,
             });
+            console.log('user_id in store: ' + useAuth.getState().userInfo?.id);
             localStorage.setItem('@token', token);
           },
           logout: () => {
