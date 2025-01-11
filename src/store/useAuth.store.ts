@@ -1,11 +1,11 @@
 import { create } from 'zustand';
-import { persist, subscribeWithSelector } from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
 import { combine } from 'zustand/middleware';
 import { AuthAction, AuthState } from '@/types/auth.type';
 import { User } from '@/types/user.type';
 
 const useAuth = create(
-  subscribeWithSelector(
+  devtools(
     persist(
       combine<AuthState, AuthAction>(
         {
@@ -55,7 +55,8 @@ const useAuth = create(
           userInfo: state.userInfo,
         }),
       }
-    )
+    ),
+    { name: 'AuthStore' }
   )
 );
 
