@@ -30,6 +30,6 @@ export const useCreateTiptapEditor: UseCreateTiptapEditor = (setContent) =>
     },
     content: '',
     onUpdate: ({ editor }) => {
-      setContent(editor.getHTML()); // 에디터 내용 업데이트
+      setContent(editor.getHTML());
     },
   });
