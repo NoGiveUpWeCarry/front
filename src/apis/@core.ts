@@ -51,20 +51,13 @@ axiosInstance.interceptors.response.use(
           window.location.href = '/login';
           return Promise.reject('User ID가 없습니다.');
         }
-
         const refreshResponse = await axios.post<
           RefreshRequest,
           AxiosResponse<RefreshResopnse>
         >(API_PATH.updateToken, { user_id });
-
-        console.log('updateToken 패칭 실시됨.');
         const { access_token } = refreshResponse.data;
-
-        // 새 Access Token을 상태 저장소에 저장
         useAuth.getState().setAccessToken(access_token);
         console.log('zustand에 업데이트');
-
-        // 원래 요청을 다시 실행
         error.config.headers.Authorization = `Bearer ${access_token}`;
         console.log('원래 요청 다시 실행됨.');
         return axiosInstance.request(error.config);
