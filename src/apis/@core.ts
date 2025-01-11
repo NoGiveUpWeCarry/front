@@ -40,18 +40,31 @@ axiosInstance.interceptors.response.use(
     if (error.response?.status === 401) {
       try {
         console.log('updateToken 패칭 요청됨.');
-        const user_id = useAuth.getState().userInfo?.id;
-        // 반환 타입 명시
-        console.log('user_id: ' + user_id);
+        const getUserId = (): number | null => {
+          const state = useAuth.getState();
+          return state.userInfo?.id || null;
+        };
+        const user_id = getUserId();
+        console.log('user_id:', user_id);
+        // getUserId 함수로 user_id 안전하게 가져오기
+        if (!user_id) {
+          console.error('User ID가 존재하지 않습니다. 로그아웃 처리 중...');
+          window.location.href = '/login';
+          return Promise.reject('User ID가 없습니다.');
+        }
+
         const refreshResponse = await axios.post<
           RefreshRequest,
           AxiosResponse<RefreshResopnse>
         >(API_PATH.updateToken, { user_id });
+
         console.log('updateToken 패칭 실시됨.');
         const { access_token } = refreshResponse.data;
+
         // 새 Access Token을 상태 저장소에 저장
         useAuth.getState().setAccessToken(access_token);
         console.log('zustand에 업데이트');
+
         // 원래 요청을 다시 실행
         error.config.headers.Authorization = `Bearer ${access_token}`;
         console.log('원래 요청 다시 실행됨.');
