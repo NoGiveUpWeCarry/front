@@ -11,6 +11,8 @@ import {
   HeartIcon,
   EyeIcon,
   BookmarkIcon,
+  ArrowUpIcon,
+  PhotoIcon,
   H1Icon,
 } from '@heroicons/react/24/outline';
 import { UserCircleIcon } from '@heroicons/react/24/solid';
@@ -29,7 +31,9 @@ type IconType =
   | 'like'
   | 'eye'
   | 'bookmark'
-  | 'user';
+  | 'user'
+  | 'arrow'
+  | 'photo';
 
 const iconVariants = cva('', {
   variants: {
@@ -71,6 +75,8 @@ const Icon = ({ type, className = '', color }: IconProps) => {
       <BookmarkIcon className={cn(iconVariants({ color }), className)} />
     ),
     user: <UserCircleIcon className={cn(iconVariants({ color }), className)} />,
+    arrow: <ArrowUpIcon className={cn(iconVariants({ color }), className)} />,
+    photo: <PhotoIcon className={cn(iconVariants({ color }), className)} />,
   };
 
   return <>{icons[type]}</>;

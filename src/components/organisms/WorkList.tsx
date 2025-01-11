@@ -8,7 +8,7 @@ const WorkList = ({ children }: { children: ReactNode }) => {
   return <div className='flex flex-col gap-[17px] w-full'>{children}</div>;
 };
 
-WorkList.Github = () => {
+WorkList.Github = function () {
   const [githubId, setGithubId] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -46,7 +46,7 @@ WorkList.Github = () => {
   );
 };
 
-WorkList.SoundCloud = ({ url }: { url: string }) => {
+WorkList.SoundCloud = function ({ url }: { url: string }) {
   const slicedUrl = url.split('?')[0];
 
   return (
@@ -66,13 +66,15 @@ interface ProjectData {
   description: string;
 }
 
-WorkList.Projects = ({ children }: { children: ReactNode }) => {
+WorkList.Projects = function ({ children }: { children: ReactNode }) {
   return <div className='grid grid-cols-2 gap-5'>{children}</div>;
 };
 
-WorkList.ProjectItem = (_project: ProjectData) => <MyPageProjectCard />;
+WorkList.ProjectItem = function (_project: ProjectData) {
+  return <MyPageProjectCard />;
+};
 
-WorkList.Spotify = ({ url }: { url: string }) => {
+WorkList.Spotify = function ({ url }: { url: string }) {
   const [iframeUrl, setIframeUrl] = useState('');
 
   useEffect(() => {

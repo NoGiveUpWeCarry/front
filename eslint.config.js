@@ -61,6 +61,10 @@ export default [
       'react/jsx-props-no-spreading': 'off',
       'react/self-closing-comp': 'off',
       'react/button-has-type': 'off',
+      'react/jsx-no-useless-fragment': 'off',
+      'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+      'react/no-array-index-key': 'off',
+      'react-hooks/exhaustive-deps': 'off',
     },
     settings: {
       react: {

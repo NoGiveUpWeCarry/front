@@ -19,7 +19,7 @@ const MyPageHeader = () => {
       <div className='flex-1 flex flex-col gap-5 justify-center relative'>
         <div className='flex items-center gap-[10px] h-[29px]'>
           <h1 className='text-heading2 font-semibold'>테스트용계정</h1>
-          {!isMyPage && <FollowButton isFollowing={true} />}
+          {!isMyPage && <FollowButton isFollowing />}
         </div>
         <p className='text-body1 font-regular line-clamp-2'>
           프로젝트 구인 중입니다. 프로젝트 구인 중입니다. 프로젝트 구인

@@ -2,7 +2,7 @@ import React from 'react';
 import * as HeroIconsOutline from '@heroicons/react/24/outline';
 import * as HeroIconsSolid from '@heroicons/react/24/solid';
 import { cva, VariantProps } from 'class-variance-authority';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 
 const iconVariants = cva('', {
   variants: {
