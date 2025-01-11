@@ -12,7 +12,7 @@ const ShortProject = ({ onClick, ...props }: IProps) => {
       className='w-full flex flex-col gap-[8px] cursor-pointer'
       onClick={onClick}
     >
-      <div className='flex gap-[10px]'>
+      <div className='flex gap-[10px] items-center'>
         <div className='bg-project text-[11px] font-extrabold text-white w-[79px] h-[25px] rounded-[100px] flex justify-center items-center'>
           {projectTags[0].label}
         </div>
