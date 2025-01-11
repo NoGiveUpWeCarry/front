@@ -7,7 +7,7 @@ import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
 
 type UseCreateTiptapEditor = (
-  setContent: React.Dispatch<React.SetStateAction<string>>
+  setContent: (content: string) => void
 ) => Editor | null;
 
 export const useCreateTiptapEditor: UseCreateTiptapEditor = (setContent) =>

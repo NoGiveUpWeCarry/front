@@ -68,12 +68,6 @@ const TiptapFloatingMenu = ({ editor }: TiptapFloatingMenuProps) => {
           <span className='text-sm'>Ordered list</span>
         </button>
         <button
-          onClick={() => editor.chain().focus().toggleBlockquote().run()}
-          className={editor.isActive('blockquote') ? 'is-active' : ''}
-        >
-          <span className='text-sm'>Blockquote</span>
-        </button>
-        <button
           onClick={() => editor.chain().focus().toggleCodeBlock().run()}
           className={editor.isActive('codeBlock') ? 'is-active' : ''}
         >

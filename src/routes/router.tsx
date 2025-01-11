@@ -52,10 +52,6 @@ const router = [
     path: '/test',
     element: <TestPage />,
   },
-  {
-    path: '/test',
-    element: <TestPage />,
-  },
 ];
 
 export default router;
