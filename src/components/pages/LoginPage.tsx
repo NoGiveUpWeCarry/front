@@ -3,11 +3,11 @@ import DefaultLogo from '@/assets/logos/DefaultLogo.svg';
 
 const LoginPage = () => {
   const handleGoogleLogin = () => {
-    window.location.href = 'http://43.202.172.0:8080/auth/google';
+    window.location.href = `${import.meta.env.VITE_LOCAL_URL}/auth/google`;
   };
 
   const handleGitHubLogin = () => {
-    window.location.href = 'http://43.202.172.0:8080/auth/github';
+    window.location.href = `${import.meta.env.VITE_LOCAL_URL}/auth/github`;
   };
 
   return (

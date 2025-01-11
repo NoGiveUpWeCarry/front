@@ -17,7 +17,7 @@ interface RefreshResopnse {
   access_token: string;
 }
 
-axios.defaults.baseURL = import.meta.env.BASE_SERVER_URL;
+axios.defaults.baseURL = import.meta.env.VITE_LOCAL_URL;
 
 export const axiosInstance = axios.create({
   withCredentials: true,
@@ -42,10 +42,10 @@ axiosInstance.interceptors.response.use(
         console.log('updateToken 패칭 요청됨.');
         const user_id = useAuth.getState().userInfo?.id;
         // 반환 타입 명시
-        const refreshResponse = await axiosInstance.post<
+        const refreshResponse = await axios.post<
           RefreshRequest,
           AxiosResponse<RefreshResopnse>
-        >(API_PATH.updateToken, { user_id }); // POST 요청의 데이터는 객체로 전달해야 함.
+        >(API_PATH.updateToken, { user_id });
         console.log('updateToken 패칭 실시됨.');
         const { access_token } = refreshResponse.data;
         // 새 Access Token을 상태 저장소에 저장
