@@ -42,6 +42,7 @@ axiosInstance.interceptors.response.use(
         console.log('updateToken 패칭 요청됨.');
         const user_id = useAuth.getState().userInfo?.id;
         // 반환 타입 명시
+        console.log('user_id: ' + user_id);
         const refreshResponse = await axios.post<
           RefreshRequest,
           AxiosResponse<RefreshResopnse>
