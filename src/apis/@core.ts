@@ -25,7 +25,7 @@ export const axiosInstance = axios.create({
 
 const getUserId = (): number | null => {
   const userInfo = useAuth.getState().userInfo;
-  return userInfo?.id || null;
+  return userInfo?.user_id || null;
 };
 
 axiosInstance.interceptors.request.use((config) => {

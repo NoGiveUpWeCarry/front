@@ -24,7 +24,9 @@ const useAuth = create(
               isLoggedIn: true,
               userInfo: user,
             });
-            console.log('user_id in store: ' + useAuth.getState().userInfo?.id);
+            console.log(
+              'user_id in store: ' + useAuth.getState().userInfo?.user_id
+            );
             localStorage.setItem('@token', token);
           },
           logout: () => {
