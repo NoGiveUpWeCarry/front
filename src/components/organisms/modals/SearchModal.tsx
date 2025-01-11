@@ -7,15 +7,29 @@ import { ModalProps } from '@/components/organisms/modals/modalProps';
 import Tabs from '@/components/organisms/Tabs';
 import { feedItem } from '@/mock/feedItem';
 import { hubItem } from '@/mock/hubItem';
+import { useTabsStore } from '@/store/tabStore';
 import useDebounce from '@/utils/useDebounce';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const SearchModal = ({ onClose }: ModalProps) => {
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState('');
   const debouncedKeyword = useDebounce(keyword, 300);
+
+  const feedData = feedItem.filter((el) => el.title.includes(debouncedKeyword));
+  const hubData = hubItem.filter(
+    (el) =>
+      el.title.includes(debouncedKeyword) ||
+      el.roleTags.map((t) => t.label).includes(debouncedKeyword)
+  );
+
+  const { tabs, setTabs } = useTabsStore();
+
+  useEffect(() => {
+    setTabs(['전체', '피드', '커넥션 허브', '태그']);
+  }, []);
 
   // 키워드 검색 로직
 
@@ -39,8 +53,8 @@ const SearchModal = ({ onClose }: ModalProps) => {
         </div>
         <div className='h-10'>
           <Tabs>
-            {['전체', '피드', '커넥션 허브', '태그'].map((item, i) => (
-              <Tabs.TabItem key={item} hideDivider={i === 3}>
+            {tabs.map((item, i) => (
+              <Tabs.TabItem key={item as string} hideDivider={i === 3}>
                 {item}
               </Tabs.TabItem>
             ))}
@@ -55,33 +69,47 @@ const SearchModal = ({ onClose }: ModalProps) => {
               <div className='flex flex-col gap-5'>
                 <p className='font-semibold'>피드</p>
                 <div className='flex flex-col gap-5'>
-                  {feedItem.slice(0, 2).map((feed) => (
+                  {feedData.slice(0, 2).map((feed) => (
                     <ShortFeed {...feed} onClick={() => handleNaivgate('/')} />
                   ))}
-                  <button
-                    className='text-[#838383] flex w-full justify-end items-center gap-1'
-                    onClick={() =>
-                      handleNaivgate(`/search?q=${debouncedKeyword}`)
-                    }
-                  >
-                    더보기 <ChevronRightIcon width={12} strokeWidth={3} />
-                  </button>
+                  {!feedData.length && (
+                    <div className='mt-[-20px] mb-5'>
+                      검색 결과가 존재하지 않습니다.
+                    </div>
+                  )}
+                  {feedData.length > 0 && (
+                    <button
+                      className='text-[#838383] flex w-full justify-end items-center gap-1'
+                      onClick={() =>
+                        handleNaivgate(`/search?q=${debouncedKeyword}`)
+                      }
+                    >
+                      더보기 <ChevronRightIcon width={12} strokeWidth={3} />
+                    </button>
+                  )}
                 </div>
               </div>
               <div>
                 <p className='font-semibold mb-4'>커넥션 허브</p>
                 <div className='flex flex-col gap-[30px]'>
-                  {hubItem.slice(0, 3).map((hub) => (
+                  {hubData.slice(0, 3).map((hub) => (
                     <ShortProject key={hub.title} {...hub} onClick={() => {}} />
                   ))}
-                  <button
-                    className='text-[#838383] flex w-full justify-end items-center gap-1'
-                    onClick={() =>
-                      handleNaivgate(`/search?q=${debouncedKeyword}`)
-                    }
-                  >
-                    더보기 <ChevronRightIcon width={12} strokeWidth={3} />
-                  </button>
+                  {!hubData.length && (
+                    <div className='mt-[-14px]'>
+                      검색 결과가 존재하지 않습니다.
+                    </div>
+                  )}
+                  {hubData.length > 0 && (
+                    <button
+                      className='text-[#838383] flex w-full justify-end items-center gap-1'
+                      onClick={() =>
+                        handleNaivgate(`/search?q=${debouncedKeyword}`)
+                      }
+                    >
+                      더보기 <ChevronRightIcon width={12} strokeWidth={3} />
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
