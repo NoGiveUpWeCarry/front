@@ -9,9 +9,8 @@ export const postAuthorizationCode = async ({
   provider,
 }: AuthRequest): Promise<AuthResponse> => {
   const apiPath = API_PATH.login.replace(':provider', provider);
-  console.log(`api 경로: http://localhost:8080${apiPath}`);
   const response = await axios.post(
-    `http://43.202.172.0:8080${apiPath}`,
+    `${import.meta.env.BASE_SERVER_URL}${apiPath}`,
     {
       code: authorizationCode,
     },

@@ -1,16 +1,7 @@
-import ChatSidebar from '@/components/organisms/chat/ChatSidebar';
+import ChatTemplate from '@/components/templates/ChatTemplate';
 
 const ChatPage = () => {
-  return (
-    <div className='w-full h-full flex justify-center'>
-      <div className='flex max-w-[1240px]'>
-        <div>
-          <ChatSidebar />
-        </div>
-        <div>right</div>
-      </div>
-    </div>
-  );
+  return <ChatTemplate />;
 };
 
 export default ChatPage;

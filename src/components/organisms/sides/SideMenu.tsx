@@ -31,7 +31,7 @@ const SideMenu = () => {
     {
       type: 'mail',
       label: '메세지',
-      onClick: () => alert('네비게이션 연결해주세요'),
+      onClick: () => navigate('/chat'),
     },
     { type: 'home', label: '피드', onClick: () => navigate('/') },
     {
