@@ -31,12 +31,13 @@ const Modal = ({
       onClick={onClose}
     >
       <div
-        className='absolute top-50% left-50% -translate-x-50% -translate-y-50% cursor-default'
-        style={{ width, height }}
+        className='absolute top-50% left-50% -translate-x-50% -translate-y-50% cursor-default !z-50'
         onClick={(e) => e.stopPropagation()}
       >
         {hasCloseButton && <Modal.CloseButton onClose={onClose} />}
-        <Modal.InnerModal className={className}>{children}</Modal.InnerModal>
+        <Modal.InnerModal className={className} width={width} height={height}>
+          {children}
+        </Modal.InnerModal>
       </div>
     </div>
   );
@@ -55,10 +56,13 @@ Modal.CloseButton = function ({ onClose }: { onClose: () => void }) {
 Modal.InnerModal = function ({
   children,
   className,
-}: PropsWithChildren<{ className?: string }>) {
+  width,
+  height,
+}: PropsWithChildren<{ className?: string; width: string; height: string }>) {
   return (
     <div
       className={`w-full h-full bg-white rounded-[20px] px-[50px] py-[30px] ${className}`}
+      style={{ width, height }}
     >
       {children}
     </div>

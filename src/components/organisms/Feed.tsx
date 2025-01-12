@@ -1,12 +1,31 @@
 import { feedItem } from '@/mock/feedItem';
 import { FeedContents } from '@/components/molecules/contents/ContentsItem';
+import { useEffect, useState } from 'react';
+import { FeedItemType } from '@/types/feed.type';
 
-const Feed = () => {
+interface FeedProps {
+  keyword?: string;
+}
+
+const Feed = ({ keyword }: FeedProps) => {
+  const [data, setData] = useState<FeedItemType[]>([]);
+
+  useEffect(() => {
+    if (!keyword) setData(feedItem);
+    else {
+      setData(
+        feedItem.filter(
+          (el) => el.title.includes(keyword) || el.body.includes(keyword)
+        )
+      );
+    }
+  }, [keyword]);
+
   return (
     <div className='flex flex-col gap-[30px] w-full'>
-      {feedItem.map((item, index) => (
+      {data.map((item) => (
         <FeedContents
-          key={index}
+          key={item.title + new Date().toISOString()}
           user={item.user}
           title={item.title}
           body={item.body}
@@ -17,6 +36,11 @@ const Feed = () => {
           thumbnail={item.thumbnail}
         />
       ))}
+      {keyword && !data.length && (
+        <div className='flex flex-col justify-center items-center'>
+          검색 결과가 없습니다.
+        </div>
+      )}
     </div>
   );
 };
