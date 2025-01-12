@@ -7,8 +7,6 @@ import SettingsPage from '@/components/pages/SettingsPage';
 import MainLayout from '@/layouts/MainLayout';
 import ConnectionHubPage from '@/components/pages/ConnectionHubPage';
 import MyPage from '@/components/pages/MyPage';
-import TestPage from '@/components/pages/TestPage';
-
 const router = [
   {
     path: '/',
@@ -17,10 +15,6 @@ const router = [
       {
         path: '/',
         element: <HomePage />,
-      },
-      {
-        path: '/login',
-        element: <LoginPage />,
       },
       {
         path: '/roleselect',
@@ -49,8 +43,8 @@ const router = [
     ],
   },
   {
-    path: '/test',
-    element: <TestPage />,
+    path: '/login',
+    element: <LoginPage />,
   },
 ];
 
