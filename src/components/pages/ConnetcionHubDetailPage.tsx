@@ -1,5 +1,13 @@
+import Behind from '@/components/atoms/contents/Behind';
+import HubDetail from '@/components/molecules/contents/HubDetail';
+
 function ConnetcionHubDetailPage() {
-  return <div>ConnetcionHubDetailPage</div>;
+  return (
+    <div className='flex w-full flex-col gap-[30px]'>
+      <Behind />
+      <HubDetail />
+    </div>
+  );
 }
 
 export default ConnetcionHubDetailPage;
