@@ -7,6 +7,7 @@ import SettingsPage from '@/components/pages/SettingsPage';
 import MainLayout from '@/layouts/MainLayout';
 import ConnectionHubPage from '@/components/pages/ConnectionHubPage';
 import MyPage from '@/components/pages/MyPage';
+import TestPage from '@/components/pages/TestPage';
 const router = [
   {
     path: '/',
@@ -45,6 +46,10 @@ const router = [
   {
     path: '/login',
     element: <LoginPage />,
+  },
+  {
+    path: '/test',
+    element: <TestPage />,
   },
 ];
 
