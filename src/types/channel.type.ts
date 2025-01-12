@@ -1,9 +1,7 @@
-import { User } from '@/types/user.type';
-
 export interface Channel {
-  id: string;
-  channelThumbnailURL?: string; // 기본 이미지 필요
-  users: User[];
+  id: number;
+  //  channelThumbnailURL?: string; // 기본 이미지 필요
+  //  users: User[];
   // lastSendTime: string;
   // title: string;
 }

@@ -2,13 +2,17 @@ import { User } from '@/types/user.type';
 
 type MessageTypes = 'image' | 'text';
 
-export interface SendMessage {
+export interface Message {
   type: MessageTypes;
   content: string;
-  user: string;
-  channelId: string;
+  channelId: number;
 }
 
-export interface ReceiveMeesage extends SendMessage {
+export interface SendMessage extends Message {
+  userId: number;
+}
+
+export interface ReceiveMessage extends Message {
   date: string;
+  user: User;
 }
