@@ -1,5 +1,5 @@
 import axios from 'axios';
-import useAuth from '@/store/useAuth';
+import useAuthStore from '@/store/authStore';
 import { API_PATH } from '@/apis/api-path';
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_SERVER_LOCAL_URL;
@@ -9,7 +9,7 @@ export const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((config) => {
-  const token = useAuth.getState().accessToken;
+  const token = useAuthStore.getState().accessToken;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -29,7 +29,7 @@ axiosInstance.interceptors.response.use(
         console.log('updateToken 패칭 실시됨.');
         const { accessToken } = refreshResponse.data;
         // 새 Access Token을 상태 저장소에 저장
-        useAuth.getState().setAccessToken(accessToken);
+        useAuthStore.getState().setAccessToken(accessToken);
         // 원래 요청을 다시 실행
         error.config.headers.Authorization = `Bearer ${accessToken}`;
         return await axiosInstance.request(error.config);

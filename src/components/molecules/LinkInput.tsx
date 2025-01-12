@@ -1,6 +1,6 @@
 import { MY_LINKS } from '@/constants/mypageLinks';
 import { LinkIcon } from '@heroicons/react/24/outline';
-import useDebounce from '@/utils/useDebounce';
+import useDebounce from '@/hooks/useDebounce';
 import UrlInput from '@/components/molecules/UrlInput';
 import { ChangeEvent } from 'react';
 

@@ -8,7 +8,7 @@ import Tabs from '@/components/organisms/Tabs';
 import { feedItem } from '@/mock/feedItem';
 import { hubItem } from '@/mock/hubItem';
 import { useTabsStore } from '@/store/tabStore';
-import useDebounce from '@/utils/useDebounce';
+import useDebounce from '@/hooks/useDebounce';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';

@@ -1,9 +1,9 @@
 import MyPageTemplate from '@/components/templates/MyPage/MyPageTemplate';
-import useAuth from '@/store/useAuth';
+import useAuthStore from '@/store/authStore';
 import { useEffect } from 'react';
 
 const MyPage = () => {
-  const { isLoggedIn } = useAuth.getState();
+  const { isLoggedIn } = useAuthStore.getState();
 
   useEffect(() => {
     if (!isLoggedIn) window.location.href = '/login';
