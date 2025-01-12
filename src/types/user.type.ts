@@ -4,7 +4,7 @@ export type RoleId = Role.Artist | Role.Designer | Role.Programmer;
 export type AuthProvider = 'github' | 'google' | 'pad';
 
 export interface User {
-  id: number;
+  user_id: number;
   email: string;
   name: string;
   nickname: string;

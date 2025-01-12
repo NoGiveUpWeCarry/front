@@ -1,7 +1,15 @@
 import { axiosInstance } from '@/apis/@core';
 import { API_PATH } from '@/apis/api-path';
-import { AuthRequest, AuthResponse, TokenResponse } from '@/types/auth.type';
+import {
+  AuthRequest,
+  AuthResponse,
+  LoginBody,
+  SignupBody,
+  TokenResponse,
+} from '@/types/auth.type';
 import { RoleRequest, RoleResponse } from '@/types/role.type';
+import { User } from '@/types/user.type';
+import fetcher from '@/utils/fetcher';
 import axios from 'axios';
 
 export const postAuthorizationCode = async ({
@@ -10,7 +18,7 @@ export const postAuthorizationCode = async ({
 }: AuthRequest): Promise<AuthResponse> => {
   const apiPath = API_PATH.login.replace(':provider', provider);
   const response = await axios.post(
-    `${import.meta.env.VITE_BASE_SERVER_URL}${apiPath}`,
+    `${import.meta.env.VITE_BASE_SERVER_LOCAL_URL}${apiPath}`,
     {
       code: authorizationCode,
     },
@@ -48,4 +56,22 @@ export const updateAccessToken = async (): Promise<TokenResponse> => {
     console.error('Access Token 갱신 중 오류 발생:', error);
     throw error;
   }
+};
+
+export const signup = async (signupBody: SignupBody) => {
+  const response = await fetcher({
+    method: 'POST',
+    url: '/auth/signup',
+    data: signupBody,
+  });
+  return response.data;
+};
+
+export const login = async (loginBody: LoginBody) => {
+  const response = await fetcher<{ user: User; access_token: string }>({
+    method: 'POST',
+    url: '/auth/login',
+    data: loginBody,
+  });
+  return response.data;
 };

@@ -9,6 +9,8 @@ import ConnectionHubPage from '@/components/pages/ConnectionHubPage';
 import MyPage from '@/components/pages/MyPage';
 import SubLayout from '@/layouts/SubLayout';
 import SearchPage from '@/components/pages/SearchPage';
+import PadLoginPage from '@/components/pages/PadLoginPage';
+import PadSignupPage from '@/components/pages/PadSignupPage';
 
 const router = [
   {
@@ -58,6 +60,14 @@ const router = [
         element: <ChatPage />,
       },
     ],
+  },
+  {
+    path: '/login/pad',
+    element: <PadLoginPage />,
+  },
+  {
+    path: '/signup',
+    element: <PadSignupPage />,
   },
 ];
 

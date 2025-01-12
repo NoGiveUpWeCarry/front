@@ -2,7 +2,7 @@ import axios from 'axios';
 import useAuth from '@/store/useAuth';
 import { API_PATH } from '@/apis/api-path';
 
-axios.defaults.baseURL = import.meta.env.VITE_BASE_SERVER_URL;
+axios.defaults.baseURL = import.meta.env.VITE_BASE_SERVER_LOCAL_URL;
 
 export const axiosInstance = axios.create({
   withCredentials: true,
@@ -32,7 +32,7 @@ axiosInstance.interceptors.response.use(
         useAuth.getState().setAccessToken(accessToken);
         // 원래 요청을 다시 실행
         error.config.headers.Authorization = `Bearer ${accessToken}`;
-        return axiosInstance.request(error.config);
+        return await axiosInstance.request(error.config);
       } catch (refreshError) {
         console.error('Refresh Token 만료:', refreshError);
         // 사용자를 로그인 페이지로 리디렉션

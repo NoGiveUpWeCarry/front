@@ -27,3 +27,14 @@ export interface AuthAction {
   setUserRole: (userRole: number) => void;
   setAccessToken: (token: string) => void;
 }
+
+export interface SignupBody {
+  email: string;
+  nickname: string;
+  password: string;
+}
+
+export interface LoginBody {
+  email: string;
+  password: string;
+}
