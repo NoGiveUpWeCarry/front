@@ -3,8 +3,6 @@ import Logo from '@/components/atoms/Logo';
 import Menu from '@/components/molecules/Menu';
 import Avatar from '@/components/atoms/Avatar';
 import { useNavigate } from 'react-router-dom';
-import { useModal } from '@/hooks/useModal';
-import SearchModal from '@/components/organisms/modals/SearchModal';
 
 const SideMenu = () => {
   const navigate = useNavigate();
@@ -37,8 +35,7 @@ const SideMenu = () => {
     {
       type: 'search',
       label: '검색',
-      onClick: () =>
-        isLoggedIn ? openSearchModal() : alert('네비게이션 연결해주세요'),
+      onClick: () => navigate('/roleselect'),
     },
     {
       type: 'star',
