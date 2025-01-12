@@ -21,9 +21,18 @@ export interface AvatarProps
   extends VariantProps<typeof AvatarVariants>,
     ImgHTMLAttributes<HTMLImageElement> {}
 
-const Avatar = ({ size, className, ...props }: AvatarProps) => {
-  return props.src ? (
-    <img {...props} className={cn(AvatarVariants({ size, className }))} />
+const Avatar = ({
+  size,
+  className,
+  src = '/src/assets/logos/PAD.svg',
+  ...props
+}: AvatarProps) => {
+  return src ? (
+    <img
+      src={src}
+      className={cn(AvatarVariants({ size, className }))}
+      {...props}
+    />
   ) : (
     <div className={cn(AvatarVariants({ size, className }))} />
   );

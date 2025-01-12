@@ -18,7 +18,6 @@ axiosInstance.interceptors.request.use((config) => {
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    const { message, ...rest } = response.data;
     return response;
   },
   async (error) => {
