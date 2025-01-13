@@ -3,7 +3,7 @@ import HubDetail from '@/components/molecules/contents/HubDetail';
 
 function ConnetcionHubDetailPage() {
   return (
-    <div className='flex w-full flex-col gap-[30px]'>
+    <div className='flex w-full flex-col gap-[20px]'>
       <Behind />
       <HubDetail />
     </div>
