@@ -17,6 +17,23 @@ interface RefreshResopnse {
   access_token: string;
 }
 
+import { User } from '@/types/user.type';
+import useAuth from '@/store/useAuth';
+
+interface RefreshRequest {
+  user_id: Pick<User, 'user_id'>;
+}
+
+interface Message {
+  code: number;
+  text: string;
+}
+
+interface RefreshResopnse {
+  message: Message;
+  access_token: string;
+}
+
 axios.defaults.baseURL = import.meta.env.VITE_BASE_SERVER_URL;
 
 export const axiosInstance = axios.create({

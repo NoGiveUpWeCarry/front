@@ -5,7 +5,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/components/ui/Select';
 import { useState } from 'react';
 
 const jobRoles: Record<'Programmer' | 'Artist' | 'Designer', string[]> = {
