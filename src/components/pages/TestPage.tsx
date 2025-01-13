@@ -1,4 +1,4 @@
-import TiptapEditor from '@/components/molecules/tiptap/TiptapEditor';
+import TiptapEditor from '@/components/organisms/TiptapEditor';
 import useTiptapStore from '@/store/useTiptap.store';
 
 const TestPage = () => {
