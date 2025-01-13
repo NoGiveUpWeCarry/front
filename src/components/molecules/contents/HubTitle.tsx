@@ -3,7 +3,7 @@ import Tag from '@/components/atoms/Tag';
 
 import { ProjectTagProps } from '@/types/tags/projectTag.type';
 
-interface HubTitleProps {
+export interface HubTitleProps {
   projectTags: { label: string; variant: ProjectTagProps['variant'] }[];
   title: string;
 }

@@ -1,15 +1,35 @@
-import axios from 'axios';
-import useAuthStore from '@/store/authStore';
 import { API_PATH } from '@/apis/api-path';
+import useAuth from '@/store/useAuth.store';
+import { User } from '@/types/user.type';
+import axios, { AxiosResponse } from 'axios';
 
-axios.defaults.baseURL = import.meta.env.VITE_LOCAL_URL;
+interface RefreshRequest {
+  user_id: Pick<User, 'user_id'>;
+}
+
+interface Message {
+  code: number;
+  text: string;
+}
+
+interface RefreshResopnse {
+  message: Message;
+  access_token: string;
+}
+
+axios.defaults.baseURL = import.meta.env.VITE_BASE_SERVER_URL;
 
 export const axiosInstance = axios.create({
   withCredentials: true,
 });
 
+const getUserId = (): number | null => {
+  const userInfo = useAuth.getState().userInfo;
+  return userInfo?.user_id || null;
+};
+
 axiosInstance.interceptors.request.use((config) => {
-  const token = useAuthStore.getState().accessToken;
+  const token = useAuth.getState().accessToken;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -23,20 +43,25 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     if (error.response?.status === 401) {
       try {
-        // Refresh Token으로 Access Token 갱신
         console.log('updateToken 패칭 요청됨.');
-        const user_id = useAuthStore.getState().userInfo?.user_id;
-        const refreshResponse = await axios.post(API_PATH.updateToken, user_id);
-        console.log('updateToken 패칭 실시됨.');
-        const { accessToken } = refreshResponse.data;
-        // 새 Access Token을 상태 저장소에 저장
-        useAuthStore.getState().setAccessToken(accessToken);
-        // 원래 요청을 다시 실행
-        error.config.headers.Authorization = `Bearer ${accessToken}`;
-        return await axiosInstance.request(error.config);
+        const user_id = getUserId();
+        if (!user_id) {
+          console.error('User ID가 존재하지 않습니다. 로그아웃 처리 중...');
+          window.location.href = '/login';
+          return Promise.reject('User ID가 없습니다.');
+        }
+        const refreshResponse = await axios.post<
+          RefreshRequest,
+          AxiosResponse<RefreshResopnse>
+        >(axios.defaults.baseURL + API_PATH.updateToken, { user_id });
+        const { access_token } = refreshResponse.data;
+        useAuth.getState().setAccessToken(access_token);
+        console.log('zustand에 업데이트');
+        error.config.headers.Authorization = `Bearer ${access_token}`;
+        console.log('원래 요청 다시 실행됨.');
+        return axiosInstance.request(error.config);
       } catch (refreshError) {
         console.error('Refresh Token 만료:', refreshError);
-        // 사용자를 로그인 페이지로 리디렉션
         window.location.href = '/login';
         return Promise.reject(refreshError);
       }

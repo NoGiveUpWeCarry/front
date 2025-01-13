@@ -21,6 +21,12 @@ const SideBar = () => {
           <SideBarContents type='connection' />
         </div>
       )}
+      {location.pathname === '/connectionhubdetailpage' && (
+        <div className='flex flex-col gap-[10px]'>
+          <SideBarTitle title='👥 Best Connection Hub' />
+          <SideBarContents type='connection' />
+        </div>
+      )}
 
       <div className='flex flex-col gap-[10px]'>
         <SideBarTitle title='💻 PAD Contact' />

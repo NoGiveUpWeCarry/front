@@ -11,8 +11,14 @@ import SubLayout from '@/layouts/SubLayout';
 import SearchPage from '@/components/pages/SearchPage';
 import PadLoginPage from '@/components/pages/PadLoginPage';
 import PadSignupPage from '@/components/pages/PadSignupPage';
+import ConnetcionHubDetailPage from '@/components/pages/ConnetcionHubDetailPage';
+import TestPage from '@/components/pages/TestPage';
 
 const router = [
+  {
+    path: '/login',
+    element: <LoginPage />,
+  },
   {
     path: '/',
     element: <MainLayout />,
@@ -20,10 +26,6 @@ const router = [
       {
         path: '/',
         element: <HomePage />,
-      },
-      {
-        path: '/login',
-        element: <LoginPage />,
       },
       {
         path: '/roleselect',
@@ -44,6 +46,10 @@ const router = [
       {
         path: '/connectionhub',
         element: <ConnectionHubPage />,
+      },
+      {
+        path: '/connectionhubdetailpage',
+        element: <ConnetcionHubDetailPage />,
       },
       {
         path: '/search',
@@ -68,6 +74,14 @@ const router = [
   {
     path: '/signup',
     element: <PadSignupPage />,
+  },
+  {
+    path: '/login',
+    element: <LoginPage />,
+  },
+  {
+    path: '/test',
+    element: <TestPage />,
   },
 ];
 

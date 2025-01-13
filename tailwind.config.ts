@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import typography from '@tailwindcss/typography';
 
 export default {
   darkMode: ['class'],
@@ -92,7 +93,7 @@ export default {
         sm: 'calc(var(--radius) - 4px)',
       },
     },
-    plugins: [],
+    plugins: [typography],
   },
   plugins: [require('tailwindcss-animate')],
 } satisfies Config;

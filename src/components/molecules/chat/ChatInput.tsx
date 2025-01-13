@@ -5,9 +5,9 @@ import Input from '@/components/atoms/Input';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { SendMessage } from '@/types/message.type';
 import { useChatStore } from '@/store/chatStore';
-import { user } from '@/mock/user.mock';
 import useAuthStore from '@/store/authStore';
 import { useNavigate } from 'react-router-dom';
+import { user } from '@/mocks/user.mock';
 
 const ChatInput = () => {
   const [content, setContent] = useState('');
