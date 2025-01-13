@@ -7,7 +7,8 @@ import SettingsPage from '@/components/pages/SettingsPage';
 import MainLayout from '@/layouts/MainLayout';
 import ConnectionHubPage from '@/components/pages/ConnectionHubPage';
 import MyPage from '@/components/pages/MyPage';
-import TestPage from '@/components/pages/TestPage';
+import SearchPage from '@/components/pages/SearchPage';
+
 const router = [
   {
     path: '/',
@@ -40,6 +41,10 @@ const router = [
       {
         path: '/connectionhub',
         element: <ConnectionHubPage />,
+      },
+      {
+        path: '/search',
+        element: <SearchPage />,
       },
     ],
   },
