@@ -3,19 +3,22 @@ import { Editor } from '@tiptap/core';
 import TiptapFloatingMenu from './TiptapFloatingMenu';
 import TiptapBubbleMenu from './TiptapBubbleMenu';
 import { useCreateTiptapEditor } from '@/hooks/tiptap/useEditor.hook';
-import useTiptapStore, { TiptapState } from '@/store/useTiptap.store';
 import { useEffect } from 'react';
 
-const TiptapEditor = () => {
-  const content = useTiptapStore((state) => state.content);
-  const setContent = useTiptapStore((state) => state.setContent);
+interface TiptapEditorProps {
+  content: string;
+  setContent: (content: string) => void;
+}
+
+const TiptapEditor = ({ content, setContent }: TiptapEditorProps) => {
   const editor: Editor | null = useCreateTiptapEditor(setContent);
 
   useEffect(() => {
     if (editor) {
-      editor.commands.focus();
+      editor.commands.setContent(content); // 초기 콘텐츠 설정
+      editor.commands.focus(); // 에디터 포커스
     }
-  }, [editor]);
+  }, [editor, content]);
 
   return (
     <div className='relative w-full h-full'>
