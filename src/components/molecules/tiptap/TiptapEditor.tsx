@@ -3,7 +3,7 @@ import { Editor } from '@tiptap/core';
 import TiptapFloatingMenu from './TiptapFloatingMenu';
 import TiptapBubbleMenu from './TiptapBubbleMenu';
 import { useCreateTiptapEditor } from '@/hooks/tiptap/useEditor.hook';
-import useTiptapStore from '@/store/useTiptap.store';
+import useTiptapStore, { TiptapState } from '@/store/useTiptap.store';
 import { useEffect } from 'react';
 
 const TiptapEditor = () => {
@@ -22,10 +22,6 @@ const TiptapEditor = () => {
       <EditorContent editor={editor} />
       {editor && <TiptapFloatingMenu editor={editor} />}
       {editor && <TiptapBubbleMenu editor={editor} />}
-      {/* <div className='mt-4 bg-red-500'>
-        <h3>Current Content:</h3>
-        <pre>{content}</pre>
-      </div> */}
     </div>
   );
 };

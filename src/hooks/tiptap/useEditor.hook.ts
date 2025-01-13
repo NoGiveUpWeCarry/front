@@ -22,12 +22,12 @@ export const useCreateTiptapEditor: UseCreateTiptapEditor = (setContent) =>
         linkOnPaste: true,
       }),
     ],
-    // editorProps: {
-    //   attributes: {
-    //     class:
-    //       'tiptap-editor prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none text-blue',
-    //   },
-    // },
+    editorProps: {
+      attributes: {
+        class:
+          'tiptap-editor prose prose-sm sm:prose lg:prose-lg xl:prose-2xl focus:outline-none',
+      },
+    },
     content: '',
     onUpdate: ({ editor }) => {
       setContent(editor.getHTML());
