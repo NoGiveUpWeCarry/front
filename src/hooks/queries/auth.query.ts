@@ -1,9 +1,9 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { postAuthorizationCode, fetchUserRole } from '@/apis/auth';
-import useAuth from '@/store/useAuth';
 import { AuthResponse } from '@/types/auth.type';
 import { RoleResponse } from '@/types/role.type';
+import useAuth from '@/store/useAuth.store';
 
 export const useAuthMutation = (): UseMutationResult<
   AuthResponse,
@@ -18,9 +18,7 @@ export const useAuthMutation = (): UseMutationResult<
     {
       onSuccess: (data) => {
         const { accessToken, user, isExistingUser, message } = data;
-        console.log('accessToken: ' + accessToken);
         login(user, accessToken);
-        console.log('로그인 성공:', user);
         if (isExistingUser) {
           navigate('/');
         } else {

@@ -1,8 +1,7 @@
-import axios, { AxiosResponse } from 'axios';
 import { API_PATH } from '@/apis/api-path';
-
+import useAuth from '@/store/useAuth.store';
 import { User } from '@/types/user.type';
-import useAuth from '@/store/useAuth';
+import axios, { AxiosResponse } from 'axios';
 
 interface RefreshRequest {
   user_id: Pick<User, 'user_id'>;
@@ -39,6 +38,7 @@ axiosInstance.interceptors.request.use((config) => {
 
 axiosInstance.interceptors.response.use(
   (response) => {
+    const { message, ...rest } = response.data;
     return response;
   },
   async (error) => {

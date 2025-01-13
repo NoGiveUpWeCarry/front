@@ -1,5 +1,5 @@
 import MyPageTemplate from '@/components/templates/MyPage/MyPageTemplate';
-import useAuth from '@/store/useAuth';
+import useAuth from '@/store/useAuth.store';
 import { useEffect } from 'react';
 
 const MyPage = () => {

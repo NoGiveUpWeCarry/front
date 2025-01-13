@@ -9,6 +9,7 @@ import ConnectionHubPage from '@/components/pages/ConnectionHubPage';
 import MyPage from '@/components/pages/MyPage';
 import ConnetcionHubDetailPage from '@/components/pages/ConnetcionHubDetailPage';
 import SearchPage from '@/components/pages/SearchPage';
+import TestPage from '@/components/pages/TestPage';
 
 const router = [
   {
@@ -56,6 +57,14 @@ const router = [
         element: <SearchPage />,
       },
     ],
+  },
+  {
+    path: '/login',
+    element: <LoginPage />,
+  },
+  {
+    path: '/test',
+    element: <TestPage />,
   },
 ];
 

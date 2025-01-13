@@ -1,5 +1,5 @@
 import SettingsTemplate from '@/components/templates/SettingsTemplate';
-import useAuth from '@/store/useAuth';
+import useAuth from '@/store/useAuth.store';
 import { useEffect } from 'react';
 
 const SettingsPage = () => {
