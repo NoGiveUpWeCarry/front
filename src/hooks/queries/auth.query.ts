@@ -45,7 +45,6 @@ export const useRoleMutation = (): UseMutationResult<
   return useMutation(({ userRole }) => fetchUserRole({ userRole }), {
     onSuccess: (data) => {
       const { user } = data;
-      console.log('유저 롤 변경 성공 성공:', user.role_id);
       setUserRole(user.role_id);
     },
     onError: (error) => {

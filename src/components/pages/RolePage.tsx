@@ -32,7 +32,7 @@ const RolePage = () => {
       <div className='w-[700px] min-h-full flex flex-col items-center gap-[20%] pt-[10%]'>
         <RoleSelectLogo
           selectedRole={selectedRole}
-          setSelectedRole={(role) => {
+          setSelectedRole={(role: Role) => {
             setSelectedRole(role);
             role && handleRoleChange(role);
           }}

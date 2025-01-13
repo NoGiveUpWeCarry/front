@@ -1,4 +1,24 @@
-export const hubItem = [
+export interface HubItemType {
+  title: string;
+  role: 'PROGRAMMER' | 'DESIGNER' | 'ARTIST';
+  startDate: string;
+  duration: string;
+  thumbnail?: string;
+  projectTags: { label: string; variant: string }[];
+  hubTags: { label: string; variant: string }[];
+  roleTags: { label: string; variant: string }[];
+  bookmarkCount: number;
+  userCount: number;
+  viewsCount: number;
+  user: {
+    avatarSrc: string;
+    name: string;
+    job: string;
+    time: string;
+  };
+}
+
+export const hubItem: HubItemType[] = [
   {
     title:
       '실시간 여행 계획 플랫폼 프로젝트 진행합니다! 🔥 프론트엔드 개발자 많은 지원 부탁합니다.',

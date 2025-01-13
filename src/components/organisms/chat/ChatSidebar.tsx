@@ -1,11 +1,11 @@
 import SearchInput from '@/components/molecules/chat/SearchInput';
-import UserList from '@/components/organisms/UserList';
+import ChannelList from '@/components/organisms/chat/ChannelList';
 
 const ChatSidebar = () => {
   return (
-    <div>
+    <div className='flex flex-col gap-[24px] flex-1'>
       <SearchInput />
-      <UserList />
+      <ChannelList />
     </div>
   );
 };

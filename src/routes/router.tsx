@@ -8,6 +8,7 @@ import MainLayout from '@/layouts/MainLayout';
 import ConnectionHubPage from '@/components/pages/ConnectionHubPage';
 import MyPage from '@/components/pages/MyPage';
 import ConnetcionHubDetailPage from '@/components/pages/ConnetcionHubDetailPage';
+import SearchPage from '@/components/pages/SearchPage';
 
 const router = [
   {
@@ -49,6 +50,10 @@ const router = [
       {
         path: '/connectionhubdetailpage',
         element: <ConnetcionHubDetailPage />,
+      },
+      {
+        path: '/search',
+        element: <SearchPage />,
       },
     ],
   },

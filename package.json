@@ -25,12 +25,14 @@
     "axios": "^1.7.9",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.13",
     "immer": "^10.1.1",
     "lucide-react": "^0.469.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-github-calendar": "^4.5.3",
     "react-router-dom": "^7.1.1",
+    "socket.io-client": "^4.8.1",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "zustand": "^5.0.2"
@@ -38,6 +40,7 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.3",
     "@eslint/js": "^9.17.0",
+    "@faker-js/faker": "^9.3.0",
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/addon-interactions": "^8.4.7",
     "@storybook/addon-onboarding": "^8.4.7",
@@ -71,7 +74,8 @@
     "tailwindcss": "^3.4.17",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.18.2",
-    "vite": "^6.0.5"
+    "vite": "^6.0.5",
+    "vite-plugin-mkcert": "^1.17.6"
   },
   "packageManager": "pnpm@9.15.2+sha512.93e57b0126f0df74ce6bff29680394c0ba54ec47246b9cf321f0121d8d9bb03f750a705f24edc3c1180853afd7c2c3b94196d0a3d53d3e069d9e2793ef11f321",
   "eslintConfig": {
