@@ -5,4 +5,5 @@ export const API_PATH = {
   channels: '/channels',
   channel: '/channel/:channelId',
   channelMessages: '/channel/:channelId/messages',
+  createGroup: '/channel/group',
 };

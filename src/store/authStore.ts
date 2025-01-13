@@ -1,7 +1,7 @@
 import { AuthAction, AuthState } from '@/types/auth.type';
 import { User } from '@/types/user.type';
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 const useAuthStore = create<AuthState & AuthAction>()(
   persist(
@@ -19,7 +19,7 @@ const useAuthStore = create<AuthState & AuthAction>()(
           isLoggedIn: true,
           userInfo: user,
         });
-        localStorage.setItem('@token', token);
+        sessionStorage.setItem('@token', token); // 테스트 하기 위해 sessionStorage로 변경함
       },
       logout: () => {
         set({
@@ -45,6 +45,7 @@ const useAuthStore = create<AuthState & AuthAction>()(
         accessToken: state.accessToken,
         userInfo: state.userInfo,
       }),
+      storage: createJSONStorage(() => sessionStorage),
     }
   )
 );
