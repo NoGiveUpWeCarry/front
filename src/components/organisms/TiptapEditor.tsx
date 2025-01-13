@@ -1,9 +1,9 @@
 import { EditorContent } from '@tiptap/react';
 import { Editor } from '@tiptap/core';
-import TiptapFloatingMenu from './TiptapFloatingMenu';
 import { useCreateTiptapEditor } from '@/hooks/tiptap/useEditor.hook';
 import { useEffect } from 'react';
 import TiptapBubbleMenu from '@/components/molecules/tiptap/TiptapBubbleMenu';
+import TiptapFloatingMenu from '@/components/molecules/tiptap/TiptapFloatingMenu';
 
 interface TiptapEditorProps {
   content: string;
