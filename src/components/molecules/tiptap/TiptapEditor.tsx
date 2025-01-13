@@ -15,8 +15,8 @@ const TiptapEditor = ({ content, setContent }: TiptapEditorProps) => {
 
   useEffect(() => {
     if (editor) {
-      editor.commands.setContent(content); // 초기 콘텐츠 설정
-      editor.commands.focus(); // 에디터 포커스
+      editor.commands.setContent(content);
+      editor.commands.focus();
     }
   }, [editor, content]);
 
