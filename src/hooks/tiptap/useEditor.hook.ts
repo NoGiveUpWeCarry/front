@@ -5,6 +5,7 @@ import TaskList from '@tiptap/extension-task-list';
 import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
+import Placeholder from '@tiptap/extension-placeholder';
 
 type UseCreateTiptapEditor = (
   setContent: (content: string) => void
@@ -20,6 +21,9 @@ export const useCreateTiptapEditor: UseCreateTiptapEditor = (setContent) =>
       Link.configure({
         openOnClick: true,
         linkOnPaste: true,
+      }),
+      Placeholder.configure({
+        placeholder: '내용을 작성해주세요...',
       }),
     ],
     editorProps: {

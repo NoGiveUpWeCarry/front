@@ -205,3 +205,6 @@ body {
 .tiptap-editor a:hover {
   @apply cursor-pointer;
 }
+.tiptap-editor [data-placeholder] {
+  @apply text-gray;
+}
