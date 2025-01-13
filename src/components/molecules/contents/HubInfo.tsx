@@ -1,11 +1,20 @@
 import Icon from '@/components/atoms/Icon';
 
-const HubInfo = () => {
+interface HubInfoProps {
+  type: 'calendar' | 'roledetail' | 'clock' | 'workflow';
+  label: string;
+  value: string;
+}
+
+const HubInfo = ({ type, label, value }: HubInfoProps) => {
   return (
-    <div className='flex'>
+    <div className='flex gap-[20px] items-center'>
+      <Icon type={type} color='gray' className='w-[24px] h-[24px]' />
+      <div className='flex w-[200px]'>
+        <span className='text-[#838383]'>{label}</span>
+      </div>
       <div>
-        <Icon type='calendar' color={'gray'} className='w-[24px] h-[24px]' />{' '}
-        시작 예정일
+        <span className='text-black'>{value}</span>
       </div>
     </div>
   );
