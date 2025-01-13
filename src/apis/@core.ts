@@ -1,24 +1,7 @@
-import axios, { AxiosResponse } from 'axios';
 import { API_PATH } from '@/apis/api-path';
 import useAuth from '@/store/useAuth.store';
 import { User } from '@/types/user.type';
-
-interface RefreshRequest {
-  user_id: Pick<User, 'user_id'>;
-}
-
-interface Message {
-  code: number;
-  text: string;
-}
-
-interface RefreshResopnse {
-  message: Message;
-  access_token: string;
-}
-
-import { User } from '@/types/user.type';
-import useAuth from '@/store/useAuth';
+import axios, { AxiosResponse } from 'axios';
 
 interface RefreshRequest {
   user_id: Pick<User, 'user_id'>;
