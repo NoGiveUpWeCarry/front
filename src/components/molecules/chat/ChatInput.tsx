@@ -6,7 +6,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { SendMessage } from '@/types/chat.type';
 import { useChatStore } from '@/store/chatStore';
 import { useShallow } from 'zustand/shallow';
-import { user } from '@/mock/user.mock';
+import { user } from '@/mocks/user.mock';
 
 const ChatInput = () => {
   const [content, setContent] = useState('');

@@ -1,5 +1,5 @@
 import { HubContents } from '@/components/molecules/contents/ContentsItem';
-import { hubItem, HubItemType } from '@/mock/hubItem';
+import { hubItem, HubItemType } from '@/mocks/hubItem';
 import { HubTagVariant } from '@/types/tags/hubTag.type';
 import { ProjectTagVariant } from '@/types/tags/projectTag.type';
 import { RoleTagVariant } from '@/types/tags/roleTag.type';

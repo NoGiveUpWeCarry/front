@@ -1,4 +1,4 @@
-import { createUser, createUsers } from '@/mock/user.mock';
+import { createUser, createUsers } from '@/mocks/user.mock';
 import { Channel, ReceiveMeesage, SendMessage } from '@/types/chat.type';
 import { fakerKO as faker } from '@faker-js/faker';
 
