@@ -68,6 +68,7 @@
     "eslint-plugin-storybook": "^0.11.2",
     "globals": "^15.14.0",
     "husky": "^9.1.7",
+    "msw": "^2.7.0",
     "postcss": "^8.4.49",
     "prettier": "^3.4.2",
     "storybook": "^8.4.7",
