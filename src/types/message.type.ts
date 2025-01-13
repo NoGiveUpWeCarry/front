@@ -5,7 +5,7 @@ type MessageTypes = 'image' | 'text';
 export interface Message {
   type: MessageTypes;
   content: string;
-  channelId: number;
+  channelId: string;
 }
 
 export interface SendMessage extends Message {

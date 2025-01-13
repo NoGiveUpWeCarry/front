@@ -1,22 +1,18 @@
 import Date from '@/components/atoms/Date';
 import WelcomeMessage from '@/components/molecules/chat/WelcomeMessage';
 import Message from '@/components/organisms/chat/Message';
-import { user } from '@/mock/user.mock';
-import { useChatStore } from '@/store/chatStore';
+import useAuthStore from '@/store/authStore';
+import { ReceiveMessage } from '@/types/message.type';
 import clsx from 'clsx';
-import { useShallow } from 'zustand/shallow';
 
-const ChatMessages = () => {
-  const { messages, currentChannelId } = useChatStore(
-    useShallow((state) => ({
-      messages: state.messages,
-      currentChannelId: state.currentChannelId,
-    }))
-  );
+interface ChatMessagesProps {
+  messages: ReceiveMessage[];
+}
 
-  const userInfo = user;
-  const currentMessages = messages[currentChannelId];
-  if (!userInfo) return null;
+const ChatMessages = ({ messages }: ChatMessagesProps) => {
+  const userInfo = useAuthStore.getState().userInfo;
+  if (!userInfo) return;
+  const myUserId = userInfo.user_id;
   return (
     <div
       className={clsx(
@@ -27,11 +23,11 @@ const ChatMessages = () => {
       <Date className='text-gray text-caption2 text-center mt-[20px]'>
         2025년 1월 2일
       </Date>
-      {currentMessages?.length &&
-        currentMessages.map((message, i) => {
-          const isMyMessage = message.user.id === userInfo.id;
+      {messages?.length > 0 &&
+        messages.map((message, i) => {
+          const isMyMessage = message.user.user_id === myUserId;
           const sameBefore =
-            i > 0 && message.user.id === currentMessages[i - 1].user.id;
+            i > 0 && message.user.user_id === messages[i - 1].user.user_id;
           return (
             <Message
               key={i}

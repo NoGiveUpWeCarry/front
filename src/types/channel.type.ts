@@ -1,5 +1,5 @@
 export interface Channel {
-  id: number;
+  channelId: string;
   //  channelThumbnailURL?: string; // 기본 이미지 필요
   //  users: User[];
   // lastSendTime: string;

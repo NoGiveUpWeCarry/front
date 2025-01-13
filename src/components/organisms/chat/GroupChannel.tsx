@@ -12,14 +12,16 @@ const GroupChannel = ({ channel }: GroupChannelProps) => {
     <>
       <div className='flex justify-between'>
         <Title size='xs' fontWeight='medium' lineClamp={1}>
-          {channel.users.map((user) => user.nickname).join(', ')}
+          {channel.channelId}
+          {/* {channel.users.map((user) => user.nickname).join(', ')} */}
         </Title>
         <ListItem.Label className={clsx('text-caption1', 'text-mediumgray')}>
           1h
         </ListItem.Label>
       </div>
       <ListItem.Subtitle className={clsx('text-caption1', 'text-mediumgray')}>
-        {channel.users.map((user) => user.nickname).join(', ')}
+        {channel.channelId}
+        {/* {channel.users.map((user) => user.nickname).join(', ')} */}
       </ListItem.Subtitle>
     </>
   );

@@ -15,6 +15,7 @@ const PadLoginPage = () => {
     e.preventDefault();
     login({ email, password }).then(({ user, access_token }) => {
       setLogin(user, access_token);
+      alert('로그인 완료');
       navigate('/');
     });
   };

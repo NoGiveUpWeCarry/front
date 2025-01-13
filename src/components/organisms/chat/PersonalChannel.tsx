@@ -11,7 +11,8 @@ const PersonalChannel = ({ channel }: PersonalChannelProps) => {
   return (
     <div className='flex justify-between'>
       <Title size='xs' fontWeight='medium' lineClamp={1}>
-        {channel.users.map((user) => user.nickname).join(', ')}
+        {channel.channelId}
+        {/* {channel.users.map((user) => user.nickname).join(', ')} */}
       </Title>
       <ListItem.Label className={clsx('text-caption1', 'text-mediumgray')}>
         1h

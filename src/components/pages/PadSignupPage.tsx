@@ -13,6 +13,7 @@ const PadSignupPage = () => {
   const handleSignup = (e: FormEvent) => {
     e.preventDefault();
     signup({ email, nickname, password }).then(() => {
+      alert('회원가입 완료');
       navigate('/login/pad');
     });
   };

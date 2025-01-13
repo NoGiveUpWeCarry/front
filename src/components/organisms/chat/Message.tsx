@@ -1,12 +1,12 @@
 import Avatar from '@/components/atoms/Avatar';
 import MessageBubble from '@/components/atoms/MessageBubble';
-import { ReceiveMeesage } from '@/types/message.type';
+import { ReceiveMessage } from '@/types/message.type';
 import { Role } from '@/types/role.type';
 import { cn } from '@/utils/cn';
 import { memo } from 'react';
 
 interface MessageProps {
-  message: ReceiveMeesage;
+  message: ReceiveMessage;
   sameBefore: boolean; // 한 유저가 연속으로 보낸 메시지인지 유무
   isMyMessage: boolean;
   className?: string;

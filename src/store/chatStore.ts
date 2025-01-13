@@ -1,87 +1,84 @@
-// import { messages, channels } from '@/mock/chat.mock';
-import { SendMessage, ReceiveMeesage } from '@/types/message.type';
-import { Channel } from '@/types/channel.type';
+import useAuthStore from '@/store/authStore';
+import { SendMessage, ReceiveMessage } from '@/types/message.type';
 import { io, Socket } from 'socket.io-client';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 interface ChatState {
   socket: Socket | null;
-  messages: Record<string, ReceiveMeesage[]>;
-  channels: Channel[];
-  currentChannelId: string;
+  messages: Record<string, ReceiveMessage[]>;
+  currentChannelId: string | null;
 }
 
 interface ChatAction {
   connectSocket: () => void;
   disconnectSocket: () => void;
-  sendMessage: (message: Omit<SendMessage, 'channelId'>) => void;
-  joinChannel: (channelId: string) => void;
+  sendMessage: (message: SendMessage) => void;
+  joinChannel: (userId1: number, userId2: number) => void;
+  // joinGroup: (userIds: number[]) => void;
   setChannel: (channelId: string) => void;
-  startPrivateChat: (userId: string) => void;
+  handleMessage: (message: ReceiveMessage) => void;
+  handleChannelJoined: ({ channelId }: { channelId: string }) => void;
 }
 
 export const useChatStore = create<ChatState & ChatAction>()(
   immer((set, get) => {
-    const handleMessage = (message: ReceiveMeesage) => {
-      set((state) => {
-        if (!state.messages[message.channelId]) {
-          state.messages[message.channelId] = [];
-        }
-        state.messages[message.channelId].push(message);
-      });
-    };
     return {
       socket: null,
       messages: {}, //messages
-      channels: [], //channels
-      currentChannelId: 'ch1',
+      currentChannelId: null,
       connectSocket: () => {
         const protocol = window.location.protocol;
+        const { handleChannelJoined, handleMessage } = get();
         const socket =
           get().socket ||
           io(`${protocol}//localhost:8080/chat`, {
             secure: true,
             rejectUnauthorized: false, // 로컬 자체 서명된 인증서의 경우 false 설정
+            query: { userId: useAuthStore.getState().userInfo?.user_id },
           });
         socket.on('message', handleMessage);
+        socket.on('channelJoined', handleChannelJoined);
         set(() => ({ socket }));
       },
       disconnectSocket: () => {
-        const socket = get().socket;
+        const { socket, handleMessage, handleChannelJoined } = get();
         if (!socket) return;
         socket.off('message', handleMessage);
+        socket.off('channelJoined', handleChannelJoined);
         socket.disconnect();
         set(() => ({ socket: null }));
       },
       sendMessage: (message) => {
-        const { socket, currentChannelId } = get();
+        const { socket } = get();
         if (socket) {
-          socket.emit('sendMessage', {
-            ...message,
-            channelId: currentChannelId,
-          });
+          socket.emit('sendMessage', message);
         }
       },
-      startPrivateChat: (userId) => {
+      handleMessage: (message) => {
+        console.log('handleMessage >>>', message); //
+        message.user.user_id = message.user.id;
+        set((state) => {
+          if (!state.messages[message.channelId]) {
+            state.messages[message.channelId] = [];
+          }
+          state.messages[message.channelId].push(message);
+        });
+      },
+      handleChannelJoined: ({ channelId }) => {
+        console.log('channelJoined >>> ', channelId);
+        set(() => ({ currentChannelId: channelId }));
+      },
+      joinChannel: (userId1, userId2) => {
         const { socket } = get();
         if (!socket) return;
-        socket.emit('private', userId);
-      },
-      joinChannel: (channelId) => {
-        const { socket } = get();
-        if (socket) {
-          socket.emit('joinChannel', {
-            channelId,
-            userId:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTE2MjM5MDIyfQ.gzxyYmzn56YpGQ7Y_c1eCbUQDdIKc2AxKCQjwYyJxV0',
-          });
-        }
+        socket.emit('joinChannel', {
+          userId1,
+          userId2,
+        });
       },
       setChannel: (channelId) => {
-        set((state) => {
-          state.currentChannelId = channelId;
-        });
+        set(() => ({ currentChannelId: channelId }));
       },
     };
   })
