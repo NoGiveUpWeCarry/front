@@ -1,3 +1,4 @@
+import ReactDOM from 'react-dom';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import { useEffect, PropsWithChildren, ReactNode } from 'react';
 
@@ -25,7 +26,7 @@ const Modal = ({
     };
   }, []);
 
-  return (
+  return ReactDOM.createPortal(
     <div
       className='w-full h-full bg-black bg-opacity-80 fixed top-0 left-0 z-50 flex justify-center items-center cursor-pointer'
       onClick={onClose}
@@ -39,7 +40,8 @@ const Modal = ({
           {children}
         </Modal.InnerModal>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

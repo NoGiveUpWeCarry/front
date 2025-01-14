@@ -1,9 +1,11 @@
 import { User } from '@/types/user.type';
 import { fakerKO as faker } from '@faker-js/faker';
 
-export const createUser = (id?: string): User => {
+export const createUser = (user_id?: number): User => {
   return {
-    id: id ? id : faker.string.uuid(),
+    user_id: user_id
+      ? user_id
+      : faker.helpers.rangeToNumber({ min: 1, max: 1000 }),
     email: faker.internet.email(),
     name: faker.person.fullName(),
     nickname: faker.person.fullName(),

@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import typography from '@tailwindcss/typography';
 
 export default {
   darkMode: ['class'],
@@ -101,6 +102,8 @@ export default {
         slide: 'slide 10s linear infinite',
       },
     },
+
+    plugins: [typography],
   },
   plugins: [require('tailwindcss-animate')],
 } satisfies Config;

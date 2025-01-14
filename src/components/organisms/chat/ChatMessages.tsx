@@ -1,7 +1,7 @@
 import Date from '@/components/atoms/Date';
 import WelcomeMessage from '@/components/molecules/chat/WelcomeMessage';
 import Message from '@/components/organisms/chat/Message';
-import { user } from '@/mock/user.mock';
+import { user } from '@/mocks/user.mock';
 import { useChatStore } from '@/store/chatStore';
 import clsx from 'clsx';
 import { useShallow } from 'zustand/shallow';

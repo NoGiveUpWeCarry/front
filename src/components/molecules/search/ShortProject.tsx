@@ -1,4 +1,4 @@
-import { HubItemType } from '@/mock/hubItem';
+import { HubItemType } from '@/mocks/hubItem';
 
 interface IProps extends HubItemType {
   onClick: () => void;

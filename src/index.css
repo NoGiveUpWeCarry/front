@@ -5,6 +5,7 @@
 body {
   @apply bg-background;
 }
+
 @font-face {
   font-family: 'Pretendard';
   font-weight: 900;
@@ -179,4 +180,31 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.prose {
+  font-size: 16px;
+  line-height: 1.2;
+}
+.prose h1 {
+  font-size: 1.5rem;
+}
+.prose h2 {
+  font-size: 1.25rem;
+}
+.prose p {
+  font-size: 0.875rem;
+}
+.prose li {
+  font-size: 0.875rem;
+}
+
+.tiptap-editor a {
+  @apply text-gray underline transition-colors;
+}
+.tiptap-editor a:hover {
+  @apply cursor-pointer;
+}
+.tiptap-editor [data-placeholder] {
+  @apply text-gray;
 }
