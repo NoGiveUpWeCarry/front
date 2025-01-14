@@ -7,7 +7,7 @@ import { SendMessage } from '@/types/message.type';
 import { useChatStore } from '@/store/chatStore';
 import useAuthStore from '@/store/authStore';
 import { useNavigate } from 'react-router-dom';
-import { user } from '@/mocks/user.mock';
+import { user } from '@/mocks/mock-data/user.mock';
 
 const ChatInput = () => {
   const [content, setContent] = useState('');

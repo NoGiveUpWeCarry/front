@@ -1,4 +1,4 @@
-import { feedItem } from '@/mocks/feedItem';
+import { feedItem } from '@/mocks/mock-data/feedItem';
 import { FeedContents } from '@/components/molecules/contents/ContentsItem';
 import { useEffect, useState } from 'react';
 import { FeedItemType } from '@/types/feed.type';

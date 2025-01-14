@@ -1,5 +1,5 @@
 import TiptapEditor from '@/components/organisms/TiptapEditor';
-import useTiptapStore from '@/store/useTiptap.store';
+import useTiptapStore from '@/store/tiptapStore';
 
 const TestPage = () => {
   const content = useTiptapStore((state) => state.content);

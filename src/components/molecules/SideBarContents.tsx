@@ -1,7 +1,7 @@
 import { ListItem } from '@/components/molecules/ListItem';
 import Avatar from '@/components/atoms/Avatar';
-import { mainSideBarItems } from '@/mocks/mainSideBar';
-import { connectionHubSideBar } from '@/mocks/connectionHubSideBar';
+import { mainSideBarItems } from '@/mocks/mock-data/mainSideBar';
+import { connectionHubSideBar } from '@/mocks/mock-data/connectionHubSideBar';
 import { cn } from '@/utils/cn';
 
 interface SideBarContentsProps {

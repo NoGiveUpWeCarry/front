@@ -1,5 +1,5 @@
 import { API_PATH } from '@/apis/api-path';
-import useAuth from '@/store/useAuth.store';
+import useAuthStore from '@/store/authStore';
 import { User } from '@/types/user.type';
 import axios, { AxiosResponse } from 'axios';
 
@@ -24,12 +24,12 @@ export const axiosInstance = axios.create({
 });
 
 const getUserId = (): number | null => {
-  const userInfo = useAuth.getState().userInfo;
+  const userInfo = useAuthStore.getState().userInfo;
   return userInfo?.user_id || null;
 };
 
 axiosInstance.interceptors.request.use((config) => {
-  const token = useAuth.getState().accessToken;
+  const token = useAuthStore.getState().accessToken;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -55,7 +55,7 @@ axiosInstance.interceptors.response.use(
           AxiosResponse<RefreshResopnse>
         >(axios.defaults.baseURL + API_PATH.updateToken, { user_id });
         const { access_token } = refreshResponse.data;
-        useAuth.getState().setAccessToken(access_token);
+        useAuthStore.getState().setAccessToken(access_token);
         console.log('zustand에 업데이트');
         error.config.headers.Authorization = `Bearer ${access_token}`;
         console.log('원래 요청 다시 실행됨.');
