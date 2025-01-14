@@ -91,8 +91,16 @@ export default {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      keyframes: {
+        slide: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+      },
+      animation: {
+        slide: 'slide 10s linear infinite',
+      },
     },
-    plugins: [],
   },
   plugins: [require('tailwindcss-animate')],
 } satisfies Config;
