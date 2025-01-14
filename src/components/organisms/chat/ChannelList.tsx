@@ -19,7 +19,7 @@ const ChannelList = ({ channels }: ChannelListProps) => {
       currentChannelId: state.currentChannelId,
     }))
   );
-  const switchChannel = (channelId: string) => {
+  const switchChannel = (channelId: Channel['channelId']) => {
     setChannel(channelId);
   };
   return (

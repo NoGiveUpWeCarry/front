@@ -1,9 +1,9 @@
 import SearchInput from '@/components/molecules/chat/SearchInput';
 import ChannelList from '@/components/organisms/chat/ChannelList';
-import { useChannels } from '@/hooks/useChannel';
+import { useChatStore } from '@/store/chatStore';
 
 const ChatSidebar = () => {
-  const { channels } = useChannels();
+  const channels = useChatStore((state) => state.channels);
   return (
     <div className='flex flex-col gap-[24px] flex-1'>
       <SearchInput />

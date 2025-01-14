@@ -7,9 +7,9 @@ import useAuthStore from '@/store/authStore';
 export const useChat = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { joinChannel, connectSocket, disconnectSocket } = useChatStore(
+  const { createChannel, connectSocket, disconnectSocket } = useChatStore(
     useShallow((state) => ({
-      joinChannel: state.joinChannel,
+      createChannel: state.createChannel,
       connectSocket: state.connectSocket,
       disconnectSocket: state.disconnectSocket,
     }))
@@ -28,7 +28,7 @@ export const useChat = () => {
     if (location.state?.targetUserId) {
       const userId1 = userInfo.user_id;
       const userId2 = location.state.targetUserId;
-      joinChannel(userId1, userId2);
+      createChannel(userId1, userId2);
     }
     return () => disconnectSocket();
   }, []);

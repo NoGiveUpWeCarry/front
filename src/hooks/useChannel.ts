@@ -1,23 +1,9 @@
-import {
-  fetchAllChanels,
-  fetchChannel,
-  fetchChannelMessages,
-} from '@/apis/channel';
+import { fetchChannel, fetchChannelMessages } from '@/apis/channel.api';
 import { useChatStore } from '@/store/chatStore';
 import { Channel } from '@/types/channel.type';
 import { ReceiveMessage } from '@/types/message.type';
 import { useEffect, useState } from 'react';
 import { useShallow } from 'zustand/shallow';
-
-export const useChannels = () => {
-  const [channels, setChannels] = useState<Channel[] | undefined>();
-
-  useEffect(() => {
-    fetchAllChanels().then((data) => setChannels(data));
-  }, []);
-
-  return { channels };
-};
 
 export const useChannel = () => {
   const { currentChannelId, messages } = useChatStore(
