@@ -5,6 +5,7 @@ import Avatar from '@/components/atoms/Avatar';
 import { useNavigate } from 'react-router-dom';
 import { useModal } from '@/hooks/useModal';
 import SearchModal from '@/components/organisms/modals/SearchModal';
+import Icon from '@/components/atoms/Icon';
 
 const SideMenu = () => {
   const navigate = useNavigate();
@@ -84,9 +85,9 @@ const SideMenu = () => {
         <div className='relative' ref={loginRef}>
           <Avatar
             size='sm'
-            src='/src/assets/Genericavatar.svg'
+            src='/src/assets/images/example.svg'
             alt='User Avatar'
-            className='cursor-pointer border-4 border-transparent hover:border-gray-300 transition-shadow duration-300'
+            className='cursor-pointer border-4 border-transparent hover:border-[#c7c7c7] transition-shadow duration-300'
             onClick={handleAvatarClick}
           />
 
@@ -94,25 +95,52 @@ const SideMenu = () => {
             <div
               className='
               absolute
-              top-[50%]
+              top-[-30%]
+              w-max
               left-full
-              ml-4
               transform
               -translate-y-1/2
-              w-[120px]
               transition-opacity
               duration-300
+
             '
             >
-              <button
-                className='w-full text-left px-4 py-2 text-[14px] text-gray-800 hover:text-black'
-                onClick={() => {
-                  alert('로그인');
-                  setShowLogin(false);
-                }}
-              >
-                로그인
-              </button>
+              <div className='flex ml-4 w-full bg-white rounded-xl items-center px-[10px] py-[10px] drop-shadow-lg'>
+                <div className='flex w-full flex-col gap-[10px]'>
+                  <button
+                    className='group flex w-full rounded-lg px-1 py-2 items-center gap-[20px] cursor-pointer hover:bg-[#f3f4f6]'
+                    onClick={() => {
+                      alert('로그인');
+                      setShowLogin(false);
+                    }}
+                  >
+                    <Icon
+                      type={'user'}
+                      color={'gray'}
+                      className='w-[30px] h-[30px]'
+                    />
+                    <div className='flex text-[18px] text-[#48484a]'>
+                      로그인
+                    </div>
+                  </button>
+                  <button
+                    className='group flex w-full rounded-lg px-1 py-1.5 items-center gap-[20px] cursor-pointer hover:bg-[#f3f4f6]'
+                    onClick={() => {
+                      alert('회원가입');
+                      setShowLogin(false);
+                    }}
+                  >
+                    <Icon
+                      type={'join'}
+                      color={'gray'}
+                      className='w-[30px] h-[30px]'
+                    />
+                    <div className='flex text-[18px] text-[#48484a]'>
+                      회원가입
+                    </div>
+                  </button>
+                </div>
+              </div>
             </div>
           )}
         </div>
