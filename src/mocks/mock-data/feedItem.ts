@@ -59,7 +59,7 @@ export const feedItem: FeedItemType[] = [
     user: {
       avatarSrc: '/src/assets/images/example.svg',
       name: 'sujeong',
-      job: 'Data Analyst',
+      job: 'Designer',
       time: '약 2시간 전',
     },
     title: '데이터 분석 도구 추천 부탁드립니다 📊',
@@ -77,7 +77,7 @@ export const feedItem: FeedItemType[] = [
     user: {
       avatarSrc: '/src/assets/images/example.svg',
       name: 'hyunwoo',
-      job: 'DevOps Engineer',
+      job: 'Designer',
       time: '약 5시간 전',
     },
     title: 'CI/CD 파이프라인 구축 경험 공유 🚀',
@@ -95,7 +95,7 @@ export const feedItem: FeedItemType[] = [
     user: {
       avatarSrc: '/src/assets/images/example.svg',
       name: 'yujin',
-      job: 'UX Researcher',
+      job: 'Designer',
       time: '약 6시간 전',
     },
     title: '사용자 경험 개선 아이디어 💡',
