@@ -7,11 +7,13 @@ import { SendMessage } from '@/types/message.type';
 import { useChatStore } from '@/store/chatStore';
 import useAuthStore from '@/store/authStore';
 import { useNavigate } from 'react-router-dom';
-import { user } from '@/mocks/mock-data/user.mock';
 
 const ChatInput = () => {
   const [content, setContent] = useState('');
   const sendMessage = useChatStore((state) => state.sendMessage);
+  const userInfo = useAuthStore.getState().userInfo;
+  const currentChannelId = useChatStore.getState().currentChannelId;
+
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     setContent(e.target.value);
   };
@@ -19,8 +21,7 @@ const ChatInput = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const userInfo = useAuthStore.getState().userInfo;
-    const currentChannelId = useChatStore.getState().currentChannelId;
+
     if (!userInfo) {
       alert('로그인을 해주세요');
       navigate('/login');
@@ -42,7 +43,10 @@ const ChatInput = () => {
   return (
     <div className='pb-[50px] px-[56px]'>
       <div className='flex items-center gap-[10px]'>
-        <Avatar src={user.profile_url} className='h-[38px] w-[38px]' />
+        <Avatar
+          src={userInfo?.profile_url || undefined}
+          className='h-[38px] w-[38px]'
+        />
         <form className='relative flex-1' onSubmit={handleSubmit}>
           <Input
             radius='lg'

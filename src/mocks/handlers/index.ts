@@ -1,3 +1,4 @@
+import { chatHandlers } from '@/mocks/handlers/chat.handler';
 import { delay } from 'msw';
 
 export const delayForDevelopment = async (ms = 1000) => {
@@ -6,4 +7,4 @@ export const delayForDevelopment = async (ms = 1000) => {
   }
 };
 
-export const handlers = [];
+export const handlers = [...chatHandlers];

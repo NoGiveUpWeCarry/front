@@ -2,7 +2,7 @@ import { cn } from '@/utils/cn';
 import { cva, VariantProps } from 'class-variance-authority';
 import { ImgHTMLAttributes } from 'react';
 
-export const AvatarVariants = cva(`rounded-full object-cover`, {
+export const AvatarVariants = cva(`rounded-full object-contain`, {
   variants: {
     size: {
       xxs: 'w-[25px] h-[25px]',
