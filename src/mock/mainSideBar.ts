@@ -1,4 +1,6 @@
-export const mainSideBarItems = [
+import { SideBarItem } from '@/types/sideBarItem.type';
+
+export const mainSideBarItems: SideBarItem[] = [
   { id: 1, name: '아이유', role: 'Programmer', subtitle: '심심해요.' },
   { id: 2, name: '윈터', role: 'Artist', subtitle: '배고파요.' },
   {
