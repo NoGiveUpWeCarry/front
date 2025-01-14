@@ -124,6 +124,10 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       },
       handleChannelAdded: (channel) => {
         set((state) => {
+          const isExistChannel = state.channels.some(
+            (ch) => ch.channelId === channel.channelId
+          );
+          if (isExistChannel) return;
           state.channels.push(channel);
         });
       },
