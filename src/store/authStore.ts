@@ -23,16 +23,7 @@ const useAuthStore = create(
             set({
               accessToken: token,
               isLoggedIn: true,
-              // userInfo: user, // 로그인 카멜케이스로 변경되기 전까진 아래꺼로 사용
-              userInfo: {
-                userId: user.user_id,
-                authProvider: user.authProvider,
-                email: user.email,
-                name: user.name,
-                nickname: user.nickname,
-                profileUrl: user.profile_url,
-                roleId: user.role_id,
-              },
+              userInfo: user, // 로그인 카멜케이스로 변경되기 전까진 아래꺼로 사용
             });
             console.log('user in store: >>>', user);
             // localStorage.setItem('@token', token);
