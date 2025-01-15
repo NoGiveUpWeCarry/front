@@ -60,7 +60,6 @@ const Input = ({
 }: InputProps) => {
   return (
     <input
-      {...props}
       className={cn(
         InputVariants({
           fontSize,
@@ -71,6 +70,7 @@ const Input = ({
           className,
         })
       )}
+      {...props}
     />
   );
 };

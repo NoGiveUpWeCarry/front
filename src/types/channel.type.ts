@@ -4,7 +4,7 @@ import { User } from '@/types/user.type';
 export type ChannelTypes = 'group' | 'private';
 
 export interface Channel {
-  channelId: string;
+  channelId: number;
   title: string;
   type: ChannelTypes;
   thunmbnailURL?: string; // 기본 이미지 필요

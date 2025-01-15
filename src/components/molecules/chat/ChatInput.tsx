@@ -4,38 +4,30 @@ import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { SendMessage } from '@/types/message.type';
-import { useChatStore } from '@/store/chatStore';
+import { ChatState, useChatStore } from '@/store/chatStore';
 import useAuthStore from '@/store/authStore';
-import { useNavigate } from 'react-router-dom';
 
-const ChatInput = () => {
+interface ChatInputProps {
+  currentChannelId: ChatState['currentChannelId'];
+}
+
+const ChatInput = ({ currentChannelId }: ChatInputProps) => {
   const [content, setContent] = useState('');
   const sendMessage = useChatStore((state) => state.sendMessage);
   const userInfo = useAuthStore.getState().userInfo;
-  const currentChannelId = useChatStore.getState().currentChannelId;
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     setContent(e.target.value);
   };
-  const navigate = useNavigate();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    if (!userInfo) {
-      alert('로그인을 해주세요');
-      navigate('/login');
-      return;
-    }
-    if (!currentChannelId) {
-      alert('채널을 선택해주세요');
-      return;
-    }
     const message: SendMessage = {
       type: 'text',
       content: content,
-      channelId: currentChannelId.toString(),
-      userId: userInfo.user_id,
+      channelId: currentChannelId!,
+      userId: userInfo!.userId,
     };
     setContent('');
     sendMessage(message);
@@ -44,7 +36,7 @@ const ChatInput = () => {
     <div className='pb-[50px] px-[56px]'>
       <div className='flex items-center gap-[10px]'>
         <Avatar
-          src={userInfo?.profile_url || undefined}
+          src={userInfo?.profileUrl || undefined}
           className='h-[38px] w-[38px]'
         />
         <form className='relative flex-1' onSubmit={handleSubmit}>
@@ -52,8 +44,12 @@ const ChatInput = () => {
             radius='lg'
             spacing='sm'
             className='h-[38px] px-[20px]'
+            placeholder={
+              currentChannelId ? '텍스트를 입력하세요' : '채널을 선택해주세요'
+            }
             onChange={handleInput}
             value={content}
+            disabled={!currentChannelId}
           />
           <Button
             width='30px'
@@ -61,6 +57,7 @@ const ChatInput = () => {
             radius='full'
             variants='text'
             className='bg-white absolute -right-[5px] top-1/2 transform -translate-x-1/2 -translate-y-1/2'
+            disabled={!currentChannelId}
           >
             <Icon type='arrow' className='w-[20px] h-[20px]' />
           </Button>
@@ -71,6 +68,7 @@ const ChatInput = () => {
           radius='full'
           variants='text'
           className='bg-white border-gray border-[1px]'
+          disabled={!currentChannelId}
         >
           <Icon type='photo' className='w-[14px] h-[14px]' />
         </Button>

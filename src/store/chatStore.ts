@@ -8,7 +8,7 @@ import { immer } from 'zustand/middleware/immer';
 export interface ChatState {
   socket: Socket | null;
   messages: Record<string, ReceiveMessage[]>;
-  currentChannelId: string | null;
+  currentChannelId: number | null;
   channels: Record<Channel['channelId'], Channel>;
 }
 
@@ -76,7 +76,10 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
         socket.off('channelJoined', handleChannelJoined);
         socket.off('channelCreated', handleChannelCreated);
         socket.disconnect();
-        set(() => ({ socket: null }));
+        set(() => ({
+          socket: null,
+          currentChannelId: null,
+        }));
       },
       createChannel: (userId1, userId2) => {
         const { socket } = get();
@@ -121,6 +124,7 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
         set((state) => {
           channels.forEach((channel) => {
             state.channels[channel.channelId] = channel;
+            console.log(channel);
           });
         });
       },

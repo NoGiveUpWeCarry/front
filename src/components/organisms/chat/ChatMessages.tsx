@@ -1,43 +1,33 @@
-import Date from '@/components/atoms/Date';
-import WelcomeMessage from '@/components/molecules/chat/WelcomeMessage';
-import Message from '@/components/organisms/chat/Message';
-import useAuthStore from '@/store/authStore';
-import { ReceiveMessage } from '@/types/message.type';
+import Messages from '@/components/organisms/chat/Messages';
+import { useMessages } from '@/hooks/useMessages';
+import { ChatState } from '@/store/chatStore';
 import clsx from 'clsx';
 
 interface ChatMessagesProps {
-  messages: ReceiveMessage[];
+  currentChannelId: ChatState['currentChannelId'];
 }
 
-const ChatMessages = ({ messages }: ChatMessagesProps) => {
-  const userInfo = useAuthStore.getState().userInfo;
-  if (!userInfo) return;
-  const myUserId = userInfo.user_id;
+const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
+  const { messages } = useMessages(currentChannelId);
   return (
     <div
       className={clsx(
         'grow pl-[56px] pr-[44px] flex flex-col scrollbar overflow-hidden hover:overflow-y-scroll mr-[12px] hover:mr-0'
       )}
     >
-      <WelcomeMessage />
-      <Date className='text-gray text-caption2 text-center mt-[20px]'>
-        2025년 1월 2일
-      </Date>
-      {messages?.length > 0 &&
-        messages.map((message, i) => {
-          const isMyMessage = message.user.user_id === myUserId;
-          const sameBefore =
-            i > 0 && message.user.user_id === messages[i - 1].user.user_id;
-          return (
-            <Message
-              key={i}
-              message={message}
-              sameBefore={sameBefore}
-              isMyMessage={isMyMessage}
-              className={sameBefore ? 'mt-[10px]' : 'mt-[24px]'}
-            />
-          );
-        })}
+      {currentChannelId ? (
+        <>
+          <Messages
+            messages={
+              messages[currentChannelId] ? messages[currentChannelId] : []
+            }
+          />
+        </>
+      ) : (
+        <>
+          <div>채널을 선택해주세요</div>
+        </>
+      )}
     </div>
   );
 };

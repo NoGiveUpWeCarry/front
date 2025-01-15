@@ -1,4 +1,3 @@
-import ChatInput from '@/components/molecules/chat/ChatInput';
 import ChatRoom from '@/components/organisms/chat/ChatRoom';
 import ChatSidebar from '@/components/organisms/chat/ChatSidebar';
 
@@ -11,7 +10,6 @@ const ChatTemplate = () => {
         </div>
         <div className='w-[870px] flex flex-col'>
           <ChatRoom />
-          <ChatInput />
         </div>
       </div>
     </div>

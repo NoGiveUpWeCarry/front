@@ -1,16 +1,21 @@
 import ChatMessages from '@/components/organisms/chat/ChatMessages';
 import ChatHeader from '@/components/organisms/chat/ChatHeader';
-import { useChannel } from '@/hooks/useChannel';
-import { useChat } from '@/hooks/useChat';
+import { useChatStore } from '@/store/chatStore';
+import { useShallow } from 'zustand/shallow';
+import ChatInput from '@/components/molecules/chat/ChatInput';
 
 const ChatRoom = () => {
-  const { channel, currentChannelMessages } = useChannel();
-  useChat();
+  const { currentChannelId } = useChatStore(
+    useShallow((state) => ({
+      currentChannelId: state.currentChannelId,
+    }))
+  );
 
   return (
     <>
-      <ChatHeader channel={channel} />
-      <ChatMessages messages={currentChannelMessages} />
+      <ChatHeader currentChannelId={currentChannelId} />
+      <ChatMessages currentChannelId={currentChannelId} />
+      <ChatInput currentChannelId={currentChannelId} />
     </>
   );
 };

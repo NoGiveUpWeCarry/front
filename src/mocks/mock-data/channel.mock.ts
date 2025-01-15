@@ -19,13 +19,6 @@ export const createChannel = (
   };
 };
 
-export const channelIds: MockChannel['channelId'][] = [
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-];
+export const channelIds: MockChannel['channelId'][] = [1, 2, 3, 4, 5, 6];
 
 export const channels = channelIds.map((channelId) => createChannel(channelId));

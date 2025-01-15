@@ -27,7 +27,7 @@ const Message = memo(
         {sameBefore ? (
           <div className='w-[40px] shrink-0'></div>
         ) : (
-          <Avatar src={user.profile_url || undefined} size='xs' />
+          <Avatar src={user.profileUrl || undefined} size='xs' />
         )}
         <div className={cn('flex flex-col', isMyMessage && 'items-end')}>
           {!sameBefore && (
@@ -36,7 +36,7 @@ const Message = memo(
                 {user.nickname}
               </div>
               <div className='text-caption2 font-medium text-gray'>
-                {Role[user.role_id]}
+                {Role[user.roleId]}
               </div>
             </div>
           )}
