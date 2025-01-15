@@ -8,10 +8,14 @@ import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 
 type UseCreateTiptapEditor = (
-  setContent: (content: string) => void
+  setContent: (content: string) => void,
+  content: string
 ) => Editor | null;
 
-export const useCreateTiptapEditor: UseCreateTiptapEditor = (setContent) =>
+export const useCreateTiptapEditor: UseCreateTiptapEditor = (
+  setContent,
+  content
+) =>
   useEditor({
     extensions: [
       StarterKit,
@@ -28,11 +32,11 @@ export const useCreateTiptapEditor: UseCreateTiptapEditor = (setContent) =>
     ],
     editorProps: {
       attributes: {
-        class:
-          'tiptap-editor prose prose-sm sm:prose lg:prose-lg xl:prose-2xl focus:outline-none',
+        class: 'tiptap-editor prose focus:outline-none',
+        style: 'white-space: pre-wrap;',
       },
     },
-    content: '',
+    content,
     onUpdate: ({ editor }) => {
       setContent(editor.getHTML());
     },

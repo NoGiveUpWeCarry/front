@@ -1,5 +1,4 @@
 import type { Config } from 'tailwindcss';
-import typography from '@tailwindcss/typography';
 
 export default {
   darkMode: ['class'],
@@ -83,7 +82,7 @@ export default {
         open: 'linear-gradient(to right, #9340FF, #FFDCDC)',
         project: 'linear-gradient(to right, #87DBFF, #FFA9BE)',
         offline: 'linear-gradient(to right, #FF383B, #FFBCBD)',
-        close: 'linear-gradient(to right, #000000, #FFFFFF)',
+        close: 'linear-gradient(to bottom, #2E2E2E, #949494)',
         outsourcing: 'linear-gradient(to right, #FF8800, #84FF74)',
         status: 'linear-gradient(to bottom, #7593F4, #71ECFF)',
       },
@@ -102,8 +101,6 @@ export default {
         slide: 'slide 10s linear infinite',
       },
     },
-
-    plugins: [typography],
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 } satisfies Config;

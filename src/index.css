@@ -184,7 +184,7 @@ body {
 
 .prose {
   font-size: 16px;
-  line-height: 1.2;
+  line-height: 0.5;
 }
 .prose h1 {
   font-size: 1.5rem;
@@ -207,4 +207,12 @@ body {
 }
 .tiptap-editor [data-placeholder] {
   @apply text-gray;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  color: bg-background;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
 }

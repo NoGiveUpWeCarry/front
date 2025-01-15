@@ -89,6 +89,14 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
           userId2,
         });
       },
+      createChannel: (userId1, userId2) => {
+        const { socket } = get();
+        if (!socket) return;
+        socket.emit('createChannel', {
+          userId1,
+          userId2,
+        });
+      },
       sendMessage: (message) => {
         const { socket } = get();
         if (!socket)
