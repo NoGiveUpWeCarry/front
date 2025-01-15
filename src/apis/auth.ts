@@ -36,7 +36,7 @@ export const fetchUserRole = async ({
     const response = await axiosInstance.put<RoleResponse>(
       API_PATH.roleSelect,
       {
-        role_id: userRole,
+        roleId: userRole,
       }
     );
     return response.data;
@@ -68,7 +68,7 @@ export const signup = async (signupBody: SignupBody) => {
 };
 
 export const login = async (loginBody: LoginBody) => {
-  const response = await fetcher<{ user: User; access_token: string }>({
+  const response = await fetcher<{ user: User; accessToken: string }>({
     method: 'POST',
     url: '/auth/login',
     data: loginBody,

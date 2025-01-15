@@ -9,7 +9,7 @@ interface Message {
 
 interface RefreshResopnse {
   message: Message;
-  access_token: string;
+  accessToken: string;
 }
 
 axios.defaults.baseURL = import.meta.env.VITE_LOCAL_URL;
@@ -49,10 +49,10 @@ axiosInstance.interceptors.response.use(
           axios.defaults.baseURL + API_PATH.updateToken,
           { userId }
         );
-        const { access_token } = refreshResponse.data;
-        useAuthStore.getState().setAccessToken(access_token);
+        const { accessToken } = refreshResponse.data;
+        useAuthStore.getState().setAccessToken(accessToken);
         console.log('zustand에 업데이트');
-        error.config.headers.Authorization = `Bearer ${access_token}`;
+        error.config.headers.Authorization = `Bearer ${accessToken}`;
         console.log('원래 요청 다시 실행됨.');
         return await axiosInstance.request(error.config);
       } catch (refreshError) {

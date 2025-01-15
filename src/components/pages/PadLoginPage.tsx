@@ -13,8 +13,8 @@ const PadLoginPage = () => {
 
   const handleLogin = (e: FormEvent) => {
     e.preventDefault();
-    login({ email, password }).then(({ user, access_token }) => {
-      setLogin(user, access_token);
+    login({ email, password }).then(({ user, accessToken }) => {
+      setLogin(user, accessToken);
       alert('로그인 완료');
       navigate('/');
     });
