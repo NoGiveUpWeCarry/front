@@ -2,12 +2,13 @@ import ReactDOM from 'react-dom';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import { useEffect, PropsWithChildren, ReactNode } from 'react';
 
-interface IProps {
+interface ModalProps {
   width?: string;
   height?: string;
   hasCloseButton?: boolean;
   onClose: () => void;
   className?: string;
+  portalTarget?: HTMLElement;
 }
 
 const Modal = ({
@@ -16,8 +17,9 @@ const Modal = ({
   hasCloseButton = true,
   onClose,
   children,
-  className,
-}: PropsWithChildren<IProps>) => {
+  className = '',
+  portalTarget = document.body,
+}: PropsWithChildren<ModalProps>) => {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
@@ -32,39 +34,49 @@ const Modal = ({
       onClick={onClose}
     >
       <div
-        className='absolute top-50% left-50% -translate-x-50% -translate-y-50% cursor-default !z-50'
+        className='absolute top-50% left-50% -translate-x-50% -translate-y-50% cursor-default z-50'
         onClick={(e) => e.stopPropagation()}
+        style={{ width, height }}
       >
         {hasCloseButton && <Modal.CloseButton onClose={onClose} />}
-        <Modal.InnerModal className={className} width={width} height={height}>
-          {children}
-        </Modal.InnerModal>
+        <Modal.InnerModal className={className}>{children}</Modal.InnerModal>
       </div>
     </div>,
-    document.body
+    portalTarget
   );
 };
 
 Modal.CloseButton = function ({ onClose }: { onClose: () => void }) {
   return (
     <div className='text-white h-10 flex items-center justify-end'>
-      <button onClick={onClose}>
+      <button onClick={onClose} className='hover:text-gray-300'>
         <XMarkIcon width={24} />
       </button>
     </div>
   );
 };
 
+interface InnerModalProps extends PropsWithChildren {
+  className?: string;
+  px?: string;
+  py?: string;
+}
+
 Modal.InnerModal = function ({
   children,
-  className,
-  width,
-  height,
-}: PropsWithChildren<{ className?: string; width: string; height: string }>) {
+  className = '',
+  px = '50px',
+  py = '30px',
+}: InnerModalProps) {
   return (
     <div
-      className={`w-full h-full bg-white rounded-[20px] px-[50px] py-[30px] ${className}`}
-      style={{ width, height }}
+      className={`bg-white rounded-[20px] ${className}`}
+      style={{
+        paddingLeft: px,
+        paddingRight: px,
+        paddingTop: py,
+        paddingBottom: py,
+      }}
     >
       {children}
     </div>

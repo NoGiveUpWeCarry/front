@@ -12,7 +12,6 @@ import SearchPage from '@/components/pages/SearchPage';
 import PadLoginPage from '@/components/pages/PadLoginPage';
 import PadSignupPage from '@/components/pages/PadSignupPage';
 import ConnetcionHubDetailPage from '@/components/pages/ConnetcionHubDetailPage';
-import TestPage from '@/components/pages/TestPage';
 
 const router = [
   {
@@ -78,10 +77,6 @@ const router = [
   {
     path: '/login',
     element: <LoginPage />,
-  },
-  {
-    path: '/test',
-    element: <TestPage />,
   },
 ];
 
