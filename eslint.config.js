@@ -65,6 +65,7 @@ export default [
       'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
       'react/no-array-index-key': 'off',
       'react-hooks/exhaustive-deps': 'off',
+      '@typescript-eslint/no-shadow': 'off',
     },
     settings: {
       react: {
