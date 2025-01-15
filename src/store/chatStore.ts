@@ -5,14 +5,14 @@ import { io, Socket } from 'socket.io-client';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-interface ChatState {
+export interface ChatState {
   socket: Socket | null;
   messages: Record<string, ReceiveMessage[]>;
   currentChannelId: string | null;
-  channels: Channel[];
+  channels: Record<Channel['channelId'], Channel>;
 }
 
-interface ChatAction {
+export interface ChatAction {
   connectSocket: () => void;
   disconnectSocket: () => void;
   createChannel: (userId1: number, userId2: number) => void;
@@ -22,7 +22,7 @@ interface ChatAction {
   setChannel: (channelId: Channel['channelId']) => void;
 }
 
-interface Handlers {
+export interface Handlers {
   handleMessage: (message: ReceiveMessage) => void;
   handleChannelJoined: (channel: Channel) => void;
   handleFetchChannels: (channels: Channel[]) => void;
@@ -36,7 +36,7 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       socket: null,
       messages: {}, //messages
       currentChannelId: null,
-      channels: [],
+      channels: {},
       connectSocket: () => {
         const protocol = window.location.protocol;
         const {
@@ -51,7 +51,7 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
           io(`${protocol}//localhost:8080/chat`, {
             secure: true,
             rejectUnauthorized: false, // 로컬 자체 서명된 인증서의 경우 false 설정
-            query: { userId: useAuthStore.getState().userInfo?.user_id },
+            query: { userId: useAuthStore.getState().userInfo?.userId },
           });
         socket.on('message', handleMessage);
         socket.on('fetchChannels', handleFetchChannels);
@@ -102,12 +102,10 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
         const { joinChannel } = get();
         const user = useAuthStore.getState().userInfo;
         if (!user) return alert('로그인을 해주세요 (setChannel)');
-        joinChannel(user.user_id, channelId);
+        joinChannel(user.userId, channelId);
         set(() => ({ currentChannelId: channelId }));
       },
       handleMessage: (message) => {
-        console.log('handleMessage >>>', message);
-        message.user.user_id = message.user.id;
         set((state) => {
           if (!state.messages[message.channelId]) {
             state.messages[message.channelId] = [];
@@ -120,22 +118,22 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
         set(() => ({ currentChannelId: channel.channelId }));
       },
       handleFetchChannels: (channels) => {
-        set(() => ({ channels }));
+        set((state) => {
+          channels.forEach((channel) => {
+            state.channels[channel.channelId] = channel;
+          });
+        });
       },
       handleChannelAdded: (channel) => {
         set((state) => {
-          const isExistChannel = state.channels.some(
-            (ch) => ch.channelId === channel.channelId
-          );
-          if (isExistChannel) return;
-          state.channels.push(channel);
+          state.channels[channel.channelId] = channel;
         });
       },
       handleChannelCreated: (channel) => {
         const { joinChannel } = get();
         const user = useAuthStore.getState().userInfo;
         if (!user) return alert('로그인을 해주세요 (handleChannelCreated)');
-        joinChannel(user.user_id, channel.channelId);
+        joinChannel(user.userId, channel.channelId);
       },
     };
   })

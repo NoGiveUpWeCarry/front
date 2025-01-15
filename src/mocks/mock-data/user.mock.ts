@@ -2,17 +2,17 @@ import useAuthStore from '@/store/authStore';
 import { User } from '@/types/user.type';
 import { fakerKO as faker } from '@faker-js/faker';
 
-export const createUser = (user_id?: number): User => {
+export const createUser = (userId?: number): User => {
   return {
-    user_id: user_id
-      ? user_id
+    userId: userId
+      ? userId
       : faker.helpers.rangeToNumber({ min: 100, max: 1000 }), // 0 ~ 99 까지는 실제 회원가입한 사용자 id 영역
     email: faker.internet.email(),
     name: faker.person.fullName(),
     nickname: faker.person.fullName(),
-    profile_url: faker.image.avatar(),
-    role_id: faker.helpers.rangeToNumber({ min: 1, max: 3 }),
-    auth_provider: faker.helpers.arrayElement(['github', 'google', 'pad']),
+    profileUrl: faker.image.avatar(),
+    roleId: faker.helpers.rangeToNumber({ min: 1, max: 3 }),
+    authProvider: faker.helpers.arrayElement(['github', 'google', 'pad']),
   };
 };
 

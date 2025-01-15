@@ -16,19 +16,27 @@ const useAuthStore = create(
         (set, get) => ({
           setAccessToken: (token: string) => {
             set({ accessToken: token, isLoggedIn: !!token });
-            localStorage.setItem('@token', token);
+            // localStorage.setItem('@token', token);
+            sessionStorage.setItem('@token', token);
           },
-          login: async (user: User, token: string) => {
-            await set({
+          login: (user: User, token: string) => {
+            set({
               accessToken: token,
               isLoggedIn: true,
-              userInfo: user,
+              // userInfo: user, // 로그인 카멜케이스로 변경되기 전까진 아래꺼로 사용
+              userInfo: {
+                userId: user.user_id,
+                authProvider: user.authProvider,
+                email: user.email,
+                name: user.name,
+                nickname: user.nickname,
+                profileUrl: user.profile_url,
+                roleId: user.role_id,
+              },
             });
-            console.log(
-              'user_id in store: ' + useAuthStore.getState().userInfo?.user_id
-            );
-            localStorage.setItem('@token', token);
-            // sessionStorage.setItem('@token', token); // 테스트 하기 위해 sessionStorage로 변경함
+            console.log('user in store: >>>', user);
+            // localStorage.setItem('@token', token);
+            sessionStorage.setItem('@token', token); // 테스트 하기 위해 sessionStorage로 변경함
           },
           logout: () => {
             set({
@@ -36,13 +44,14 @@ const useAuthStore = create(
               isLoggedIn: false,
               userInfo: null,
             });
-            localStorage.removeItem('@token');
+            // localStorage.removeItem('@token');
+            sessionStorage.removeItem('@token');
           },
           setUserRole: (userRole: number) => {
             const currentUserInfo = get().userInfo;
             if (currentUserInfo) {
               set({
-                userInfo: { ...currentUserInfo, role_id: userRole },
+                userInfo: { ...currentUserInfo, roleId: userRole },
               });
             }
           },
@@ -55,7 +64,7 @@ const useAuthStore = create(
           accessToken: state.accessToken,
           userInfo: state.userInfo,
         }),
-        // storage: createJSONStorage(() => sessionStorage), // 유저 정보가 탭 별로 다르게 테스트 하기 위해 sessionStorage 사용
+        storage: createJSONStorage(() => sessionStorage), // 유저 정보가 탭 별로 다르게 테스트 하기 위해 sessionStorage 사용
       }
     ),
     { name: 'AuthStore' }
