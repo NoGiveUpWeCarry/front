@@ -1,22 +1,14 @@
 import { fetchChannel } from '@/apis/channel.api';
-import { ChatState, useChatStore } from '@/store/chatStore';
-import { useEffect } from 'react';
-import { useShallow } from 'zustand/shallow';
+import { ChatState } from '@/store/chatStore';
+import { useQuery } from '@tanstack/react-query';
 
-export const useChannel = (currentChannelId: ChatState['currentChannelId']) => {
-  const { handleChannelAdded, channels } = useChatStore(
-    useShallow((state) => ({
-      handleChannelAdded: state.handleChannelAdded,
-      channels: state.channels,
-    }))
-  );
+export const useChannel = (
+  currentChannelId: NonNullable<ChatState['currentChannelId']>
+) => {
+  const { data, isFetching } = useQuery({
+    queryKey: ['channel', currentChannelId],
+    queryFn: () => fetchChannel(currentChannelId),
+  });
 
-  useEffect(() => {
-    if (!currentChannelId) return;
-    fetchChannel(currentChannelId).then((data) => {
-      handleChannelAdded(data.channel);
-    });
-  }, [currentChannelId]);
-
-  return { channels };
+  return { channel: data?.channel, isFetching };
 };
