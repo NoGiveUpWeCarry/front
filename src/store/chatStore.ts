@@ -79,6 +79,8 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
         set(() => ({
           socket: null,
           currentChannelId: null,
+          messages: {},
+          channels: {},
         }));
       },
       createChannel: (userId1, userId2) => {
@@ -117,14 +119,12 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
         });
       },
       handleChannelJoined: (channel) => {
-        console.log('channelJoined >>> ', channel.channelId);
         set(() => ({ currentChannelId: channel.channelId }));
       },
       handleFetchChannels: (channels) => {
         set((state) => {
           channels.forEach((channel) => {
             state.channels[channel.channelId] = channel;
-            console.log(channel);
           });
         });
       },

@@ -8,7 +8,7 @@ export const formatDate = (
   return dayjs(date).format(format);
 };
 
-export const formatDateMessages = (channelMessages: ReceiveMessage[]) => {
+export const formatDateMessages = (channelMessages: ReceiveMessage[] = []) => {
   const dateMessages = channelMessages.reduce(
     (acc, cur) => {
       const date = formatDate(cur.date);
@@ -20,5 +20,6 @@ export const formatDateMessages = (channelMessages: ReceiveMessage[]) => {
     },
     {} as { [key: string]: ReceiveMessage[] }
   );
+
   return dateMessages;
 };

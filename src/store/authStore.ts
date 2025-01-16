@@ -25,7 +25,6 @@ const useAuthStore = create(
               isLoggedIn: true,
               userInfo: user, // 로그인 카멜케이스로 변경되기 전까진 아래꺼로 사용
             });
-            console.log('user in store: >>>', user);
             // localStorage.setItem('@token', token);
             sessionStorage.setItem('@token', token); // 테스트 하기 위해 sessionStorage로 변경함
           },

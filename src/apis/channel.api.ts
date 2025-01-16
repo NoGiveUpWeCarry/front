@@ -20,10 +20,6 @@ export interface FetchChannelMessagesRequest {
 
 export interface FetchChannelMessagesResponse {
   messages: ReceiveMessage[];
-  pagination: {
-    totalMessageCount: number;
-    currentPage: number;
-  };
 }
 
 export const fetchChannelMessages = async ({

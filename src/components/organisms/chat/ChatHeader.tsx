@@ -9,8 +9,6 @@ interface ChatHeaderProps {
 
 const ChatHeader = ({ currentChannelId }: ChatHeaderProps) => {
   const { channels } = useChannel(currentChannelId);
-  console.log(channels);
-  console.log('currentChannelId >>>', currentChannelId);
   return (
     <div className='flex justify-between items-center min-h-[76px] pl-[40px] pr-[20px] border-b-[2px] border-solid border-b-[#CCCCCC] mb-[20px]'>
       <div className='flex flex-col h-full'>
@@ -20,8 +18,7 @@ const ChatHeader = ({ currentChannelId }: ChatHeaderProps) => {
               {channels[currentChannelId].title}
             </Title>
             <div className='text-caption1 text-[#838383]'>
-              {/* {channels[currentChannelId].users.length}명의 맴버가 있습니다. */}
-              n명의 멤버가 있습니다.
+              {channels[currentChannelId].users.length}명의 맴버가 있습니다.
             </div>
           </>
         ) : (

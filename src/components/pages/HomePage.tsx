@@ -1,4 +1,4 @@
-// import MessageButton from '@/components/molecules/chat/MessageButton';
+import MessageButton from '@/components/molecules/chat/MessageButton';
 import { FeedContentsTop } from '@/components/molecules/contents/ContentsTop';
 import Feed from '@/components/organisms/Feed';
 

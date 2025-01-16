@@ -1,34 +1,15 @@
 import Messages from '@/components/organisms/chat/Messages';
-import { useMessages } from '@/hooks/useMessages';
 import { ChatState } from '@/store/chatStore';
-import clsx from 'clsx';
 
 interface ChatMessagesProps {
   currentChannelId: ChatState['currentChannelId'];
 }
 
 const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
-  const { messages } = useMessages(currentChannelId);
-  return (
-    <div
-      className={clsx(
-        'grow pl-[56px] pr-[44px] flex flex-col scrollbar overflow-hidden hover:overflow-y-scroll mr-[12px] hover:mr-0'
-      )}
-    >
-      {currentChannelId ? (
-        <>
-          <Messages
-            messages={
-              messages[currentChannelId] ? messages[currentChannelId] : []
-            }
-          />
-        </>
-      ) : (
-        <>
-          <div>채널을 선택해주세요</div>
-        </>
-      )}
-    </div>
+  return currentChannelId ? (
+    <Messages currentChannelId={currentChannelId} />
+  ) : (
+    <div className='grow px-[56px]'>채널을 선택해주세요</div>
   );
 };
 
