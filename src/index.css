@@ -97,23 +97,30 @@ body {
 }
 
 @layer utilities {
+  /* width */
   .scrollbar::-webkit-scrollbar {
-    width: 12px;
-    height: 20px;
+    scrollbar-width: none;
+  }
+  /* width:hover */
+  .scrollbar:hover::-webkit-scrollbar {
+    width: 10px;
   }
 
+  /* Track */
   .scrollbar::-webkit-scrollbar-track {
-    border-radius: 100vh;
-    background: #dfdfdf;
+    background: #ccc;
+    border-radius: 5px;
   }
 
+  /* Handle */
   .scrollbar::-webkit-scrollbar-thumb {
-    background: #bbbbbb;
-    border-radius: 100vh;
+    background: #666;
+    border-radius: 5px;
   }
 
+  /* Handle on hover */
   .scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #ababab;
+    background: #555;
   }
 }
 
