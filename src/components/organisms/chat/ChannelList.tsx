@@ -3,6 +3,7 @@ import Title from '@/components/atoms/Title';
 import { ListItem } from '@/components/molecules/ListItem';
 import { ChatState, useChatStore } from '@/store/chatStore';
 import { Channel } from '@/types/channel.type';
+import { formatChannelData, formatDateFromNow } from '@/utils/format';
 import clsx from 'clsx';
 import { useShallow } from 'zustand/shallow';
 
@@ -44,7 +45,7 @@ const ChannelList = ({ channels }: ChannelListProps) => {
                   <ListItem.Label
                     className={clsx('text-caption1', 'text-mediumgray')}
                   >
-                    {channel.lastMessage.date}
+                    {formatDateFromNow(channel.lastMessage.date)}
                   </ListItem.Label>
                 </div>
                 <ListItem.Subtitle

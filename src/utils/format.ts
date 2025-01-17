@@ -28,17 +28,23 @@ export const formatDateMessages = (channelMessages: ReceiveMessage[] = []) => {
 };
 
 export const formatChannelData = (channel: Channel, myUserId: number = -1) => {
-  console.log(dayjs(channel.lastMessage.date).fromNow(true));
+  let title: string;
   switch (channel.type) {
     case 'group':
-      channel.title = channel.users.map((user) => user.nickname).join(', ');
+      title = channel.users.map((user) => user.nickname).join(', ');
       break;
     case 'private':
-      channel.title =
+      title =
         channel.users.find((user) => user.userId !== myUserId)?.nickname ||
         '채팅방 제목';
       break;
   }
-  channel.lastMessage.date = dayjs(channel.lastMessage.date).fromNow(true);
-  return channel;
+  return {
+    ...channel,
+    title,
+  };
+};
+
+export const formatDateFromNow = (date: string) => {
+  return dayjs(date).fromNow(true);
 };

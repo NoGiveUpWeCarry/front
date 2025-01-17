@@ -33,7 +33,7 @@ const ChatInput = ({ currentChannelId }: ChatInputProps) => {
     sendMessage(message);
   };
   return (
-    <div className='pb-[50px] px-[56px]'>
+    <div className='pb-[50px] px-[56px] mt-[50px]'>
       <div className='flex items-center gap-[10px]'>
         <Avatar
           src={userInfo?.profileUrl || undefined}
