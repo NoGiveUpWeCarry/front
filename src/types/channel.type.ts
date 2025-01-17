@@ -1,4 +1,4 @@
-import { ReceiveMessage } from '@/types/message.type';
+import { LastMessage, ReceiveMessage } from '@/types/message.type';
 import { User } from '@/types/user.type';
 
 export type ChannelTypes = 'group' | 'private';
@@ -9,7 +9,7 @@ export interface Channel {
   type: ChannelTypes;
   thunmbnailURL?: string; // 기본 이미지 필요
   users: User[];
-  lastMessage: ReceiveMessage;
+  lastMessage: LastMessage;
 }
 
 // 그룹 채팅

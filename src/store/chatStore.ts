@@ -1,6 +1,7 @@
 import useAuthStore from '@/store/authStore';
 import { Channel } from '@/types/channel.type';
 import { SendMessage, ReceiveMessage } from '@/types/message.type';
+import { formatChannelData } from '@/utils/format';
 import { io, Socket } from 'socket.io-client';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
@@ -122,15 +123,23 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
         set(() => ({ currentChannelId: channel.channelId }));
       },
       handleFetchChannels: (channels) => {
+        const myUserId = useAuthStore.getState().userInfo?.userId;
         set((state) => {
           channels.forEach((channel) => {
-            state.channels[channel.channelId] = channel;
+            state.channels[channel.channelId] = formatChannelData(
+              channel,
+              myUserId
+            );
           });
         });
       },
       handleChannelAdded: (channel) => {
+        const myUserId = useAuthStore.getState().userInfo?.userId;
         set((state) => {
-          state.channels[channel.channelId] = channel;
+          state.channels[channel.channelId] = formatChannelData(
+            channel,
+            myUserId
+          );
         });
       },
       handleChannelCreated: (channel) => {
