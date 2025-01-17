@@ -11,7 +11,7 @@ export const useMyPageTabsStore = create<MyPageTabsStore>()(
   immer((set) => ({
     tabs: ['소개', '지원서', '피드', '커넥션 허브'],
 
-    activeTab: '',
+    activeTab: '소개',
     setActiveTab: (tab) => set({ activeTab: tab }),
   }))
 );
