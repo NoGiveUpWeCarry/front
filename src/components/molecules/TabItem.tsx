@@ -1,31 +1,21 @@
 import TabsButton from '@/components/atoms/TabsButton';
 import VerticalDivider from '@/components/atoms/VerticalDivider';
-import { useTabsStore } from '@/store/tabStore';
-import { ReactNode } from 'react';
-import { useShallow } from 'zustand/shallow';
+import { PropsWithChildren } from 'react';
 
 export interface TabProps {
-  children: ReactNode;
+  hideDivider?: boolean;
+  isActive: boolean;
+  onClick: () => void;
 }
 
 const TabItem = ({
-  children,
   hideDivider,
-}: TabProps & { hideDivider?: boolean }) => {
-  const [activeTab, setActiveTab] = useTabsStore(
-    useShallow((state) => [state.activeTab, state.setActiveTab])
-  );
-
-  const child = children as string;
-
+  children,
+  ...rest
+}: PropsWithChildren<TabProps>) => {
   return (
     <>
-      <TabsButton
-        isActive={activeTab === child}
-        onClick={() => setActiveTab(child)}
-      >
-        {children}
-      </TabsButton>
+      <TabsButton {...rest}>{children}</TabsButton>
       {!hideDivider && <VerticalDivider />}
     </>
   );

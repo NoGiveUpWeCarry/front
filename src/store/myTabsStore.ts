@@ -1,20 +1,15 @@
-import { ReactNode } from 'react';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-interface TabsStore<T> {
-  tabs: T[];
-  setTabs: (tabs: T[]) => void;
+interface MyPageTabsStore {
+  tabs: string[];
   activeTab: string;
   setActiveTab: (tab: string) => void;
 }
 
-export type TabType = ReactNode;
-
-export const useTabsStore = create<TabsStore<TabType>>()(
+export const useMyPageTabsStore = create<MyPageTabsStore>()(
   immer((set) => ({
-    tabs: [],
-    setTabs: (tabs) => set({ tabs }),
+    tabs: ['소개', '지원서', '피드', '커넥션 허브'],
 
     activeTab: '',
     setActiveTab: (tab) => set({ activeTab: tab }),

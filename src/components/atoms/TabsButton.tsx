@@ -1,13 +1,16 @@
 import Button from '@/components/atoms/Button';
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 
 interface IProps {
   isActive: boolean;
   onClick: () => void;
-  children: ReactNode;
 }
 
-const TabsButton = ({ isActive, onClick, children }: IProps) => {
+const TabsButton = ({
+  isActive,
+  onClick,
+  children,
+}: PropsWithChildren<IProps>) => {
   return (
     <Button
       width='164px'

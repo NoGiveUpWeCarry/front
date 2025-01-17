@@ -4,7 +4,7 @@ import ApplyTemplate from '@/components/templates/MyPage/ApplyTemplate';
 import ConnectionHubTemplate from '@/components/templates/MyPage/ConnectionHubTemplate';
 import FeedTemplate from '@/components/templates/MyPage/FeedTemplate';
 import IntroductionTemplate from '@/components/templates/MyPage/IntroductionTemplate';
-import { useTabsStore } from '@/store/tabStore';
+import { useMyPageTabsStore } from '@/store/myTabsStore';
 import { useShallow } from 'zustand/shallow';
 
 const MyPageTabs = Object.assign({
@@ -15,11 +15,12 @@ const MyPageTabs = Object.assign({
 });
 
 const MyPageTemplate = () => {
-  const [activeTab] = useTabsStore(
-    useShallow((state) => [state.activeTab])
-  ) as [keyof typeof MyPageTabs];
+  const [activeTab, setActiveTab] = useMyPageTabsStore(
+    useShallow((state) => [state.activeTab, state.setActiveTab])
+  );
 
-  const ActiveComponent = MyPageTabs[activeTab];
+  const currentTab = activeTab as keyof typeof MyPageTabs;
+  const ActiveComponent = MyPageTabs[currentTab];
 
   return (
     <div className='w-full min-h-screen max-w-[1920px] bg-background'>
@@ -28,7 +29,12 @@ const MyPageTemplate = () => {
         <div className='h-[38px]'>
           <Tabs>
             {Object.keys(MyPageTabs).map((tab, index) => (
-              <Tabs.TabItem key={tab} hideDivider={index == 3}>
+              <Tabs.TabItem
+                key={tab}
+                hideDivider={index == 3}
+                onClick={() => setActiveTab(tab)}
+                isActive={activeTab === tab}
+              >
                 {tab}
               </Tabs.TabItem>
             ))}

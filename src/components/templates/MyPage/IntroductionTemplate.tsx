@@ -1,24 +1,24 @@
 import Button from '@/components/atoms/Button';
 import ContributionBox from '@/components/molecules/ContributionBox';
-import { useTabsStore } from '@/store/tabStore';
-import { useShallow } from 'zustand/shallow';
 import WorkList from '@/components/organisms/WorkList';
 import { useState } from 'react';
 import AddProjectModal from '@/components/organisms/modals/AddProjectModal';
 import FollowersModal from '@/components/organisms/modals/FollowersModal';
-import { useFollowsStore } from '@/store/followsStore';
 import AddMusicModal from '@/components/organisms/modals/AddMusicModal';
+import { useMyPageTabsStore } from '@/store/myTabsStore';
+import { useShallow } from 'zustand/shallow';
 
 const IntroductionTemplate = () => {
-  const [setActiveTab] = useTabsStore(
+  const [setActiveTab] = useMyPageTabsStore(
     useShallow((state) => [state.setActiveTab])
   );
-  const [_setFollows] = useFollowsStore(
-    useShallow((state) => [state.setFollows])
-  );
+  // const [setFollows] = useFollowsStore(
+  //   useShallow((state) => [state.setFollows])
+  // );
 
   const [role] = useState<'Programmer' | 'Designer' | 'Artist'>('Artist');
-  const [countWorks, _setCountWorks] = useState(0);
+  // const [countWorks, setCountWorks] = useState(0);
+  const countWorks = 0;
   const [isAddProjectOpen, setIsAddProjectOpen] = useState(false);
   const [isFollowersOpen, setIsFollowersOpen] = useState(false);
 
