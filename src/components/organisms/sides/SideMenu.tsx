@@ -110,13 +110,13 @@ const SideMenu = () => {
                   <button
                     className='group flex w-full rounded-lg px-1 py-2 items-center gap-[20px] cursor-pointer hover:bg-[#f3f4f6]'
                     onClick={() => {
-                      alert('로그인');
+                      navigate('/login');
                       setShowLogin(false);
                     }}
                   >
                     <Icon
-                      type={'user'}
-                      color={'gray'}
+                      type='user'
+                      color='gray'
                       className='w-[30px] h-[30px]'
                     />
                     <div className='flex text-[18px] text-[#48484a]'>
@@ -126,13 +126,13 @@ const SideMenu = () => {
                   <button
                     className='group flex w-full rounded-lg px-1 py-1.5 items-center gap-[20px] cursor-pointer hover:bg-[#f3f4f6]'
                     onClick={() => {
-                      alert('회원가입');
+                      alert('/signup');
                       setShowLogin(false);
                     }}
                   >
                     <Icon
-                      type={'join'}
-                      color={'gray'}
+                      type='join'
+                      color='gray'
                       className='w-[30px] h-[30px]'
                     />
                     <div className='flex text-[18px] text-[#48484a]'>
