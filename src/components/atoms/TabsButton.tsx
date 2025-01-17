@@ -1,4 +1,5 @@
 import Button from '@/components/atoms/Button';
+import { cn } from '@/lib/utils';
 import { PropsWithChildren } from 'react';
 
 interface IProps {
@@ -17,9 +18,10 @@ const TabsButton = ({
       height='28px'
       radius='sm'
       variants='outline'
-      className={
-        isActive ? 'bg-white font-medium' : 'bg-none text-darkgray font-normal'
-      }
+      className={cn(
+        isActive ? 'bg-white font-medium' : 'bg-none text-darkgray font-normal',
+        '!w-full'
+      )}
       onClick={onClick}
     >
       {children}
