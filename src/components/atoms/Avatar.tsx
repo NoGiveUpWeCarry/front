@@ -27,14 +27,12 @@ const Avatar = ({
   src = '/src/assets/logos/PAD.svg',
   ...props
 }: AvatarProps) => {
-  return src ? (
+  return (
     <img
       src={src}
       className={cn(AvatarVariants({ size, className }))}
       {...props}
     />
-  ) : (
-    <div className={cn(AvatarVariants({ size, className }))} />
   );
 };
 

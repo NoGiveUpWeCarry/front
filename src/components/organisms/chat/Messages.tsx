@@ -73,7 +73,7 @@ const Messages = ({ currentChannelId }: MessagesProps) => {
                   i > 0 && message.user.userId === messages[i - 1].user.userId;
                 return (
                   <Message
-                    key={i}
+                    key={message.messageId}
                     message={message}
                     sameBefore={sameBefore}
                     isMyMessage={isMyMessage}

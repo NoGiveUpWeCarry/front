@@ -3,7 +3,7 @@ import Title from '@/components/atoms/Title';
 import { ListItem } from '@/components/molecules/ListItem';
 import { ChatState, useChatStore } from '@/store/chatStore';
 import { Channel } from '@/types/channel.type';
-import { formatChannelData, formatDateFromNow } from '@/utils/format';
+import { formatDateFromNow } from '@/utils/format';
 import clsx from 'clsx';
 import { useShallow } from 'zustand/shallow';
 
