@@ -1,11 +1,11 @@
 import InputDropdownItem from '@/components/molecules/InputDropdownItem';
-import { tagItem, tagColors } from '@/constants/tagItem';
+import { tagItem, tagColors, TagItemKey } from '@/constants/tagItem';
 import useFeedStore from '@/store/postFeedStore';
 import { useState, useRef, useEffect } from 'react';
 
 const InputDropdown = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const [selectedTag, setSelectedTag] = useState<tagItem[]>([]);
+  const [selectedTag, setSelectedTag] = useState<TagItemKey[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const setTag = useFeedStore((state) => state.setTag);
 
@@ -13,7 +13,7 @@ const InputDropdown = () => {
     setOpen(!open);
   };
 
-  const removeTag = (tag: tagItem) => {
+  const removeTag = (tag: TagItemKey) => {
     const updatedTags = selectedTag.filter((t) => t !== tag);
     setSelectedTag(updatedTags);
     setTag(updatedTags);
@@ -32,7 +32,7 @@ const InputDropdown = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [dropdownRef]);
+  }, []);
 
   return (
     <div
@@ -47,9 +47,9 @@ const InputDropdown = () => {
           selectedTag.map((tag) => (
             <div
               key={tag}
-              className={`flex items-center px-3 py-1 rounded-[5px] text-sm ${tagColors[tag]} `}
+              className={`flex items-center px-3 py-1 rounded-[5px] text-sm ${tagColors[tag]}`}
             >
-              {tag}
+              {tagItem[tag]}
               <button
                 className='ml-2 text-gray-500 hover:text-gray-700'
                 onClick={(e) => {
@@ -68,7 +68,7 @@ const InputDropdown = () => {
       {open && (
         <InputDropdownItem
           selectedTag={selectedTag}
-          setSelectedTag={(tags: tagItem[]) => {
+          setSelectedTag={(tags: TagItemKey[]) => {
             setSelectedTag(tags);
             setTag(tags);
           }}

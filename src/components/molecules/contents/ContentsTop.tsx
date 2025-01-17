@@ -8,16 +8,25 @@ import { ContentsToggle } from '@/components/atoms/contents/ContentsToggle';
 import { Plus } from 'lucide-react';
 import PostFeedModal from '@/components/organisms/modals/PostFeedModal';
 import PostHubModal from '@/components/organisms/modals/PostHubModal';
+import useFeedStore from '@/store/postFeedStore';
+
 
 export const FeedContentsTop = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const resetFeed = useFeedStore((state) => state.resetFeed);
 
   const openPostModal = () => {
     setIsModalOpen(true);
   };
 
   const closePostModal = () => {
-    setIsModalOpen(false);
+    const answer = window.confirm(
+      '작성중인 피드가 사라집니다. 정말 나가시겠습니까?'
+    );
+    if (answer) {
+      resetFeed();
+    }
+    setIsModalOpen(!answer);
   };
 
   return (

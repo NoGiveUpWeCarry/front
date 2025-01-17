@@ -2,15 +2,17 @@ import InputDropdown from '@/components/molecules/InputDropdown';
 import Modal2 from '@/components/molecules/Modal';
 import TiptapEditor from '@/components/organisms/TiptapEditor';
 import useFeedStore from '@/store/postFeedStore';
+import { date } from '@/utils/date';
 import { useState } from 'react';
 
 interface PostFeedModalProps {
-  onClose: () => void; // onClose prop 추가
+  onClose: () => void;
 }
 
 const PostFeedModal = ({ onClose }: PostFeedModalProps) => {
   const title = useFeedStore((state) => state.title);
   const content = useFeedStore((state) => state.content);
+  console.log('content: ' + content);
   const tags = useFeedStore((state) => state.tag);
   const setContent = useFeedStore((state) => state.setContent);
   const resetFeed = useFeedStore((state) => state.resetFeed);
@@ -40,14 +42,11 @@ const PostFeedModal = ({ onClose }: PostFeedModalProps) => {
     if (!hasError.title && !hasError.tags && !hasError.content) {
       console.log('폼 제출 성공:', { title, tags, content });
       resetFeed();
-      onClose(); // 제출 성공 시 모달 닫기
+      onClose();
     } else {
       console.log('폼 제출 실패:', hasError);
     }
   };
-
-  const now = new Date();
-  const date = `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일`;
 
   return (
     <Modal2 onClose={onClose}>

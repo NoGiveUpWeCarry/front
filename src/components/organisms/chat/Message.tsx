@@ -3,6 +3,8 @@ import MessageBubble from '@/components/atoms/MessageBubble';
 import { ReceiveMessage } from '@/types/message.type';
 import { Role } from '@/types/role.type';
 import { cn } from '@/utils/cn';
+import { formatTime } from '@/utils/format';
+import clsx from 'clsx';
 import { memo } from 'react';
 
 interface MessageProps {
@@ -40,7 +42,17 @@ const Message = memo(
               </div>
             </div>
           )}
-          <MessageBubble content={content} />
+          <div
+            className={clsx(
+              'flex items-end gap-[5px]',
+              isMyMessage ? 'flex-row-reverse' : 'flex-row'
+            )}
+          >
+            <MessageBubble content={content} />
+            <div className='text-caption2 text-darkgray'>
+              {formatTime(message.date)}
+            </div>
+          </div>
         </div>
       </div>
     );

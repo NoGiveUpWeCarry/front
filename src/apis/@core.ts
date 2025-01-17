@@ -1,6 +1,11 @@
 import { API_PATH } from '@/apis/api-path';
 import useAuthStore from '@/store/authStore';
-import axios from 'axios';
+import { User } from '@/types/user.type';
+import axios, { AxiosResponse } from 'axios';
+
+interface RefreshRequest {
+  userId: User['userId'];
+}
 
 interface Message {
   code: number;

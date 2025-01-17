@@ -1,10 +1,9 @@
 import Avatar from '@/components/atoms/Avatar';
+import Title from '@/components/atoms/Title';
 import { ListItem } from '@/components/molecules/ListItem';
-import GroupChannel from '@/components/organisms/chat/GroupChannel';
-import PersonalChannel from '@/components/organisms/chat/PersonalChannel';
-import TerminatedChannel from '@/components/organisms/chat/TerminatedChannel';
 import { ChatState, useChatStore } from '@/store/chatStore';
 import { Channel } from '@/types/channel.type';
+import { formatDateFromNow } from '@/utils/format';
 import clsx from 'clsx';
 import { useShallow } from 'zustand/shallow';
 
@@ -36,16 +35,24 @@ const ChannelList = ({ channels }: ChannelListProps) => {
               ])}
             >
               <ListItem.Col className='w-[40px] h-[40px] shrink-0'>
-                {/* <Avatar src={channel.channelThumbnailURL} size='xs' /> */}
-                <Avatar size='xs' />
+                <Avatar src={channel.thunmbnailURL} size='xs' />
               </ListItem.Col>
               <ListItem.Col className='w-[calc(100% - 40px)] flex-auto p'>
-                {channelId}
-                {/* {channel.users.length > 2 && <GroupChannel channel={channel} />}
-              {channel.users.length === 2 && (
-                <PersonalChannel channel={channel} />
-              )}
-              {channel.users.length < 2 && <TerminatedChannel />} */}
+                <div className='flex justify-between'>
+                  <Title size='xs' fontWeight='medium' lineClamp={1}>
+                    {channel.title}
+                  </Title>
+                  <ListItem.Label
+                    className={clsx('text-caption1', 'text-mediumgray')}
+                  >
+                    {formatDateFromNow(channel.lastMessage.date)}
+                  </ListItem.Label>
+                </div>
+                <ListItem.Subtitle
+                  className={clsx('text-caption1', 'text-mediumgray')}
+                >
+                  {channel.lastMessage.content}
+                </ListItem.Subtitle>
               </ListItem.Col>
             </ListItem>
           </li>
