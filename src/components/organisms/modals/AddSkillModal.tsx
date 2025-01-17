@@ -56,7 +56,7 @@ const AddSkillModal = ({
           {selectedSkills.map((skill) => (
             <button
               key={skill}
-              className={`flex items-center justify-between px-[10px] py-[5px] rounded-[10px] border border-[#838383] w-fit text-center text-[12px]`}
+              className='flex items-center justify-between px-[10px] py-[5px] rounded-[10px] border border-[#838383] w-fit text-center text-[12px]'
               onClick={() => handleRemoveSkill(skill)}
             >
               {skill} <XMarkIcon width={16} />
@@ -69,7 +69,7 @@ const AddSkillModal = ({
             width='92px'
             height='29px'
             radius='lg'
-            className='bg-[#FF7E5F]'
+            className='bg-[#FF7E5F] mb-10'
             onClick={handleSaveSkills}
           >
             저장
