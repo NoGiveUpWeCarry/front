@@ -52,7 +52,7 @@ const SearchModal = ({ onClose }: ModalProps) => {
             {tabs.map((item, i) => (
               <Tabs.TabItem
                 key={item as string}
-                hideDivider={i === 3}
+                hideDivider={i === 2}
                 onClick={() => setActive(item)}
                 isActive={active === item}
               >
