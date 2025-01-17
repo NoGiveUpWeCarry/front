@@ -1,12 +1,11 @@
 import Avatar from '@/components/atoms/Avatar';
-import Button from '@/components/atoms/Button';
 import FollowButton from '@/components/atoms/FollowButton';
+import MessageButton from '@/components/molecules/chat/MessageButton';
 import { Cog6ToothIcon, LinkIcon } from '@heroicons/react/16/solid';
-import { EnvelopeIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 
 const MyPageHeader = () => {
-  const isMyPage = true;
+  const isMyPage = false;
 
   return (
     <div className='h-[166px] flex items-center gap-7'>
@@ -43,15 +42,7 @@ const MyPageHeader = () => {
               <Cog6ToothIcon width={24} />
             </Link>
           ) : (
-            <Button
-              width='92px'
-              height='29px'
-              radius='sm'
-              variants='outline'
-              className='font-semibold text-[15px] flex items-center justify-center gap-[10px] border border-black'
-            >
-              메세지 <EnvelopeIcon width={18} />
-            </Button>
+            <MessageButton targetUserId={6} />
           )}
         </div>
       </div>
