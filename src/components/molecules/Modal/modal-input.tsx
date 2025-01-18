@@ -19,10 +19,10 @@ const ModalInput = ({
   };
 
   return (
-    <div className={`bg-background flex flex-col gap-[6px]`}>
+    <div className='flex items-start'>
       <Input
         placeholder={placeholder}
-        className={`border-0 px-[20px] text-heading1 rounded-0 h-[29px] bg-background ${className}`}
+        className={`border-0 px-[20px] text-heading1 rounded-0 h-[29px] bg-white ${className}`}
         value={title}
         onChange={handleChange}
       />

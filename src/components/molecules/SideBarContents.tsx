@@ -18,7 +18,10 @@ export const SideBarContents = ({ type }: SideBarContentsProps) => {
   return (
     <div className='flex flex-col bg-white rounded-[10px] py-[20px] px-[20px] gap-[30px]'>
       {items.map((item) => (
-        <div className='flex flex-col w-full text-[12px] gap-[15px]'>
+        <div
+          key={item.id}
+          className='flex flex-col w-full text-[12px] gap-[15px]'
+        >
           <div className='flex items-center justify-between'>
             <div className='flex items-center gap-[10px]'>
               <div className='flex text-[14px]'>{item.id}</div>

@@ -12,7 +12,7 @@ const ModalSubContent = ({
 }: ModalSubContentProps) => {
   return (
     <div
-      className={`w-[758px] h-fit flex flex-col gap-[10px] px-[20px] ${className}`}
+      className={`w-full h-fit flex flex-col gap-[10px] px-[20px] ${className}`}
     >
       {children}
     </div>
