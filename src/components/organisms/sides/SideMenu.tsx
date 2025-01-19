@@ -6,14 +6,17 @@ import { useNavigate } from 'react-router-dom';
 import { useModal } from '@/hooks/useModal';
 import SearchModal from '@/components/organisms/modals/SearchModal';
 import Icon from '@/components/atoms/Icon';
+import useAuthStore from '@/store/authStore';
+import { useShallow } from 'zustand/shallow';
 
 const SideMenu = () => {
   const navigate = useNavigate();
   const [showLogin, setShowLogin] = useState(false);
   const [showNotificationBox, setShowNotificationBox] = useState(false);
 
-  // const [isLoggedIn] = useAuth(useShallow((state) => [state.isLoggedIn]));
-  const isLoggedIn = true;
+  const [isLoggedIn, userInfo] = useAuthStore(
+    useShallow((state) => [state.isLoggedIn, state.userInfo])
+  );
 
   const {
     isOpen: isSearchModalOpen,
@@ -60,7 +63,9 @@ const SideMenu = () => {
 
   const handleAvatarClick = () => {
     if (isLoggedIn) {
-      navigate('@닉네임');
+      navigate(`@${userInfo?.nickname}`, {
+        state: { userId: userInfo?.userId },
+      });
     } else {
       setShowLogin((prev) => !prev);
     }
