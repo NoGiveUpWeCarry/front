@@ -3,16 +3,32 @@ import Input from '@/components/atoms/Input';
 import UrlInput from '@/components/molecules/UrlInput';
 import Modal from '@/components/organisms/modals/Modal';
 import { ModalProps } from '@/components/organisms/modals/modalProps';
+import {
+  useAddProject,
+  useDeleteProject,
+} from '@/hooks/queries/mypage/introduce';
 import { useAddProjectFormStore } from '@/store/addProjectFormStore';
+import useAuthStore from '@/store/authStore';
+import { useMyPageStore } from '@/store/mypageStore';
+import queryClient from '@/utils/queryClient';
 import { CameraIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
 import { ChangeEvent, useRef } from 'react';
 import { useShallow } from 'zustand/shallow';
 
-const AddProjectModal = ({ onClose }: ModalProps) => {
+const AddProjectModal = ({
+  onClose,
+  isOpen,
+}: ModalProps & { isOpen: boolean }) => {
+  const [userInfo] = useAuthStore(useShallow((state) => [state.userInfo]));
+
   const inputRef = useRef<HTMLInputElement>(null);
-  const [formData, setFormData] = useAddProjectFormStore(
-    useShallow((state) => [state.formData, state.setFormData])
+  const { formData, setFormData, resetFormData } = useAddProjectFormStore(
+    useShallow((state) => state)
   );
+  const [ownerId] = useMyPageStore(useShallow((state) => [state.ownerId]));
+
+  const { mutate: addProject } = useAddProject();
+  const { mutate: deleteProject } = useDeleteProject(ownerId);
 
   const handleImageSave = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -22,13 +38,45 @@ const AddProjectModal = ({ onClose }: ModalProps) => {
   };
 
   const handleSaveProject = () => {
-    // 로직
+    if (!formData.title || !formData.description) return;
+
+    let links = [];
+    if (formData.github) links.push({ url: formData.github, typeId: 1 });
+    if (formData.web) links.push({ url: formData.web, typeId: 2 });
+    if (formData.ios) links.push({ url: formData.ios, typeId: 3 });
+    if (formData.android) links.push({ url: formData.android, typeId: 4 });
+
+    const newForm = {
+      title: formData.title,
+      description: formData.description,
+      links: links,
+    };
+
+    addProject(
+      { projectInfo: newForm },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ['profile-info', userInfo?.userId],
+          });
+          resetFormData();
+          onClose();
+        },
+      }
+    );
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(name, value);
   };
+
+  const handleDeleteProject = () => {
+    deleteProject({ projectId: formData.id });
+    onClose();
+  };
+
+  if (!isOpen) return null;
 
   return (
     <Modal onClose={onClose} width='444px' height='494px' className='!p-5'>
@@ -48,7 +96,7 @@ const AddProjectModal = ({ onClose }: ModalProps) => {
           )}
         </div>
         <input type='file' hidden ref={inputRef} onChange={handleImageSave} />
-        <div className='flex flex-col gap-3 flex-1'>
+        <div className='flex flex-col justify-center gap-4 h-[98px] flex-1'>
           <Input
             bgColor='transparent'
             borderColor='dark'
@@ -105,16 +153,28 @@ const AddProjectModal = ({ onClose }: ModalProps) => {
           />
         </div>
       </div>
-      <div className='my-[30px] flex justify-center items-center'>
+      <div className='my-[30px] flex justify-center items-center gap-5'>
+        {formData.title && (
+          <Button
+            variants='outline'
+            width='92px'
+            height='29px'
+            radius='lg'
+            className='text-red-500 border !border-red-500'
+            onClick={() => handleDeleteProject()}
+          >
+            삭제
+          </Button>
+        )}
         <Button
           variants='filled'
           width='92px'
           height='29px'
           radius='lg'
           className='bg-[#FF7E5F]'
-          onClick={handleSaveProject}
+          onClick={() => handleSaveProject()}
         >
-          저장
+          {formData.title ? '수정' : '저장'}
         </Button>
       </div>
     </Modal>
