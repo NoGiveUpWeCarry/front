@@ -11,8 +11,16 @@ import {
   HeartIcon,
   EyeIcon,
   BookmarkIcon,
+  ChevronLeftIcon,
+  CalendarIcon,
+  BriefcaseIcon,
+  ClockIcon,
+  ChatBubbleLeftRightIcon,
+  ArrowUpIcon,
+  PhotoIcon,
+  H1Icon,
 } from '@heroicons/react/24/outline';
-import { UserCircleIcon } from '@heroicons/react/24/solid';
+import { UserCircleIcon, UserGroupIcon } from '@heroicons/react/24/solid';
 import { cva, VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/cn';
 
@@ -28,7 +36,15 @@ type IconType =
   | 'like'
   | 'eye'
   | 'bookmark'
-  | 'user';
+  | 'user'
+  | 'behind'
+  | 'calendar'
+  | 'clock'
+  | 'roledetail'
+  | 'workflow'
+  | 'arrow'
+  | 'join'
+  | 'photo';
 
 const iconVariants = cva('', {
   variants: {
@@ -70,6 +86,24 @@ const Icon = ({ type, className = '', color }: IconProps) => {
       <BookmarkIcon className={cn(iconVariants({ color }), className)} />
     ),
     user: <UserCircleIcon className={cn(iconVariants({ color }), className)} />,
+    behind: (
+      <ChevronLeftIcon className={cn(iconVariants({ color }), className)} />
+    ),
+    clock: <ClockIcon className={cn(iconVariants({ color }), className)} />,
+    roledetail: (
+      <BriefcaseIcon className={cn(iconVariants({ color }), className)} />
+    ),
+    calendar: (
+      <CalendarIcon className={cn(iconVariants({ color }), className)} />
+    ),
+    workflow: (
+      <ChatBubbleLeftRightIcon
+        className={cn(iconVariants({ color }), className)}
+      />
+    ),
+    arrow: <ArrowUpIcon className={cn(iconVariants({ color }), className)} />,
+    photo: <PhotoIcon className={cn(iconVariants({ color }), className)} />,
+    join: <UserGroupIcon className={cn(iconVariants({ color }), className)} />,
   };
 
   return <>{icons[type]}</>;

@@ -1,3 +1,5 @@
+import { tagItem } from '@/constants/tagItem';
+
 export type TagVariant =
   | '정보공유'
   | '질문'
@@ -29,4 +31,20 @@ export interface FeedItemType {
   likesCount: number;
   viewsCount: number;
   thumbnail?: string;
+}
+
+export interface Post {
+  userId: number;
+  userName: string;
+  userRole: string;
+  userProfileUrl: string;
+  postId: number;
+  title: string;
+  content: string;
+  tags: (keyof typeof tagItem)[];
+  createdAt: Date;
+  commentCount: number;
+  likeCount: number;
+  viewCount: number;
+  isLiked: number;
 }

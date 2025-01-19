@@ -1,12 +1,11 @@
 import Avatar from '@/components/atoms/Avatar';
-import Button from '@/components/atoms/Button';
 import FollowButton from '@/components/atoms/FollowButton';
+import MessageButton from '@/components/molecules/chat/MessageButton';
 import { Cog6ToothIcon, LinkIcon } from '@heroicons/react/16/solid';
-import { EnvelopeIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 
 const MyPageHeader = () => {
-  const isMyPage = true;
+  const isMyPage = false;
 
   return (
     <div className='h-[166px] flex items-center gap-7'>
@@ -19,7 +18,7 @@ const MyPageHeader = () => {
       <div className='flex-1 flex flex-col gap-5 justify-center relative'>
         <div className='flex items-center gap-[10px] h-[29px]'>
           <h1 className='text-heading2 font-semibold'>테스트용계정</h1>
-          {!isMyPage && <FollowButton isFollowing={true} />}
+          {!isMyPage && <FollowButton isFollowing />}
         </div>
         <p className='text-body1 font-regular line-clamp-2'>
           프로젝트 구인 중입니다. 프로젝트 구인 중입니다. 프로젝트 구인
@@ -43,15 +42,7 @@ const MyPageHeader = () => {
               <Cog6ToothIcon width={24} />
             </Link>
           ) : (
-            <Button
-              width='92px'
-              height='29px'
-              radius='sm'
-              variants='outline'
-              className='font-semibold text-[15px] flex items-center justify-center gap-[10px] border border-black'
-            >
-              메세지 <EnvelopeIcon width={18} />
-            </Button>
+            <MessageButton targetUserId={6} />
           )}
         </div>
       </div>

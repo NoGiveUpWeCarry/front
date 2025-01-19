@@ -69,7 +69,7 @@ const AddSkillModal = ({
             width='92px'
             height='29px'
             radius='lg'
-            className='bg-[#FF7E5F] mb-10'
+            className='bg-[#FF7E5F]'
             onClick={handleSaveSkills}
           >
             저장

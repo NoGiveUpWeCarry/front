@@ -5,7 +5,7 @@ export function ContentsToggle() {
     <ToggleGroup
       type='single'
       defaultValue='recent'
-      className='flex items-center bg-gray-200 rounded-lg p-[4px]'
+      className='flex items-center bg-[#eaeaea] rounded-lg p-[4px]'
     >
       <ToggleGroupItem
         value='recent'

@@ -1,17 +1,39 @@
+import { axiosInstance } from '@/apis/@core';
+import { AxiosResponse } from 'axios';
+
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 export interface FetcherOptions {
-  url: string; // 요청할 URL
-  method: HttpMethod; // HTTP 메서드
-  data?: unknown; // 요청에 필요한 데이터
-  params?: Record<string, unknown>; // 쿼리 파라미터
-  headers?: Record<string, string>; // 추가 헤더
+  url: string;
+  method: HttpMethod;
+  data?: unknown;
+  params?: Record<string, unknown>;
+  headers?: Record<string, string>;
 }
 
-export interface FetcherResponse<T> {
-  message: {
-    code: number;
-    text: string;
-  };
-  data: T;
+export interface FetcherMessage {
+  code: number;
+  text: string;
 }
+
+const fetcher = async <T>(
+  options: FetcherOptions
+): Promise<AxiosResponse<T & { message: FetcherMessage }, any>> => {
+  const { url, method, data, params, headers } = options;
+
+  try {
+    const response = await axiosInstance<T & { message: FetcherMessage }>({
+      url,
+      method,
+      data,
+      params,
+      headers,
+    });
+    return response;
+  } catch (error) {
+    console.error('API 요청 중 오류 발생:', error);
+    throw error;
+  }
+};
+
+export default fetcher;

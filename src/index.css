@@ -5,6 +5,7 @@
 body {
   @apply bg-background;
 }
+
 @font-face {
   font-family: 'Pretendard';
   font-weight: 900;
@@ -95,6 +96,34 @@ body {
     url(./woff-subset/Pretendard-Thin.subset.woff) format('woff');
 }
 
+@layer utilities {
+  /* width */
+  .scrollbar::-webkit-scrollbar {
+    scrollbar-width: none;
+  }
+  /* width:hover */
+  .scrollbar:hover::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  .scrollbar::-webkit-scrollbar-track {
+    background: #ccc;
+    border-radius: 5px;
+  }
+
+  /* Handle */
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 5px;
+  }
+
+  /* Handle on hover */
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -158,4 +187,39 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.prose {
+  font-size: 16px;
+  line-height: 0.5;
+}
+.prose h1 {
+  font-size: 1.5rem;
+}
+.prose h2 {
+  font-size: 1.25rem;
+}
+.prose p {
+  font-size: 0.875rem;
+}
+.prose li {
+  font-size: 0.875rem;
+}
+
+.tiptap-editor a {
+  @apply text-gray underline transition-colors;
+}
+.tiptap-editor a:hover {
+  @apply cursor-pointer;
+}
+.tiptap-editor [data-placeholder] {
+  @apply text-gray;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  color: bg-background;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
 }

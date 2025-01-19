@@ -4,7 +4,7 @@ import {
   ItemSubtitleProps,
   ItemMainProps,
   ListItemColProps,
-} from '@/types/ListItem.type';
+} from '@/types/listItem.type';
 import { cn } from '@/utils/cn';
 import { Children, isValidElement, ReactNode } from 'react';
 
@@ -42,12 +42,7 @@ const ListItemButton = ({
 
 const ListItemCol = ({ children, className }: ListItemColProps) => {
   return (
-    <div
-      className={cn(
-        'flex flex-col justify-center w-fit flex-shrink-0',
-        className
-      )}
-    >
+    <div className={cn('flex flex-col justify-center w-fit', className)}>
       {children}
     </div>
   );

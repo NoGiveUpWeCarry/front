@@ -3,6 +3,8 @@ import { cva, VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/cn';
 import GithubIcon from '@/assets/icons/Github.svg';
 import GoogleIcon from '@/assets/icons/Google.svg';
+import PadIcon from '@/assets/logos/PAD.svg';
+import { AuthProvider } from '@/types/user.type';
 
 export const LoginButtonVariants = cva(
   `
@@ -16,6 +18,7 @@ export const LoginButtonVariants = cva(
       icon: {
         github: 'bg-white',
         google: 'bg-white',
+        pad: 'bg-white',
       },
     },
     defaultVariants: {},
@@ -26,7 +29,7 @@ interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof LoginButtonVariants> {
   label?: string;
-  iconType?: 'github' | 'google';
+  iconType?: AuthProvider;
 }
 
 const LoginButton = (props: ButtonProps) => {
@@ -39,6 +42,9 @@ const LoginButton = (props: ButtonProps) => {
       )}
       {iconType === 'google' && (
         <img src={GoogleIcon} alt='Google Icon' className='w-6 h-6' />
+      )}
+      {iconType === 'pad' && (
+        <img src={PadIcon} alt='PAD Icon' className='w-6 h-6' />
       )}
       {label && <span>{label}</span>}
     </button>

@@ -61,6 +61,27 @@ export default [
       'react/jsx-props-no-spreading': 'off',
       'react/self-closing-comp': 'off',
       'react/button-has-type': 'off',
+      'react/jsx-no-useless-fragment': 'off',
+      'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+      'react/no-array-index-key': 'off',
+      'react-hooks/exhaustive-deps': 'off',
+      '@typescript-eslint/no-shadow': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          args: 'all',
+          argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
+        },
+      ],
+      '@typescript-eslint/no-use-before-define': [
+        'error',
+        { functions: false },
+      ],
     },
     settings: {
       react: {

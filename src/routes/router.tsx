@@ -7,8 +7,18 @@ import SettingsPage from '@/components/pages/SettingsPage';
 import MainLayout from '@/layouts/MainLayout';
 import ConnectionHubPage from '@/components/pages/ConnectionHubPage';
 import MyPage from '@/components/pages/MyPage';
+import SubLayout from '@/layouts/SubLayout';
+import SearchPage from '@/components/pages/SearchPage';
+import PadLoginPage from '@/components/pages/PadLoginPage';
+import PadSignupPage from '@/components/pages/PadSignupPage';
+import ConnetcionHubDetailPage from '@/components/pages/ConnetcionHubDetailPage';
+import TestPage from '@/components/pages/TestPage';
 
 const router = [
+  {
+    path: '/login',
+    element: <LoginPage />,
+  },
   {
     path: '/',
     element: <MainLayout />,
@@ -18,20 +28,12 @@ const router = [
         element: <HomePage />,
       },
       {
-        path: '/login',
-        element: <LoginPage />,
-      },
-      {
         path: '/roleselect',
         element: <RolePage />,
       },
       {
         path: '/auth/:provider/callback',
         element: <CallbackPage />,
-      },
-      {
-        path: '/chat',
-        element: <ChatPage />,
       },
       {
         path: '/mypage',
@@ -45,7 +47,41 @@ const router = [
         path: '/connectionhub',
         element: <ConnectionHubPage />,
       },
+      {
+        path: '/connectionhubdetailpage',
+        element: <ConnetcionHubDetailPage />,
+      },
+      {
+        path: '/search',
+        element: <SearchPage />,
+      },
     ],
+  },
+  {
+    path: '/chat',
+    element: <SubLayout />,
+    children: [
+      {
+        path: '/chat',
+        element: <ChatPage />,
+      },
+    ],
+  },
+  {
+    path: '/login/pad',
+    element: <PadLoginPage />,
+  },
+  {
+    path: '/signup',
+    element: <PadSignupPage />,
+  },
+  {
+    path: '/login',
+    element: <LoginPage />,
+  },
+  {
+    path: 'test',
+    element: <TestPage />,
   },
 ];
 

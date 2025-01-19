@@ -8,7 +8,7 @@ const MainLayout = () => {
 
   return (
     <div className='min-h-screen flex'>
-      <div className='sticky top-0 h-screen w-[68px] '>
+      <div className='sticky top-0 h-screen w-[68px] z-10'>
         <SideMenu />
       </div>
 
@@ -19,7 +19,7 @@ const MainLayout = () => {
       </div>
 
       {!preventInfo.includes(location.pathname) && (
-        <div className='sticky top-0 h-screen w-[300px] p-2 hidden lg:block'>
+        <div className='sticky top-0 h-screen w-[300px] p-2 hidden lg:block !z-1'>
           <SideBarRight />
         </div>
       )}
