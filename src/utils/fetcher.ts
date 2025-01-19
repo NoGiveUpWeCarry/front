@@ -1,7 +1,7 @@
 import { axiosInstance } from '@/apis/@core';
 import { AxiosResponse } from 'axios';
 
-type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
+type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 export interface FetcherOptions {
   url: string;
