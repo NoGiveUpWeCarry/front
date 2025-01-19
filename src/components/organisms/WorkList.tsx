@@ -4,7 +4,7 @@ import { useUpdateGithubNickname } from '@/hooks/queries/mypage/introduce';
 import { useMyPageStore } from '@/store/mypageStore';
 import { ShortProjects } from '@/types/mypage.type';
 import queryClient from '@/utils/queryClient';
-import { ChevronRightIcon } from '@heroicons/react/24/outline';
+import { ChevronRightIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ReactNode, useEffect, useState } from 'react';
 import GitHubCalendar from 'react-github-calendar';
 import { Link } from 'react-router-dom';
@@ -85,16 +85,29 @@ WorkList.Github = function Github({ githubId }: { githubId: string }) {
   );
 };
 
-WorkList.SoundCloud = function SoundCloud({ url }: { url: string }) {
+WorkList.SoundCloud = function SoundCloud({
+  url,
+  onDelete,
+}: {
+  url: string;
+  onDelete: () => void;
+}) {
   const slicedUrl = url.split('?')[0];
 
   return (
-    <iframe
-      width='100%'
-      height='130'
-      allow='autoplay'
-      src={`https://w.soundcloud.com/player/?url=${slicedUrl}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true`}
-    ></iframe>
+    <>
+      <iframe
+        width='100%'
+        height='130'
+        allow='autoplay'
+        src={`https://w.soundcloud.com/player/?url=${slicedUrl}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true`}
+      />
+      <div className='w-full justify-end'>
+        <button className='text-[13px] text-[#838383]' onClick={onDelete}>
+          삭제하기 <XMarkIcon width={12} />
+        </button>
+      </div>
+    </>
   );
 };
 
@@ -109,7 +122,13 @@ WorkList.ProjectItem = function ProjectItem({
   return <MyPageProjectCard {...work} onClickUpdate={onClickUpdate} />;
 };
 
-WorkList.Spotify = function Spotify({ url }: { url: string }) {
+WorkList.Spotify = function Spotify({
+  url,
+  onDelete,
+}: {
+  url: string;
+  onDelete: () => void;
+}) {
   const [iframeUrl, setIframeUrl] = useState('');
 
   useEffect(() => {
@@ -118,13 +137,20 @@ WorkList.Spotify = function Spotify({ url }: { url: string }) {
   }, [url]);
 
   return (
-    <iframe
-      src={iframeUrl}
-      width='100%'
-      height='80'
-      style={{ padding: '0 0' }}
-      className=''
-    />
+    <>
+      <iframe
+        src={iframeUrl}
+        width='100%'
+        height='80'
+        style={{ padding: '0 0' }}
+        className=''
+      />
+      <div className='w-full justify-end'>
+        <button className='text-[13px] text-[#838383]' onClick={onDelete}>
+          삭제하기 <XMarkIcon width={12} />
+        </button>
+      </div>
+    </>
   );
 };
 
