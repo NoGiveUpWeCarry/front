@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 export interface AddProjectFormData {
+  id: number;
   github: string;
   web: string;
   ios: string;
@@ -18,6 +19,7 @@ interface AddProjectFormStore {
 }
 
 const initialStore = {
+  id: -1,
   github: '',
   web: '',
   ios: '',

@@ -3,9 +3,10 @@ import { immer } from 'zustand/middleware/immer';
 
 export type ApplyFormData = {
   title: string;
-  category: string;
-  link: string;
-  content: string;
+  job: string;
+  portfolioLink: string;
+  skills?: string[];
+  detail: string;
 };
 
 interface ApplyFormStore {
@@ -19,9 +20,10 @@ interface ApplyFormStore {
 
 const initialInputs = {
   title: '',
-  category: '',
-  link: '',
-  content: '',
+  job: '',
+  portfolioLink: '',
+  detail: '',
+  skills: [],
 };
 
 export const useApplyFormStore = create<ApplyFormStore>()(
