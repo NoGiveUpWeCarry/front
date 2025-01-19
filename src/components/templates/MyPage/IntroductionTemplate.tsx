@@ -20,7 +20,7 @@ const IntroductionTemplate = () => {
   const [isMyPage, role] = useMyPageStore(
     useShallow((state) => [state.isMyPage, state.role])
   );
-  const { formData, setFormData, resetFormData } = useAddProjectFormStore(
+  const { setFormData, resetFormData } = useAddProjectFormStore(
     useShallow((state) => state)
   );
 
@@ -31,6 +31,7 @@ const IntroductionTemplate = () => {
 
   const { ownerId } = useMyPageStore(useShallow((state) => state));
   const { data: profileInfo } = useGetProfileInfo(ownerId);
+  // const { mutate: deleteWork } = useDeleteMusicWork(ownerId);
 
   // const PROJECT_LIMIT = {
   //   Designer: 4,
@@ -54,7 +55,6 @@ const IntroductionTemplate = () => {
           : ''
       )
     );
-    console.log(formData);
     setIsAddProjectOpen(true);
   };
 
@@ -132,9 +132,16 @@ const IntroductionTemplate = () => {
           {profileInfo?.works?.map((work) => {
             if (typeof work === 'string') {
               if (work.includes('soundcloud')) {
-                return <WorkList.SoundCloud url={work} />;
+                return (
+                  <WorkList.SoundCloud
+                    url={work}
+                    // TODO: 여기 수정하기
+                    // onDelete={() => deleteWork(url)}
+                    onDelete={() => {}}
+                  />
+                );
               } else if (work.includes('spotify')) {
-                return <WorkList.Spotify url={work} />;
+                return <WorkList.Spotify url={work} onDelete={() => {}} />;
               }
             }
             return null;
