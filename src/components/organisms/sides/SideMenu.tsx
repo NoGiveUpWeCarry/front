@@ -62,13 +62,7 @@ const SideMenu = () => {
   ];
 
   const handleAvatarClick = () => {
-    if (isLoggedIn) {
-      navigate(`@${userInfo?.nickname}`, {
-        state: { userId: userInfo?.userId },
-      });
-    } else {
-      setShowLogin((prev) => !prev);
-    }
+    setShowLogin((prev) => !prev);
   };
 
   useEffect(() => {
@@ -282,7 +276,13 @@ const SideMenu = () => {
                   <button
                     className='group flex w-full rounded-lg px-1 py-2 items-center gap-[20px] cursor-pointer hover:bg-[#f3f4f6]'
                     onClick={() => {
-                      navigate('/login');
+                      if (isLoggedIn) {
+                        navigate(`@${userInfo?.nickname}`, {
+                          state: { userId: userInfo?.userId },
+                        });
+                      } else {
+                        navigate('/login');
+                      }
                       setShowLogin(false);
                     }}
                   >
@@ -292,23 +292,27 @@ const SideMenu = () => {
                       className='w-[30px] h-[30px]'
                     />
                     <div className='flex text-[18px] text-[#48484a]'>
-                      로그인
+                      {isLoggedIn ? '마이페이지' : '로그인'}
                     </div>
                   </button>
                   <button
                     className='group flex w-full rounded-lg px-1 py-1.5 items-center gap-[20px] cursor-pointer hover:bg-[#f3f4f6]'
                     onClick={() => {
-                      alert('/signup');
+                      if (isLoggedIn) {
+                      } else {
+                        navigate('/signup');
+                      }
+
                       setShowLogin(false);
                     }}
                   >
                     <Icon
-                      type='join'
+                      type={isLoggedIn ? 'logout' : 'join'}
                       color='gray'
                       className='w-[30px] h-[30px]'
                     />
                     <div className='flex text-[18px] text-[#48484a]'>
-                      회원가입
+                      {isLoggedIn ? '로그아웃' : '회원가입'}
                     </div>
                   </button>
                 </div>
