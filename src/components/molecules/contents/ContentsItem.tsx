@@ -28,6 +28,7 @@ interface FeedContentsProps {
     time: string;
   };
   hideUser?: boolean;
+  sliceBody?: boolean;
 }
 
 // 허브 컨텐츠
@@ -62,7 +63,9 @@ export const FeedContents = ({
   thumbnail,
   user,
   hideUser,
+  sliceBody,
 }: FeedContentsProps) => {
+  console.log(thumbnail);
   return (
     <div className='flex flex-col w-full gap-[20px]'>
       {!hideUser && user && (
@@ -82,6 +85,7 @@ export const FeedContents = ({
               body={body}
               tags={feedTags}
               thumbnail={thumbnail}
+              sliceBody={sliceBody}
             />
             <FeedFooter
               commentsCount={commentsCount}

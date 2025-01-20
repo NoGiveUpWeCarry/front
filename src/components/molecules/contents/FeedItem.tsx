@@ -7,12 +7,13 @@ interface FeedItemProps {
   body: string;
   tags: { label: string; variant: ContentsFeedTagProps['variant'] }[];
   thumbnail?: string;
+  sliceBody?: boolean;
 }
 
-const FeedItem = ({ title, body, tags, thumbnail }: FeedItemProps) => {
+const FeedItem = ({ thumbnail, sliceBody, ...props }: FeedItemProps) => {
   return (
     <div className='flex w-full justify-between items-center gap-10'>
-      <FeedBody title={title} body={body} tags={tags} />
+      <FeedBody {...props} sliceBody={sliceBody} />
       {thumbnail && (
         <div className='w-[180px] flex-shrink-0'>
           <ContentsThumbnail src={thumbnail} />
