@@ -18,7 +18,7 @@ import {
   ChatBubbleLeftRightIcon,
   ArrowUpIcon,
   PhotoIcon,
-  H1Icon,
+  ArrowUpTrayIcon,
 } from '@heroicons/react/24/outline';
 import { UserCircleIcon, UserGroupIcon } from '@heroicons/react/24/solid';
 import { cva, VariantProps } from 'class-variance-authority';
@@ -44,7 +44,8 @@ type IconType =
   | 'workflow'
   | 'arrow'
   | 'join'
-  | 'photo';
+  | 'photo'
+  | 'logout';
 
 const iconVariants = cva('', {
   variants: {
@@ -104,6 +105,11 @@ const Icon = ({ type, className = '', color }: IconProps) => {
     arrow: <ArrowUpIcon className={cn(iconVariants({ color }), className)} />,
     photo: <PhotoIcon className={cn(iconVariants({ color }), className)} />,
     join: <UserGroupIcon className={cn(iconVariants({ color }), className)} />,
+    logout: (
+      <ArrowUpTrayIcon
+        className={cn(iconVariants({ color }), className, 'rotate-90')}
+      />
+    ),
   };
 
   return <>{icons[type]}</>;
