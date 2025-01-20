@@ -28,6 +28,7 @@ const IntroductionTemplate = () => {
   const [isFollowersOpen, setIsFollowersOpen] = useState<
     'followers' | 'following' | null
   >(null);
+  const [isForUpdate, setIsForUpdate] = useState(false);
 
   const { ownerId } = useMyPageStore(useShallow((state) => state));
   const { data: profileInfo } = useGetProfileInfo(ownerId);
@@ -55,6 +56,7 @@ const IntroductionTemplate = () => {
           : ''
       )
     );
+    setIsForUpdate(true);
     setIsAddProjectOpen(true);
   };
 
@@ -80,6 +82,7 @@ const IntroductionTemplate = () => {
             setIsAddProjectOpen(false);
             resetFormData();
           }}
+          isForUpdate={isForUpdate}
         />
       )}
       <FollowersModal
