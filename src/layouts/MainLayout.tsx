@@ -3,7 +3,7 @@ import SideMenu from '@/components/organisms/sides/SideMenu';
 import SideBarRight from '@/components/organisms/sides/SideBar';
 
 const MainLayout = () => {
-  const preventInfo = ['/login', '/settings'];
+  const preventInfo = ['/login'];
   const location = useLocation();
 
   return (
