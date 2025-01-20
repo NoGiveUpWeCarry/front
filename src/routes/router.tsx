@@ -48,7 +48,7 @@ const router = [
         element: <ConnectionHubPage />,
       },
       {
-        path: '/connectionhubdetailpage',
+        path: '/feed/:id',
         element: <ConnetcionHubDetailPage />,
       },
       {
