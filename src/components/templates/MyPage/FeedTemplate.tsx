@@ -6,6 +6,8 @@ import { ContentsFeedTagVariant } from '@/types/tags/contentsFeedTag.type';
 import { useShallow } from 'zustand/shallow';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 const FeedTemplate = () => {
   const { ref, inView } = useInView();
 
@@ -27,7 +29,7 @@ const FeedTemplate = () => {
           const showDate = currentDate !== lastDate;
           lastDate = currentDate;
           return (
-            <div key={feed.title}>
+            <Link to={`/feed/${feed.id}`} key={feed.title}>
               {showDate && (
                 <DateText hasBg date={feed.createdAt} className='mb-[28px]' />
               )}
@@ -42,8 +44,10 @@ const FeedTemplate = () => {
                 commentsCount={feed.commentCount}
                 likesCount={feed.likeCount}
                 viewsCount={feed.view}
+                sliceBody
+                thumbnail={feed.thumbnailUrl!}
               />
-            </div>
+            </Link>
           );
         });
       })}
