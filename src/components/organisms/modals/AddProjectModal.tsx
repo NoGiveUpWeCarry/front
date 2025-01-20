@@ -166,7 +166,7 @@ const AddProjectModal = ({
         </div>
       </div>
       <div className='my-[30px] flex justify-center items-center gap-5'>
-        {formData.title && (
+        {isForUpdate && (
           <Button
             variants='outline'
             width='92px'
@@ -186,7 +186,7 @@ const AddProjectModal = ({
           className='bg-[#FF7E5F]'
           onClick={() => handleSaveProject()}
         >
-          {formData.title ? '수정' : '저장'}
+          {isForUpdate ? '수정' : '저장'}
         </Button>
       </div>
     </Modal>
