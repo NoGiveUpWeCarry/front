@@ -6,9 +6,9 @@ import { ModalProps } from '@/components/organisms/modals/modalProps';
 import {
   useAddProject,
   useDeleteProject,
+  useUpdateProject,
 } from '@/hooks/queries/mypage/introduce';
 import { useAddProjectFormStore } from '@/store/addProjectFormStore';
-import useAuthStore from '@/store/authStore';
 import { useMyPageStore } from '@/store/mypageStore';
 import queryClient from '@/utils/queryClient';
 import { CameraIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
@@ -18,9 +18,8 @@ import { useShallow } from 'zustand/shallow';
 const AddProjectModal = ({
   onClose,
   isOpen,
-}: ModalProps & { isOpen: boolean }) => {
-  const [userInfo] = useAuthStore(useShallow((state) => [state.userInfo]));
-
+  isForUpdate,
+}: ModalProps & { isOpen: boolean; isForUpdate: boolean }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { formData, setFormData, resetFormData } = useAddProjectFormStore(
     useShallow((state) => state)
@@ -28,6 +27,7 @@ const AddProjectModal = ({
   const [ownerId] = useMyPageStore(useShallow((state) => [state.ownerId]));
 
   const { mutate: addProject } = useAddProject();
+  const { mutate: updateProject } = useUpdateProject();
   const { mutate: deleteProject } = useDeleteProject(ownerId);
 
   const handleImageSave = (event: ChangeEvent<HTMLInputElement>) => {
@@ -52,18 +52,29 @@ const AddProjectModal = ({
       links: links,
     };
 
-    addProject(
-      { projectInfo: newForm },
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries({
-            queryKey: ['profile-info', userInfo?.userId],
-          });
-          resetFormData();
-          onClose();
-        },
-      }
-    );
+    const successHandler = () => {
+      queryClient.invalidateQueries({
+        queryKey: ['profile-info', ownerId],
+      });
+      resetFormData();
+      onClose();
+    };
+
+    if (isForUpdate) {
+      updateProject(
+        { projectId: formData.id, projectInfo: newForm },
+        {
+          onSuccess: successHandler,
+        }
+      );
+    } else {
+      addProject(
+        { projectInfo: newForm },
+        {
+          onSuccess: successHandler,
+        }
+      );
+    }
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -73,6 +84,7 @@ const AddProjectModal = ({
 
   const handleDeleteProject = () => {
     deleteProject({ projectId: formData.id });
+    resetFormData();
     onClose();
   };
 
