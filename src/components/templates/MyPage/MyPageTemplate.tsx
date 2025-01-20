@@ -24,7 +24,7 @@ const MyPageTemplate = () => {
 
   return (
     <div className='w-full min-h-screen max-w-[1920px] bg-background'>
-      <div className='max-w-screen-center h-full mx-auto px-[30px] flex flex-col gap-[17px]'>
+      <div className='max-w-screen-center h-full mx-auto flex flex-col gap-[17px]'>
         <MyPageHeader />
         <div className='h-[38px]'>
           <Tabs>
