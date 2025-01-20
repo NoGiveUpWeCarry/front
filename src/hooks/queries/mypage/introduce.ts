@@ -50,7 +50,7 @@ export const useAddProject = () => {
   });
 };
 
-export const useUpdateProject = (userId: number) => {
+export const useUpdateProject = () => {
   return useMutation({
     mutationFn: ({
       projectId,
@@ -59,11 +59,6 @@ export const useUpdateProject = (userId: number) => {
       projectId: number;
       projectInfo: ShortProject;
     }) => updateProject({ projectId, projectInfo }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['profile-info', userId],
-      });
-    },
   });
 };
 
