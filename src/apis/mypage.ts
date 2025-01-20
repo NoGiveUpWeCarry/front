@@ -164,7 +164,7 @@ export interface Feed {
   id: number;
   likeCount: number;
   tags: string[];
-  thumbNail: string | null;
+  thumbnailUrl: string | null;
   title: string;
   users: User;
   view: number;
