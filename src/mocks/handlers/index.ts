@@ -1,6 +1,6 @@
 import { chatHandlers } from '@/mocks/handlers/chat.handler';
 import { feedHandler } from '@/mocks/handlers/feedHandler.mock';
-import { hubHandler } from '@/mocks/handlers/hub.handler';
+import { hubHandlers } from '@/mocks/handlers/hub.handler';
 
 import { delay } from 'msw';
 
@@ -10,4 +10,4 @@ export const delayForDevelopment = async (ms = 1000) => {
   }
 };
 
-export const handlers = [...chatHandlers, ...feedHandler, ...hubHandler];
+export const handlers = [...chatHandlers, ...feedHandler, ...hubHandlers];
