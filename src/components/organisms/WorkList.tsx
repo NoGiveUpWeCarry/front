@@ -102,9 +102,13 @@ WorkList.SoundCloud = function SoundCloud({
         allow='autoplay'
         src={`https://w.soundcloud.com/player/?url=${slicedUrl}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true`}
       />
-      <div className='w-full justify-end'>
-        <button className='text-[13px] text-[#838383]' onClick={onDelete}>
-          삭제하기 <XMarkIcon width={12} />
+      <div className='w-full flex justify-end'>
+        <button
+          className='flex items-center text-[13px] text-[#838383] mt-[-10px]'
+          onClick={onDelete}
+        >
+          <span>음악 삭제하기</span>
+          <XMarkIcon width={12} />
         </button>
       </div>
     </>
