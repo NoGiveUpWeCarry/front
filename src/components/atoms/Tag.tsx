@@ -2,27 +2,34 @@ import React from 'react';
 import { cn } from '@/utils/cn';
 import { cva } from 'class-variance-authority';
 import { RoleTagVariant } from '@/types/tags/roleTag.type';
-import { ProjectTagVariant } from '@/types/tags/projectTag.type';
 import { HubTagVariant } from '@/types/tags/hubTag.type';
+import { MeetingTagVariant } from '@/types/tags/meetingTag.type';
 import { ContentsFeedTagVariant } from '@/types/tags/contentsFeedTag.type';
 import { HubSkillTagVariant } from '@/types/tags/hubSkillTag.type';
+import { StatusTagVariant } from '@/types/tags/statusTag.type';
 
 interface RoleTagProps {
-  type: 'role';
+  type: 'roleTag';
   label: string;
   variant: RoleTagVariant;
 }
 
-interface ProjectTagProps {
-  type: 'project';
+interface StatusTagProps {
+  type: 'statusTag';
   label: string;
-  variant: ProjectTagVariant;
+  variant: StatusTagVariant;
 }
 
 interface HubTagProps {
-  type: 'hub';
+  type: 'hubTag';
   label: string;
   variant: HubTagVariant;
+}
+
+interface MeetingTagProps {
+  type: 'meetingTag';
+  label: string;
+  variant: MeetingTagVariant;
 }
 
 interface ContentsFeedTagProps {
@@ -32,16 +39,17 @@ interface ContentsFeedTagProps {
 }
 
 interface HubSkillTagProps {
-  type: 'skill';
+  type: 'skillTag';
   label: string;
   variant: HubSkillTagVariant;
 }
 
 type TagProps =
   | RoleTagProps
-  | ProjectTagProps
   | HubTagProps
+  | MeetingTagProps
   | ContentsFeedTagProps
+  | StatusTagProps
   | HubSkillTagProps;
 
 const tagStyles = cva(
@@ -49,11 +57,12 @@ const tagStyles = cva(
   {
     variants: {
       type: {
-        role: 'bg-[#eaeaea]',
-        project: '',
-        hub: '',
+        roleTag: 'bg-[#eaeaea]',
+        meetingTag: '',
+        statusTag: '',
+        hubTag: '',
         contentsFeed: '',
-        skill: 'bg-[#EAEAEA]',
+        skillTag: 'bg-[#EAEAEA]',
       },
       variant: {
         고민: 'bg-[#CDF4FF] text-[#729CFF] px-2 text-[12px] rounded-[5px]',
@@ -65,18 +74,24 @@ const tagStyles = cva(
         추천: 'bg-[#F5E4D2] text-[#D69655] px-2  text-[12px] rounded-[5px]',
         질문: 'bg-[#FFE7D4] text-[#FF9F5E] px-2 text-[12px] rounded-[5px]',
 
+        // hubTag
         PROJECT:
           'bg-gradient-to-r from-[#87DBFF] to-[#FFA9BE] text-[14px] rounded-full',
         OUTSOURCING:
           'bg-gradient-to-r from-[#FF8800] to-[#84FF74] text-[14px] rounded-full',
+
+        // meetingTag
         ONLINE:
           'bg-gradient-to-r from-[#039160] to-[#96FFDA] text-[14px] rounded-full',
         OFFLINE:
           'bg-gradient-to-r from-[#FF383B] to-[#FFBCBD] text-[14px] rounded-full',
+
+        // statusTag
         OPEN: 'bg-gradient-to-r from-[#9340FF] to-[#FFDCDC] text-[14px] rounded-full',
         CLOSE:
           'bg-gradient-to-r from-[#000000] to-[#FFFFFF] text-[14px] rounded-full',
 
+        // roleTag
         '서버/백엔드 개발자': 'text-[#7d7d7d] text-[12px] rounded-full',
         '프론트엔드 개발자': 'text-[#7d7d7d] text-[12px] rounded-full',
         '웹 풀스택 개발자': 'text-[#7d7d7d] text-[12px] rounded-full',
@@ -197,7 +212,7 @@ const tagStyles = cva(
     },
 
     defaultVariants: {
-      type: 'role',
+      type: 'roleTag',
     },
   }
 );
