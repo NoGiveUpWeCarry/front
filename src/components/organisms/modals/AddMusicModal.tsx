@@ -17,7 +17,14 @@ const AddMusicModal = ({
   const [newUrl, setNewUrl] = useState('');
 
   const handleAddMusic = () => {
+    if (!/^http/.test(newUrl)) {
+      alert('올바른 URL을 작성해주세요.');
+      setNewUrl('');
+      return;
+    }
+
     addMusic({ musicUrl: newUrl });
+    onClose();
     setNewUrl('');
   };
 
