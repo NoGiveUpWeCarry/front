@@ -1,4 +1,5 @@
 import { HubContents } from '@/components/molecules/contents/ContentsItem';
+import { useFetchHubs } from '@/hooks/queries/hub.query';
 import { hubMocks } from '@/mocks/mock-data/hub.mock';
 import { HubItemType } from '@/mocks/mock-data/hubItem';
 import { useEffect, useState } from 'react';
@@ -9,6 +10,8 @@ interface HubProps {
 
 const Hub = ({ keyword }: HubProps) => {
   const [data, setData] = useState<HubItemType[]>([]);
+  const { data: HubData, isLoading, isError } = useFetchHubs();
+  console.log('Hubdata: ', HubData);
 
   useEffect(() => {
     setData(hubMocks);
