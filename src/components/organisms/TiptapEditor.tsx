@@ -13,7 +13,7 @@ const TiptapEditor = ({ content, setContent }: TiptapEditorProps) => {
   const editor: Editor | null = useCreateTiptapEditor(setContent, content);
 
   return (
-    <div className='relative w-full h-full bg-white'>
+    <div className='relative w-full h-full'>
       <EditorContent editor={editor} />
       {editor && <TiptapFloatingMenu editor={editor} />}
       {editor && <TiptapBubbleMenu editor={editor} />}

@@ -63,35 +63,40 @@ const PostFeedModal = ({ onClose }: PostFeedModalProps) => {
 
   return (
     <Modal2 onClose={onClose}>
-      <Modal2.Title>{date}</Modal2.Title>
-      <Modal2.ModalSubContent>
-        <Modal2.ModalInput
-          placeholder='제목을 작성해주세요.'
-          message={errors.title ? '제목을 입력해주세요.' : ''}
-        />
-        <InputDropdown />
-        {errors.tags && (
-          <p className='text-red-600 text-caption2 px-[20px]'>
-            태그를 선택해주세요.
-          </p>
-        )}
-      </Modal2.ModalSubContent>
-      <Modal2.ModalContent px='40px' py='5px' className='bg-white'>
-        <TiptapEditor content={content} setContent={setContent} />
-        {errors.content && (
-          <p className='text-red-600 text-caption2 absolute'>
-            내용을 작성해주세요.
-          </p>
-        )}
-      </Modal2.ModalContent>
-      <div className='mb-2 flex flex-row-reverse'>
-        <button
-          className='bg-close px-1 py-1.5 rounded-[3px] w-fit h-fit text-caption1 text-white'
-          onClick={onSubmit}
-          disabled={isPending}
-        >
-          {isPending ? '작성 중...' : '작성하기'}
-        </button>
+      <div className='flex flex-col'>
+        <Modal2.Title>{date}</Modal2.Title>
+      </div>
+      <div className='flex flex-col w-full gap-[20px]'>
+        <div className='flex flex-col w-full'>
+          <Modal2.ModalInput
+            placeholder='제목을 작성해주세요.'
+            message={errors.title ? '제목을 입력해주세요.' : ''}
+          />
+        </div>
+        <div className='flex flex-col w-full'>
+          <InputDropdown />
+          {errors.tags && (
+            <p className='text-red-600 text-[14px]'>태그를 선택해주세요.</p>
+          )}
+        </div>
+        <div className='flex flex-col py-[10px] h-[340px] overflow-y-scroll scrollbar-hide'>
+          <TiptapEditor content={content} setContent={setContent} />
+          {errors.content && (
+            <p className='flex flex-col text-red-600 text-[14px] mt-5 absolute'>
+              내용을 작성해주세요.
+            </p>
+          )}
+        </div>
+
+        <div className='flex w-full justify-end'>
+          <button
+            className='bg-close px-[15px] py-[10px] rounded-[5px] text-[12px] text-white'
+            onClick={onSubmit}
+            disabled={isPending}
+          >
+            {isPending ? '작성 중...' : '작성하기'}
+          </button>
+        </div>
       </div>
     </Modal2>
   );

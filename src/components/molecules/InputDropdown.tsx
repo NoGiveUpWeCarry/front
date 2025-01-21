@@ -37,28 +37,30 @@ const InputDropdown = () => {
   return (
     <div
       ref={dropdownRef}
-      className='relative px-5 py-1 w-full cursor-pointer border-gray-300 rounded'
+      className='relative w-full cursor-pointer border-gray rounded'
     >
       <div
-        className='flex flex-wrap gap-2 items-center cursor-text'
+        className='flex flex-wrap h-[40px] gap-2 items-center cursor-text'
         onClick={onClick}
       >
         {selectedTag.length > 0 ? (
           selectedTag.map((tag) => (
             <div
               key={tag}
-              className={`flex items-center px-3 py-1 rounded-[5px] text-sm ${tagColors[tag]}`}
+              className={`flex items-center px-3 py-1 rounded-[5px] text-sm ${tagColors[tag]} gap-[5px]`}
             >
               {tagItem[tag]}
-              <button
-                className='ml-2 text-gray-500 hover:text-gray-700'
-                onClick={(e) => {
-                  e.stopPropagation();
-                  removeTag(tag);
-                }}
-              >
-                &times;
-              </button>
+              <div className='flex items-center'>
+                <button
+                  className='flex text-gray-500 hover:text-gray-700 mb-[2.5px] text-[20px] font-extralight'
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    removeTag(tag);
+                  }}
+                >
+                  &times;
+                </button>
+              </div>
             </div>
           ))
         ) : (

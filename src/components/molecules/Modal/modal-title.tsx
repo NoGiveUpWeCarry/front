@@ -7,7 +7,7 @@ interface TitleProps {
 
 const Title = ({ children }: TitleProps) => {
   return (
-    <h1 className='flex text-heading2 mt-[10px] justify-center'>{children}</h1>
+    <h1 className='flex text-heading2 mb-[10px] justify-center'>{children}</h1>
   );
 };
 

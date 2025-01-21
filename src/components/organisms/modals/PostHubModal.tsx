@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+  HubCategory,
   HubSelect,
   SetWork,
   SkillSelect,
@@ -63,7 +64,7 @@ const PostHubModal = ({ onClose }: PostHubModalProps) => {
   const [durationValue, setDurationValue] = useState<string>(''); // 기간 값
 
   return (
-    <Modal2 onClose={onClose} height='850px'>
+    <Modal2 onClose={onClose}>
       <Modal2.Title>새 허브</Modal2.Title>
       <div className='flex flex-col items-start w-full gap-[20px]'>
         <div className='flex flex-col items-start w-full gap-[5px]'>
@@ -138,61 +139,71 @@ const PostHubModal = ({ onClose }: PostHubModalProps) => {
             )}
           </div>
         </div>
-        <div className='flex flex-col items-start w-full gap-[5px]'>
-          <div className='flex text-[20px] font-semibold'>시작 희망일</div>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant={'outline'}
-                className={cn(
-                  'w-[280px] h-[44px] justify-start text-left font-normal bg-white border-black',
-                  !date && 'text-muted-foreground'
-                )}
-              >
-                <CalendarIcon className='mr-2 h-4 w-4' />
-                {date ? (
-                  format(date, 'yyyy-MM-dd')
-                ) : (
-                  <span>날짜를 선택해주세요.</span>
-                )}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className='w-auto p-0'>
-              <Calendar
-                mode='single'
-                selected={date}
-                onSelect={setDate}
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
-        </div>
-        <div className='flex flex-col items-start w-full gap-[5px]'>
-          <div className='flex text-[20px] font-semibold'>기간</div>
-          <div className='flex items-center gap-2'>
-            <Select onValueChange={setDurationType}>
-              <SelectTrigger className='w-[90px] border border-black rounded-sm h-[44px]'>
-                <SelectValue placeholder='단위' />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value='개월'>개월</SelectItem>
-                <SelectItem value='주'>주</SelectItem>
-              </SelectContent>
-            </Select>
+        <div className='flex gap-[20px]'>
+          <div className='flex flex-col items-start w-full gap-[5px]'>
+            <div className='flex text-[20px] font-semibold'>시작 희망일</div>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant={'outline'}
+                  className={cn(
+                    'w-[280px] h-[44px] justify-start text-left font-normal bg-white border-black',
+                    !date && 'text-muted-foreground'
+                  )}
+                >
+                  <CalendarIcon className='mr-2 h-4 w-4' />
+                  {date ? (
+                    format(date, 'yyyy-MM-dd')
+                  ) : (
+                    <span>날짜를 선택해주세요.</span>
+                  )}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className='w-auto p-0'>
+                <Calendar
+                  mode='single'
+                  selected={date}
+                  onSelect={setDate}
+                  initialFocus
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
+          <div className='flex flex-col items-start w-full gap-[5px]'>
+            <div className='flex text-[20px] font-semibold'>기간</div>
+            <div className='flex items-center gap-2'>
+              <Select onValueChange={setDurationType}>
+                <SelectTrigger className='w-[90px] border border-black rounded-sm h-[44px]'>
+                  <SelectValue placeholder='단위' />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value='개월'>개월</SelectItem>
+                  <SelectItem value='주'>주</SelectItem>
+                </SelectContent>
+              </Select>
 
-            <Input
-              type='number'
-              placeholder='0'
-              className='w-[90px] border border-black rounded-sm h-[44px]'
-              value={durationValue}
-              onChange={(e) => setDurationValue(e.target.value)}
-            />
+              <Input
+                type='number'
+                placeholder='0'
+                className='w-[90px] border border-black rounded-sm h-[44px]'
+                value={durationValue}
+                onChange={(e) => setDurationValue(e.target.value)}
+              />
+            </div>
           </div>
         </div>
-        <div className='flex flex-col items-start w-full gap-[5px]'>
-          <div className='flex text-[20px] font-semibold'>작업 방식</div>
-          <SetWork />
+
+        <div className='flex gap-[20px]'>
+          <div className='flex flex-col items-start w-full gap-[5px]'>
+            <div className='flex text-[20px] font-semibold'>허브 유형</div>
+            <HubCategory />
+          </div>
+          <div className='flex flex-col items-start w-full gap-[5px]'>
+            <div className='flex text-[20px] font-semibold'>작업 방식</div>
+            <SetWork />
+          </div>
         </div>
+
         <div className='flex w-full justify-end'>
           <div className='flex gap-[10px]'>
             <Button className='w-[50px] h-[35px] text-[14px] bg-[#FF5E5E] text-white rounded'>
