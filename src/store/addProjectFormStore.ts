@@ -34,7 +34,9 @@ export const useAddProjectFormStore = create<AddProjectFormStore>()(
   immer((set) => ({
     projectForm: initialStore,
     setSingleProjectForm: (name, value) =>
-      set((state) => ({ applyForm: { ...state.projectForm, [name]: value } })),
+      set((state) => ({
+        projectForm: { ...state.projectForm, [name]: value },
+      })),
     setProjectForm: (value) => set({ projectForm: value }),
     resetProjectForm: () => set({ projectForm: initialStore }),
   }))
