@@ -1,26 +1,22 @@
-import { http } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { API_PATH } from '@/apis/api-path';
-import { hubMocks } from '@/mocks/mock-data/hub';
-import { HubPost, HubsResponse } from '@/apis/hub/hub.api';
+import { generateSingleHub, hubMocks } from '@/mocks/mock-data/hub.mock';
+import { delayForDevelopment } from '@/mocks/handlers';
+import { baseURL } from '@/utils/baseUrl';
 
 export const hubHandlers = [
-  http.get(API_PATH.connectionhub, (req) => {
-    const mappedData: HubPost[] = hubMocks.map((hub, idx) => {
-      // ...
-      return {
-        /* HubPost에 맞게 매핑 */
-      };
-    });
-
-    const responseData: HubsResponse = {
-      hubposts: mappedData,
-    };
-
-    return {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-      // body는 반드시 string이어야 에러가 나지 않음
-      body: JSON.stringify(responseData),
-    };
-  }),
+  http.get(
+    `${import.meta.env.VITE_BASE_SERVER_URL}${API_PATH.connectionhub}`,
+    async () => {
+      await delayForDevelopment();
+      const hub = generateSingleHub();
+      return HttpResponse.json({
+        hub,
+        message: {
+          code: 200,
+          message: '커넥션 허브 전체 불러오기 성공.',
+        },
+      });
+    }
+  ),
 ];
