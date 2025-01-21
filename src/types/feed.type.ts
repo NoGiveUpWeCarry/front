@@ -1,5 +1,7 @@
 import { tagItem } from '@/constants/tagItem';
 
+import { tagItem } from '@/constants/tagItem';
+
 export type TagVariant =
   | '정보공유'
   | '질문'
@@ -42,7 +44,7 @@ export interface Post {
   title: string;
   content: string;
   tags: (keyof typeof tagItem)[];
-  createdAt: Date;
+  createdAt: string;
   commentCount: number;
   likeCount: number;
   viewCount: number;

@@ -10,7 +10,6 @@ import PostFeedModal from '@/components/organisms/modals/PostFeedModal';
 import PostHubModal from '@/components/organisms/modals/PostHubModal';
 import useFeedStore from '@/store/postFeedStore';
 
-
 export const FeedContentsTop = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const resetFeed = useFeedStore((state) => state.resetFeed);

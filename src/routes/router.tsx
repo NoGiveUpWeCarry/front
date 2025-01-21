@@ -12,7 +12,7 @@ import SearchPage from '@/components/pages/SearchPage';
 import PadLoginPage from '@/components/pages/PadLoginPage';
 import PadSignupPage from '@/components/pages/PadSignupPage';
 import ConnetcionHubDetailPage from '@/components/pages/ConnetcionHubDetailPage';
-import TestPage from '@/components/pages/TestPage';
+import FeedDetailPage from '@/components/pages/FeedDetailPage';
 
 const router = [
   {
@@ -55,6 +55,10 @@ const router = [
         path: '/search',
         element: <SearchPage />,
       },
+      {
+        path: '/feed/:id',
+        element: <FeedDetailPage />,
+      },
     ],
   },
   {
@@ -78,10 +82,6 @@ const router = [
   {
     path: '/login',
     element: <LoginPage />,
-  },
-  {
-    path: 'test',
-    element: <TestPage />,
   },
 ];
 

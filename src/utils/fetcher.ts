@@ -20,7 +20,6 @@ const fetcher = async <T>(
   options: FetcherOptions
 ): Promise<AxiosResponse<T & { message: FetcherMessage }, any>> => {
   const { url, method, data, params, headers } = options;
-
   try {
     const response = await axiosInstance<T & { message: FetcherMessage }>({
       url,

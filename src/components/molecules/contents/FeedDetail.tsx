@@ -13,7 +13,7 @@ const FeedDetail = ({ tags, date, title, content }: FeedDetailProps) => {
   return (
     <div className='px-[50px] flex flex-col gap-[20px] mt-3'>
       <FeedDetailTag tags={tags} />
-      <div className='text-gray text-body1'>{getDate(date)}</div>
+      <div className='text-gray text-body1'>{date}</div>
       <div className='text-heading1'>{title}</div>
       <div
         className='prose'

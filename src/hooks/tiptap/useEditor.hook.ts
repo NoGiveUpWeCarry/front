@@ -33,7 +33,7 @@ export const useCreateTiptapEditor: UseCreateTiptapEditor = (
     editorProps: {
       attributes: {
         class: 'tiptap-editor prose focus:outline-none',
-        style: 'white-space: pre-wrap;',
+        style: 'white-space: pre-wrap; cursor: text;',
       },
     },
     content,

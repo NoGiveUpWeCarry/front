@@ -26,6 +26,7 @@ interface FeedContentsProps {
     name: string;
     job: string;
     time: string;
+    userId: number;
   };
   hideUser?: boolean;
   sliceBody?: boolean;
@@ -49,6 +50,7 @@ interface HubContentsProps {
     name: string;
     job: string;
     time: string;
+    userId: number;
   };
   hideUser: boolean;
 }

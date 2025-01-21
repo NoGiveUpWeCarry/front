@@ -3,7 +3,6 @@ import { useEffect, PropsWithChildren } from 'react';
 import Icon from '@/components/atoms/Icon';
 import clsx from 'clsx';
 
-
 interface ModalProps {
   width?: string;
   height?: string;
@@ -26,13 +25,11 @@ const ModalRoot = ({
   }, []);
 
   return ReactDOM.createPortal(
-
     <div
       className='w-full h-full bg-black bg-opacity-80 fixed top-0 left-0 z-50 flex justify-center items-center cursor-pointer'
       onClick={onClose}
     >
       <div className='flex flex-col gap-[10px]'>
-
         <button
           className='flex justify-end text-gray-400 hover:text-gray-600 text-white'
           onClick={onClose}
