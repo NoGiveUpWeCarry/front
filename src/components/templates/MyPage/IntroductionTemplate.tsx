@@ -5,7 +5,10 @@ import FollowersModal from '@/components/organisms/modals/FollowersModal';
 import AddMusicModal from '@/components/organisms/modals/AddMusicModal';
 import { useMyPageTabsStore } from '@/store/myTabsStore';
 import { useShallow } from 'zustand/shallow';
-import { useGetProfileInfo } from '@/hooks/queries/mypage/introduce';
+import {
+  useDeleteMusicWork,
+  useGetProfileInfo,
+} from '@/hooks/queries/mypage/introduce';
 import { useMyPageStore } from '@/store/mypageStore';
 import { STATUS_EMOJI } from '@/constants/userStatus';
 import Button from '@/components/atoms/Button';
@@ -20,7 +23,7 @@ const IntroductionTemplate = () => {
   const [isMyPage, role] = useMyPageStore(
     useShallow((state) => [state.isMyPage, state.role])
   );
-  const { setFormData, resetFormData } = useAddProjectFormStore(
+  const { setProjectForm, resetProjectForm } = useAddProjectFormStore(
     useShallow((state) => state)
   );
 
@@ -32,37 +35,43 @@ const IntroductionTemplate = () => {
 
   const { ownerId } = useMyPageStore(useShallow((state) => state));
   const { data: profileInfo } = useGetProfileInfo(ownerId);
-  // const { mutate: deleteWork } = useDeleteMusicWork(ownerId);
-
-  // const PROJECT_LIMIT = {
-  //   Designer: 4,
-  //   Artist: 3,
-  //   Programmer: 2,
-  // };
+  const { mutate: deleteMusic } = useDeleteMusicWork(ownerId);
 
   const handleProjectUpdate = (work: ShortProjects) => {
     if (!work) return;
-    resetFormData();
+    resetProjectForm();
+    console.log(work);
 
-    // TODO: 아이디 수정되면 추가하기
-    // setFormData('id', work.id);
-    setFormData('title', work.title);
-    setFormData('description', work.description);
-    ['Github', 'Web', 'Android', 'IOS'].map((item) =>
-      setFormData(
-        item.toLowerCase(),
-        work.links.filter((el) => el.type === item)[0]
-          ? work.links.filter((el) => el.type === item)[0].url
-          : ''
-      )
-    );
+    setProjectForm({
+      id: work.myPageProjectId,
+      image: work.projectProfileUrl,
+      title: work.title,
+      description: work.description,
+      github: work.links.find((el) => el.type === 'Github')?.url ?? '',
+      web: work.links.find((el) => el.type === 'Web')?.url ?? '',
+      ios: work.links.find((el) => el.type === 'IOS')?.url ?? '',
+      android: work.links.find((el) => el.type === 'Android')?.url ?? '',
+    });
     setIsForUpdate(true);
     setIsAddProjectOpen(true);
   };
 
   const handleOpenModal = (e: React.MouseEvent) => {
+    if (profileInfo?.works.length === 4) {
+      alert('작업물은 4개까지만 등록 가능합니다.');
+      return;
+    }
     e.preventDefault();
     setIsAddProjectOpen(true);
+  };
+
+  const handleCloseAddModal = () => {
+    setIsAddProjectOpen(false);
+    resetProjectForm();
+  };
+
+  const isMusicWork = (work: any): work is { musicUrl: string } => {
+    return 'musicUrl' in work;
   };
 
   return (
@@ -70,18 +79,12 @@ const IntroductionTemplate = () => {
       {role === 'Artist' ? (
         <AddMusicModal
           isOpen={isAddProjectOpen}
-          onClose={() => {
-            setIsAddProjectOpen(false);
-            resetFormData();
-          }}
+          onClose={handleCloseAddModal}
         />
       ) : (
         <AddProjectModal
           isOpen={isAddProjectOpen}
-          onClose={() => {
-            setIsAddProjectOpen(false);
-            resetFormData();
-          }}
+          onClose={handleCloseAddModal}
           isForUpdate={isForUpdate}
         />
       )}
@@ -133,18 +136,18 @@ const IntroductionTemplate = () => {
       {role === 'Artist' ? (
         <WorkList>
           {profileInfo?.works?.map((work) => {
-            if (typeof work === 'string') {
-              if (work.includes('soundcloud')) {
+            if (isMusicWork(work)) {
+              if (work.musicUrl.includes('soundcloud')) {
                 return (
                   <WorkList.SoundCloud
-                    url={work}
-                    // TODO: 여기 수정하기
-                    // onDelete={() => deleteWork(url)}
-                    onDelete={() => {}}
+                    url={work.musicUrl}
+                    onDelete={() => deleteMusic({ workId: work.musicId })}
                   />
                 );
-              } else if (work.includes('spotify')) {
-                return <WorkList.Spotify url={work} onDelete={() => {}} />;
+              } else if (work.musicUrl.includes('spotify')) {
+                return (
+                  <WorkList.Spotify url={work.musicUrl} onDelete={() => {}} />
+                );
               }
             }
             return null;
@@ -157,7 +160,7 @@ const IntroductionTemplate = () => {
           )}
           <WorkList.Projects>
             {profileInfo?.works?.map((work, i) => {
-              if (typeof work === 'object') {
+              if (!isMusicWork(work)) {
                 return (
                   <WorkList.ProjectItem
                     key={`${work.title}-${i}`}

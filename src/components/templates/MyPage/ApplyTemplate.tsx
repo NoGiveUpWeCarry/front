@@ -7,6 +7,7 @@ import {
   useUpdateResume,
 } from '@/hooks/queries/mypage/apply';
 import { ApplyFormData, useApplyFormStore } from '@/store/applyFormStore';
+import useAuthStore from '@/store/authStore';
 import { useMyPageStore } from '@/store/mypageStore';
 import queryClient from '@/utils/queryClient';
 import { FormEvent, useEffect } from 'react';
@@ -21,21 +22,28 @@ const formData = {
 
 const ApplyTemplate = () => {
   const [ownerId] = useMyPageStore(useShallow((state) => [state.ownerId]));
+  const [userInfo] = useAuthStore(useShallow((state) => [state.userInfo]));
 
-  const { isEditing, setIsEditing, inputs, onSetInputs, resetInputs } =
-    useApplyFormStore(useShallow((state) => state));
+  const {
+    isEditing,
+    setIsEditing,
+    applyForm,
+    setSingleApplyForm,
+    setApplyForm,
+    resetApplyForm,
+  } = useApplyFormStore(useShallow((state) => state));
 
-  const { data: originResume } = useGetResume(ownerId);
+  const { data: originResume } = useGetResume(userInfo?.userId!);
   const { mutate: saveResume } = useMakeResume();
   const { mutate: updateResume } = useUpdateResume();
 
   useEffect(() => {
     if (originResume?.title && originResume?.detail) {
-      onSetInputs('title', originResume?.title);
-      onSetInputs('detail', originResume?.detail);
-      onSetInputs('job', originResume?.jobDetail);
-      onSetInputs('portfolioLink', originResume?.portfolioUrl);
-      onSetInputs('skills', originResume?.skills);
+      setApplyForm({
+        ...originResume,
+        job: originResume.jobDetail,
+        link: originResume.portfolioUrl,
+      });
     }
 
     setIsEditing(!originResume?.title);
@@ -44,7 +52,7 @@ const ApplyTemplate = () => {
   const commonSubmitHandlers = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!inputs.title || !inputs.detail) {
+    if (!applyForm.title || !applyForm.detail) {
       alert('모든 항목을 입력해주세요.');
       return;
     }
@@ -54,12 +62,13 @@ const ApplyTemplate = () => {
     commonSubmitHandlers(e);
 
     if (originResume?.title) {
-      saveResume(
+      updateResume(
         {
           resumeData: {
-            ...inputs,
-            portfolioUrl: inputs.portfolioLink,
+            ...applyForm,
+            portfolioUrl: applyForm.link,
           },
+          resumeId: applyForm?.resumeId!,
         },
         {
           onSuccess: () => {
@@ -72,13 +81,12 @@ const ApplyTemplate = () => {
         }
       );
     } else {
-      updateResume(
+      saveResume(
         {
           resumeData: {
-            ...inputs,
-            portfolioUrl: inputs.portfolioLink,
+            ...applyForm,
+            portfolioUrl: applyForm.link,
           },
-          resumeId: originResume?.id,
         },
         {
           onSuccess: () => {
@@ -93,31 +101,31 @@ const ApplyTemplate = () => {
     }
   };
 
-  const handleUpdate = (e: FormEvent<HTMLFormElement>) => {
-    commonSubmitHandlers(e);
-
-    // ...api
-  };
-
   return (
     <div className='flex flex-col gap-[17px]'>
       {isEditing ? (
         <form onSubmit={handleSubmit}>
           <ApplyFormSection>
-            {Object.entries(formData)
-              .slice(0, 2)
-              .map(([key, value]) => (
-                <ApplyFormSection.Input
-                  key={key}
-                  name={[key, value]}
-                  value={inputs[key as keyof ApplyFormData] as string}
-                  setValue={onSetInputs}
-                  required={key === 'title'}
-                />
-              ))}
+            <ApplyFormSection.Input
+              name={{
+                eng: 'title',
+                kor: '제목',
+              }}
+              value={applyForm.title}
+              setValue={(value) => setSingleApplyForm('title', value)}
+              required
+            />
+            <ApplyFormSection.Input
+              name={{
+                eng: 'link',
+                kor: '포트폴리오 링크',
+              }}
+              value={applyForm.link}
+              setValue={(value) => setSingleApplyForm('link', value)}
+            />
             <ApplyFormSection.TextArea
-              value={inputs.detail}
-              setValue={onSetInputs}
+              value={applyForm.detail}
+              setValue={setSingleApplyForm}
             />
           </ApplyFormSection>
           <div className='flex gap-[17px] justify-center my-5'>
@@ -128,7 +136,7 @@ const ApplyTemplate = () => {
               variants='outline'
               radius='sm'
               className='border border-[#838383]'
-              onClick={resetInputs}
+              onClick={resetApplyForm}
             >
               초기화
             </Button>
@@ -140,21 +148,21 @@ const ApplyTemplate = () => {
               radius='sm'
               className='bg-[#00C859]'
             >
-              저장
+              {originResume?.title ? '수정 저장' : '저장'}
             </Button>
           </div>
         </form>
       ) : (
-        <form onSubmit={handleUpdate}>
+        <div>
           <div className='border border-[#D9D9D9] flex flex-col gap-[10px] rounded-[10px] p-[30px] text-[15px] text-black'>
             {Object.entries(formData).map(([key, value]) => (
               <span className='font-light' key={key}>
                 <strong className='font-medium'>{value}: </strong>
-                {inputs[key as keyof ApplyFormData]}
+                {applyForm[key as keyof ApplyFormData]}
               </span>
             ))}
             <HorizontalDivider className='my-5' />
-            <span className='font-light'>{inputs.detail}</span>
+            <span className='font-light'>{applyForm.detail}</span>
           </div>
           <div className='flex gap-[17px] justify-center my-5'>
             <Button
@@ -169,7 +177,7 @@ const ApplyTemplate = () => {
               수정
             </Button>
           </div>
-        </form>
+        </div>
       )}
     </div>
   );
