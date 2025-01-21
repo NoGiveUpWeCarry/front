@@ -39,8 +39,6 @@ const LinkInput = ({ url, index, onChange }: UrlInputProps) => {
   const keyword = extractServiceName(debouncedUrl);
   const { text, icon } = getCategoryName(keyword);
 
-  console.log(url, text);
-
   return (
     <UrlInput
       key={`input-${index}`}

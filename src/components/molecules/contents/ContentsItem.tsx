@@ -65,7 +65,6 @@ export const FeedContents = ({
   hideUser,
   sliceBody,
 }: FeedContentsProps) => {
-  console.log(thumbnail);
   return (
     <div className='flex flex-col w-full gap-[20px]'>
       {!hideUser && user && (
