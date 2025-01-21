@@ -19,7 +19,7 @@ export interface TokenResponse {
 export interface AuthState {
   isLoggedIn: boolean;
   accessToken: string;
-  userInfo: User;
+  userInfo: User | null;
 }
 export interface AuthAction {
   login: (user: User, token: string) => void;
