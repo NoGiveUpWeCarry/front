@@ -13,11 +13,18 @@ export interface ShortProjects {
   title: string;
   description: string;
   links: { type: string; url: string }[];
+  myPageProjectId: number;
+  projectProfileUrl: string | null;
 }
 
 export interface IntroductionSection {
   githubUsername?: string;
-  works: ShortProjects[] | string[];
+  works:
+    | ShortProjects[]
+    | {
+        musicUrl: string;
+        musicId: number;
+      }[];
   status: string;
   applyCount: number;
   postCount: number;
@@ -43,6 +50,7 @@ export interface ProjectResponse {
   title: string;
   description: string;
   links: { id: number; url: string; type: string }[];
+  image: string;
 }
 
 export interface MusicResponse {
@@ -52,15 +60,16 @@ export interface MusicResponse {
 
 export interface ResumeType {
   title: string;
-  portfolioUrl: string;
+  portfolioUrl?: string;
   detail: string;
 }
 
 export interface ResumeResponse {
+  resumeId: number;
   userId: number;
   title: string;
   jobDetail: string;
-  skills: string;
+  skills: string[];
   portfolioUrl: string;
   detail: string;
   isOwnProfile: boolean;
