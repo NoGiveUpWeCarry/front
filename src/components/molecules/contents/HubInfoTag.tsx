@@ -1,6 +1,6 @@
 import Role, { RoleProps } from '@/components/atoms/Role';
 import Tag from '@/components/atoms/Tag';
-import { HubTagProps } from '@/types/tags/hubTag.type';
+import { HubTagProps } from '@/types/tags/meetingTag.type';
 import { RoleTagProps } from '@/types/tags/roleTag.type';
 
 interface HubInfoTag {

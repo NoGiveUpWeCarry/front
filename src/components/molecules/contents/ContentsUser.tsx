@@ -2,17 +2,26 @@ import Avatar from '@/components/atoms/Avatar';
 import ContentsUserTitle from '@/components/atoms/contents/ConentsUserTitle';
 
 interface ContentsUserProps {
-  avatarSrc: string;
-  name: string;
-  job: string;
-  time: string;
+  userProfileUrl: string;
+  userNickname: string;
+  userRole: string;
+  createdAt: string;
 }
 
-const ContentsUser = ({ avatarSrc, name, job, time }: ContentsUserProps) => {
+const ContentsUser = ({
+  userProfileUrl,
+  userNickname,
+  userRole,
+  createdAt,
+}: ContentsUserProps) => {
   return (
     <div className='flex items-start space-x-3'>
-      <Avatar src={avatarSrc} size='xs' alt={`${name} Avatar`} />
-      <ContentsUserTitle name={name} job={job} time={time} />
+      <Avatar src={userProfileUrl} size='xs' alt={`${userNickname} Avatar`} />
+      <ContentsUserTitle
+        userNickname={userNickname}
+        userRole={userRole}
+        createdAt={createdAt}
+      />
     </div>
   );
 };

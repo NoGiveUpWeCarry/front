@@ -1,22 +1,34 @@
 import ContentsTime from '@/components/atoms/contents/ContentsTime';
 import Role, { RoleProps } from '@/components/atoms/Role';
-import Tag from '@/components/atoms/Tag';
-import { HubTagProps } from '@/types/tags/hubTag.type';
-import { RoleTagProps } from '@/types/tags/roleTag.type';
+import {
+  meetingTagItemsColors,
+  meetingTagItemskey,
+} from '@/constants/hub/meetingTagItems';
+import {
+  roleTagItems,
+  roleTagItemsColors,
+  roleTagItemsKey,
+} from '@/constants/hub/roleTagsItems';
+import {
+  statusTagItemsColors,
+  statusTagItemskey,
+} from '@/constants/hub/statusTagItems';
 
 interface HubBodyProps {
-  hubTags: { label: string; variant: HubTagProps['variant'] }[];
-  roleTags: { label: string; variant: RoleTagProps['variant'] }[];
+  meetingTags: meetingTagItemskey;
+  roleTags: roleTagItemsKey[];
+  statusTags: statusTagItemskey;
   role: RoleProps['role'];
   startDate: string;
   duration: string;
 }
 
 const HubBody = ({
-  hubTags,
+  meetingTags,
   roleTags,
   role,
   startDate,
+  statusTags,
   duration,
 }: HubBodyProps) => {
   return (
@@ -25,13 +37,13 @@ const HubBody = ({
         <Role role={role} />
 
         <div className='flex gap-[10px]'>
-          {roleTags.map((roleTag, index) => (
-            <Tag
-              key={index}
-              label={roleTag.label}
-              type='role'
-              variant={roleTag.variant}
-            />
+          {roleTags.map((roleTag) => (
+            <span
+              key={roleTag}
+              className={`${roleTagItemsColors[roleTag]} bg-[#eaeaea] inline-flex items-center px-3 py-1`}
+            >
+              {roleTagItems[roleTag]}
+            </span>
           ))}
         </div>
       </div>
@@ -40,14 +52,16 @@ const HubBody = ({
       </div>
 
       <div className='flex gap-[10px] text-white'>
-        {hubTags.map((hubTag, index) => (
-          <Tag
-            key={index}
-            label={hubTag.label}
-            type='hub'
-            variant={hubTag.variant}
-          />
-        ))}
+        <span
+          className={`${meetingTagItemsColors[meetingTags]} inline-flex items-center px-3 py-1 font-medium`}
+        >
+          {meetingTags}
+        </span>
+        <span
+          className={`${statusTagItemsColors[statusTags]} inline-flex items-center px-3 py-1 font-medium `}
+        >
+          {statusTags}
+        </span>
       </div>
     </div>
   );

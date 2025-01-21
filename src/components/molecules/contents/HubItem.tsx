@@ -1,17 +1,18 @@
 import ContentsThumbnail from '@/components/atoms/contents/ContentsThumbnail';
-
 import HubBody from '@/components/molecules/contents/HubBody';
 import { RoleProps } from '@/components/atoms/Role';
-import { HubTagProps } from '@/types/tags/hubTag.type';
-import { RoleTagProps } from '@/types/tags/roleTag.type';
 import HubTitle from '@/components/molecules/contents/HubTitle';
-import { ProjectTagProps } from '@/types/tags/projectTag.type';
+import { hubTagItemskey } from '@/constants/hub/hubTagItems';
+import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
+import { roleTagItemsKey } from '@/constants/hub/roleTagsItems';
+import { statusTagItemskey } from '@/constants/hub/statusTagItems';
 
 interface HubItemProps {
   title: string;
-  projectTags: { label: string; variant: ProjectTagProps['variant'] }[];
-  hubTags: { label: string; variant: HubTagProps['variant'] }[];
-  roleTags: { label: string; variant: RoleTagProps['variant'] }[];
+  hubTags: hubTagItemskey;
+  meetingTags: meetingTagItemskey;
+  roleTags: roleTagItemsKey[];
+  statusTags: statusTagItemskey;
   role: RoleProps['role'];
   thumbnail?: string;
   startDate: string;
@@ -20,8 +21,9 @@ interface HubItemProps {
 
 const HubItem = ({
   hubTags,
-  projectTags,
+  meetingTags,
   roleTags,
+  statusTags,
   role,
   thumbnail,
   title,
@@ -30,10 +32,11 @@ const HubItem = ({
 }: HubItemProps) => {
   return (
     <div className='flex flex-col gap-[20px]'>
-      <HubTitle projectTags={projectTags} title={title} />
+      <HubTitle hubTags={hubTags} title={title} />
       <div className='flex justify-between'>
         <HubBody
-          hubTags={hubTags}
+          statusTags={statusTags}
+          meetingTags={meetingTags}
           roleTags={roleTags}
           role={role}
           startDate={startDate}
