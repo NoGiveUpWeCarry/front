@@ -1,12 +1,11 @@
 import {
   FollowUsers,
-  IntroductionSection,
   MusicResponse,
   ProfileHeader,
-  ShortProject,
   ProjectResponse,
   ResumeResponse,
   ResumeType,
+  IntroductionSection,
 } from '@/types/mypage.type';
 import { User } from '@/types/user.type';
 import fetcher from '@/utils/fetcher';
@@ -48,12 +47,15 @@ export const getFollows = async ({
 export const addProject = async ({
   projectInfo,
 }: {
-  projectInfo: ShortProject;
+  projectInfo: FormData;
 }) => {
   const response = await fetcher<ProjectResponse>({
     url: `/users/projects`,
     method: 'POST',
     data: projectInfo,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
   });
   return response.data;
 };
@@ -63,12 +65,15 @@ export const updateProject = async ({
   projectInfo,
 }: {
   projectId: number;
-  projectInfo: ShortProject;
+  projectInfo: FormData;
 }) => {
   const response = await fetcher<ProjectResponse>({
     url: `/users/projects/${projectId}`,
     method: 'PUT',
     data: projectInfo,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
   });
   return response.data;
 };
@@ -143,7 +148,7 @@ export const updateResume = async ({
 }) => {
   const response = await fetcher({
     url: `/users/profile/resume/${resumeId}`,
-    method: 'POST',
+    method: 'PATCH',
     data: resumeData,
   });
   return response.data;

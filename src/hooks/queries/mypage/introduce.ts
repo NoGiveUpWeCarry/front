@@ -9,7 +9,6 @@ import {
   updateGithubNickname,
   updateProject,
 } from '@/apis/mypage';
-import { ShortProject } from '@/types/mypage.type';
 import queryClient from '@/utils/queryClient';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
@@ -45,7 +44,7 @@ export const useGetFollows = ({
 
 export const useAddProject = () => {
   return useMutation({
-    mutationFn: ({ projectInfo }: { projectInfo: ShortProject }) =>
+    mutationFn: ({ projectInfo }: { projectInfo: FormData }) =>
       addProject({ projectInfo }),
   });
 };
@@ -57,7 +56,7 @@ export const useUpdateProject = () => {
       projectInfo,
     }: {
       projectId: number;
-      projectInfo: ShortProject;
+      projectInfo: FormData;
     }) => updateProject({ projectId, projectInfo }),
   });
 };
