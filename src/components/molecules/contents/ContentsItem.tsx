@@ -43,8 +43,7 @@ interface HubContentsProps {
   bookmarkCount: number;
   userCount: number;
   viewsCount: number;
-  thumbnail?: string;
-
+  thumbnailUrl?: string;
   // 유저
   user: {
     userProfileUrl: string;
@@ -104,7 +103,7 @@ export const HubContents = ({
   bookmarkCount,
   userCount,
   viewsCount,
-  thumbnail,
+  thumbnailUrl,
   user,
   startDate,
   duration,
@@ -127,7 +126,7 @@ export const HubContents = ({
               meetingTags={meetingTags}
               roleTags={roleTags}
               role={role}
-              thumbnail={thumbnail}
+              thumbnailUrl={thumbnailUrl}
               startDate={startDate}
               duration={duration}
             />

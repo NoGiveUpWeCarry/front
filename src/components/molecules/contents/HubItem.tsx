@@ -14,7 +14,7 @@ interface HubItemProps {
   roleTags: roleTagItemsKey[];
   statusTags: statusTagItemskey;
   role: RoleProps['role'];
-  thumbnail?: string;
+  thumbnailUrl?: string;
   startDate: string;
   duration: string;
 }
@@ -25,7 +25,7 @@ const HubItem = ({
   roleTags,
   statusTags,
   role,
-  thumbnail,
+  thumbnailUrl,
   title,
   startDate,
   duration,
@@ -42,12 +42,11 @@ const HubItem = ({
           startDate={startDate}
           duration={duration}
         />
-
-        {thumbnail && (
-          <div className='w-[180px]'>
-            <ContentsThumbnail src={thumbnail} />
+        <div className='flex'>
+          <div className='w-[200px] h-[120px]'>
+            <ContentsThumbnail thumbnailUrl={thumbnailUrl} />
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

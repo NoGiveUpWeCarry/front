@@ -1,19 +1,21 @@
 interface ContentsThumbnailProps {
-  src: string;
+  thumbnailUrl?: string;
   alt?: string;
 }
 
 const ContentsThumbnail = ({
-  src,
-  alt = 'Thumbnail',
+  thumbnailUrl,
+  alt = '',
 }: ContentsThumbnailProps) => {
   return (
-    <div className='w-full'>
-      <img
-        src={src}
-        alt={alt}
-        className='w-full h-auto object-cover rounded-[20px]'
-      />
+    <div className='flex w-full h-full'>
+      {thumbnailUrl ? (
+        <img
+          src={thumbnailUrl}
+          alt={alt}
+          className='w-full object-cover rounded-[20px]'
+        />
+      ) : null}
     </div>
   );
 };
