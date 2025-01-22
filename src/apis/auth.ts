@@ -26,6 +26,7 @@ export const postAuthorizationCode = async ({
       withCredentials: true,
     }
   );
+  console.log('post authorizationtoken response: ', response.data);
   return response.data;
 };
 

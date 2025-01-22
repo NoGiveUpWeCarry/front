@@ -20,10 +20,11 @@ const useAuthStore = create(
             sessionStorage.setItem('@token', token);
           },
           login: (user: User, token: string) => {
+            console.log('zustand login 호출됨.');
             set({
-              accessToken: token,
               isLoggedIn: true,
-              userInfo: user, // 로그인 카멜케이스로 변경되기 전까진 아래꺼로 사용
+              accessToken: token,
+              userInfo: user,
             });
             // localStorage.setItem('@token', token);
             sessionStorage.setItem('@token', token); // 테스트 하기 위해 sessionStorage로 변경함
@@ -54,7 +55,7 @@ const useAuthStore = create(
           accessToken: state.accessToken,
           userInfo: state.userInfo,
         }),
-        storage: createJSONStorage(() => sessionStorage), // 유저 정보가 탭 별로 다르게 테스트 하기 위해 sessionStorage 사용
+        storage: createJSONStorage(() => sessionStorage),
       }
     ),
     { name: 'AuthStore' }

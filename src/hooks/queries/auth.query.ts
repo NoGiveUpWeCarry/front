@@ -17,9 +17,10 @@ export const useAuthMutation = (): UseMutationResult<
   return useMutation({
     mutationFn: ({ authorizationCode, provider }) =>
       postAuthorizationCode({ authorizationCode, provider }),
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       const { accessToken, user, isExistingUser } = data;
-      login(user, accessToken);
+      await login(user, accessToken);
+      console.log('login zustand Action 성공');
       if (isExistingUser) {
         navigate('/');
       } else {

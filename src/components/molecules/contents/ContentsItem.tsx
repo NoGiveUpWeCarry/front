@@ -26,6 +26,7 @@ interface FeedContentsProps {
     name: string;
     job: string;
     time: string;
+    userId: number;
   };
 }
 
@@ -47,6 +48,7 @@ interface HubContentsProps {
     name: string;
     job: string;
     time: string;
+    userId: number;
   };
 }
 
@@ -67,6 +69,7 @@ export const FeedContents = ({
         name={user.name}
         job={user.job}
         time={user.time}
+        userId={user.userId}
       />
 
       <div className='w-full'>
