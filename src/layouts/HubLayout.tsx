@@ -1,8 +1,8 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import SideMenu from '@/components/organisms/sides/SideMenu';
-import MainSideBar from '@/components/organisms/sides/MainSideBar';
+import HubSideBar from '@/components/organisms/sides/HubSideBar';
 
-const MainLayout = () => {
+const HubLayout = () => {
   const preventInfo = ['/login', '/settings'];
   const location = useLocation();
 
@@ -20,11 +20,11 @@ const MainLayout = () => {
 
       {!preventInfo.includes(location.pathname) && (
         <div className='sticky top-0 h-screen w-[330px] p-2 hidden lg:block !z-1'>
-          <MainSideBar />
+          <HubSideBar />
         </div>
       )}
     </div>
   );
 };
 
-export default MainLayout;
+export default HubLayout;
