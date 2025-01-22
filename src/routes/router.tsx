@@ -36,7 +36,7 @@ const router = [
         element: <CallbackPage />,
       },
       {
-        path: '/mypage',
+        path: '/:nickname',
         element: <MyPage />,
       },
       {
@@ -48,7 +48,7 @@ const router = [
         element: <ConnectionHubPage />,
       },
       {
-        path: '/connectionhubdetailpage',
+        path: '/feed/:id',
         element: <ConnetcionHubDetailPage />,
       },
       {

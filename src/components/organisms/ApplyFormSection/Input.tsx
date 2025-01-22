@@ -6,24 +6,27 @@ const ApplyFormInput = ({
   setValue,
   required,
 }: {
-  name: [string, string];
+  name: {
+    eng: string;
+    kor: string;
+  };
   value: string;
-  setValue: (name: string, value: string) => void;
+  setValue: (value: string) => void;
   required?: boolean;
 }) => {
   const getChar = () => {
-    return ['link', 'category'].includes(name[0]) ? '를' : '을';
+    return ['link', 'category'].includes(name.eng) ? '를' : '을';
   };
 
   return (
     <div className='w-full flex flex-col gap-[10px]'>
-      <Label text={name[1]} required={required} />
+      <Label text={name.kor} required={required} />
       <input
         value={value}
-        onChange={(e) => setValue(e.target.name, e.target.value)}
-        name={name[0]}
+        onChange={(e) => setValue(e.target.value)}
+        name={name.eng}
         className='w-full h-10 rounded-[10px] border border-[#838383] outline-none bg-transparent px-[16px]'
-        placeholder={`${name[1]}${getChar()} 입력해주세요`}
+        placeholder={`${name.kor}${getChar()} 입력해주세요`}
       />
     </div>
   );

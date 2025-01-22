@@ -17,7 +17,7 @@ const ApplyFormTextArea = ({
           maxLength={200}
           wrap='hard'
           value={value}
-          onChange={(e) => setValue('content', e.target.value)}
+          onChange={(e) => setValue('detail', e.target.value)}
         />
         <span className='absolute bottom-[30px] right-[30px] text-[#838383] p-2 bg-white'>
           {value.length} / 200

@@ -7,11 +7,11 @@ import { ModalProps } from '@/components/organisms/modals/modalProps';
 import Tabs from '@/components/organisms/Tabs';
 import { feedItem } from '@/mocks/mock-data/feedItem';
 import { hubItem } from '@/mocks/mock-data/hubItem';
-import { useTabsStore } from '@/store/tabStore';
 import useDebounce from '@/hooks/useDebounce';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTabs } from '@/hooks/useTabs';
 
 const SearchModal = ({ onClose }: ModalProps) => {
   const navigate = useNavigate();
@@ -25,11 +25,7 @@ const SearchModal = ({ onClose }: ModalProps) => {
       el.roleTags.map((t) => t.label).includes(debouncedKeyword)
   );
 
-  const { tabs, setTabs } = useTabsStore();
-
-  useEffect(() => {
-    setTabs(['전체', '피드', '커넥션 허브', '태그']);
-  }, []);
+  const { tabs, active, setActive } = useTabs(['전체', '피드', '커넥션 허브']);
 
   // 키워드 검색 로직
 
@@ -54,7 +50,12 @@ const SearchModal = ({ onClose }: ModalProps) => {
         <div className='h-10'>
           <Tabs>
             {tabs.map((item, i) => (
-              <Tabs.TabItem key={item as string} hideDivider={i === 3}>
+              <Tabs.TabItem
+                key={item as string}
+                hideDivider={i === 2}
+                onClick={() => setActive(item)}
+                isActive={active === item}
+              >
                 {item}
               </Tabs.TabItem>
             ))}

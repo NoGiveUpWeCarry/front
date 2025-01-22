@@ -2,26 +2,31 @@ import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 export type ApplyFormData = {
+  resumeId: number;
   title: string;
-  category: string;
+  job: string;
   link: string;
-  content: string;
+  skills: string[];
+  detail: string;
 };
 
 interface ApplyFormStore {
   isEditing: boolean;
   setIsEditing: (isEditing: boolean) => void;
 
-  inputs: ApplyFormData;
-  onSetInputs: (name: string, value: string) => void;
-  resetInputs: () => void;
+  applyForm: ApplyFormData;
+  setSingleApplyForm: (name: string, value: string) => void;
+  setApplyForm: (value: ApplyFormData) => void;
+  resetApplyForm: () => void;
 }
 
 const initialInputs = {
+  resumeId: -1,
   title: '',
-  category: '',
+  job: '',
   link: '',
-  content: '',
+  detail: '',
+  skills: [],
 };
 
 export const useApplyFormStore = create<ApplyFormStore>()(
@@ -29,9 +34,10 @@ export const useApplyFormStore = create<ApplyFormStore>()(
     isEditing: false,
     setIsEditing: (isEditing) => set({ isEditing }),
 
-    inputs: initialInputs,
-    onSetInputs: (name, value) =>
-      set((state) => ({ inputs: { ...state.inputs, [name]: value } })),
-    resetInputs: () => set({ inputs: initialInputs }),
+    applyForm: initialInputs,
+    setSingleApplyForm: (name, value) =>
+      set((state) => ({ applyForm: { ...state.applyForm, [name]: value } })),
+    setApplyForm: (value) => set({ applyForm: value }),
+    resetApplyForm: () => set({ applyForm: initialInputs }),
   }))
 );

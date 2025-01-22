@@ -21,13 +21,15 @@ interface FeedContentsProps {
   likesCount: number;
   viewsCount: number;
   thumbnail?: string;
-  user: {
+  user?: {
     avatarSrc: string;
     name: string;
     job: string;
     time: string;
     userId: number;
   };
+  hideUser?: boolean;
+  sliceBody?: boolean;
 }
 
 // 허브 컨텐츠
@@ -43,13 +45,14 @@ interface HubContentsProps {
   userCount: number;
   viewsCount: number;
   thumbnail?: string;
-  user: {
+  user?: {
     avatarSrc: string;
     name: string;
     job: string;
     time: string;
     userId: number;
   };
+  hideUser: boolean;
 }
 
 export const FeedContents = ({
@@ -61,16 +64,19 @@ export const FeedContents = ({
   viewsCount,
   thumbnail,
   user,
+  hideUser,
+  sliceBody,
 }: FeedContentsProps) => {
   return (
     <div className='flex flex-col w-full gap-[20px]'>
-      <ContentsUser
-        avatarSrc={user.avatarSrc}
-        name={user.name}
-        job={user.job}
-        time={user.time}
-        userId={user.userId}
-      />
+      {!hideUser && user && (
+        <ContentsUser
+          avatarSrc={user!.avatarSrc || ''}
+          name={user!.name}
+          job={user!.job}
+          time={user!.time}
+        />
+      )}
 
       <div className='w-full'>
         <div className='bg-white rounded-[10px] p-[20px] w-full'>
@@ -80,6 +86,7 @@ export const FeedContents = ({
               body={body}
               tags={feedTags}
               thumbnail={thumbnail}
+              sliceBody={sliceBody}
             />
             <FeedFooter
               commentsCount={commentsCount}
@@ -106,15 +113,18 @@ export const HubContents = ({
   user,
   startDate,
   duration,
+  hideUser,
 }: HubContentsProps) => {
   return (
     <div className='flex flex-col w-full gap-[20px]'>
-      <ContentsUser
-        avatarSrc={user.avatarSrc}
-        name={user.name}
-        job={user.job}
-        time={user.time}
-      />
+      {!hideUser && (
+        <ContentsUser
+          avatarSrc={user!.avatarSrc}
+          name={user!.name}
+          job={user!.job}
+          time={user!.time}
+        />
+      )}
       <div className='w-full'>
         <div className='bg-white rounded-[10px] p-[20px] w-full'>
           <div className='flex flex-col gap-[20px]'>

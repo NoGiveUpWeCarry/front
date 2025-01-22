@@ -3,59 +3,127 @@ import Input from '@/components/atoms/Input';
 import UrlInput from '@/components/molecules/UrlInput';
 import Modal from '@/components/organisms/modals/Modal';
 import { ModalProps } from '@/components/organisms/modals/modalProps';
+import {
+  useAddProject,
+  useDeleteProject,
+  useUpdateProject,
+} from '@/hooks/queries/mypage/introduce';
 import { useAddProjectFormStore } from '@/store/addProjectFormStore';
+import { useMyPageStore } from '@/store/mypageStore';
+import queryClient from '@/utils/queryClient';
 import { CameraIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
 import { ChangeEvent, useRef } from 'react';
 import { useShallow } from 'zustand/shallow';
 
-const AddProjectModal = ({ onClose }: ModalProps) => {
+const AddProjectModal = ({
+  onClose,
+  isOpen,
+  isForUpdate,
+}: ModalProps & { isOpen: boolean; isForUpdate: boolean }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [formData, setFormData] = useAddProjectFormStore(
-    useShallow((state) => [state.formData, state.setFormData])
-  );
+  const { projectForm, setSingleProjectForm, resetProjectForm } =
+    useAddProjectFormStore(useShallow((state) => state));
+  const [ownerId] = useMyPageStore(useShallow((state) => [state.ownerId]));
+
+  const { mutate: addProject } = useAddProject();
+  const { mutate: updateProject } = useUpdateProject();
+  const { mutate: deleteProject } = useDeleteProject(ownerId);
 
   const handleImageSave = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file && file.type.startsWith('image/')) {
-      setFormData('imageUrl', file);
+      setSingleProjectForm('image', file);
     }
   };
 
+  const successHandler = () => {
+    queryClient.invalidateQueries({
+      queryKey: ['profile-info', ownerId],
+    });
+    resetProjectForm();
+    onClose();
+  };
+
   const handleSaveProject = () => {
-    // 로직
+    if (!projectForm.title || !projectForm.description) return;
+
+    const form = new FormData();
+    form.append('title', projectForm.title);
+    form.append('description', projectForm.description);
+
+    const links: { url: string; typeId: number }[] = [];
+    ['github', 'web', 'ios', 'android'].forEach((key, i) => {
+      if (projectForm[key as keyof typeof projectForm]) {
+        links.push({
+          url: projectForm[key as keyof typeof projectForm] as string,
+          typeId: i + 1,
+        });
+      }
+    });
+
+    form.append('links', JSON.stringify(links));
+    form.append('file', projectForm.image as File);
+
+    if (isForUpdate) {
+      updateProject(
+        { projectId: projectForm.id, projectInfo: form },
+        {
+          onSuccess: successHandler,
+        }
+      );
+    } else {
+      addProject(
+        { projectInfo: form },
+        {
+          onSuccess: successHandler,
+        }
+      );
+    }
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(name, value);
+    setSingleProjectForm(name, value);
   };
+
+  const handleDeleteProject = () => {
+    deleteProject({ projectId: projectForm.id });
+    resetProjectForm();
+    onClose();
+  };
+
+  if (!isOpen) return null;
 
   return (
     <Modal onClose={onClose} width='444px' height='494px' className='!p-5'>
       <Modal.Title>프로젝트 추가</Modal.Title>
       <div className='flex gap-3'>
         <div
-          className={`w-[98px] h-[98px] rounded-[10px] ${formData.imageUrl ? null : 'border border-[#838383]'} flex justify-center items-center cursor-pointer`}
+          className={`w-[98px] h-[98px] rounded-[10px] ${projectForm.image ? null : 'border border-[#838383]'} flex justify-center items-center cursor-pointer`}
           onClick={() => inputRef.current?.click()}
         >
-          {formData.imageUrl ? (
+          {projectForm.image ? (
             <img
               className='w-[98px] h-[98px] rounded-[10px] object-cover'
-              src={URL.createObjectURL(formData.imageUrl)}
+              src={
+                projectForm.image instanceof File
+                  ? URL.createObjectURL(projectForm.image)
+                  : projectForm.image
+              }
             />
           ) : (
             <CameraIcon width={24} />
           )}
         </div>
         <input type='file' hidden ref={inputRef} onChange={handleImageSave} />
-        <div className='flex flex-col gap-3 flex-1'>
+        <div className='flex flex-col justify-center gap-4 h-[98px] flex-1'>
           <Input
             bgColor='transparent'
             borderColor='dark'
             className='w-full'
             placeholder='프로젝트 이름을 입력해주세요'
             name='title'
-            value={formData.title}
+            value={projectForm.title}
             onChange={handleChange}
           />
           <Input
@@ -64,7 +132,7 @@ const AddProjectModal = ({ onClose }: ModalProps) => {
             className='w-full'
             placeholder='프로젝트에 대해 입력해주세요'
             name='description'
-            value={formData.description}
+            value={projectForm.description}
             onChange={handleChange}
           />
         </div>
@@ -76,7 +144,7 @@ const AddProjectModal = ({ onClose }: ModalProps) => {
             category='Github'
             placeholder='Github URL을 입력해주세요'
             name='github'
-            value={formData.github}
+            value={projectForm.github}
             onChange={handleChange}
           />
           <UrlInput
@@ -84,7 +152,7 @@ const AddProjectModal = ({ onClose }: ModalProps) => {
             category='Web'
             placeholder='Web URL을 입력해주세요'
             name='web'
-            value={formData.web}
+            value={projectForm.web}
             onChange={handleChange}
           />
           <UrlInput
@@ -92,7 +160,7 @@ const AddProjectModal = ({ onClose }: ModalProps) => {
             category='iOS'
             placeholder='iOS 앱 URL을 입력해주세요'
             name='ios'
-            value={formData.ios}
+            value={projectForm.ios}
             onChange={handleChange}
           />
           <UrlInput
@@ -100,21 +168,33 @@ const AddProjectModal = ({ onClose }: ModalProps) => {
             category='Android'
             placeholder='안드로이드 앱 URL을 입력해주세요'
             name='android'
-            value={formData.android}
+            value={projectForm.android}
             onChange={handleChange}
           />
         </div>
       </div>
-      <div className='my-[30px] flex justify-center items-center'>
+      <div className='my-[30px] flex justify-center items-center gap-5'>
+        {isForUpdate && (
+          <Button
+            variants='outline'
+            width='92px'
+            height='29px'
+            radius='lg'
+            className='text-red-500 border !border-red-500'
+            onClick={() => handleDeleteProject()}
+          >
+            삭제
+          </Button>
+        )}
         <Button
           variants='filled'
           width='92px'
           height='29px'
           radius='lg'
           className='bg-[#FF7E5F]'
-          onClick={handleSaveProject}
+          onClick={() => handleSaveProject()}
         >
-          저장
+          {isForUpdate ? '수정' : '저장'}
         </Button>
       </div>
     </Modal>
