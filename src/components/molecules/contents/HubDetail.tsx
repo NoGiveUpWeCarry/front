@@ -47,7 +47,7 @@ const HubDetail = ({
   user,
 }: HubDetailProps) => {
   return (
-    <div className='flex flex-col bg-white rounded-[20px] p-[20px]'>
+    <div className='flex flex-col w-full bg-white rounded-[20px] p-[20px]'>
       <div className='flex flex-col gap-[20px]'>
         <HubTitle hubTags={hubTags} title={title} />
         <HubInfoTag
@@ -64,19 +64,19 @@ const HubDetail = ({
         />
         <HubSkill skillTags={skillTags} />
         <div className='flex'>
-          <HubDetailTitle title='프로젝트 소개' />
+          <HubDetailTitle title='허브 소개' />
         </div>
         <div>
           <DetailContents contents={contents} />
         </div>
         <div className='flex'>
-          <HubDetailTitle title='프로젝트 매니저 소개' />
+          <HubDetailTitle title='허브 매니저 소개' />
         </div>
         <div className='flex border rounded-[10px]'>
           <div className='flex  w-full mx-[20px] my-[30px]'>
             <div className='flex w-full  items-center  justify-between'>
               <div className='flex items-center gap-[20px]'>
-                <Avatar src='/src/assets/images/example.svg' size='sm' />
+                <Avatar src={user.userProfileUrl} size='sm' />
                 <div className='flex'>
                   <HubDetailUser
                     userNickname={user.userNickname}
