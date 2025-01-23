@@ -1,6 +1,6 @@
 import Title from '@/components/atoms/Title';
 import ChatHeaderInfo from '@/components/molecules/chat/ChatHeaderInfo';
-import SearchInput from '@/components/molecules/chat/SearchInput';
+import SearchMessage from '@/components/organisms/chat/SearchMessage';
 import { ChatState } from '@/store/chatStore';
 
 interface ChatHeaderProps {
@@ -24,9 +24,9 @@ const ChatHeader = ({ currentChannelId }: ChatHeaderProps) => {
           </>
         )}
       </div>
-      <div className='shrink-0'>
-        <SearchInput />
-      </div>
+      {currentChannelId && (
+        <SearchMessage currentChannelId={currentChannelId} />
+      )}
     </div>
   );
 };

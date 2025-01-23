@@ -3,19 +3,21 @@ import { Channel } from '@/types/channel.type';
 import { ReceiveMessage } from '@/types/message.type';
 import { fakerKO as faker } from '@faker-js/faker';
 
+let messageCount = 0;
+let lastMessageDate = new Date('2025-01-01'); // 초기 날짜 설정
+
 export const createMessage = (
   channelId: Channel['channelId']
 ): ReceiveMessage => {
+  // 이전 메시지 날짜에서 1시간 증가
+  lastMessageDate = new Date(lastMessageDate.getTime() + 1000 * 60 * 60); // 1 시간씩 증가
   return {
     channelId: channelId,
+    messageId: ++messageCount,
     content: faker.lorem.paragraph(),
     user: faker.helpers.arrayElement(users),
     type: faker.helpers.arrayElement(['text']),
-    // messageId: 빌드 에러로 인해 추가함
-    messageId: 1,
-    date: faker.date
-      .between({ from: '2025-01-01', to: Date.now() })
-      .toISOString(),
+    date: lastMessageDate.toISOString(),
   };
 };
 

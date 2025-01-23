@@ -10,13 +10,15 @@ export const useChat = () => {
   const userInfo = useAuthStore((state) => state.userInfo);
   const { loginAlert } = useAlert();
 
-  const { createChannel, connectSocket, disconnectSocket } = useChatStore(
-    useShallow((state) => ({
-      createChannel: state.createChannel,
-      connectSocket: state.connectSocket,
-      disconnectSocket: state.disconnectSocket,
-    }))
-  );
+  const { createChannel, connectSocket, disconnectSocket, createGroup } =
+    useChatStore(
+      useShallow((state) => ({
+        createChannel: state.createChannel,
+        connectSocket: state.connectSocket,
+        disconnectSocket: state.disconnectSocket,
+        createGroup: state.createGroup,
+      }))
+    );
 
   useEffect(() => {
     if (!userInfo) {
@@ -25,12 +27,19 @@ export const useChat = () => {
     }
 
     connectSocket();
-    // 메시지 버튼을 눌러서 넘어온 경우
+    // 개인 채팅방 생성으로 넘어온 경우
     if (location.state?.targetUserId) {
       const userId1 = userInfo.userId;
       const userId2 = location.state.targetUserId;
       createChannel(userId1, userId2);
+    } else if (location.state?.userIds && location.state?.title) {
+      const userIds = location.state.userIds;
+      const title = location.state.title;
+      createGroup(userIds, title);
     }
-    return () => disconnectSocket();
+    return () => {
+      disconnectSocket();
+      window.history.replaceState({}, '');
+    };
   }, []);
 };

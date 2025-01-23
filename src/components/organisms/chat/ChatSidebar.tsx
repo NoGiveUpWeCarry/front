@@ -1,44 +1,25 @@
-import SearchInput from '@/components/molecules/chat/SearchInput';
 import ChannelList from '@/components/organisms/chat/ChannelList';
-import { ChatState, useChatStore } from '@/store/chatStore';
-import { FormEvent, useState } from 'react';
+import SearchChannel from '@/components/organisms/chat/SearchChannel';
+import useDebounce from '@/hooks/useDebounce';
+import { useChatStore } from '@/store/chatStore';
+import { filterChannels } from '@/utils/filter';
+import { useState } from 'react';
 
 const ChatSidebar = () => {
   const [keyword, setKeyword] = useState('');
-  const [filteredChannels, setFilteredChannels] =
-    useState<ChatState['channels']>();
+  const debouncedKeyword = useDebounce(keyword, 300);
   const channels = useChatStore((state) => state.channels);
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    const filteredChannels = filterChannels(keyword, channels);
-    setFilteredChannels(filteredChannels);
-  };
+  const filteredChannels = filterChannels(debouncedKeyword, channels);
 
   return (
     <div className='flex flex-col gap-[24px] flex-1'>
-      <form onSubmit={handleSubmit}>
-        <SearchInput
-          value={keyword}
-          onChange={(e) => setKeyword(e.target.value)}
-        />
-        <button>검색</button>
-      </form>
+      <SearchChannel
+        value={keyword}
+        onChange={(e) => setKeyword(e.target.value)}
+      />
       <ChannelList channels={filteredChannels ? filteredChannels : channels} />
     </div>
   );
 };
-
-function filterChannels(keyword: string, channels: ChatState['channels']) {
-  return Object.fromEntries(
-    Object.entries(channels).filter(([_, channel]) => {
-      const includedTitle = channel.title.includes(keyword);
-      const includedUser = channel.users.some((user) =>
-        user.nickname.includes(keyword)
-      );
-      return includedTitle || includedUser;
-    })
-  );
-}
 
 export default ChatSidebar;

@@ -1,6 +1,7 @@
 import Avatar from '@/components/atoms/Avatar';
 import Title from '@/components/atoms/Title';
 import { ListItem } from '@/components/molecules/ListItem';
+import useAuthStore from '@/store/authStore';
 import { ChatState, useChatStore } from '@/store/chatStore';
 import { Channel } from '@/types/channel.type';
 import { formatDateFromNow } from '@/utils/format';
@@ -12,14 +13,17 @@ interface ChannelListProps {
 }
 
 const ChannelList = ({ channels }: ChannelListProps) => {
-  const { setChannel, currentChannelId } = useChatStore(
+  const { joinChannel, currentChannelId } = useChatStore(
     useShallow((state) => ({
-      setChannel: state.setChannel,
+      joinChannel: state.joinChannel,
       currentChannelId: state.currentChannelId,
     }))
   );
+  const user = useAuthStore((state) => state.userInfo);
+
   const switchChannel = (channelId: Channel['channelId']) => {
-    setChannel(channelId);
+    if (channelId === currentChannelId) return;
+    joinChannel(user!.userId, channelId);
   };
   return (
     <ul className='grow flex flex-col gap-[24px]'>
@@ -35,7 +39,7 @@ const ChannelList = ({ channels }: ChannelListProps) => {
               ])}
             >
               <ListItem.Col className='w-[40px] h-[40px] shrink-0'>
-                <Avatar src={channel.thunmbnailURL} size='xs' />
+                <Avatar src={channel.thumbnailURL || undefined} size='xs' />
               </ListItem.Col>
               <ListItem.Col className='w-[calc(100% - 40px)] flex-auto p'>
                 <div className='flex justify-between'>

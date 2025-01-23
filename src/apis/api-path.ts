@@ -13,4 +13,5 @@ export const API_PATH = {
   feedChatDelete: ' /feed/:id/comment/:commentId',
   connectionhub: '/connectionhub',
   connectionhubdetail: '/connectionhubdetail',
+  searchMessages: '/chat/channels/:id/messages/search',
 };

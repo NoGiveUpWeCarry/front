@@ -7,7 +7,6 @@ interface ChatHeaderInfoProps {
 
 const ChatHeaderInfo = ({ currentChannelId }: ChatHeaderInfoProps) => {
   const channels = useChatStore((state) => state.channels);
-
   return (
     <>
       <Title size='md' fontWeight='bold' lineClamp={1}>

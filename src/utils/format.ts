@@ -28,20 +28,24 @@ export const formatDateMessages = (channelMessages: ReceiveMessage[] = []) => {
 };
 
 export const formatChannelData = (channel: Channel, myUserId: number = -1) => {
-  let title: string;
+  let title = channel.title;
+  let thumbnailURL = channel.thumbnailURL;
   switch (channel.type) {
     case 'group':
-      title = channel.users.map((user) => user.nickname).join(', ');
       break;
     case 'private':
       title =
         channel.users.find((user) => user.userId !== myUserId)?.nickname ||
         '채팅방 제목';
+      thumbnailURL = channel.users.find(
+        (user) => user.userId !== myUserId
+      )?.profileUrl;
       break;
   }
   return {
     ...channel,
     title,
+    thumbnailURL,
   };
 };
 
@@ -49,6 +53,6 @@ export const formatDateFromNow = (date: string) => {
   return dayjs(date).fromNow(true);
 };
 
-export const formatTime = (date: string, format: string = 'HH:MM') => {
+export const formatTime = (date: string, format: string = 'HH:mm') => {
   return dayjs(date).format(format);
 };
