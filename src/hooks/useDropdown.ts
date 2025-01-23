@@ -11,6 +11,11 @@ export const useDropdown = ({
   const [openDropdown, setOpenDropdown] = useState(false);
   const [selectedOption, setSelectedOption] = useState(initialValue);
 
+  const handleSetWorkStatus = () => {
+    setSelectedOption(data[focusedIndex!]);
+    setOpenDropdown(false);
+  };
+
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     event.preventDefault();
     if (event.key === 'ArrowDown') {
@@ -24,11 +29,6 @@ export const useDropdown = ({
     } else if (event.key === 'Enter' && focusedIndex !== null) {
       handleSetWorkStatus();
     }
-  };
-
-  const handleSetWorkStatus = () => {
-    setSelectedOption(data[focusedIndex!]);
-    setOpenDropdown(false);
   };
 
   const toggleDropdown = () => setOpenDropdown((prev) => !prev);
