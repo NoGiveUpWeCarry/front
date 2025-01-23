@@ -25,7 +25,13 @@ const calculateTimeAgo = (createdAt: Date): string => {
   const now = new Date();
   const diffInMs = now.getTime() - createdAt.getTime();
   const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
-  return `${diffInHours}시간 전`;
+
+  if (diffInHours < 24) {
+    return `${diffInHours}시간 전`;
+  }
+
+  const diffInDays = Math.floor(diffInHours / 24);
+  return `${diffInDays}일 전`;
 };
 
 // 단일 HubItemType 생성 함수

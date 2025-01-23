@@ -20,6 +20,7 @@ export interface DetailItemType {
     userProfileUrl: string;
     userNickname: string;
     userRole: string;
+    createdAt: string;
   };
 }
 
@@ -41,6 +42,7 @@ export const DetailItem: DetailItemType[] = [
       userNickname: 'leechan',
       userRole: 'Programmer',
       userIntroduce: 'asdflkjasfdlasjdfl',
+      createdAt: '6시간전',
     },
   },
 ];
