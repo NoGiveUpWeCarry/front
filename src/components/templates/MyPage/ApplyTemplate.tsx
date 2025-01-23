@@ -6,19 +6,13 @@ import {
   useMakeResume,
   useUpdateResume,
 } from '@/hooks/queries/mypage/apply';
-import { ApplyFormData, useApplyFormStore } from '@/store/applyFormStore';
+import { useApplyFormStore } from '@/store/applyFormStore';
 import useAuthStore from '@/store/authStore';
 import { useMyPageStore } from '@/store/mypageStore';
 import queryClient from '@/utils/queryClient';
 import { FormEvent, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
-
-const formData = {
-  title: '제목',
-  link: '포트폴리오 링크',
-  job: '지원 직무',
-  skills: '스킬',
-};
 
 const ApplyTemplate = () => {
   const [ownerId] = useMyPageStore(useShallow((state) => [state.ownerId]));
@@ -155,12 +149,30 @@ const ApplyTemplate = () => {
       ) : (
         <div>
           <div className='border border-[#D9D9D9] flex flex-col gap-[10px] rounded-[10px] p-[30px] text-[15px] text-black'>
-            {Object.entries(formData).map(([key, value]) => (
-              <span className='font-light' key={key}>
-                <strong className='font-medium'>{value}: </strong>
-                {applyForm[key as keyof ApplyFormData]}
+            <span className='font-light'>
+              <strong className='font-medium'>제목: </strong>
+              {applyForm.title}
+            </span>
+            {applyForm.link && (
+              <span className='font-light'>
+                <strong className='font-medium'>포트폴리오 링크: </strong>
+                <Link to={applyForm.link} className='hover:text-blue-600'>
+                  {applyForm.link}
+                </Link>
               </span>
-            ))}
+            )}
+            {applyForm.job && (
+              <span className='font-light'>
+                <strong className='font-medium'>지원 직무: </strong>
+                {applyForm.job}
+              </span>
+            )}
+            {applyForm.skills && (
+              <span className='font-light'>
+                <strong className='font-medium'>기술 스택: </strong>
+                {applyForm.skills.join(', ')}
+              </span>
+            )}
             <HorizontalDivider className='my-5' />
             <span className='font-light'>{applyForm.detail}</span>
           </div>
