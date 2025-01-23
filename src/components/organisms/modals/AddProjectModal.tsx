@@ -95,7 +95,7 @@ const AddProjectModal = ({
   if (!isOpen) return null;
 
   return (
-    <Modal onClose={onClose} width='444px' height='494px' className='!p-5'>
+    <Modal onClose={onClose} className='!p-5'>
       <Modal.Title>프로젝트 추가</Modal.Title>
       <div className='flex gap-3'>
         <div

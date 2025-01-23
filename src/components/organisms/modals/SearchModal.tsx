@@ -35,7 +35,7 @@ const SearchModal = ({ onClose }: ModalProps) => {
   };
 
   return (
-    <Modal onClose={onClose} width='808px' height='687px'>
+    <Modal onClose={onClose}>
       <div className='w-full h-full px-[50px] flex flex-col'>
         <div className='mb-6 w-full h-6 flex items-center'>
           <Icon type='search' className='w-6 h-6' color='gray' />

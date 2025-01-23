@@ -31,7 +31,7 @@ const AddMusicModal = ({
   if (!isOpen) return null;
 
   return (
-    <Modal onClose={onClose} width='444px' height='101px' className='!p-[30px]'>
+    <Modal onClose={onClose} className='!p-[30px]'>
       <div className='flex gap-[10px]'>
         <Input
           placeholder='음악 URL을 입력해주세요.'

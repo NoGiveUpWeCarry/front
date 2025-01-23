@@ -33,12 +33,7 @@ const FollowersModal = ({
   if (!isOpen) return null;
 
   return (
-    <Modal
-      onClose={onClose}
-      width='320px'
-      height='460px'
-      className='!px-5 !pt-4'
-    >
+    <Modal onClose={onClose} className='!px-5 !pt-4 w-[320px]'>
       <div className='w-full'>
         <div className='flex'>
           {tabs.map((item) => (

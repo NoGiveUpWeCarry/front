@@ -12,8 +12,6 @@ interface ModalProps {
 }
 
 const Modal = ({
-  width = '818px',
-  height = '500px',
   hasCloseButton = true,
   onClose,
   children,
@@ -34,9 +32,8 @@ const Modal = ({
       onClick={onClose}
     >
       <div
-        className='absolute top-50% left-50% -translate-x-50% -translate-y-50% cursor-default z-50'
+        className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-default z-50'
         onClick={(e) => e.stopPropagation()}
-        style={{ width, height }}
       >
         {hasCloseButton && <Modal.CloseButton onClose={onClose} />}
         <Modal.InnerModal className={className}>{children}</Modal.InnerModal>
