@@ -32,11 +32,11 @@ const HubBody = ({
   duration,
 }: HubBodyProps) => {
   return (
-    <div className='flex flex-col gap-[10px]'>
-      <div className='flex w-full gap-[20px]'>
+    <div className='flex flex-col gap-[20px]'>
+      <div className='flex w-full items-center gap-[20px]'>
         <Role role={role} />
 
-        <div className='flex gap-[10px]'>
+        <div className='flex gap-[10px] items-center'>
           {roleTags.map((roleTag) => (
             <span
               key={roleTag}

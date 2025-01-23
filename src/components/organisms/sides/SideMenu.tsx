@@ -127,7 +127,7 @@ const SideMenu = () => {
               transform
               transition-opacity
               duration-300
-              w-[400px]
+              w-[370px]
               h-[700px]
               bg-white
               bg-opacity-95
@@ -140,30 +140,30 @@ const SideMenu = () => {
             '
           >
             <div className='flex w-full flex-col items-center gap-[10px]'>
-              <div className='text-[20px] font-semibold text-[#48484a]'>
+              <div className='text-[18px] font-semibold text-[#48484a]'>
                 알림 📫
               </div>
-              <div className='text-[20px] text-[#828282]'>
+              {/* <div className='text-[16px] text-[#828282]'>
                 현재 새로운 알림이 없습니다.
-              </div>
+              </div> */}
               <div className='flex w-full flex-col gap-[20px]'>
                 <div className='flex flex-col gap-[20px]'>
                   <div className='flex items-start font-semibold text-[16px]'>
                     오늘
                   </div>
-                  <div className='flex w-full justify-start items-center gap-[10px]'>
-                    <Avatar src='/src/assets/images/example.svg' />
+                  <div className='flex w-full justify-start text-[14px] items-center gap-[10px]'>
+                    <Avatar src='/src/assets/images/example.svg' size={'xs'} />
                     <div>채윤님이 회원님을 팔로우하기 시작했습니다.</div>
                   </div>
-                  <div className='flex w-full justify-start items-center gap-[10px]'>
-                    <Avatar src='/src/assets/images/example.svg' />
+                  <div className='flex w-full justify-start text-[14px] items-center gap-[10px]'>
+                    <Avatar src='/src/assets/images/example.svg ' size={'xs'} />
                     <div>
                       채윤님이 올리신 프로젝트 지원 마감기한이 일주일
                       남았습니다.
                     </div>
                   </div>
-                  <div className='flex w-full justify-start items-center gap-[10px]'>
-                    <Avatar src='/src/assets/images/example.svg' />
+                  <div className='flex w-full justify-start text-[14px] items-center gap-[10px]'>
+                    <Avatar src='/src/assets/images/example.svg' size={'xs'} />
                     <div>
                       채윤님이 올리신 프로젝트에서 지원을 수락했습니다.
                       프로젝트를 시작해 보세요!
@@ -172,70 +172,22 @@ const SideMenu = () => {
                   <div className='border-b-2 border-[#eaeaea]'></div>
                 </div>
                 <div className='flex flex-col gap-[20px]'>
-                  <div className='flex items-start font-semibold text-[16px]'>
+                  <div className='flex items-start  font-semibold text-[16px]'>
                     어제
                   </div>
-                  <div className='flex w-full justify-start items-center gap-[10px]'>
-                    <Avatar src='/src/assets/images/example.svg' />
+                  <div className='flex w-full justify-start text-[14px] items-center gap-[10px]'>
+                    <Avatar src='/src/assets/images/example.svg' size={'xs'} />
                     <div>채윤님이 회원님을 팔로우하기 시작했습니다.</div>
                   </div>
-                  <div className='flex w-full justify-start items-center gap-[10px]'>
-                    <Avatar src='/src/assets/images/example.svg' />
+                  <div className='flex w-full justify-start text-[14px] items-center gap-[10px]'>
+                    <Avatar src='/src/assets/images/example.svg' size={'xs'} />
                     <div>
                       채윤님이 올리신 프로젝트 지원 마감기한이 일주일
                       남았습니다.
                     </div>
                   </div>
-                  <div className='flex w-full justify-start items-center gap-[10px]'>
-                    <Avatar src='/src/assets/images/example.svg' />
-                    <div>
-                      채윤님이 올리신 프로젝트에서 지원을 수락했습니다.
-                      프로젝트를 시작해 보세요!
-                    </div>
-                  </div>
-                  <div className='border-b-2 border-[#eaeaea]'></div>
-                </div>
-                <div className='flex flex-col gap-[20px]'>
-                  <div className='flex items-start font-semibold text-[16px]'>
-                    어제
-                  </div>
-                  <div className='flex w-full justify-start items-center gap-[10px]'>
-                    <Avatar src='/src/assets/images/example.svg' />
-                    <div>채윤님이 회원님을 팔로우하기 시작했습니다.</div>
-                  </div>
-                  <div className='flex w-full justify-start items-center gap-[10px]'>
-                    <Avatar src='/src/assets/images/example.svg' />
-                    <div>
-                      채윤님이 올리신 프로젝트 지원 마감기한이 일주일
-                      남았습니다.
-                    </div>
-                  </div>
-                  <div className='flex w-full justify-start items-center gap-[10px]'>
-                    <Avatar src='/src/assets/images/example.svg' />
-                    <div>
-                      채윤님이 올리신 프로젝트에서 지원을 수락했습니다.
-                      프로젝트를 시작해 보세요!
-                    </div>
-                  </div>
-                  <div className='border-b-2 border-[#eaeaea]'></div>
-                </div>
-                <div className='flex flex-col gap-[20px]'>
-                  <div className='flex items-start font-semibold text-[16px]'>
-                    어제
-                  </div>
-                  <div className='flex w-full justify-start items-center gap-[10px]'>
-                    <Avatar src='/src/assets/images/example.svg' />
-                    <div>채윤님이 회원님을 팔로우하기 시작했습니다.</div>
-                  </div>
-                  <div className='flex w-full justify-start items-center gap-[10px]'>
-                    <Avatar src='/src/assets/images/example.svg' />
-                    <div>
-                      채윤님이 올리신 프로젝트 지원 마감기한이 일주일
-                      남았습니다.
-                    </div>
-                  </div>
-                  <div className='flex w-full justify-start items-center gap-[10px]'>
-                    <Avatar src='/src/assets/images/example.svg' />
+                  <div className='flex w-full justify-start text-[14px] items-center gap-[10px]'>
+                    <Avatar src='/src/assets/images/example.svg' size={'xs'} />
                     <div>
                       채윤님이 올리신 프로젝트에서 지원을 수락했습니다.
                       프로젝트를 시작해 보세요!

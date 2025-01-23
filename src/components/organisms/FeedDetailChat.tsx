@@ -51,7 +51,7 @@ const FeedDetailChat = ({ comments, feedId }: FeedDetailChatProps) => {
   };
 
   return (
-    <div className='mt-3 w-full h-fit flex flex-col gap-[20px] px-[30px]'>
+    <div className='mt-3 w-full h-fit flex flex-col gap-[20px] px-[50px]'>
       {groupedComments && groupedComments.length > 0 ? (
         <div
           className={clsx(

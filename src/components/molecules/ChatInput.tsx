@@ -20,7 +20,7 @@ const ChatInput = ({ onSubmit, userImage, isPending }: CommentInputProps) => {
   };
 
   return (
-    <div className='w-full h-[40px] flex gap-[10px] mb-[40px]'>
+    <div className='w-full h-[40px] flex gap-[10px] mb-[20px]'>
       <img
         src={userImage}
         alt='User Avatar'
@@ -35,7 +35,7 @@ const ChatInput = ({ onSubmit, userImage, isPending }: CommentInputProps) => {
           disabled={isPending}
         />
         <div
-          className='absolute left-[730px] bg-white w-[30px] h-[30px] flex items-center justify-center rounded-full cursor-pointer'
+          className='absolute left-[713px] bg-white w-[30px] h-[30px] flex items-center justify-center rounded-full cursor-pointer'
           onClick={handleSubmit}
         >
           <Icon type='arrowLongUp' className='w-[20px] h-[20px]' />

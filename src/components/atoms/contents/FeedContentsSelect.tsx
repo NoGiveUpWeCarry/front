@@ -19,7 +19,7 @@ export function FeedSelect() {
 
   return (
     <Select onValueChange={handleChange}>
-      <SelectTrigger className='w-[90px] bg-white'>
+      <SelectTrigger className='w-[110px] bg-white'>
         <SelectValue placeholder='🏷️ 태그' />
       </SelectTrigger>
       <SelectContent>

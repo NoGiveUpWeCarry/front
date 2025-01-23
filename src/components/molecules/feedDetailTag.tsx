@@ -9,7 +9,9 @@ const feedDetailTag = ({ tags }: FeedDetailTagProps) => {
     <ul className='w-full z-50 flex flex-wrap gap-2'>
       {tags.map((tag) => (
         <li key={tag}>
-          <div className={`px-2 py-1 rounded-[3px] ${tagColors[tag]}`}>
+          <div
+            className={`px-2 py-1 text-[12px] rounded-[5px] ${tagColors[tag]}`}
+          >
             # {tag}
           </div>
         </li>
