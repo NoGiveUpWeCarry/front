@@ -4,7 +4,7 @@ import {
   meetingTagItems,
   meetingTagItemskey,
 } from '@/constants/hub/meetingTagItems';
-import { hubTagItems, hubTagItemskey } from '@/constants/hub/hubTagItems';
+import { hubTagItems, HubTagItemsKey } from '@/constants/hub/hubTagItems';
 import {
   statusTagItems,
   statusTagItemskey,
@@ -12,7 +12,7 @@ import {
 import { HubItemType } from '@/mocks/mock-data/hubItem';
 
 const meetingTagOptions = Object.keys(meetingTagItems) as meetingTagItemskey[];
-const hubTagOptions = Object.keys(hubTagItems) as hubTagItemskey[];
+const hubTagOptions = Object.keys(hubTagItems) as HubTagItemsKey[];
 const statusTagOptions = Object.keys(statusTagItems) as statusTagItemskey[];
 const roleTagOptions = Object.keys(roleTagItems) as roleTagItemsKey[];
 
@@ -39,7 +39,7 @@ export const generateSingleHub = (): HubItemType => {
   const createdAt = faker.date.recent({ days: 7 }); // 최근 7일 이내
   const timeAgo = calculateTimeAgo(createdAt);
 
-  const hasThumbnail = faker.datatype.boolean();
+  // const hasThumbnail = faker.datatype.boolean();
 
   return {
     title: faker.lorem.sentence(),

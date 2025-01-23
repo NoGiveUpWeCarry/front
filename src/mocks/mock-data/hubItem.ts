@@ -1,4 +1,4 @@
-import { hubTagItemskey } from '@/constants/hub/hubTagItems';
+import { HubTagItemsKey } from '@/constants/hub/hubTagItems';
 import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
 import { roleTagItemsKey } from '@/constants/hub/roleTagsItems';
 import { statusTagItemskey } from '@/constants/hub/statusTagItems';
@@ -11,7 +11,7 @@ export interface HubItemType {
   startDate: string;
   duration: string;
   thumbnailUrl?: string;
-  hubTags: hubTagItemskey;
+  hubTags: HubTagItemsKey;
   roleTags: roleTagItemsKey[];
   bookmarkCount: number;
   userCount: number;

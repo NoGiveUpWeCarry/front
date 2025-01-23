@@ -1,4 +1,4 @@
-import { hubTagItems, hubTagItemskey } from '@/constants/hub/hubTagItems';
+import { hubTagItems, HubTagItemsKey } from '@/constants/hub/hubTagItems';
 import {
   meetingTagItems,
   meetingTagItemskey,
@@ -14,7 +14,7 @@ import { faker } from '@faker-js/faker';
 
 const skillTagOptions = Object.keys(skillTagItems) as skillTagItemsKey[];
 const meetingTagOptions = Object.keys(meetingTagItems) as meetingTagItemskey[];
-const hubTagOptions = Object.keys(hubTagItems) as hubTagItemskey[];
+const hubTagOptions = Object.keys(hubTagItems) as HubTagItemsKey[];
 const statusTagOptions = Object.keys(statusTagItems) as statusTagItemskey[];
 const roleTagOptions = Object.keys(roleTagItems) as roleTagItemsKey[];
 

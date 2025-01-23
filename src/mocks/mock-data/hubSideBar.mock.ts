@@ -1,8 +1,8 @@
-import { hubTagItems, hubTagItemskey } from '@/constants/hub/hubTagItems';
+import { hubTagItems, HubTagItemsKey } from '@/constants/hub/hubTagItems';
 import { HubSideBarItemType } from '@/types/hubSideBarItem.type';
 import { faker } from '@faker-js/faker';
 
-const hubTagOptions = Object.keys(hubTagItems) as hubTagItemskey[];
+const hubTagOptions = Object.keys(hubTagItems) as HubTagItemsKey[];
 
 // 랜덤 닉네임 생성 (7글자 내외)
 const generateUserNickname = (): string => {

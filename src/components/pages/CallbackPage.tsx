@@ -17,7 +17,7 @@ const CallbackPage = () => {
 
   return (
     <div>
-      {authMutation.isLoading ? (
+      {authMutation.isPending ? (
         <p>로그인 처리 중...</p>
       ) : (
         <p>OAuth 로그인 중...</p>

@@ -30,8 +30,6 @@ const SelectDetailJobModal = ({ onClose }: ModalProps) => {
   const { mutate } = useUpdateDetailJob();
 
   const handleSave = () => {
-    const newJob = Object.values(selectedItem).join(' / ');
-
     mutate(
       {
         detailJobData: {

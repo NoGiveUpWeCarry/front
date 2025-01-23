@@ -11,6 +11,8 @@ export const createMessage = (
     content: faker.lorem.paragraph(),
     user: faker.helpers.arrayElement(users),
     type: faker.helpers.arrayElement(['text']),
+    // messageId: 빌드 에러로 인해 추가함
+    messageId: 1,
     date: faker.date
       .between({ from: '2025-01-01', to: Date.now() })
       .toISOString(),

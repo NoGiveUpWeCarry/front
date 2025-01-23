@@ -6,7 +6,6 @@ import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import { useGetConnectionHubs } from '@/hooks/queries/mypage/connection-hub';
 import { useTabs } from '@/hooks/useTabs';
-import { ProjectTagVariant } from '@/types/tags/projectTag.type';
 
 const ConnectionHubTemplate = () => {
   const { ref, inView } = useInView();
@@ -65,15 +64,10 @@ const ConnectionHubTemplate = () => {
               <HubContents
                 key={project.title + new Date().toISOString()}
                 {...project}
-                hubTags={[]}
                 roleTags={[]}
                 role='PROGRAMMER'
                 userCount={0}
                 bookmarkCount={0}
-                projectTags={project.tags.map((el) => ({
-                  label: el,
-                  variant: el as ProjectTagVariant,
-                }))}
                 viewsCount={project.view}
                 hideUser
               />

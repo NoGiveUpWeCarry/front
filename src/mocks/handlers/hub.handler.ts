@@ -1,8 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import { API_PATH } from '@/apis/api-path';
-import { generateSingleHub, hubMocks } from '@/mocks/mock-data/hub.mock';
+import { generateSingleHub } from '@/mocks/mock-data/hub.mock';
 import { delayForDevelopment } from '@/mocks/handlers';
-import { baseURL } from '@/utils/baseUrl';
 
 export const hubsHandlers = [
   http.get(

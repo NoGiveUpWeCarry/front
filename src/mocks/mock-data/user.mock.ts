@@ -10,7 +10,7 @@ export const createUser = (userId?: number): User => {
     email: faker.internet.email(),
     name: faker.person.fullName(),
     nickname: faker.person.fullName(),
-    profileUrl: faker.image.avatar(),
+    userImage: faker.image.avatar(),
     roleId: faker.helpers.rangeToNumber({ min: 1, max: 3 }),
     authProvider: faker.helpers.arrayElement(['github', 'google', 'pad']),
   };

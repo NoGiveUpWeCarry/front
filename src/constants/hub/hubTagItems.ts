@@ -3,9 +3,9 @@ export const hubTagItems = {
   OUTSOURCING: 'OUTSOURCING',
 } as const;
 
-export type hubTagItemskey = keyof typeof hubTagItems;
+export type HubTagItemsKey = keyof typeof hubTagItems;
 
-export const hubTagItemsColors: Record<hubTagItemskey, string> = {
+export const hubTagItemsColors: Record<HubTagItemsKey, string> = {
   PROJECT: 'bg-gradient-to-r from-[#87DBFF] to-[#FFA9BE] ',
   OUTSOURCING: 'bg-gradient-to-r from-[#FF8800] to-[#84FF74] ',
 };
