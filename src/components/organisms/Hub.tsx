@@ -10,8 +10,8 @@ interface HubProps {
 
 const Hub = ({ keyword }: HubProps) => {
   const [data, setData] = useState<HubItemType[]>([]);
-  const { data: HubData, isLoading, isError } = useFetchHubs();
-  console.log('Hubdata: ', HubData);
+  const { data: HubsData, isLoading, isError } = useFetchHubs();
+  console.log('Hubsdata: ', HubsData);
 
   useEffect(() => {
     console.log(hubMocks); // 데이터 확인
