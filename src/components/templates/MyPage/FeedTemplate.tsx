@@ -1,8 +1,8 @@
 import DateText from '@/components/atoms/DateText';
-import { FeedContents } from '@/components/molecules/contents/ContentsItem';
+// import { FeedContents } from '@/components/molecules/contents/ContentsItem';
 import { useGetFeeds } from '@/hooks/queries/mypage/feed';
 import { useMyPageStore } from '@/store/mypageStore';
-import { ContentsFeedTagVariant } from '@/types/tags/contentsFeedTag.type';
+// import { ContentsFeedTagVariant } from '@/types/tags/contentsFeedTag.type';
 import { useShallow } from 'zustand/shallow';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
@@ -33,7 +33,7 @@ const FeedTemplate = () => {
               {showDate && (
                 <DateText hasBg date={feed.createdAt} className='mb-[28px]' />
               )}
-              <FeedContents
+              {/* <FeedContents
                 key={feed.title + new Date().toISOString()}
                 title={feed.title}
                 body={feed.content.replace(/<[^>]*>/g, ' ')}
@@ -46,7 +46,7 @@ const FeedTemplate = () => {
                 viewsCount={feed.view}
                 sliceBody
                 thumbnail={feed.thumbnailUrl!}
-              />
+              /> */}
             </Link>
           );
         });
