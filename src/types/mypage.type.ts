@@ -74,3 +74,18 @@ export interface ResumeResponse {
   detail: string;
   isOwnProfile: boolean;
 }
+
+export interface SettingsResponse {
+  nickname: string;
+  profileUrl: string;
+  introduce: string;
+  status: string;
+  links: { linkId: number; url: string }[];
+  skills: string[];
+  jobDetail: string;
+  notifications: {
+    pushAlert: boolean;
+    followingAlert: boolean;
+    projectAlert: boolean;
+  };
+}
