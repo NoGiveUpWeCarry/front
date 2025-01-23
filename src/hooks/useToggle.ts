@@ -1,17 +1,19 @@
 import { useState } from 'react';
 
-export const useToggle = (initialValue: Record<string, boolean> = {}) => {
-  const [values, setValues] = useState(initialValue);
+export const useToggle = <T extends object>(initialValue: T) => {
+  const [values, setValues] = useState<T>(initialValue);
 
-  const toggle = (key: string) => {
+  const toggle = (key: keyof T, fn?: () => void) => {
     setValues((prev) => ({
       ...prev,
       [key]: !prev[key],
     }));
+    fn?.();
   };
 
   return {
     values,
+    setValues,
     toggle,
   };
 };
