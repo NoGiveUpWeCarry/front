@@ -6,6 +6,7 @@ import {
   ResumeResponse,
   ResumeType,
   IntroductionSection,
+  SettingsResponse,
 } from '@/types/mypage.type';
 import { User } from '@/types/user.type';
 import fetcher from '@/utils/fetcher';
@@ -249,7 +250,7 @@ export const getConnectionHub = async ({
 // 설정 페이지
 
 export const getSettings = async () => {
-  const response = await fetcher({
+  const response = await fetcher<SettingsResponse>({
     url: `/users/profile/settings`,
     method: 'GET',
   });
@@ -258,11 +259,11 @@ export const getSettings = async () => {
 
 // 계정 설정
 
-export const updateProfileImage = async ({ image }: { image: File }) => {
+export const updateProfileImage = async ({ file }: { file: FormData }) => {
   const response = await fetcher({
     url: `/users/profile/image`,
     method: 'PATCH',
-    data: { image },
+    data: file,
   });
   return response.data;
 };
@@ -298,14 +299,18 @@ export const updateStatus = async ({ statusId }: { statusId: number }) => {
   return response.data;
 };
 
-interface DetailJob {
+export interface DetailJob {
   category: string;
   jobDetail: string;
 }
 
-export const updateDetailJob = async (detailJobData: DetailJob) => {
+export const updateDetailJob = async ({
+  detailJobData,
+}: {
+  detailJobData: DetailJob;
+}) => {
   const response = await fetcher({
-    url: `/users/profile/status`,
+    url: `/users/profile/job`,
     method: 'PATCH',
     data: detailJobData,
   });
@@ -349,7 +354,7 @@ export const deleteLink = async ({ linkIds }: { linkIds: number[] }) => {
 };
 
 // 알림 설정
-interface Notification {
+export interface Notification {
   pushAlert: boolean;
   followingAlert: boolean;
   projectAlert: boolean;
