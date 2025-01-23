@@ -78,7 +78,7 @@ export const useSearchMessages = (
     if (data) {
       const { messages, message, cursors } = data;
       if (message.code === 404) {
-        alert(message.message);
+        alert(message.text);
         return;
       }
       setState({
