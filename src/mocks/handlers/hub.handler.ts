@@ -4,7 +4,7 @@ import { generateSingleHub, hubMocks } from '@/mocks/mock-data/hub.mock';
 import { delayForDevelopment } from '@/mocks/handlers';
 import { baseURL } from '@/utils/baseUrl';
 
-export const hubHandlers = [
+export const hubsHandlers = [
   http.get(
     `${import.meta.env.VITE_BASE_SERVER_URL}${API_PATH.connectionhub}`,
     async () => {
