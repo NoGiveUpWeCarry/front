@@ -34,19 +34,17 @@ const IntroductionTemplate = () => {
   const [isForUpdate, setIsForUpdate] = useState(false);
 
   const { ownerId } = useMyPageStore(useShallow((state) => state));
-  const { data: profileInfo } = useGetProfileInfo(ownerId);
+  const { data: profileInfo, isLoading } = useGetProfileInfo(ownerId);
   const { mutate: deleteMusic } = useDeleteMusicWork(ownerId);
 
   const handleProjectUpdate = (work: ShortProjects) => {
     if (!work) return;
     resetProjectForm();
-    console.log(work);
 
     setProjectForm({
+      ...work,
       id: work.myPageProjectId,
       image: work.projectProfileUrl,
-      title: work.title,
-      description: work.description,
       github: work.links.find((el) => el.type === 'Github')?.url ?? '',
       web: work.links.find((el) => el.type === 'Web')?.url ?? '',
       ios: work.links.find((el) => el.type === 'IOS')?.url ?? '',
@@ -156,7 +154,10 @@ const IntroductionTemplate = () => {
       ) : (
         <WorkList>
           {role === 'Programmer' && (
-            <WorkList.Github githubId={profileInfo?.githubUsername!} />
+            <WorkList.Github
+              githubId={profileInfo?.githubUsername!}
+              loading={isLoading}
+            />
           )}
           <WorkList.Projects>
             {profileInfo?.works?.map((work, i) => {

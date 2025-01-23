@@ -14,7 +14,13 @@ const WorkList = ({ children }: { children: ReactNode }) => {
   return <div className='flex flex-col gap-[17px] w-full'>{children}</div>;
 };
 
-WorkList.Github = function Github({ githubId }: { githubId: string }) {
+WorkList.Github = function Github({
+  githubId,
+  loading,
+}: {
+  githubId: string;
+  loading: boolean;
+}) {
   const [ownerId, isMyPage] = useMyPageStore(
     useShallow((state) => [state.ownerId, state.isMyPage])
   );
@@ -79,6 +85,7 @@ WorkList.Github = function Github({ githubId }: { githubId: string }) {
           fontSize={11}
           showWeekdayLabels
           blockMargin={3.2}
+          loading={loading}
         />
       </Link>
     </>
