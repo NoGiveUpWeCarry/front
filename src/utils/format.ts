@@ -39,7 +39,7 @@ export const formatChannelData = (channel: Channel, myUserId: number = -1) => {
         '채팅방 제목';
       thumbnailURL = channel.users.find(
         (user) => user.userId !== myUserId
-      )?.profileUrl;
+      )?.userImage;
       break;
   }
   return {

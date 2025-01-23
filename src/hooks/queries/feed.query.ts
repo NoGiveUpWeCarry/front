@@ -31,11 +31,16 @@ export const useInfiniteFetchFeeds = (
   latest: boolean,
   tags: string
 ): UseInfiniteQueryResult<InfiniteData<FeedsResponse>, Error> => {
-  return useInfiniteQuery<FeedsResponse>({
+  return useInfiniteQuery<
+    FeedsResponse,
+    Error,
+    InfiniteData<FeedsResponse>,
+    [string, boolean, string]
+  >({
     queryKey: ['feeds', latest, tags],
-    queryFn: ({ pageParam = 0 }: { pageParam: number }) =>
+    queryFn: ({ pageParam }) =>
       fetchFeeds({
-        cursor: pageParam,
+        cursor: pageParam as number,
         latest,
         tags,
       }),
@@ -82,7 +87,7 @@ export const usePostFeed = (): UseMutationResult<
 > => {
   return useMutation({
     mutationFn: async ({ title, tags, content }: FeedRequest) => {
-      return await postFeed(title, tags, content);
+      return postFeed(title, tags, content);
     },
     onSuccess: () => {
       console.log('피드 작성 성공');
@@ -97,7 +102,7 @@ export const usePostFeed = (): UseMutationResult<
 export const usePostFeedChat = () => {
   return useMutation({
     mutationFn: async ({ id, content }: { id: number; content: string }) => {
-      return await postFeedChat(id, content);
+      return postFeedChat(id, content);
     },
     onSuccess: (_, { id }) => {
       queryClient.invalidateQueries({
@@ -120,7 +125,7 @@ export const useDeleteFeedChat = () => {
       postId: Post['postId'];
       commentId: number;
     }) => {
-      return await deleteFeedChat(postId, commentId);
+      return deleteFeedChat(postId, commentId);
     },
     onSuccess: (_, { postId }) => {
       queryClient.invalidateQueries({
@@ -137,7 +142,7 @@ export const useDeleteFeedChat = () => {
 export const useDeleteFeed = () => {
   return useMutation({
     mutationFn: async (postId: Post['postId']) => {
-      return await deleteFeed(postId);
+      return deleteFeed(postId);
     },
     onSuccess: (_, postId) => {
       queryClient.invalidateQueries({
@@ -164,7 +169,7 @@ export const usePutFeed = () => {
       tags: string[];
       content: string;
     }) => {
-      return await putFeed(id, title, tags, content);
+      return putFeed(id, title, tags, content);
     },
     onSuccess: (_, { id }) => {
       queryClient.invalidateQueries({
@@ -181,7 +186,7 @@ export const usePutFeed = () => {
 export const usePutChat = () => {
   return useMutation({
     mutationFn: async ({ id }: { id: number }) => {
-      return await putChatLike(id);
+      return putChatLike(id);
     },
     onSuccess: () => {
       console.log('댓글에 대한 좋아요 변경 성공');
@@ -192,10 +197,10 @@ export const usePutChat = () => {
   });
 };
 
-export const usepatchFeedLike = () => {
+export const usePatchFeedLike = () => {
   return useMutation({
     mutationFn: async ({ id }: { id: number }) => {
-      return await patchFeedLike(id);
+      return patchFeedLike(id);
     },
     onSuccess: () => {
       console.log('피드에 대한 좋아요 변경 성공');

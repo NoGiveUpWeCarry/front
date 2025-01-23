@@ -16,10 +16,10 @@ interface FeedContentsProps {
   title: string;
   content: string;
   feedTags: TagItemKey[];
-  commentsCount: number;
-  likesCount: number;
-  viewsCount: number;
-  thumnailUrl?: string;
+  commentCount: number;
+  likeCount: number;
+  viewCount: number;
+  thumbnailUrl?: string;
   postId: number;
   isLiked: boolean;
   createdAt: string;
@@ -35,10 +35,10 @@ export const FeedContents = ({
   title,
   content,
   feedTags,
-  commentsCount,
-  likesCount,
-  viewsCount,
-  thumnailUrl,
+  commentCount,
+  likeCount,
+  viewCount,
+  thumbnailUrl,
   user,
   postId,
   isLiked,
@@ -60,13 +60,13 @@ export const FeedContents = ({
               title={title}
               content={content}
               tags={feedTags}
-              thumnailUrl={thumnailUrl}
+              thumbnailUrl={thumbnailUrl}
               postId={postId}
             />
             <FeedFooter
-              commentsCount={commentsCount}
-              likesCount={likesCount}
-              viewsCount={viewsCount}
+              commentsCount={commentCount}
+              likesCount={likeCount}
+              viewsCount={viewCount}
               isLiked={isLiked}
               postId={postId}
             />
@@ -98,7 +98,7 @@ interface HubContentsProps {
     userRole: string;
     createdAt: string;
   };
-  hideUser: boolean;
+  hideUser?: boolean;
 }
 
 export const HubContents = ({

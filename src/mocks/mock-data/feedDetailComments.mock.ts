@@ -10,7 +10,7 @@ const feedDetailComments: Comment[] = Array.from(
     userRole: ['Programmer', 'Designer', 'Artist'][index % 3],
     userProfileUrl: faker.image.avatar(),
     comment: `이 토론 정말 흥미롭네요! (댓글 ${index + 1})`,
-    createdAt: new Date(),
+    createdAt: new Date().toISOString(),
     likeCount: Math.floor(Math.random() * 10),
     isLiked: index % 2 === 0,
   })

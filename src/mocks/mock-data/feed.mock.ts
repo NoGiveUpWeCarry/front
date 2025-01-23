@@ -49,7 +49,7 @@ const generateSingleComment = (): Comment => ({
   isLiked: faker.datatype.boolean(),
 });
 
-export const generateFeedsMockData = (): FeedsResponse => {
+export const generateFeedsMockData = (): Pick<FeedsResponse, 'posts'> => {
   const posts = Array.from({ length: 10 }, generateSingleFeed);
   return { posts };
 };

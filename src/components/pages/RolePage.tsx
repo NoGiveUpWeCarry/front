@@ -32,9 +32,11 @@ const RolePage = () => {
       <div className='w-[700px] min-h-full flex flex-col items-center gap-[20%] pt-[10%]'>
         <RoleSelectLogo
           selectedRole={selectedRole}
-          setSelectedRole={(role: Role) => {
+          setSelectedRole={(role: Role | null) => {
             setSelectedRole(role);
-            role && handleRoleChange(role);
+            if (role) {
+              handleRoleChange(role);
+            }
           }}
         />
         <div className='flex gap-2'>

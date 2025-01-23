@@ -1,4 +1,13 @@
-import { SideBarItem } from '@/types/mainSideBarItem.type';
+import { HubTagVariant } from '@/types/tags/hubTag.type';
+
+// TODO: 확인 필요 / 다른 곳에서 사용하지 않는 타입 같으니 확인하시고 수정 부탁드립니다.
+export interface SideBarItem {
+  id: number;
+  name: string;
+  role: string;
+  subtitle: string;
+  label: HubTagVariant;
+}
 
 export const connectionHubSideBar: SideBarItem[] = [
   {

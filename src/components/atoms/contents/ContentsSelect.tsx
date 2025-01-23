@@ -70,7 +70,7 @@ interface HubSelectProps {
   onUnitSelect?: (unit: string) => void;
 }
 
-export function HubSelect({ className, onUnitSelect }: HubSelectProps) {
+export const HubSelect = ({ className, onUnitSelect }: HubSelectProps) => {
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const [workUnits, setWorkUnits] = useState<string[]>([]);
 
@@ -114,7 +114,7 @@ export function HubSelect({ className, onUnitSelect }: HubSelectProps) {
       </Select>
     </div>
   );
-}
+};
 
 const programmerSkills = [
   'React',
@@ -189,7 +189,7 @@ interface SkillSelectProps {
   onSkillSelect: (skill: string) => void; // 선택된 스킬을 전달하는 핸들러
 }
 
-export function SkillSelect({ onSkillSelect }: SkillSelectProps) {
+export const SkillSelect = ({ onSkillSelect }: SkillSelectProps) => {
   return (
     <Select onValueChange={onSkillSelect}>
       {/* onValueChange 연결 */}
@@ -241,10 +241,10 @@ export function SkillSelect({ onSkillSelect }: SkillSelectProps) {
       </SelectContent>
     </Select>
   );
-}
+};
 
-export function SetWork() {
-  const [_, setWorkMethod] = useState<string>('');
+export const SetWork = () => {
+  const [, setWorkMethod] = useState<string>('');
   return (
     <Select onValueChange={setWorkMethod}>
       <SelectTrigger className='w-[120px] border-black h-[44px]'>
@@ -256,12 +256,13 @@ export function SetWork() {
       </SelectContent>
     </Select>
   );
-}
+};
 
-export function HubCategory() {
+export const HubCategory = () => {
   const [HubMethod, setHubMethod] = useState<string>('');
+
   return (
-    <Select onValueChange={setHubMethod}>
+    <Select onValueChange={setHubMethod} value={HubMethod}>
       <SelectTrigger className='w-[120px] border-black h-[44px]'>
         <SelectValue placeholder='허브 유형' />
       </SelectTrigger>
@@ -271,4 +272,4 @@ export function HubCategory() {
       </SelectContent>
     </Select>
   );
-}
+};

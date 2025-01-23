@@ -1,5 +1,5 @@
 import Icon from '@/components/atoms/Icon';
-import { usepatchFeedLike } from '@/hooks/queries/feed.query';
+import { usePatchFeedLike } from '@/hooks/queries/feed.query';
 import useAuthStore from '@/store/authStore';
 
 interface FeedFooterProps {
@@ -24,7 +24,7 @@ export const FeedFooter = ({
   postId,
 }: FeedFooterProps) => {
   const { isLoggedIn, userInfo } = useAuthStore((state) => state);
-  const { mutate: toggleLike } = usepatchFeedLike();
+  const { mutate: toggleLike } = usePatchFeedLike();
   const handleLikeClick = () => {
     if (isLoggedIn && userInfo.userId) {
       toggleLike({ id: postId });

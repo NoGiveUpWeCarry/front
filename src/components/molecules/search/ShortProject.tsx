@@ -1,11 +1,11 @@
-import { HubItemType } from '@/mocks/hubItem';
+import { HubItemType } from '@/mocks/mock-data/hubItem';
 
 interface IProps extends HubItemType {
   onClick: () => void;
 }
 
 const ShortProject = ({ onClick, ...props }: IProps) => {
-  const { projectTags, role, startDate, duration, title } = props;
+  const { hubTags, role, startDate, duration, title } = props;
 
   return (
     <div
@@ -14,7 +14,8 @@ const ShortProject = ({ onClick, ...props }: IProps) => {
     >
       <div className='flex gap-[10px] items-center'>
         <div className='bg-project text-[11px] font-extrabold text-white w-[79px] h-[25px] rounded-[100px] flex justify-center items-center'>
-          {projectTags[0].label}
+          {/* TODO: 확인 필요 / projectTags 존재하지 않음 -> hubTags로 수정 */}
+          {hubTags[0]}
         </div>
         <p className='text-[16px] font-medium line-clamp-2'>{title}</p>
       </div>

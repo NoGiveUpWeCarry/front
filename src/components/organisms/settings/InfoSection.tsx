@@ -18,11 +18,7 @@ import { PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
 
-const InfoSection = ({
-  settingsInfo,
-}: {
-  settingsInfo: SettingsResponse & { message: { code: number; text: string } };
-}) => {
+const InfoSection = ({ settingsInfo }: { settingsInfo: SettingsResponse }) => {
   const {
     isOpen: isJobOpen,
     openModal: openJobModal,

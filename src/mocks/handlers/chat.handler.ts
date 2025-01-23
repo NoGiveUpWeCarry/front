@@ -221,11 +221,11 @@ function infiniteScroll(
 }
 
 function searchMessage(
-  searchCursor: SearchState['cursor']['search'],
+  searchCursor: SearchState['cursors']['search'],
   messages: ReceiveMessage[],
   direction: SearchState['direction'],
-  keyword: SearchState['searchKeyword'],
-  limit: SearchState['limit']
+  keyword: SearchState['lastSearchKeyword']
+  // limit: SearchState['limit']
 ) {
   let start: number;
   let sortedMessages: ReceiveMessage[];

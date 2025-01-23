@@ -1,5 +1,4 @@
 import { ContentsToggle } from '@/components/atoms/contents/ContentsToggle';
-import Feed from '@/components/organisms/Feed';
 import Hub from '@/components/organisms/Hub';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';

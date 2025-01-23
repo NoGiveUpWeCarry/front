@@ -9,17 +9,12 @@ import {
 // RawCommands 확장: setImage 및 uploadImage 추가
 declare module '@tiptap/core' {
   interface Commands {
-    image: {
-      setImage: (options: {
-        src: string;
-        alt?: string;
-        title?: string;
-      }) => boolean;
-      /**
-       * 이미지 업로드 명령
-       */
-      uploadImage: (file: File) => Promise<void>;
-    };
+    setImage: (options: {
+      src: string;
+      alt?: string;
+      title?: string;
+    }) => boolean;
+    uploadImage: (file: File) => Promise<void>;
   }
 }
 
@@ -76,7 +71,7 @@ export const EnhancedImage = Node.create({
   },
 
   addCommands() {
-    return () => ({
+    return {
       setImage:
         (options: { src: string; alt?: string; title?: string }) =>
         ({ commands }: CommandProps) => {
@@ -102,7 +97,7 @@ export const EnhancedImage = Node.create({
             console.error('이미지 업로드 중 오류 발생:', error);
           }
         },
-    });
+    };
   },
 
   addInputRules() {
@@ -111,7 +106,7 @@ export const EnhancedImage = Node.create({
         find: /(?:^|\s)(!\[(.+|:?)]\((\S+)(?:(?:\s+)["'](\S+)["'])?\))$/,
         type: this.type,
         getAttributes: (match) => {
-          const [_, __, alt, src, title] = match;
+          const [, , alt, src, title] = match;
           return { src, alt, title };
         },
       }),

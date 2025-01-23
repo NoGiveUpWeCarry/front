@@ -1,8 +1,12 @@
 import { ListItem } from '@/components/molecules/ListItem';
 import Avatar from '@/components/atoms/Avatar';
 import { mainSideBarItems } from '@/mocks/mock-data/mainSideBar';
-import { connectionHubSideBar } from '@/mocks/mock-data/connectionHubSideBar';
+import {
+  connectionHubSideBar,
+  SideBarItem,
+} from '@/mocks/mock-data/connectionHubSideBar';
 import { cn } from '@/utils/cn';
+import { MainSideBarItemType } from '@/types/mainSideBarItem.type';
 
 interface SideBarContentsProps {
   type: 'main' | 'connection';
@@ -13,15 +17,14 @@ interface SideBarApplicantListProps {
 }
 
 export const SideBarContents = ({ type }: SideBarContentsProps) => {
-  const items = type === 'main' ? mainSideBarItems : connectionHubSideBar;
+  const items: MainSideBarItemType[] | SideBarItem[] =
+    type === 'main' ? mainSideBarItems : connectionHubSideBar;
 
   return (
     <div className='flex flex-col bg-white rounded-[10px] py-[20px] px-[20px] gap-[30px]'>
-      {items.map((item) => (
-        <div
-          key={item.id}
-          className='flex flex-col w-full text-[12px] gap-[15px]'
-        >
+      {items.map((item, i) => (
+        // TODO: key로 인덱스를 쓰면 안되나, 정확한 아이템 타입을 알 수 없어 사용합니다. 확인 후 수정 필요
+        <div key={i} className='flex flex-col w-full text-[12px] gap-[15px]'>
           <div className='flex items-center justify-between'>
             <div className='flex items-center gap-[10px]'>
               <div className='flex text-[14px]'>{item.id}</div>

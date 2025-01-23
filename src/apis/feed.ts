@@ -9,7 +9,7 @@ export interface Post {
   userRole: string;
   userProfileUrl: string;
   postId: number;
-  thumnailUrl: string;
+  thumbnailUrl: string;
   content: string;
   title: string;
   tags: (keyof typeof tagItem)[];

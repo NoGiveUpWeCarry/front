@@ -7,16 +7,15 @@ interface FeedItemProps {
   title: string;
   content: string;
   tags: TagItemKey[];
-  thumnailUrl?: string;
+  thumbnailUrl?: string;
   postId: number;
-  sliceBody?: boolean;
 }
 
 const FeedItem = ({
   title,
   content,
   tags,
-  thumnailUrl,
+  thumbnailUrl,
   postId,
 }: FeedItemProps) => {
   const navigate = useNavigate();
@@ -29,9 +28,9 @@ const FeedItem = ({
       onClick={navigateToDetail}
     >
       <FeedBody title={title} content={content} tags={tags} />
-      {thumnailUrl && (
+      {thumbnailUrl && (
         <div className='w-[180px] flex-shrink-0'>
-          <ContentsThumbnail src={thumnailUrl} />
+          <ContentsThumbnail thumbnailUrl={thumbnailUrl} />
         </div>
       )}
     </div>

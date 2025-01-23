@@ -43,22 +43,14 @@ const Feed = () => {
       {flattenedData.map((item) => (
         <FeedContents
           key={item.postId}
-          title={item.title}
-          content={item.content}
+          {...item}
           feedTags={item.tags}
-          commentsCount={item.commentCount}
-          likesCount={item.likeCount}
-          viewsCount={item.viewCount}
-          thumnailUrl={item.thumnailUrl}
-          postId={item.postId}
-          isLiked={item.isLiked}
           user={{
             avatarSrc: item.userProfileUrl,
             name: item.userNickname,
             job: item.userRole,
             time: item.createdAt,
           }}
-          createdAt={item.createdAt}
         />
       ))}
       {!flattenedData.length && (

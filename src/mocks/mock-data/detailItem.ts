@@ -1,4 +1,4 @@
-import { hubTagItemskey } from '@/constants/hub/hubTagItems';
+import { HubTagItemsKey } from '@/constants/hub/hubTagItems';
 import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
 import { roleTagItemsKey } from '@/constants/hub/roleTagsItems';
 import { skillTagItemsKey } from '@/constants/hub/skillTagItems';
@@ -6,7 +6,7 @@ import { statusTagItemskey } from '@/constants/hub/statusTagItems';
 
 export interface DetailItemType {
   title: string;
-  hubTags: hubTagItemskey;
+  hubTags: HubTagItemsKey;
   meetingTags: meetingTagItemskey;
   statusTags: statusTagItemskey;
   roleTags: roleTagItemsKey[];

@@ -9,10 +9,10 @@ interface RoleSelectLogoProps {
   setSelectedRole: (role: Role | null) => void; // 수정된 타입
 }
 
-const RoleSelectLogo: React.FC<RoleSelectLogoProps> = ({
+const RoleSelectLogo = ({
   selectedRole,
   setSelectedRole,
-}) => {
+}: RoleSelectLogoProps) => {
   const getLogoByRole = (role: Role | null): string => {
     switch (role) {
       case Role.Programmer:

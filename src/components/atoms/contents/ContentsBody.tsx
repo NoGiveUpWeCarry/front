@@ -2,7 +2,6 @@ import DOMPurify from 'dompurify';
 
 interface ContentsBodyProps {
   body: string;
-  sliceBody?: boolean;
 }
 
 const ContentsBody = ({ body }: ContentsBodyProps) => {
