@@ -8,13 +8,14 @@ interface FeedBodyProps {
   title: string;
   body: string;
   tags: { label: string; variant: ContentsFeedTagProps['variant'] }[];
+  sliceBody?: boolean;
 }
 
-const FeedBody = ({ title, body, tags }: FeedBodyProps) => {
+const FeedBody = ({ title, body, tags, sliceBody }: FeedBodyProps) => {
   return (
     <div className='flex flex-col w-full gap-[20px]'>
       <ContentsTitle title={title} />
-      <ContentsBody body={body} />
+      <ContentsBody body={body} sliceBody={sliceBody} />
       <div className='flex gap-[10px]'>
         {tags.map((tag, index) => (
           <Tag

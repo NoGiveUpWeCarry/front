@@ -1,4 +1,4 @@
-import FeedDetailTag from '@/components/molecules/FeedDetailTag';
+import FeedDetailTag from '@/components/molecules/feedDetailTag';
 import { Post } from '@/types/feed.type';
 import { getDate } from '@/utils/date';
 

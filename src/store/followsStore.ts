@@ -1,16 +1,10 @@
+import { FollowUsers } from '@/types/mypage.type';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-interface Follower {
-  id: number;
-  name: string;
-  url: string;
-  profileUrl: string;
-}
-
 interface FollowsStore {
-  follows: Follower[];
-  setFollows: (follows: Follower[]) => void;
+  follows: FollowUsers[];
+  setFollows: (follows: FollowUsers[]) => void;
 }
 
 export const useFollowsStore = create<FollowsStore>()(

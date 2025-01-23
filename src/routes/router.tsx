@@ -37,7 +37,7 @@ const router = [
         element: <CallbackPage />,
       },
       {
-        path: '/mypage',
+        path: '/:nickname',
         element: <MyPage />,
       },
       {

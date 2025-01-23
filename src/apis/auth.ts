@@ -76,3 +76,11 @@ export const login = async (loginBody: LoginBody) => {
   });
   return response.data;
 };
+
+export const logout = async () => {
+  const response = await fetcher({
+    method: 'POST',
+    url: '/auth/logout',
+  });
+  return response.data;
+};

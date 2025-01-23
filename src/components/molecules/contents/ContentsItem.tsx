@@ -28,6 +28,8 @@ interface FeedContentsProps {
     userRole: string;
     createdAt: string;
   };
+  hideUser?: boolean;
+  sliceBody?: boolean;
 }
 
 // 허브 컨텐츠
@@ -51,6 +53,7 @@ interface HubContentsProps {
     userRole: string;
     createdAt: string;
   };
+  hideUser: boolean;
 }
 
 export const FeedContents = ({
@@ -62,6 +65,8 @@ export const FeedContents = ({
   viewsCount,
   thumbnail,
   user,
+  hideUser,
+  sliceBody,
 }: FeedContentsProps) => {
   return (
     <div className='flex flex-col w-full gap-[20px]'>
@@ -80,6 +85,7 @@ export const FeedContents = ({
               body={body}
               tags={feedTags}
               thumbnail={thumbnail}
+              sliceBody={sliceBody}
             />
             <FeedFooter
               commentsCount={commentsCount}
@@ -107,6 +113,7 @@ export const HubContents = ({
   user,
   startDate,
   duration,
+  hideUser,
 }: HubContentsProps) => {
   return (
     <div className='flex flex-col w-full gap-[20px]'>

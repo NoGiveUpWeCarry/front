@@ -3,6 +3,8 @@ interface ContentsThumbnailProps {
   alt?: string;
 }
 
+// 1.21 피드 이미지 max-height 고정 (마이페이지)
+
 const ContentsThumbnail = ({
   thumbnailUrl,
   alt = '',

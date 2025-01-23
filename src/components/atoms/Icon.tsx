@@ -18,6 +18,7 @@ import {
   ChatBubbleLeftRightIcon,
   ArrowUpIcon,
   PhotoIcon,
+  ArrowUpTrayIcon,
   EllipsisHorizontalCircleIcon,
   TrashIcon,
   PencilSquareIcon,
@@ -49,6 +50,7 @@ type IconType =
   | 'arrow'
   | 'join'
   | 'photo'
+  | 'logout'
   | 'EllipsisHorizontalCircle'
   | 'trash'
   | 'pencilSquare'
@@ -113,6 +115,11 @@ const Icon = ({ type, className = '', color }: IconProps) => {
     arrow: <ArrowUpIcon className={cn(iconVariants({ color }), className)} />,
     photo: <PhotoIcon className={cn(iconVariants({ color }), className)} />,
     join: <UserGroupIcon className={cn(iconVariants({ color }), className)} />,
+    logout: (
+      <ArrowUpTrayIcon
+        className={cn(iconVariants({ color }), className, 'rotate-90')}
+      />
+    ),
     EllipsisHorizontalCircle: (
       <EllipsisHorizontalCircleIcon
         className={cn(iconVariants({ color }), className)}
