@@ -1,11 +1,14 @@
 import AccountSection from '@/components/organisms/settings/AccountSection';
 import InfoSection from '@/components/organisms/settings/InfoSection';
 import NotificationSection from '@/components/organisms/settings/NotificationSection';
+import { useGetSettingsInfo } from '@/hooks/queries/mypage/settings';
 import { ArrowUpIcon } from '@heroicons/react/24/outline';
 import { useRef } from 'react';
 
 const SettingsTemplate = () => {
   const viewRef = useRef<HTMLDivElement>(null);
+
+  const { data: settingsInfo } = useGetSettingsInfo();
 
   const handleScrollToTop = () => {
     if (viewRef.current) {
@@ -25,8 +28,8 @@ const SettingsTemplate = () => {
         <ArrowUpIcon width={24} />
       </button>
       <div className='flex flex-col gap-[100px]'>
-        <InfoSection />
-        <NotificationSection />
+        <InfoSection settingsInfo={settingsInfo!} />
+        <NotificationSection settingsInfo={settingsInfo!} />
         <AccountSection />
       </div>
     </div>

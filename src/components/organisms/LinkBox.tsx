@@ -12,9 +12,10 @@ const LinkBox = ({ links, setLinks }: LinkBoxProps) => {
     index: number
   ) => {
     const { value } = event.target;
-    setLinks(
-      links.map((input: string, i: number) => (i === index ? value : input))
+    const updatedLinks = links?.map((input: string, i: number) =>
+      i === index ? value : input
     );
+    setLinks(updatedLinks);
   };
 
   const handleAddInput = () => {
@@ -34,14 +35,16 @@ const LinkBox = ({ links, setLinks }: LinkBoxProps) => {
   return (
     <div className='w-full mt-4 bg-[#EAEAEA] p-5 rounded-[10px]'>
       <div className='flex flex-col gap-[13px] text-[15px]'>
-        {links.map((item, index) => (
-          <LinkInput
-            key={`input-${index}`}
-            url={item}
-            index={index}
-            onChange={(e) => handleInputChange(e, index)}
-          />
-        ))}
+        {links?.map((item, index) => {
+          return (
+            <LinkInput
+              key={`input-${index}`}
+              url={item}
+              index={index}
+              onChange={(e) => handleInputChange(e, index)}
+            />
+          );
+        })}
         <button
           className='w-full h-9 rounded-[10px] bg-white flex justify-center items-center'
           onClick={handleAddInput}

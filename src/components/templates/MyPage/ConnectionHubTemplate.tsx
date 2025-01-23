@@ -6,7 +6,6 @@ import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import { useGetConnectionHubs } from '@/hooks/queries/mypage/connection-hub';
 import { useTabs } from '@/hooks/useTabs';
-import { ContentsFeedTagVariant } from '@/types/tags/contentsFeedTag.type';
 import { ProjectTagVariant } from '@/types/tags/projectTag.type';
 
 const ConnectionHubTemplate = () => {
