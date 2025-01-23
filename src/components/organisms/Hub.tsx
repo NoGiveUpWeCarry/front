@@ -1,8 +1,7 @@
 import { HubContents } from '@/components/molecules/contents/ContentsItem';
+import { useFetchHubs } from '@/hooks/queries/hub.query';
+import { hubMocks } from '@/mocks/mock-data/hub.mock';
 import { hubItem, HubItemType } from '@/mocks/mock-data/hubItem';
-import { HubTagVariant } from '@/types/tags/hubTag.type';
-import { ProjectTagVariant } from '@/types/tags/projectTag.type';
-import { RoleTagVariant } from '@/types/tags/roleTag.type';
 import { useEffect, useState } from 'react';
 
 interface HubProps {
@@ -11,19 +10,13 @@ interface HubProps {
 
 const Hub = ({ keyword }: HubProps) => {
   const [data, setData] = useState<HubItemType[]>([]);
+  const { data: HubsData, isLoading, isError } = useFetchHubs();
+  console.log('Hubsdata: ', HubsData);
 
   useEffect(() => {
-    if (!keyword) setData(hubItem);
-    else {
-      setData(
-        data.filter(
-          (el) =>
-            el.title.includes(keyword) ||
-            el.roleTags.map((t) => t.label).includes(keyword)
-        )
-      );
-    }
-  }, [keyword]);
+    console.log(hubMocks); // 데이터 확인
+    setData(hubMocks);
+  }, []);
 
   return (
     <div className='flex flex-col gap-[30px] w-full h-full'>
@@ -32,18 +25,15 @@ const Hub = ({ keyword }: HubProps) => {
           key={item.title + new Date().toISOString()}
           user={item.user}
           title={item.title}
-          projectTags={
-            item.projectTags as { label: string; variant: ProjectTagVariant }[]
-          }
-          hubTags={item.hubTags as { label: string; variant: HubTagVariant }[]}
-          roleTags={
-            item.roleTags as { label: string; variant: RoleTagVariant }[]
-          }
+          meetingTags={item.meetingTags}
+          statusTags={item.statusTags}
+          hubTags={item.hubTags}
+          roleTags={item.roleTags}
           role={item.role}
           bookmarkCount={item.bookmarkCount}
           userCount={item.userCount}
           viewsCount={item.viewsCount}
-          thumbnail={item.thumbnail}
+          thumbnailUrl={item.thumbnailUrl}
           startDate={item.startDate}
           duration={item.duration}
         />

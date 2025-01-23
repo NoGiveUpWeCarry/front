@@ -33,8 +33,8 @@ export const SideBarContents = ({ type }: SideBarContentsProps) => {
               <div className='flex text-[14px] font-medium'>{item.name}</div>
               <div className='flex text-[12px] font-semibold'>{item.role}</div>
             </div>
-            <div className='flex'>
-              {item.label && (
+            {/* <div className='flex'> */}
+            {/* {item.label && (
                 <div
                   className={`flex font-medium text-white text-[10px] px-2 py-1 rounded-full ${
                     item.label === 'OUTSOURCING'
@@ -44,8 +44,8 @@ export const SideBarContents = ({ type }: SideBarContentsProps) => {
                 >
                   {item.label}
                 </div>
-              )}
-            </div>
+              )} */}
+            {/* </div> */}
           </div>
           <div className='ml-4 relative overflow-hidden h-[20px] group text-[14px] font-medium'>
             <div

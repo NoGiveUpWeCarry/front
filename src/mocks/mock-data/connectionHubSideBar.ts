@@ -1,4 +1,4 @@
-import { SideBarItem } from '@/types/sideBarItem.type';
+import { SideBarItem } from '@/types/mainSideBarItem.type';
 
 export const connectionHubSideBar: SideBarItem[] = [
   {

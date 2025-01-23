@@ -1,4 +1,4 @@
-export type HubTagVariant = 'ONLINE' | 'OFFLINE' | 'OPEN' | 'CLOSE';
+export type HubTagVariant = 'PROJECT' | 'OUTSOURCING';
 
 export interface HubTagProps {
   label: string;

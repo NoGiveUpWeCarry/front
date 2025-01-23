@@ -1,14 +1,25 @@
-import { SideBarItem } from '@/types/sideBarItem.type';
+import { MainSideBarItemType } from '@/types/mainSideBarItem.type';
 
-export const mainSideBarItems: SideBarItem[] = [
-  { id: 1, name: '아이유', role: 'Programmer', subtitle: '심심해요.' },
-  { id: 2, name: '윈터', role: 'Artist', subtitle: '배고파요.' },
+export const mainSideBarItems: MainSideBarItemType[] = [
   {
-    id: 3,
-    name: '카리나',
-    role: 'Artist',
-    subtitle: 'git flow ... 알려주세요 ...',
+    rank: 1,
+    userNickname: '아이유',
+    userProfileUrl: '/src/assets/images/example.svg',
+    userRole: 'Programmer',
+    title: '심심해요.',
   },
-  { id: 4, name: '김지원', role: 'Designer', subtitle: '눈물의 여왕 ...' },
-  { id: 5, name: '페이커', role: 'Artist', subtitle: 'Faker #KR1' },
+  {
+    rank: 2,
+    userNickname: '홍길동',
+    userProfileUrl: '/src/assets/images/example.svg',
+    userRole: 'Designer',
+    title: '디자인을 열심히 공부하고 있어요.',
+  },
+  {
+    rank: 3,
+    userNickname: '김코딩',
+    userProfileUrl: '/src/assets/images/example.svg',
+    userRole: 'Developer',
+    title: 'React를 공부 중입니다!',
+  },
 ];

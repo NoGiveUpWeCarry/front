@@ -68,7 +68,7 @@ const jobRoles: Record<'Programmer' | 'Artist' | 'Designer', string[]> = {
 export function FeedSelect() {
   return (
     <Select>
-      <SelectTrigger className='w-[90px] bg-white'>
+      <SelectTrigger className='w-[110px] bg-white'>
         <SelectValue placeholder='🏷️ 태그' />
       </SelectTrigger>
       <SelectContent>
@@ -276,6 +276,21 @@ export function SetWork() {
       <SelectContent>
         <SelectItem value='대면'>대면</SelectItem>
         <SelectItem value='원격'>원격</SelectItem>
+      </SelectContent>
+    </Select>
+  );
+}
+
+export function HubCategory() {
+  const [HubMethod, setHubMethod] = useState<string>('');
+  return (
+    <Select onValueChange={setHubMethod}>
+      <SelectTrigger className='w-[120px] border-black h-[44px]'>
+        <SelectValue placeholder='허브 유형' />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value='Project'>프로젝트</SelectItem>
+        <SelectItem value='Outsourcing'>외주</SelectItem>
       </SelectContent>
     </Select>
   );

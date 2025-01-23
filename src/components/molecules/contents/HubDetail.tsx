@@ -1,75 +1,101 @@
 import Avatar from '@/components/atoms/Avatar';
 import HubDetailUser from '@/components/atoms/contents/HubDetailUser';
-import Tag from '@/components/atoms/Tag';
+import { RoleProps } from '@/components/atoms/Role';
+import ContentsUser from '@/components/molecules/contents/ContentsUser';
+import DetailContents from '@/components/molecules/contents/DetailContents';
 import HubDetailTitle from '@/components/molecules/contents/HubDetailTitle';
 import HubInfo from '@/components/molecules/contents/HubInfo';
 import HubInfoTag from '@/components/molecules/contents/HubInfoTag';
 import HubIntroduce from '@/components/molecules/contents/HubIntroduce';
+import HubSkill from '@/components/molecules/contents/HubSkill';
 import HubTitle from '@/components/molecules/contents/HubTitle';
+import { hubTagItemskey } from '@/constants/hub/hubTagItems';
+import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
+import { roleTagItemsKey } from '@/constants/hub/roleTagsItems';
+import { skillTagItemsKey } from '@/constants/hub/skillTagItems';
+import { statusTagItemskey } from '@/constants/hub/statusTagItems';
 
-const HubDetail = () => {
+interface HubDetailProps {
+  title: string;
+  hubTags: hubTagItemskey;
+  meetingTags: meetingTagItemskey;
+  statusTags: statusTagItemskey;
+  roleTags: roleTagItemsKey[];
+  skillTags: skillTagItemsKey[];
+  role: RoleProps['role'];
+  startDate: string;
+  duration: string;
+  contents: string;
+  user: {
+    userIntroduce: string;
+    userProfileUrl: string;
+    userNickname: string;
+    userRole: string;
+    createdAt: string;
+  };
+}
+
+const HubDetail = ({
+  title,
+  hubTags,
+  meetingTags,
+  statusTags,
+  skillTags,
+  role,
+  roleTags,
+  startDate,
+  contents,
+  duration,
+  user,
+}: HubDetailProps) => {
   return (
-    <div className='flex flex-col bg-white rounded-[20px] p-[20px]'>
-      <div className='flex flex-col gap-[30px]'>
-        <HubTitle
-          projectTags={[{ label: 'PROJECT', variant: 'PROJECT' }]}
-          title={
-            '실시간 여행 계획 플랫폼 프로젝트 진행합니다! 🔥 프론트엔드 개발자 많은 지원 부탁합니다.'
-          }
-        />
-        <HubInfoTag
-          hubTags={[
-            { label: 'ONLINE', variant: 'ONLINE' as const },
-            { label: 'OPEN', variant: 'OPEN' as const },
-          ]}
-          roleTags={[
-            {
-              label: '#프론트엔드 개발자',
-              variant: '프론트엔드 개발자' as const,
-            },
-            {
-              label: '#서버/백엔드 개발자',
-              variant: '서버/백엔드 개발자' as const,
-            },
-            { label: '#웹퍼블리셔', variant: '웹퍼블리셔' as const },
-          ]}
-          role='PROGRAMMER'
-        />
+    <div className='flex flex-col w-full gap-[20px]'>
+      <ContentsUser
+        userProfileUrl={user.userProfileUrl}
+        userNickname={user.userNickname}
+        userRole={user.userRole}
+        createdAt={user.createdAt}
+      />
+      <div className='flex flex-col w-full bg-white rounded-[20px] p-[20px]'>
         <div className='flex flex-col gap-[20px]'>
-          <HubInfo type='calendar' label='시작 예정일' value='2025-01-13' />
-          <HubInfo
-            type='roledetail'
-            label='직무'
-            value='Programmer > 프론트엔드 개발자'
+          <HubTitle hubTags={hubTags} title={title} />
+          <HubInfoTag
+            meetingTags={meetingTags}
+            statusTags={statusTags}
+            role={role}
           />
-          <HubInfo type='clock' label='프로젝트 예상 기간' value='3개월' />
-          <HubInfo type='workflow' label='작업 방식' value='온라인' />
-        </div>
-        <div className='flex gap-[10px]'>
-          <Tag type='skill' label='# React' variant='React' />
-          <Tag type='skill' label='# JavaScript' variant='JavaScript' />
-          <Tag type='skill' label='# TypeScript' variant='TypeScript' />
-        </div>
-        <div className='flex'>
-          <HubDetailTitle title='프로젝트 소개' />
-        </div>
-        <div className='flex'>
-          <HubDetailTitle title='프로젝트 매니저 소개' />
-        </div>
-        <div className='flex border rounded-[10px]'>
-          <div className='flex  w-full mx-[20px] my-[30px]'>
-            <div className='flex w-full  items-center  justify-between'>
-              <div className='flex items-center gap-[20px]'>
-                <Avatar src='/src/assets/images/example.svg' size='sm' />
-                <div className='flex'>
-                  <HubDetailUser
-                    name='leechan'
-                    introduce='PAD팀 PM 이찬 입니다'
-                  />
+          <HubInfo
+            startDate={startDate}
+            duration={duration}
+            meetingTags={meetingTags}
+            role={role}
+            roleTags={roleTags}
+          />
+          <HubSkill skillTags={skillTags} />
+          <div className='flex'>
+            <HubDetailTitle title='허브 소개' />
+          </div>
+          <div>
+            <DetailContents contents={contents} />
+          </div>
+          <div className='flex'>
+            <HubDetailTitle title='허브 매니저 소개' />
+          </div>
+          <div className='flex border rounded-[10px]'>
+            <div className='flex  w-full mx-[20px] my-[30px]'>
+              <div className='flex w-full  items-center  justify-between'>
+                <div className='flex items-center gap-[20px]'>
+                  <Avatar src={user.userProfileUrl} size='sm' />
+                  <div className='flex'>
+                    <HubDetailUser
+                      userNickname={user.userNickname}
+                      userIntroduce={user.userIntroduce}
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className='flex'>
-                <HubIntroduce />
+                <div className='flex'>
+                  <HubIntroduce />
+                </div>
               </div>
             </div>
           </div>

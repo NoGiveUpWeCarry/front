@@ -1,25 +1,20 @@
 import ContentsTitle from '@/components/atoms/contents/ContentsTitle';
-import Tag from '@/components/atoms/Tag';
-
-import { ProjectTagProps } from '@/types/tags/projectTag.type';
+import { hubTagItemsColors, hubTagItemskey } from '@/constants/hub/hubTagItems';
 
 export interface HubTitleProps {
-  projectTags: { label: string; variant: ProjectTagProps['variant'] }[];
+  hubTags: hubTagItemskey;
   title: string;
 }
 
-const HubTitle = ({ projectTags, title }: HubTitleProps) => {
+const HubTitle = ({ hubTags, title }: HubTitleProps) => {
   return (
-    <div className='flex w-full gap-[20px]'>
-      <div className='w-[80px] h-[25px] text-white'>
-        {projectTags.map((projectTags, index) => (
-          <Tag
-            key={index}
-            label={projectTags.label}
-            type='project'
-            variant={projectTags.variant}
-          />
-        ))}
+    <div className='flex w-full gap-[10px]'>
+      <div className='flex items-start justify-center text-white'>
+        <span
+          className={`${hubTagItemsColors[hubTags]} text-[14px] rounded-full px-2 py-1 font-medium' `}
+        >
+          {hubTags}
+        </span>
       </div>
       <div className='flex'>
         <ContentsTitle title={title} />

@@ -1,7 +1,5 @@
 import { tagItem } from '@/constants/tagItem';
 
-import { tagItem } from '@/constants/tagItem';
-
 export type TagVariant =
   | '정보공유'
   | '질문'
@@ -18,10 +16,10 @@ export interface Tag {
 }
 
 export interface User {
-  avatarSrc: string;
-  name: string;
-  job: string;
-  time: string;
+  userProfileUrl: string;
+  userNickname: string;
+  userRole: string;
+  createdAt: string;
 }
 
 export interface FeedItemType {

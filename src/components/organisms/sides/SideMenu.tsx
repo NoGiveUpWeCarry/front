@@ -64,9 +64,13 @@ const SideMenu = () => {
     },
   ];
 
-  const handleAvatarClick = () => {
-    setShowLogin((prev) => !prev);
-  };
+  // const handleAvatarClick = () => {
+  //   if (isLoggedIn) {
+  //     navigate('@닉네임');
+  //   } else {
+  //     setShowLogin((prev) => !prev);
+  //   }
+  // };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -256,8 +260,8 @@ const SideMenu = () => {
           <Avatar
             size='sm'
             alt='User Avatar'
-            className='cursor-pointer border-4 border-transparent hover:border-[#c7c7c7] transition-shadow duration-300 bg-[#EDEDED]'
-            onClick={handleAvatarClick}
+            className='cursor-pointer border-4 border-transparent hover:border-[#c7c7c7] transition-shadow duration-300'
+            // onClick={handleAvatarClick}
           />
 
           {showLogin && (

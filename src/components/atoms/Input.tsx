@@ -21,10 +21,12 @@ export const InputVariants = cva(
         dark: 'bg-[#D6D6D6]',
       },
       spacing: {
+        none: '',
         sm: 'px-[10px] py-[6px]',
         md: 'px-[15px] py-[10px]',
       },
       radius: {
+        none: 'rounded-0',
         sm: 'rounded-[5px]',
         md: 'rounded-[12px]',
         lg: 'rounded-[20px]',
