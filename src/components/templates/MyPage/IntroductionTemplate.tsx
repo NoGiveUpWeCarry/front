@@ -72,6 +72,7 @@ const IntroductionTemplate = () => {
     return 'musicUrl' in work;
   };
 
+  console.log({ profileInfo });
   return (
     <>
       {role === 'Artist' ? (
@@ -98,7 +99,9 @@ const IntroductionTemplate = () => {
           </span>
           <div className='absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col text-center'>
             <span className='text-[50px]'>
-              {STATUS_EMOJI[profileInfo?.status as keyof typeof STATUS_EMOJI]}
+              {STATUS_EMOJI.find((el) =>
+                el.label.startsWith(profileInfo?.status as string)
+              )?.label.slice(-2)}
             </span>
             <span className='text-white'>{profileInfo?.status}</span>
           </div>

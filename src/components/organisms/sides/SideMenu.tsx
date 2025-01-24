@@ -276,7 +276,7 @@ const SideMenu = () => {
                     className='group flex w-full rounded-lg px-1 py-2 items-center gap-[20px] cursor-pointer hover:bg-[#f3f4f6]'
                     onClick={() => {
                       if (isLoggedIn) {
-                        navigate(`@${userInfo?.nickname}`, {
+                        navigate(`/@${userInfo?.nickname}`, {
                           state: { userId: userInfo?.userId },
                         });
                       } else {
