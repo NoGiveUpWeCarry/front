@@ -75,6 +75,7 @@ const NotificationSection = ({
       <SettingsSection.Content gap={20}>
         {TOGGLE_TEXT.map((item) => (
           <SettingsSection.TextWithToggle
+            key={item.title}
             {...item}
             active={notifications[item.type as keyof Notification]}
             toggle={() => handleToggle(item.type as keyof Notification)}

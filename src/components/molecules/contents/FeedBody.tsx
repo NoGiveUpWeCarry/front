@@ -16,7 +16,7 @@ const FeedBody = ({ title, content, tags }: FeedBodyProps) => {
       <ContentsBody body={content} />
       <div className='flex gap-[10px]'>
         {tags.map((tag) => (
-          <div>{tag}</div>
+          <div key={tag}>{tag}</div>
         ))}
       </div>
     </div>
