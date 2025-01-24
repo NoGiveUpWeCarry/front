@@ -5,7 +5,7 @@ interface UrlInputProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
   icon: ReactNode;
   category: string;
-  onDelete: () => void;
+  onDelete?: () => void;
 }
 
 const UrlInput = ({
