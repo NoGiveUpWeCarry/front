@@ -10,7 +10,6 @@ const ConnectionHubDetail = () => {
   console.log('Hubdata: ', HubData);
 
   useEffect(() => {
-    console.log(hubDetailMocks); // 데이터 확인
     setData(hubDetailMocks);
   }, []);
 

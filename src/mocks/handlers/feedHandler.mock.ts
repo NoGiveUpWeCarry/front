@@ -19,7 +19,6 @@ export const feedHandler = [
     }
     const data = generateFeedsMockData();
     const post = data.posts.find((post) => post.postId === Number(id));
-    console.log('msw post: ', post);
     if (!post) {
       return new HttpResponse('Feed Not Found', {
         status: 404,
@@ -42,7 +41,6 @@ export const feedHandler = [
       });
     }
     const comments = generateCommentsMockData();
-    console.log('msw comments: ', comments);
     if (!comments) {
       return new HttpResponse('Feed Not Found', {
         status: 404,

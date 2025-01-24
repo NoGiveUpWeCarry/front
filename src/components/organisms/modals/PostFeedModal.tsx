@@ -33,7 +33,6 @@ const PostFeedModal = ({ onClose, onSubmit, onRevise }: PostFeedModalProps) => {
 
   useEffect(() => {
     if (onRevise && isSuccess && FeedData) {
-      console.log('FeedData.post.content: ', FeedData.post.content);
       setTitle(FeedData.post.title ?? '');
       setContent(FeedData.post.content ?? '');
       setTag(FeedData.post.tags ?? []);

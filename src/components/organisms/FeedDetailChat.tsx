@@ -21,9 +21,9 @@ const FeedDetailChat = ({ comments, feedId }: FeedDetailChatProps) => {
     postComment(
       { id: feedId, content },
       {
-        onSuccess: () => {
-          console.log('댓글 작성 성공');
-        },
+        // onSuccess: () => {
+        //   console.log('댓글 작성 성공');
+        // },
         onError: (error) => {
           console.error('댓글 작성 실패:', error);
           alert('댓글 작성에 실패했습니다. 다시 시도해주세요.');
@@ -39,9 +39,9 @@ const FeedDetailChat = ({ comments, feedId }: FeedDetailChatProps) => {
     deleteComment(
       { postId: feedId, commentId },
       {
-        onSuccess: () => {
-          console.log('댓글 삭제 성공');
-        },
+        // onSuccess: () => {
+        //   console.log('댓글 삭제 성공');
+        // },
         onError: (error) => {
           console.error('댓글 삭제 실패:', error);
           alert('댓글 삭제에 실패했습니다. 다시 시도해주세요.');

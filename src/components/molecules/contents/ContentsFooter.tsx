@@ -29,7 +29,7 @@ export const FeedFooter = ({
     if (isLoggedIn && userInfo.userId) {
       toggleLike({ id: postId });
     } else {
-      console.log('로그인이 필요합니다.');
+      alert('로그인이 필요합니다.');
     }
   };
 

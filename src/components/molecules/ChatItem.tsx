@@ -21,13 +21,12 @@ const ChatItem = ({ chat, isCurrentUser, onDelete }: ChatItemProps) => {
   const { mutate: toggleLike } = usePutChat();
 
   const handleLikeClick = () => {
-    console.log('chat.isLiked: ', chat.isLiked);
     toggleLike(
       { id: chat.commentId },
       {
-        onSuccess: () => {
-          console.log(`댓글 ${chat.commentId} 좋아요 상태 변경 성공`);
-        },
+        // onSuccess: () => {
+        //   console.log(`댓글 ${chat.commentId} 좋아요 상태 변경 성공`);
+        // },
         onError: (error) => {
           console.error(`댓글 ${chat.commentId} 좋아요 상태 변경 실패:`, error);
         },

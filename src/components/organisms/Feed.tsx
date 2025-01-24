@@ -10,7 +10,6 @@ const Feed = () => {
     useInfiniteFetchFeeds(latest, tags || '');
   const observerRef = useRef<HTMLDivElement | null>(null);
   const flattenedData: Post[] = data?.pages.flatMap((page) => page.posts) || [];
-  console.log('flattenedData: ', flattenedData);
   const handleObserver = useCallback(
     (entries: IntersectionObserverEntry[]) => {
       const [entry] = entries;

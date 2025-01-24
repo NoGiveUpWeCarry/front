@@ -89,9 +89,9 @@ export const usePostFeed = (): UseMutationResult<
     mutationFn: async ({ title, tags, content }: FeedRequest) => {
       return postFeed(title, tags, content);
     },
-    onSuccess: () => {
-      console.log('피드 작성 성공');
-    },
+    // onSuccess: () => {
+    //   console.log('피드 작성 성공');
+    // },
     onError: (error) => {
       console.error('피드 작성 중 오류 발생:', error);
     },
@@ -108,7 +108,6 @@ export const usePostFeedChat = () => {
       queryClient.invalidateQueries({
         queryKey: ['feedChats', id] as [string, number],
       });
-      console.log('댓글 작성 성공');
     },
     onError: (error) => {
       console.error('댓글 작성 중 오류 발생:', error);
@@ -131,7 +130,6 @@ export const useDeleteFeedChat = () => {
       queryClient.invalidateQueries({
         queryKey: ['feedChats', postId] as [string, number],
       });
-      console.log('댓글 작성 성공');
     },
     onError: (error) => {
       console.error('댓글 작성 중 오류 발생:', error);
@@ -148,7 +146,6 @@ export const useDeleteFeed = () => {
       queryClient.invalidateQueries({
         queryKey: ['feed'],
       });
-      console.log(`피드 ${postId} 삭제 성공`);
     },
     onError: (error) => {
       console.error('피드 삭제 중 오류 발생:', error);
@@ -175,7 +172,6 @@ export const usePutFeed = () => {
       queryClient.invalidateQueries({
         queryKey: ['feed', id],
       });
-      console.log(`피드 ${id} 수정 성공`);
     },
     onError: (error) => {
       console.error('피드 수정 중 오류 발생:', error);
@@ -188,9 +184,9 @@ export const usePutChat = () => {
     mutationFn: async ({ id }: { id: number }) => {
       return putChatLike(id);
     },
-    onSuccess: () => {
-      console.log('댓글에 대한 좋아요 변경 성공');
-    },
+    // onSuccess: () => {
+    //   console.log('댓글에 대한 좋아요 변경 성공');
+    // },
     onError: (error) => {
       console.error('댓글 좋아요 처리중 오류 발생:', error);
     },
@@ -202,9 +198,9 @@ export const usePatchFeedLike = () => {
     mutationFn: async ({ id }: { id: number }) => {
       return patchFeedLike(id);
     },
-    onSuccess: () => {
-      console.log('피드에 대한 좋아요 변경 성공');
-    },
+    // onSuccess: () => {
+    //   console.log('피드에 대한 좋아요 변경 성공');
+    // },
     onError: (error) => {
       console.error('피드 좋아요 처리중 오류 발생:', error);
     },

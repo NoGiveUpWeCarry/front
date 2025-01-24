@@ -72,7 +72,6 @@ const IntroductionTemplate = () => {
     return 'musicUrl' in work;
   };
 
-  console.log({ profileInfo });
   return (
     <>
       {role === 'Artist' ? (

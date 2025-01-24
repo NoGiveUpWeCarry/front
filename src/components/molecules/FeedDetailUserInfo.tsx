@@ -36,7 +36,6 @@ const FeedDetailUserInfo = ({
     if (confirmDelete) {
       deleteFeed(postId, {
         onSuccess: () => {
-          console.log('피드 삭제 성공');
           navigate('/');
         },
         onError: (error) => {
