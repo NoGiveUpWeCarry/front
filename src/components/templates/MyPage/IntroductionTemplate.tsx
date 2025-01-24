@@ -33,9 +33,11 @@ const IntroductionTemplate = () => {
   >(null);
   const [isForUpdate, setIsForUpdate] = useState(false);
 
-  const { ownerId } = useMyPageStore(useShallow((state) => state));
+  const [nickname, ownerId] = useMyPageStore(
+    useShallow((state) => [state.nickname, state.ownerId])
+  );
   const { data: profileInfo, isLoading } = useGetProfileInfo(ownerId);
-  const { mutate: deleteMusic } = useDeleteMusicWork(ownerId);
+  const { mutate: deleteMusic } = useDeleteMusicWork(nickname);
 
   const handleProjectUpdate = (work: ShortProjects) => {
     if (!work) return;

@@ -15,9 +15,9 @@ type UserId = {
   userId: number;
 };
 
-export const getProfileHeader = async ({ userId }: UserId) => {
+export const getProfileHeader = async ({ nickname }: { nickname: string }) => {
   const response = await fetcher<ProfileHeader>({
-    url: `/users/${userId}/headers`,
+    url: `/users/${nickname}/headers`,
     method: 'GET',
   });
   return response.data;

@@ -11,8 +11,8 @@ const AddMusicModal = ({
   isOpen,
   onClose,
 }: ModalProps & { isOpen: boolean }) => {
-  const [ownerId] = useMyPageStore(useShallow((state) => [state.ownerId]));
-  const { mutate: addMusic } = useAddMusicWork(ownerId);
+  const [nickname] = useMyPageStore(useShallow((state) => [state.nickname]));
+  const { mutate: addMusic } = useAddMusicWork(nickname);
 
   const [newUrl, setNewUrl] = useState('');
 
