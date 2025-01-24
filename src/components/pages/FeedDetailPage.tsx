@@ -13,14 +13,11 @@ const FeedDetailChat = lazy(() => {
 
 const FeedDetailPage = () => {
   const { id } = useParams<{ id: string }>();
-  const {
-    data: FeedData,
-    isLoading: FeedLoading,
-    // isError: FeedError,
-  } = useFetchFeed(Number(id));
+  const { data: FeedData, isLoading: FeedLoading } = useFetchFeed(Number(id));
   const { data: ChatData, isLoading: ChatLoading } = useFetchFeedChat(
     Number(id)
   );
+  console.log('ChatData: ', ChatData);
   const post = FeedData?.post;
   const comments = ChatData?.comments;
   const userId = useAuthStore((state) => state.userInfo?.userId);
@@ -39,6 +36,7 @@ const FeedDetailPage = () => {
             createdAt={post.createdAt}
             userId={post.userId}
             isWriter={userId === post.userId}
+            postId={post.postId}
           />
           <div
             className='relative bg-white w-full flex flex-col overflow-y-scroll [&::-webkit-scrollbar]:hidden py-[10px]'

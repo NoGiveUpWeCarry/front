@@ -9,7 +9,7 @@ import HubInfoTag from '@/components/molecules/contents/HubInfoTag';
 import HubIntroduce from '@/components/molecules/contents/HubIntroduce';
 import HubSkill from '@/components/molecules/contents/HubSkill';
 import HubTitle from '@/components/molecules/contents/HubTitle';
-import { hubTagItemskey } from '@/constants/hub/hubTagItems';
+import { HubTagItemsKey } from '@/constants/hub/hubTagItems';
 import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
 import { roleTagItemsKey } from '@/constants/hub/roleTagsItems';
 import { skillTagItemsKey } from '@/constants/hub/skillTagItems';
@@ -17,7 +17,7 @@ import { statusTagItemskey } from '@/constants/hub/statusTagItems';
 
 interface HubDetailProps {
   title: string;
-  hubTags: hubTagItemskey;
+  hubTags: HubTagItemsKey;
   meetingTags: meetingTagItemskey;
   statusTags: statusTagItemskey;
   roleTags: roleTagItemsKey[];
@@ -52,7 +52,7 @@ const HubDetail = ({
     <div className='flex flex-col w-full gap-[20px]'>
       <ContentsUser
         userProfileUrl={user.userProfileUrl}
-        userNickname={user.userNickname}
+        name={user.userNickname}
         userRole={user.userRole}
         createdAt={user.createdAt}
       />

@@ -27,7 +27,7 @@ const Message = memo(({ message, sameBefore, isMyMessage }: MessageProps) => {
       {sameBefore ? (
         <div className='w-[40px] shrink-0'></div>
       ) : (
-        <Avatar src={user.profileUrl || undefined} size='xs' />
+        <Avatar src={user.userImage || undefined} size='xs' />
       )}
       <div className={cn('flex flex-col', isMyMessage && 'items-end')}>
         {!sameBefore && (

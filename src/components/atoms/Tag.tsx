@@ -11,7 +11,7 @@ import { StatusTagVariant } from '@/types/tags/statusTag.type';
 interface RoleTagProps {
   type: 'roleTag';
   label: string;
-  variant: RoleTagVariant;
+  variant?: RoleTagVariant;
 }
 
 interface StatusTagProps {

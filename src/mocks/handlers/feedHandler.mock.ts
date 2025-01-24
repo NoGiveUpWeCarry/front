@@ -29,7 +29,7 @@ export const feedHandler = [
       post,
       message: {
         code: 200,
-        text: '개별 피드를 정상적으로 조회했습니다.',
+        message: '개별 피드를 정상적으로 조회했습니다.',
       },
     });
   }),

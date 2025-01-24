@@ -2,14 +2,14 @@ import ContentsThumbnail from '@/components/atoms/contents/ContentsThumbnail';
 import HubBody from '@/components/molecules/contents/HubBody';
 import { RoleProps } from '@/components/atoms/Role';
 import HubTitle from '@/components/molecules/contents/HubTitle';
-import { hubTagItemskey } from '@/constants/hub/hubTagItems';
+import { HubTagItemsKey } from '@/constants/hub/hubTagItems';
 import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
 import { roleTagItemsKey } from '@/constants/hub/roleTagsItems';
 import { statusTagItemskey } from '@/constants/hub/statusTagItems';
 
 interface HubItemProps {
   title: string;
-  hubTags: hubTagItemskey;
+  hubTags: HubTagItemsKey;
   meetingTags: meetingTagItemskey;
   roleTags: roleTagItemsKey[];
   statusTags: statusTagItemskey;

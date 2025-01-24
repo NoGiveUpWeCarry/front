@@ -1,3 +1,4 @@
+import { usePutChat } from '@/hooks/queries/feed.query';
 import { HandThumbUpIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 
@@ -17,6 +18,23 @@ interface ChatItemProps {
 }
 
 const ChatItem = ({ chat, isCurrentUser, onDelete }: ChatItemProps) => {
+  const { mutate: toggleLike } = usePutChat();
+
+  const handleLikeClick = () => {
+    console.log('chat.isLiked: ', chat.isLiked);
+    toggleLike(
+      { id: chat.commentId },
+      {
+        onSuccess: () => {
+          console.log(`댓글 ${chat.commentId} 좋아요 상태 변경 성공`);
+        },
+        onError: (error) => {
+          console.error(`댓글 ${chat.commentId} 좋아요 상태 변경 실패:`, error);
+        },
+      }
+    );
+  };
+
   return (
     <div
       className={clsx('flex gap-2', {
@@ -56,6 +74,7 @@ const ChatItem = ({ chat, isCurrentUser, onDelete }: ChatItemProps) => {
             </div>
           )}
           <HandThumbUpIcon
+            onClick={handleLikeClick}
             className={clsx('w-4 h-4 cursor-pointer', {
               'text-red-400': chat.isLiked,
               'text-gray': !chat.isLiked,

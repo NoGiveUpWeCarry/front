@@ -36,7 +36,7 @@ const ChatInput = ({ currentChannelId }: ChatInputProps) => {
     <div className='pb-[50px] px-[56px] mt-[50px]'>
       <div className='flex items-center gap-[10px]'>
         <Avatar
-          src={userInfo?.profileUrl || undefined}
+          src={userInfo?.userImage || undefined}
           className='h-[38px] w-[38px]'
         />
         <form className='relative flex-1' onSubmit={handleSubmit}>

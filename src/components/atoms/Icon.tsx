@@ -63,6 +63,7 @@ const iconVariants = cva('', {
       black: 'text-black',
       white: 'text-white',
       gray: 'text-[#838383]',
+      red: 'text-[#FF0000]',
     },
   },
   defaultVariants: {

@@ -11,7 +11,15 @@ const useAuthStore = create(
         {
           isLoggedIn: false,
           accessToken: '',
-          userInfo: null,
+          userInfo: {
+            authProvider: 'pad',
+            email: '',
+            name: '',
+            nickname: '',
+            userImage: '',
+            roleId: 0,
+            userId: 0,
+          },
         },
         (set, get) => ({
           setAccessToken: (token: string) => {
@@ -33,7 +41,15 @@ const useAuthStore = create(
             set({
               accessToken: '',
               isLoggedIn: false,
-              userInfo: null,
+              userInfo: {
+                authProvider: 'pad',
+                email: '',
+                name: '',
+                nickname: '',
+                userImage: '',
+                roleId: 0,
+                userId: 0,
+              },
             });
             // localStorage.removeItem('@token');
             sessionStorage.removeItem('@token');

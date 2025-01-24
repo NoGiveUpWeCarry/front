@@ -1,8 +1,8 @@
 import ContentsTitle from '@/components/atoms/contents/ContentsTitle';
-import { hubTagItemsColors, hubTagItemskey } from '@/constants/hub/hubTagItems';
+import { hubTagItemsColors, HubTagItemsKey } from '@/constants/hub/hubTagItems';
 
 export interface HubTitleProps {
-  hubTags: hubTagItemskey;
+  hubTags: HubTagItemsKey;
   title: string;
 }
 

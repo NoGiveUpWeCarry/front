@@ -33,10 +33,10 @@ interface PostHubModalProps {
   onClose: () => void;
 }
 
-interface AppState {
-  content: string;
-  setContent: (content: string) => void;
-}
+// interface AppState {
+//   content: string;
+//   setContent: (content: string) => void;
+// }
 
 const PostHubModal = ({ onClose }: PostHubModalProps) => {
   const [selectedUnits, setSelectedUnits] = useState<string[]>([]);
@@ -81,7 +81,7 @@ const PostHubModal = ({ onClose }: PostHubModalProps) => {
 
   const [content, setContent] = useState<string>('');
 
-  const [errors, setErrors] = useState<{
+  const [errors] = useState<{
     title: boolean;
     tags: boolean;
     content: boolean;
@@ -130,8 +130,8 @@ const PostHubModal = ({ onClose }: PostHubModalProps) => {
                         onClick={() => handleUnitRemove(unit)}
                       >
                         <Icon
-                          type={'xmark'}
-                          color={'black'}
+                          type='xmark'
+                          color='black'
                           className='w-[18px] h-[18px]'
                         />
                       </button>
@@ -162,8 +162,8 @@ const PostHubModal = ({ onClose }: PostHubModalProps) => {
                         onClick={() => handleSkillRemove(skill)}
                       >
                         <Icon
-                          type={'xmark'}
-                          color={'black'}
+                          type='xmark'
+                          color='black'
                           className='w-[18px] h-[18px]'
                         />
                       </button>
@@ -180,7 +180,7 @@ const PostHubModal = ({ onClose }: PostHubModalProps) => {
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
-                      variant={'outline'}
+                      variant='outline'
                       className={cn(
                         'w-[280px] h-[44px] justify-start text-left font-normal bg-white border-black',
                         !date && 'text-muted-foreground'
@@ -207,7 +207,7 @@ const PostHubModal = ({ onClose }: PostHubModalProps) => {
               <div className='flex flex-col items-start w-full gap-[5px]'>
                 <div className='flex text-[20px] font-semibold'>기간</div>
                 <div className='flex items-center gap-2'>
-                  <Select onValueChange={setDurationType}>
+                  <Select onValueChange={setDurationType} value={durationType}>
                     <SelectTrigger className='w-[90px] border border-black rounded-sm h-[44px]'>
                       <SelectValue placeholder='단위' />
                     </SelectTrigger>

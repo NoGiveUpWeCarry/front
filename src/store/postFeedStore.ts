@@ -1,17 +1,17 @@
-import { tagItem } from '@/constants/tagItem';
+import { TagItemKey } from '@/constants/tagItem';
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 interface FeedState {
   title: string;
-  tag: tagItem[];
+  tag: TagItemKey[];
   content: string;
 }
 
 interface FeedAction {
   setTitle: (title: string) => void;
-  setTag: (tags: tagItem[]) => void;
+  setTag: (tags: TagItemKey[]) => void;
   setContent: (content: string) => void;
   resetFeed: () => void;
 }

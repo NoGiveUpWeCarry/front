@@ -1,5 +1,4 @@
 import { ContentsToggle } from '@/components/atoms/contents/ContentsToggle';
-import Feed from '@/components/organisms/Feed';
 import Hub from '@/components/organisms/Hub';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -31,7 +30,7 @@ const SearchPage = () => {
         </div>
         <ContentsToggle />
       </div>
-      {selectedCategory === '피드' && <Feed keyword={q} />}
+      {/* {selectedCategory === '피드' && <Feed keyword={q} />} */}
       {selectedCategory === '프로젝트' && <Hub keyword={q} />}
     </div>
   );

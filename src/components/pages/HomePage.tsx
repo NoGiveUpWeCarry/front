@@ -1,4 +1,4 @@
-import { FeedContentsTop } from '@/components/molecules/contents/ContentsTop';
+import { FeedContentsTop } from '@/components/molecules/contents/FeedContentsTop';
 import Feed from '@/components/organisms/Feed';
 
 const HomePage = () => {

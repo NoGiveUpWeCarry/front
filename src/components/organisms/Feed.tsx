@@ -1,46 +1,64 @@
-import { feedItem } from '@/mocks/mock-data/feedItem';
 import { FeedContents } from '@/components/molecules/contents/ContentsItem';
-import { useEffect, useState } from 'react';
-import { FeedItemType } from '@/types/feed.type';
+import { useEffect, useRef, useCallback } from 'react';
+import useFeedSearchStore from '@/store/feedSearchStore';
+import { useInfiniteFetchFeeds } from '@/hooks/queries/feed.query';
+import { Post } from '@/apis/feed';
 
-interface FeedProps {
-  keyword?: string;
-}
-
-const Feed = ({ keyword }: FeedProps) => {
-  const [data, setData] = useState<FeedItemType[]>([]);
+const Feed = () => {
+  const { latest, tags } = useFeedSearchStore((state) => state);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteFetchFeeds(latest, tags || '');
+  const observerRef = useRef<HTMLDivElement | null>(null);
+  const flattenedData: Post[] = data?.pages.flatMap((page) => page.posts) || [];
+  console.log('flattenedData: ', flattenedData);
+  const handleObserver = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      const [entry] = entries;
+      if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
+        fetchNextPage();
+      }
+    },
+    [hasNextPage, isFetchingNextPage, fetchNextPage]
+  );
 
   useEffect(() => {
-    if (!keyword) setData(feedItem);
-    else {
-      setData(
-        feedItem.filter(
-          (el) => el.title.includes(keyword) || el.body.includes(keyword)
-        )
-      );
+    const observer = new IntersectionObserver(handleObserver, {
+      threshold: 1.0,
+    });
+    const currentRef = observerRef.current;
+
+    if (currentRef) {
+      observer.observe(currentRef);
     }
-  }, [keyword]);
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+      observer.disconnect();
+    };
+  }, [handleObserver]);
 
   return (
     <div className='flex flex-col gap-[30px] w-full'>
-      {data.map((item) => (
+      {flattenedData.map((item) => (
         <FeedContents
-          key={item.title + new Date().toISOString()}
-          user={item.user}
-          title={item.title}
-          body={item.body}
+          key={item.postId}
+          {...item}
           feedTags={item.tags}
-          commentsCount={item.commentsCount}
-          likesCount={item.likesCount}
-          viewsCount={item.viewsCount}
-          thumbnail={item.thumbnail}
+          user={{
+            avatarSrc: item.userProfileUrl,
+            name: item.userNickname,
+            job: item.userRole,
+            time: item.createdAt,
+          }}
         />
       ))}
-      {keyword && !data.length && (
+      {!flattenedData.length && (
         <div className='flex flex-col justify-center items-center'>
           검색 결과가 없습니다.
         </div>
       )}
+      {hasNextPage && <div ref={observerRef} className='h-10 w-full' />}
     </div>
   );
 };

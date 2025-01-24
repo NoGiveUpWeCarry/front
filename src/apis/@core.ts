@@ -1,11 +1,6 @@
 import { API_PATH } from '@/apis/api-path';
 import useAuthStore from '@/store/authStore';
-import { User } from '@/types/user.type';
-import axios, { AxiosResponse } from 'axios';
-
-interface RefreshRequest {
-  userId: User['userId'];
-}
+import axios from 'axios';
 
 interface Message {
   code: number;
@@ -17,7 +12,7 @@ interface RefreshResopnse {
   accessToken: string;
 }
 
-axios.defaults.baseURL = import.meta.env.VITE_LOCAL_URL;
+axios.defaults.baseURL = import.meta.env.VITE_BASE_SERVER_URL;
 
 export const axiosInstance = axios.create({
   withCredentials: true,

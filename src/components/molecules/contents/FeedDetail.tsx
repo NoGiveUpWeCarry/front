@@ -1,6 +1,5 @@
 import FeedDetailTag from '@/components/molecules/feedDetailTag';
 import { Post } from '@/types/feed.type';
-import { getDate } from '@/utils/date';
 
 interface FeedDetailProps {
   tags: Post['tags'];
@@ -16,7 +15,7 @@ const FeedDetail = ({ tags, date, title, content }: FeedDetailProps) => {
       <div className='text-gray text-body1'>{date}</div>
       <div className='text-heading1'>{title}</div>
       <div
-        className='prose'
+        className='prose w-full h-fit'
         dangerouslySetInnerHTML={{ __html: content }}
       ></div>
     </div>

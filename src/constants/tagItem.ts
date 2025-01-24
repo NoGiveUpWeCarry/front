@@ -1,16 +1,16 @@
 export const tagItem = {
-  고민: '# 고민',
-  회고: '# 회고',
-  아이디어: '# 아이디어',
-  계획: '# 계획',
-  토론: '# 토론',
-  정보공유: '# 정보공유',
-  추천: '# 추천',
-  질문: '# 질문',
+  고민: '1',
+  회고: '2',
+  아이디어: '3',
+  계획: '4',
+  토론: '5',
+  정보공유: '6',
+  추천: '7',
+  질문: '8',
 } as const;
 
 export type TagItemKey = keyof typeof tagItem;
-
+export type TagItemValue = (typeof tagItem)[keyof typeof tagItem];
 export const tagColors: Record<TagItemKey, string> = {
   고민: 'bg-[#CDF4FF] text-[#729CFF]',
   회고: 'bg-[#FFCDCD] text-[#FF5E5E]',

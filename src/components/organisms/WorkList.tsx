@@ -47,47 +47,53 @@ WorkList.Github = function Github({
     );
   };
 
-  return changeGithubId ? (
-    <div className='flex flex-col items-center justify-center bg-white border border-[#e1e1e1] rounded-[5px] pb-[10px] pt-4 h-[158px]'>
-      <span className='text-[15px] font-medium text-[#838383]'>
-        깃허브 계정을 연결해주세요
-      </span>
-      <Input
-        placeholder='깃허브 아이디 입력'
-        className='w-[164px] mt-3'
-        bgColor='transparent'
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            handleMutation();
-          }
-        }}
-      />
-    </div>
-  ) : (
+  return (
     <>
-      {isMyPage && (
-        <button
-          className='flex flex-row items-center justify-end mb-[-10px] text-[12px]'
-          onClick={() => setChangeGithubId(true)}
-        >
-          깃허브 아이디 변경하기 <ChevronRightIcon width={12} />
-        </button>
+      {(changeGithubId || originId === null) && (
+        <div className='flex flex-col items-center justify-center bg-white border border-[#e1e1e1] rounded-[5px] pb-[10px] pt-4 h-[158px]'>
+          <span className='text-[15px] font-medium text-[#838383]'>
+            깃허브 계정을 연결해주세요
+          </span>
+          <Input
+            placeholder='깃허브 아이디 입력'
+            className='w-[164px] mt-3'
+            bgColor='transparent'
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleMutation();
+              }
+            }}
+          />
+        </div>
       )}
-      <Link
-        to={`https://github.com/${githubId}`}
-        className='flex justify-center bg-white border border-[#e1e1e1] rounded-[5px] pb-[10px] pt-4 relative'
-      >
-        <GitHubCalendar
-          username={originId}
-          blockSize={9.4}
-          fontSize={11}
-          showWeekdayLabels
-          blockMargin={3.2}
-          loading={loading}
-        />
-      </Link>
+      {!changeGithubId && (
+        <>
+          {isMyPage && (
+            <button
+              className='flex flex-row items-center justify-end mb-[-10px] text-[12px]'
+              onClick={() => setChangeGithubId(true)}
+            >
+              깃허브 아이디 변경하기 <ChevronRightIcon width={12} />
+            </button>
+          )}
+          <Link
+            to={`https://github.com/${githubId}`}
+            className='flex justify-center bg-white border border-[#e1e1e1] rounded-[5px] pb-[10px] pt-4 relative'
+          >
+            <GitHubCalendar
+              username={originId}
+              blockSize={9.4}
+              fontSize={11}
+              showWeekdayLabels
+              blockMargin={3.2}
+              loading={loading}
+            />
+          </Link>
+        </>
+      )}
+      ;
     </>
   );
 };

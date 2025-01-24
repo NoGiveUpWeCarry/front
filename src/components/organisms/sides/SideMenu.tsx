@@ -7,17 +7,13 @@ import { useModal } from '@/hooks/useModal';
 import SearchModal from '@/components/organisms/modals/SearchModal';
 import Icon from '@/components/atoms/Icon';
 import useAuthStore from '@/store/authStore';
-import { useShallow } from 'zustand/shallow';
 import { useLogout } from '@/hooks/queries/auth.query';
 
 const SideMenu = () => {
   const navigate = useNavigate();
   const [showLogin, setShowLogin] = useState(false);
   const [showNotificationBox, setShowNotificationBox] = useState(false);
-
-  const [isLoggedIn, userInfo, logout] = useAuthStore(
-    useShallow((state) => [state.isLoggedIn, state.userInfo, state.logout])
-  );
+  const { logout, isLoggedIn, userInfo } = useAuthStore((state) => state);
 
   const { mutate } = useLogout();
 
@@ -280,7 +276,7 @@ const SideMenu = () => {
                     className='group flex w-full rounded-lg px-1 py-2 items-center gap-[20px] cursor-pointer hover:bg-[#f3f4f6]'
                     onClick={() => {
                       if (isLoggedIn) {
-                        navigate(`@${userInfo?.nickname}`, {
+                        navigate(`/@${userInfo?.nickname}`, {
                           state: { userId: userInfo?.userId },
                         });
                       } else {

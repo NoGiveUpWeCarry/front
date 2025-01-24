@@ -1,16 +1,12 @@
 import HubDetail from '@/components/molecules/contents/HubDetail';
 import { useFetchHub } from '@/hooks/queries/hub.query';
-import { DetailItem, DetailItemType } from '@/mocks/mock-data/detailItem';
+import { DetailItemType } from '@/mocks/mock-data/detailItem';
 import { hubDetailMocks } from '@/mocks/mock-data/hubDetail.mock';
 import { useEffect, useState } from 'react';
 
-interface DetailProps {
-  keyword?: string;
-}
-
-const ConnectionHubDetail = ({ keyword }: DetailProps) => {
+const ConnectionHubDetail = () => {
   const [data, setData] = useState<DetailItemType[]>([]);
-  const { data: HubData, isLoading, isError } = useFetchHub();
+  const { data: HubData } = useFetchHub();
   console.log('Hubdata: ', HubData);
 
   useEffect(() => {

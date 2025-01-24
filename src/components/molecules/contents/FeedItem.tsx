@@ -1,22 +1,36 @@
-import FeedBody from '@/components/molecules/contents/FeedBody';
 import ContentsThumbnail from '@/components/atoms/contents/ContentsThumbnail';
-import { ContentsFeedTagProps } from '@/types/tags/contentsFeedTag.type';
+import FeedBody from '@/components/molecules/contents/FeedBody';
+import { TagItemKey } from '@/constants/tagItem';
+import { useNavigate } from 'react-router-dom';
 
 interface FeedItemProps {
   title: string;
-  body: string;
-  tags: { label: string; variant: ContentsFeedTagProps['variant'] }[];
-  thumbnail?: string;
-  sliceBody?: boolean;
+  content: string;
+  tags: TagItemKey[];
+  thumbnailUrl?: string;
+  postId: number;
 }
 
-const FeedItem = ({ thumbnail, sliceBody, ...props }: FeedItemProps) => {
+const FeedItem = ({
+  title,
+  content,
+  tags,
+  thumbnailUrl,
+  postId,
+}: FeedItemProps) => {
+  const navigate = useNavigate();
+  const navigateToDetail = () => {
+    navigate(`/feed/${postId}`);
+  };
   return (
-    <div className='flex w-full justify-between items-center gap-10'>
-      <FeedBody {...props} sliceBody={sliceBody} />
-      {thumbnail && (
+    <div
+      className='flex w-full justify-between items-center gap-10'
+      onClick={navigateToDetail}
+    >
+      <FeedBody title={title} content={content} tags={tags} />
+      {thumbnailUrl && (
         <div className='w-[180px] flex-shrink-0'>
-          <ContentsThumbnail src={thumbnail} />
+          <ContentsThumbnail thumbnailUrl={thumbnailUrl} />
         </div>
       )}
     </div>

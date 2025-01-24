@@ -1,11 +1,17 @@
 import { useState } from 'react';
 
+export interface IDropdown {
+  statusId?: number;
+  id: string;
+  label: string;
+}
+
 export const useDropdown = ({
   data,
   initialValue,
 }: {
-  data: string[];
-  initialValue: string;
+  data: IDropdown[];
+  initialValue: IDropdown;
 }) => {
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [openDropdown, setOpenDropdown] = useState(false);
@@ -16,20 +22,20 @@ export const useDropdown = ({
     setOpenDropdown(false);
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    if (event.key === 'ArrowDown') {
-      setFocusedIndex((prevIndex) =>
-        prevIndex === null || prevIndex === data.length - 1 ? 0 : prevIndex + 1
-      );
-    } else if (event.key === 'ArrowUp') {
-      setFocusedIndex((prevIndex) =>
-        prevIndex === null || prevIndex === 0 ? data.length - 1 : prevIndex - 1
-      );
-    } else if (event.key === 'Enter' && focusedIndex !== null) {
-      handleSetWorkStatus();
-    }
-  };
+  // const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+  //   event.preventDefault();
+  //   if (event.key === 'ArrowDown') {
+  //     setFocusedIndex((prevIndex) =>
+  //       prevIndex === null || prevIndex === data.length - 1 ? 0 : prevIndex + 1
+  //     );
+  //   } else if (event.key === 'ArrowUp') {
+  //     setFocusedIndex((prevIndex) =>
+  //       prevIndex === null || prevIndex === 0 ? data.length - 1 : prevIndex - 1
+  //     );
+  //   } else if (event.key === 'Enter' && focusedIndex !== null) {
+  //     handleSetWorkStatus();
+  //   }
+  // };
 
   const toggleDropdown = () => setOpenDropdown((prev) => !prev);
 
@@ -39,7 +45,7 @@ export const useDropdown = ({
     selectedOption,
     setSelectedOption,
     onClickOption: handleSetWorkStatus,
-    onKeyDown: handleKeyDown,
+    // onKeyDown: handleKeyDown,
     toggleDropdown,
     setFocusedIndex,
   };

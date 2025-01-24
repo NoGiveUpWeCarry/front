@@ -1,4 +1,4 @@
-import { HubContentsTop } from '@/components/molecules/contents/ContentsTop';
+import { HubContentsTop } from '@/components/molecules/contents/HubContentTop';
 import Hub from '@/components/organisms/Hub';
 
 const ConnectionHubPage = () => {

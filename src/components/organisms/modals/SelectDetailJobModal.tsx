@@ -18,8 +18,8 @@ const KOR_ROLE = {
 };
 
 const SelectDetailJobModal = ({ onClose }: ModalProps) => {
-  const [settingsForm, setSettingsForm] = useSettingsStore(
-    useShallow((state) => [state.settingsForm, state.setSettingsForm])
+  const [settingsForm] = useSettingsStore(
+    useShallow((state) => [state.settingsForm])
   );
 
   const [selectedItem, setSelectedItem] = useState({
