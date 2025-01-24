@@ -50,7 +50,6 @@ export const chatHandlers = [
         limit
       );
 
-      console.log('searchResult >>>', searchResult);
       // 키워드를 포함하는 메시지가 없을 경우
       if (searchResult === -1) {
         return HttpResponse.json(
@@ -147,14 +146,6 @@ export const chatHandlers = [
           next = prev = search = null;
         }
 
-        console.log({
-          messages,
-          cursors: {
-            prev,
-            next,
-            search,
-          },
-        });
         return HttpResponse.json({
           messages,
           cursors: {
@@ -227,7 +218,6 @@ function infiniteScroll(
     if (start === -1) return -1;
     const forwarMessages = messages.slice(start + 1, start + limit + 1);
     const isFirst = start + limit >= messages.length - 1;
-    console.log({ forwarMessages });
     return {
       next: isFirst ? null : forwarMessages.at(-1)!.messageId,
       messages: forwarMessages,
@@ -242,7 +232,6 @@ function infiniteScroll(
     if (start === -1) return -1;
     const backwardMessages = sortedMessages.slice(start + 1, start + limit + 1);
     const isLast = start + limit >= messages.length - 1;
-    console.log({ backwardMessages });
     return {
       // next: cursor,
       messages: backwardMessages,

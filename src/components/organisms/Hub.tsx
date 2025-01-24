@@ -14,7 +14,6 @@ const Hub = ({ keyword }: HubProps) => {
   console.log('Hubsdata: ', HubsData);
 
   useEffect(() => {
-    console.log(hubMocks); // 데이터 확인
     setData(hubMocks);
   }, []);
 

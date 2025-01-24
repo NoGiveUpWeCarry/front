@@ -28,7 +28,6 @@ const useAuthStore = create(
             sessionStorage.setItem('@token', token);
           },
           login: (user: User, token: string) => {
-            console.log('zustand login 호출됨.');
             set({
               isLoggedIn: true,
               accessToken: token,
@@ -51,7 +50,7 @@ const useAuthStore = create(
                 userId: 0,
               },
             });
-            // localStorage.removeItem('@token');
+            sessionStorage.removeItem('auth-storage');
             sessionStorage.removeItem('@token');
           },
           setUserRole: (userRole: number) => {

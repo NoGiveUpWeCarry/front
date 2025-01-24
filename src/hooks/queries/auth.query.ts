@@ -25,7 +25,6 @@ export const useAuthMutation = (): UseMutationResult<
     onSuccess: async (data) => {
       const { accessToken, user, isExistingUser } = data;
       await login(user, accessToken);
-      console.log('login zustand Action 성공');
       if (isExistingUser) {
         navigate('/');
       } else {
@@ -69,6 +68,7 @@ export const useLogout = () => {
     onSuccess: () => {
       alert('로그아웃 되었습니다.');
       logout();
+
       window.location.href = '/';
     },
   });
