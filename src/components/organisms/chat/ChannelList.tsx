@@ -1,4 +1,5 @@
 import Avatar from '@/components/atoms/Avatar';
+import Icon from '@/components/atoms/Icon';
 import Title from '@/components/atoms/Title';
 import { ListItem } from '@/components/molecules/ListItem';
 import useAuthStore from '@/store/authStore';
@@ -89,8 +90,15 @@ const ChannelList = ({ channels }: ChannelListProps) => {
         );
       })}
       {currentChannelId && (
-        <div className='mt-auto'>
-          <button onClick={handleChannelExit}>채널 나가기</button>
+        <div className='mt-auto flex justify-end'>
+          <button
+            onClick={handleChannelExit}
+            aria-label='채팅방 나가기'
+            className='flex items-center text-darkgray hover:text-[#333] h-[38px] gap-[5px]'
+          >
+            <div>나가기</div>
+            <Icon type='exit' className='text-inherit w-[24px] h-[24px]' />
+          </button>
         </div>
       )}
     </ul>

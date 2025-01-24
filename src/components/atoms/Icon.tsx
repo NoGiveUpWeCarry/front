@@ -24,6 +24,7 @@ import {
   PencilSquareIcon,
   ArrowLongUpIcon,
   ChatBubbleOvalLeftEllipsisIcon,
+  ArrowRightStartOnRectangleIcon,
 } from '@heroicons/react/24/outline';
 import { UserCircleIcon, UserGroupIcon } from '@heroicons/react/24/solid';
 import { cva, VariantProps } from 'class-variance-authority';
@@ -55,7 +56,8 @@ type IconType =
   | 'trash'
   | 'pencilSquare'
   | 'arrowLongUp'
-  | 'chatBubbleOvalLeftEllipsis';
+  | 'chatBubbleOvalLeftEllipsis'
+  | 'exit';
 
 const iconVariants = cva('', {
   variants: {
@@ -135,6 +137,11 @@ const Icon = ({ type, className = '', color }: IconProps) => {
     ),
     chatBubbleOvalLeftEllipsis: (
       <ChatBubbleOvalLeftEllipsisIcon
+        className={cn(iconVariants({ color }), className)}
+      />
+    ),
+    exit: (
+      <ArrowRightStartOnRectangleIcon
         className={cn(iconVariants({ color }), className)}
       />
     ),
