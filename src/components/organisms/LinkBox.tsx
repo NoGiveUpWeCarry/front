@@ -1,22 +1,12 @@
-import { ChangeEvent } from 'react';
 import LinkInput from '@/components/molecules/LinkInput';
+import { useAddLink } from '@/hooks/queries/mypage/settings';
 
 interface LinkBoxProps {
-  links: string[];
-  setLinks: (value: string[]) => void;
+  links: { linkId: number; url: string }[];
 }
 
-const LinkBox = ({ links, setLinks }: LinkBoxProps) => {
-  const handleInputChange = (
-    event: ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
-    const { value } = event.target;
-    const updatedLinks = links?.map((input: string, i: number) =>
-      i === index ? value : input
-    );
-    setLinks(updatedLinks);
-  };
+const LinkBox = ({ links }: LinkBoxProps) => {
+  const { mutate: addLink } = useAddLink();
 
   const handleAddInput = () => {
     if (links.length === 4) {
@@ -24,26 +14,19 @@ const LinkBox = ({ links, setLinks }: LinkBoxProps) => {
       return;
     }
 
-    const isAnyInputEmpty = links.some((link) => link === '');
+    const isAnyInputEmpty = links.some((link) => link.url === '');
     if (isAnyInputEmpty) {
       alert('모든 항목을 채워야 새 링크를 추가할 수 있습니다.');
       return;
     }
-    setLinks([...links, '']);
+    addLink({ link: '' });
   };
 
   return (
     <div className='w-full mt-4 bg-[#EAEAEA] p-5 rounded-[10px]'>
       <div className='flex flex-col gap-[13px] text-[15px]'>
-        {links?.map((item, index) => {
-          return (
-            <LinkInput
-              key={`input-${index}`}
-              url={item}
-              index={index}
-              onChange={(e) => handleInputChange(e, index)}
-            />
-          );
+        {links?.map((link, index) => {
+          return <LinkInput key={link.linkId} link={link} index={index} />;
         })}
         <button
           className='w-full h-9 rounded-[10px] bg-white flex justify-center items-center'

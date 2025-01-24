@@ -335,20 +335,38 @@ export const deleteSkill = async ({ skillData }: { skillData: string[] }) => {
   return response.data;
 };
 
-export const addLink = async ({ links }: { links: string[] }) => {
+export const addLink = async ({ link }: { link: string }) => {
   const response = await fetcher({
     url: `/users/profile/links`,
     method: 'POST',
-    data: { links },
+    data: { url: link },
   });
   return response.data;
 };
 
-export const deleteLink = async ({ linkIds }: { linkIds: number[] }) => {
+export const deleteLink = async ({ linkId }: { linkId: number }) => {
   const response = await fetcher({
     url: `/users/profile/links`,
     method: 'DELETE',
-    data: { linkIds },
+    data: { linkId },
+  });
+  return response.data;
+};
+
+export const updateLink = async ({
+  linkId,
+  url,
+}: {
+  linkId: number;
+  url: string;
+}) => {
+  const response = await fetcher({
+    url: `/users/profile/links`,
+    method: 'PATCH',
+    data: {
+      linkId,
+      url,
+    },
   });
   return response.data;
 };
