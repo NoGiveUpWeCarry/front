@@ -6,6 +6,7 @@ import { ChatState, useChatStore } from '@/store/chatStore';
 import { Channel } from '@/types/channel.type';
 import { formatDateFromNow } from '@/utils/format';
 import clsx from 'clsx';
+import { MouseEvent as ReactMouseEvent } from 'react';
 import { useShallow } from 'zustand/shallow';
 
 interface ChannelListProps {
@@ -13,10 +14,11 @@ interface ChannelListProps {
 }
 
 const ChannelList = ({ channels }: ChannelListProps) => {
-  const { joinChannel, currentChannelId } = useChatStore(
+  const { joinChannel, currentChannelId, exitChannel } = useChatStore(
     useShallow((state) => ({
       joinChannel: state.joinChannel,
       currentChannelId: state.currentChannelId,
+      exitChannel: state.exitChannel,
     }))
   );
   const user = useAuthStore((state) => state.userInfo);
@@ -25,15 +27,39 @@ const ChannelList = ({ channels }: ChannelListProps) => {
     if (channelId === currentChannelId) return;
     joinChannel(user!.userId, channelId);
   };
+
+  const handleChannelClick = (
+    e: ReactMouseEvent,
+    channelId: Channel['channelId']
+  ) => {
+    if (e.button === 0) {
+      switchChannel(channelId);
+    }
+  };
+
+  const handleChannelExit = () => {
+    if (window.confirm('현재 채팅방을 나가시겠습니까?')) {
+      // console.log(`${currentChannelId} 번 채팅방 나감`);
+      const userId = useAuthStore.getState().userInfo.userId;
+      exitChannel(userId, currentChannelId!);
+    } else {
+      console.log('나가기 취소');
+    }
+  };
+
   return (
-    <ul className='grow flex flex-col gap-[24px]'>
-      {Object.entries(channels).map(([channelId, channel]) => {
+    <ul className='grow flex flex-col gap-[24px] pb-[50px]'>
+      {Object.entries(channels).map(([_, channel]) => {
         return (
-          <li key={channelId} onClick={() => switchChannel(+channelId)}>
+          <li
+            key={channel.channelId}
+            onClick={(e) => handleChannelClick(e, channel.channelId)}
+            className='group relative'
+          >
             <ListItem
               className={clsx([
                 'h-[62px] rounded-[8px] cursor-pointer items-center p-[10px] gap-[10px]',
-                +channelId === currentChannelId
+                channel.channelId === currentChannelId
                   ? 'bg-[#EDECF3]'
                   : 'hover:bg-[#EDECF3] ',
               ])}
@@ -62,6 +88,11 @@ const ChannelList = ({ channels }: ChannelListProps) => {
           </li>
         );
       })}
+      {currentChannelId && (
+        <div className='mt-auto'>
+          <button onClick={handleChannelExit}>채널 나가기</button>
+        </div>
+      )}
     </ul>
   );
 };

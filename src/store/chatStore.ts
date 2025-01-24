@@ -24,6 +24,7 @@ export interface ChatAction {
     messages: ReceiveMessage[],
     channelId: NonNullable<ChatState['currentChannelId']>
   ) => void;
+  exitChannel: (userId: number, channelId: Channel['channelId']) => void;
 }
 
 export interface Handlers {
@@ -32,6 +33,7 @@ export interface Handlers {
   handleFetchChannels: (channels: Channel[]) => void;
   handleChannelAdded: (channel: Channel) => void;
   handleChannelCreated: (channel: Channel) => void;
+  handleChannelExited: (channelId: Channel['channelId']) => void;
 }
 
 export const useChatStore = create<ChatState & ChatAction & Handlers>()(
@@ -49,6 +51,7 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
           handleChannelAdded,
           handleChannelCreated,
           handleChannelJoined,
+          handleChannelExited,
         } = get();
         const socket =
           get().socket ||
@@ -63,6 +66,7 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
         socket.on('channelJoined', handleChannelJoined);
         socket.on('channelCreated', handleChannelCreated);
         socket.on('groupCreated', handleChannelCreated);
+        socket.on('channelExited', handleChannelExited);
         set(() => ({ socket }));
       },
       disconnectSocket: () => {
@@ -73,6 +77,7 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
           handleChannelAdded,
           handleChannelJoined,
           handleChannelCreated,
+          handleChannelExited,
         } = get();
         if (!socket) return;
         socket.off('message', handleMessage);
@@ -81,6 +86,7 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
         socket.off('channelJoined', handleChannelJoined);
         socket.off('channelCreated', handleChannelCreated);
         socket.off('groupCreated', handleChannelCreated);
+        socket.off('channelExited', handleChannelExited);
         socket.disconnect();
         set(() => ({
           socket: null,
@@ -100,26 +106,29 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       createGroup: (userIds, title) => {
         const { socket } = get();
         const user = useAuthStore.getState().userInfo;
-        if (!socket)
-          return alert('소켓에 연결되어있지 않습니다. (createGroup)');
+        if (!socket) return alertSocketNotConnected();
         socket.emit('createGroup', {
           userIds,
           title,
-          thumbnailURL: user?.userImage,
+          thumbnailURL: user?.profileUrl,
         });
       },
       sendMessage: (message) => {
         const { socket } = get();
-        if (!socket)
-          return alert('소켓에 연결되어있지 않습니다. (sendMessage)');
+        if (!socket) return alertSocketNotConnected();
         socket.emit('sendMessage', message);
       },
       // 채널 참가
       joinChannel: (userId, channelId) => {
         const { socket } = get();
-        if (!socket)
-          return alert('소켓에 연결되어있지 않습니다. (joinChannel)');
+        if (!socket) return alertSocketNotConnected();
         socket.emit('joinChannel', { userId, channelId });
+      },
+      // 채널 나가기
+      exitChannel: (userId, channelId) => {
+        const { socket } = get();
+        if (!socket) return alertSocketNotConnected();
+        socket.emit('exitChannel', { userId, channelId });
       },
       // http 로 받아온 메시지를 이용해 messages 상태 업데이트
       setMessages: (messages, channelId) => {
@@ -136,7 +145,7 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
           if (!state.messages[message.channelId]) {
             state.messages[message.channelId] = [];
           }
-          state.messages[message.channelId].unshift(message);
+          state.messages[message.channelId].push(message);
         });
       },
       // 채널에 참가 했을 때 channels 상태 업데이트
@@ -179,9 +188,25 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       handleChannelCreated: (channel) => {
         const { joinChannel } = get();
         const user = useAuthStore.getState().userInfo;
-        if (!user) return alert('로그인을 해주세요 (handleChannelCreated)');
+        if (!user) return alertLoginRequired();
         joinChannel(user.userId, channel.channelId);
+      },
+      // 채팅방 나가기 완료 시 채팅방 목록에서 해당 채널 삭제
+      handleChannelExited: (channelId) => {
+        set((state) => {
+          delete state.channels[channelId];
+          delete state.messages[channelId];
+          state.currentChannelId = null;
+        });
       },
     };
   })
 );
+
+function alertSocketNotConnected() {
+  return alert('소켓에 연결되어있지 않습니다.');
+}
+
+function alertLoginRequired() {
+  return alert('로그인을 해주세요');
+}

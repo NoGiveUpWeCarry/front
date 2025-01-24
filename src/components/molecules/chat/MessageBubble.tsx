@@ -9,12 +9,14 @@ interface MessageBubbleProps {
   content: ReceiveMessage['content'];
   className?: string;
   messageId: number;
+  isMyMessage: boolean;
 }
 
 const MessageBubble = ({
   content,
   className,
   messageId,
+  isMyMessage,
 }: MessageBubbleProps) => {
   const messageRef = useRef<HTMLDivElement>(null);
 
@@ -37,7 +39,8 @@ const MessageBubble = ({
     <div
       ref={messageRef}
       className={cn(
-        'bg-[#EAFBFF] px-[10px] py-[7px] text-caption1 w-fit rounded-[5px]',
+        'px-[10px] py-[7px] text-caption1 w-fit rounded-[5px]',
+        isMyMessage ? 'bg-[#EAFBFF]' : 'bg-[#ffdfe7]',
         className
       )}
     >

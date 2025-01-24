@@ -27,7 +27,7 @@ const Message = memo(({ message, sameBefore, isMyMessage }: MessageProps) => {
       {sameBefore ? (
         <div className='w-[40px] shrink-0'></div>
       ) : (
-        <Avatar src={user.userImage || undefined} size='xs' />
+        <Avatar src={user.profileUrl || undefined} size='xs' />
       )}
       <div className={cn('flex flex-col', isMyMessage && 'items-end')}>
         {!sameBefore && (
@@ -46,7 +46,11 @@ const Message = memo(({ message, sameBefore, isMyMessage }: MessageProps) => {
             isMyMessage ? 'flex-row-reverse' : 'flex-row'
           )}
         >
-          <MessageBubble content={content} messageId={message.messageId} />
+          <MessageBubble
+            content={content}
+            messageId={message.messageId}
+            isMyMessage={isMyMessage}
+          />
           <div className='text-caption2 text-darkgray'>
             {formatTime(message.date)}
           </div>
