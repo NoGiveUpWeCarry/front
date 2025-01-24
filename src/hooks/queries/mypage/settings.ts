@@ -85,20 +85,14 @@ export const useDeleteSkills = () => {
 export const useAddLink = () => {
   return useMutation({
     mutationFn: ({ link }: { link: string }) => addLink({ link }),
-    onSuccess: () => {
-      successHandler();
-      alert('created');
-    },
+    onSuccess: successHandler,
   });
 };
 
 export const useDeleteLink = () => {
   return useMutation({
     mutationFn: ({ linkId }: { linkId: number }) => deleteLink({ linkId }),
-    onSuccess: () => {
-      successHandler();
-      alert('deleted');
-    },
+    onSuccess: successHandler,
   });
 };
 
@@ -106,10 +100,7 @@ export const useUpdateLink = () => {
   return useMutation({
     mutationFn: ({ linkId, url }: { linkId: number; url: string }) =>
       updateLink({ linkId, url }),
-    onSuccess: () => {
-      successHandler();
-      alert('updated');
-    },
+    onSuccess: successHandler,
   });
 };
 
