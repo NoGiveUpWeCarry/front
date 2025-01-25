@@ -1,8 +1,6 @@
 import DateText from '@/components/atoms/DateText';
-// import { FeedContents } from '@/components/molecules/contents/ContentsItem';
 import { useGetFeeds } from '@/hooks/queries/mypage/feed';
 import { useMyPageStore } from '@/store/mypageStore';
-// import { ContentsFeedTagVariant } from '@/types/tags/contentsFeedTag.type';
 import { useShallow } from 'zustand/shallow';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
