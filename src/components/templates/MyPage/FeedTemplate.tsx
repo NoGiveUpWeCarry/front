@@ -7,6 +7,7 @@ import { useShallow } from 'zustand/shallow';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { FeedContents } from '@/components/molecules/contents/ContentsItem';
 
 const FeedTemplate = () => {
   const { ref, inView } = useInView();
@@ -33,20 +34,16 @@ const FeedTemplate = () => {
               {showDate && (
                 <DateText hasBg date={feed.createdAt} className='mb-[28px]' />
               )}
-              {/* <FeedContents
+              <FeedContents
                 key={feed.title + new Date().toISOString()}
-                title={feed.title}
-                body={feed.content.replace(/<[^>]*>/g, ' ')}
-                feedTags={feed.tags.map((el) => ({
-                  label: el,
-                  variant: el as ContentsFeedTagVariant,
-                }))}
-                commentsCount={feed.commentCount}
-                likesCount={feed.likeCount}
-                viewsCount={feed.view}
-                sliceBody
-                thumbnail={feed.thumbnailUrl!}
-              /> */}
+                {...feed}
+                hideUser
+                feedTags={[]}
+                viewCount={feed.view}
+                postId={feed.id}
+                isLiked={feed.likeCount > 0}
+                thumbnailUrl={feed.thumbnailUrl!}
+              />
             </Link>
           );
         });
