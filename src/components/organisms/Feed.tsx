@@ -1,8 +1,8 @@
-import { FeedContents } from '@/components/molecules/contents/ContentsItem';
 import { useEffect, useRef, useCallback } from 'react';
 import useFeedSearchStore from '@/store/feedSearchStore';
 import { useInfiniteFetchFeeds } from '@/hooks/queries/feed.query';
 import { Post } from '@/apis/feed';
+import { FeedContents } from '@/components/molecules/contents/FeedContentsItem';
 
 const Feed = () => {
   const { latest, tags } = useFeedSearchStore((state) => state);
@@ -43,14 +43,22 @@ const Feed = () => {
       {flattenedData.map((item) => (
         <FeedContents
           key={item.postId}
-          {...item}
+          title={item.title}
+          content={item.content}
           feedTags={item.tags}
+          commentsCount={item.commentCount}
+          likesCount={item.likeCount}
+          viewsCount={item.viewCount}
+          thumnailUrl={item.thumnailUrl}
+          postId={item.postId}
+          isLiked={item.isLiked}
           user={{
             avatarSrc: item.userProfileUrl,
             name: item.userNickname,
             job: item.userRole,
             time: item.createdAt,
           }}
+          createdAt={item.createdAt}
         />
       ))}
       {!flattenedData.length && (

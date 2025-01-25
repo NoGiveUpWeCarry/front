@@ -12,7 +12,7 @@ interface FeedDetailChatProps {
 }
 
 const FeedDetailChat = ({ comments, feedId }: FeedDetailChatProps) => {
-  const { userId, userImage } = useAuthStore((state) => state.userInfo);
+  const { userId, profileUrl } = useAuthStore((state) => state.userInfo);
   const groupedComments = groupCommentsByDate(comments);
   const { mutate: postComment, isPending } = usePostFeedChat();
   const { mutate: deleteComment } = useDeleteFeedChat();
@@ -83,7 +83,7 @@ const FeedDetailChat = ({ comments, feedId }: FeedDetailChatProps) => {
       )}
       <ChatInput
         onSubmit={submitComment}
-        userImage={userImage}
+        userImage={profileUrl}
         isPending={isPending}
       />
     </div>

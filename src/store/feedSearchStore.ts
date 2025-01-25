@@ -15,7 +15,7 @@ interface FeedSearchAction {
 }
 
 const initialState: FeedSearchState & FeedSearchAction = {
-  latest: false,
+  latest: true,
   tags: 'null',
   setLatest: () => {},
   setTags: () => {},

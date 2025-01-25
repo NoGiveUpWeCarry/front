@@ -1,5 +1,5 @@
 import InputDropdownItem from '@/components/molecules/InputDropdownItem';
-import { tagItem, tagColors, TagItemKey } from '@/constants/tagItem';
+import { tagColors, TagItemKey } from '@/constants/tagItem';
 import useFeedStore from '@/store/postFeedStore';
 import { useState, useRef, useEffect } from 'react';
 
@@ -8,7 +8,7 @@ const InputDropdown = () => {
   const [selectedTag, setSelectedTag] = useState<TagItemKey[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const setTag = useFeedStore((state) => state.setTag);
-
+  const { tag } = useFeedStore((state) => state);
   const onClick = () => {
     setOpen(!open);
   };
@@ -18,6 +18,12 @@ const InputDropdown = () => {
     setSelectedTag(updatedTags);
     setTag(updatedTags);
   };
+
+  useEffect(() => {
+    if (tag) {
+      setSelectedTag(tag);
+    }
+  }, [tag]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -49,7 +55,7 @@ const InputDropdown = () => {
               key={tag}
               className={`flex items-center px-3 py-1 rounded-[5px] text-sm ${tagColors[tag]} gap-[5px]`}
             >
-              {tagItem[tag]}
+              {tag}
               <div className='flex items-center'>
                 <button
                   className='flex text-gray-500 hover:text-gray-700 mb-[2.5px] text-[20px] font-extralight'

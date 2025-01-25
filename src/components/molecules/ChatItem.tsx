@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { usePutChat } from '@/hooks/queries/feed.query';
 import { HandThumbUpIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
@@ -20,16 +21,27 @@ interface ChatItemProps {
 const ChatItem = ({ chat, isCurrentUser, onDelete }: ChatItemProps) => {
   const { mutate: toggleLike } = usePutChat();
 
+  const [isLiked, setIsLiked] = useState(chat.isLiked);
+  const [likeCount, setLikeCount] = useState(chat.likeCount);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleLikeClick = () => {
-    console.log('chat.isLiked: ', chat.isLiked);
+    if (isLoading) return;
+    setIsLiked((prev) => !prev);
+    setLikeCount((prev) => (isLiked ? prev - 1 : prev + 1));
+    setIsLoading(true);
     toggleLike(
       { id: chat.commentId },
       {
         onSuccess: () => {
           console.log(`댓글 ${chat.commentId} 좋아요 상태 변경 성공`);
+          setIsLoading(false);
         },
         onError: (error) => {
           console.error(`댓글 ${chat.commentId} 좋아요 상태 변경 실패:`, error);
+          setIsLiked((prev) => !prev);
+          setLikeCount((prev) => (isLiked ? prev + 1 : prev - 1));
+          setIsLoading(false);
         },
       }
     );
@@ -55,7 +67,12 @@ const ChatItem = ({ chat, isCurrentUser, onDelete }: ChatItemProps) => {
           <p className='text-body font-semibold'>{chat.userName}</p>
           <p className='text-caption2 text-gray'>{chat.userRole}</p>
         </div>
-        <div className='px-2 py-1 rounded-[10px] max-w-96 flex-wrap bg-[#EAFBFF]'>
+        <div
+          className={clsx(
+            'px-2 py-1 rounded-[10px] max-w-96 flex-wrap bg-[#EAFBFF]',
+            { 'bg-[#ffdfe7]': isCurrentUser }
+          )}
+        >
           {chat.comment}
         </div>
       </div>
@@ -76,11 +93,12 @@ const ChatItem = ({ chat, isCurrentUser, onDelete }: ChatItemProps) => {
           <HandThumbUpIcon
             onClick={handleLikeClick}
             className={clsx('w-4 h-4 cursor-pointer', {
-              'text-red-400': chat.isLiked,
-              'text-gray': !chat.isLiked,
+              'text-red-400': isLiked,
+              'text-gray': !isLiked,
+              'cursor-not-allowed': isLoading,
             })}
           />
-          <div className='text-xs text-gray'>{chat.likeCount}</div>
+          <div className='text-xs text-gray'>{likeCount}</div>
         </div>
       </div>
     </div>

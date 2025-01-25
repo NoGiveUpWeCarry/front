@@ -1,7 +1,7 @@
-// 컨텐츠 타이틀 + 바디 + 태그
 import ContentsTitle from '@/components/atoms/contents/ContentsTitle';
 import ContentsBody from '@/components/atoms/contents/ContentsBody';
-import { TagItemKey } from '@/constants/tagItem';
+import { TagItemKey, tagColors } from '@/constants/tagItem';
+import clsx from 'clsx';
 
 interface FeedBodyProps {
   title: string;
@@ -16,7 +16,14 @@ const FeedBody = ({ title, content, tags }: FeedBodyProps) => {
       <ContentsBody body={content} />
       <div className='flex gap-[10px]'>
         {tags.map((tag) => (
-          <div>{tag}</div>
+          <div
+            className={clsx(
+              'px-[5px] py-[2px] text-caption1 rounded-[5px]',
+              tagColors[tag]
+            )}
+          >
+            #{tag}
+          </div>
         ))}
       </div>
     </div>

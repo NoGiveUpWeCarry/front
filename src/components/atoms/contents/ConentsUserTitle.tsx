@@ -1,3 +1,5 @@
+import formatTimeAgo from '@/utils/\bformatTimeAgo';
+
 interface ContentsUserTitleProps {
   userNickname: string;
   userRole: string;
@@ -25,12 +27,12 @@ const ContentsUserTitle = ({
 }: ContentsUserTitleProps) => {
   return (
     <div className='flex flex-col items-start'>
-      <span className='font-medium text-gray-900 text-sm'>{userNickname}</span>
-      <div className='flex items-center gap-[5px]'>
-        <span className='felx font-normal text-black text-sm'>{userRole}</span>
+      <span className='font-bold text-gray-900 text-sm'>{userNickname}</span>
+      <div className='flex items-center gap-[2px]'>
+        <span className='text-gray-500 text-sm'>{userRole}</span>
         <span className='text-black bg-gray-500 rounded-full'>•</span>
-        <span className='text-black text-sm'>
-          {calculateTimeAgo(createdAt)}
+        <span className='text-gray-400 text-sm'>
+          {formatTimeAgo(createdAt)}
         </span>
       </div>
     </div>

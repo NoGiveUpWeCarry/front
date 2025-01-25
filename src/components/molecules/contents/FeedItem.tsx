@@ -7,7 +7,7 @@ interface FeedItemProps {
   title: string;
   content: string;
   tags: TagItemKey[];
-  thumbnailUrl?: string;
+  thumnailUrl?: string;
   postId: number;
 }
 
@@ -15,7 +15,7 @@ const FeedItem = ({
   title,
   content,
   tags,
-  thumbnailUrl,
+  thumnailUrl,
   postId,
 }: FeedItemProps) => {
   const navigate = useNavigate();
@@ -24,13 +24,13 @@ const FeedItem = ({
   };
   return (
     <div
-      className='flex w-full justify-between items-center gap-10'
+      className='flex w-full justify-between items-center gap-10 hover:cursor-pointer hover:sh'
       onClick={navigateToDetail}
     >
       <FeedBody title={title} content={content} tags={tags} />
-      {thumbnailUrl && (
+      {thumnailUrl && (
         <div className='w-[180px] flex-shrink-0'>
-          <ContentsThumbnail thumbnailUrl={thumbnailUrl} />
+          <ContentsThumbnail thumbnailUrl={thumnailUrl} />
         </div>
       )}
     </div>
