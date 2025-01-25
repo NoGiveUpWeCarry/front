@@ -24,7 +24,7 @@ const FeedItem = ({
   };
   return (
     <div
-      className='flex w-full justify-between items-center gap-10'
+      className='flex w-full justify-between items-center gap-10 cursor-pointer'
       onClick={navigateToDetail}
     >
       <FeedBody title={title} content={content} tags={tags} />

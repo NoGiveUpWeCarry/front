@@ -8,6 +8,8 @@ interface MyPageStore {
   setRole: (value: string) => void;
   ownerId: number;
   setOwnerId: (value: number) => void;
+  nickname: string;
+  setNickname: (value: string) => void;
 }
 
 export const useMyPageStore = create<MyPageStore>()(
@@ -20,5 +22,8 @@ export const useMyPageStore = create<MyPageStore>()(
 
     ownerId: 0,
     setOwnerId: (value) => set({ ownerId: value }),
+
+    nickname: '',
+    setNickname: (value) => set({ nickname: value }),
   }))
 );

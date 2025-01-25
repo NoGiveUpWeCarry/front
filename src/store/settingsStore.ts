@@ -6,7 +6,7 @@ interface SettingsFormData {
   introduce: string;
   jobDetail: string;
   skills: string[];
-  links: string[];
+  links: { linkId: number; url: string }[];
   nickname: string;
   status: string;
 }

@@ -28,7 +28,7 @@ const StatusDropdown = () => {
   const [settingsForm] = useSettingsStore(
     useShallow((state) => [state.settingsForm])
   );
-  console.log({ selectedOption });
+
   useEffect(() => {
     if (settingsForm.status) {
       setSelectedOption(

@@ -23,12 +23,13 @@ interface FeedContentsProps {
   postId: number;
   isLiked: boolean;
   createdAt: string;
-  user: {
+  user?: {
     avatarSrc: string;
     name: string;
     job: string;
     time: string;
   };
+  hideUser?: boolean;
 }
 
 export const FeedContents = ({
@@ -43,15 +44,18 @@ export const FeedContents = ({
   postId,
   isLiked,
   createdAt,
+  hideUser,
 }: FeedContentsProps) => {
   return (
     <div className='flex flex-col w-full gap-[20px]'>
-      <ContentsUser
-        userProfileUrl={user.avatarSrc}
-        name={user.name}
-        userRole={user.job}
-        createdAt={createdAt}
-      />
+      {!hideUser && (
+        <ContentsUser
+          userProfileUrl={user?.avatarSrc!}
+          name={user?.name!}
+          userRole={user?.job!}
+          createdAt={createdAt}
+        />
+      )}
 
       <div className='w-full'>
         <div className='bg-white rounded-[10px] p-[20px] w-full'>

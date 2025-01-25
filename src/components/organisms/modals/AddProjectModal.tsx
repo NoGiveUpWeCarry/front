@@ -21,13 +21,14 @@ const AddProjectModal = ({
   isForUpdate,
 }: ModalProps & { isOpen: boolean; isForUpdate: boolean }) => {
   const inputRef = useRef<HTMLInputElement>(null);
+
   const { projectForm, setSingleProjectForm, resetProjectForm } =
     useAddProjectFormStore(useShallow((state) => state));
-  const [ownerId] = useMyPageStore(useShallow((state) => [state.ownerId]));
+  const [nickname] = useMyPageStore(useShallow((state) => [state.nickname]));
 
   const { mutate: addProject } = useAddProject();
   const { mutate: updateProject } = useUpdateProject();
-  const { mutate: deleteProject } = useDeleteProject(ownerId);
+  const { mutate: deleteProject } = useDeleteProject(nickname);
 
   const handleImageSave = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -38,7 +39,7 @@ const AddProjectModal = ({
 
   const successHandler = () => {
     queryClient.invalidateQueries({
-      queryKey: ['profile-info', ownerId],
+      queryKey: ['profile-info', nickname],
     });
     resetProjectForm();
     onClose();

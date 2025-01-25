@@ -9,6 +9,7 @@ import {
   Notification,
   updateDetailJob,
   updateIntroduction,
+  updateLink,
   updateNickname,
   updateNotification,
   updateProfileImage,
@@ -81,16 +82,24 @@ export const useDeleteSkills = () => {
   });
 };
 
-export const useAddLinks = () => {
+export const useAddLink = () => {
   return useMutation({
-    mutationFn: ({ links }: { links: string[] }) => addLink({ links }),
+    mutationFn: ({ link }: { link: string }) => addLink({ link }),
     onSuccess: successHandler,
   });
 };
 
 export const useDeleteLink = () => {
   return useMutation({
-    mutationFn: ({ linkIds }: { linkIds: number[] }) => deleteLink({ linkIds }),
+    mutationFn: ({ linkId }: { linkId: number }) => deleteLink({ linkId }),
+    onSuccess: successHandler,
+  });
+};
+
+export const useUpdateLink = () => {
+  return useMutation({
+    mutationFn: ({ linkId, url }: { linkId: number; url: string }) =>
+      updateLink({ linkId, url }),
     onSuccess: successHandler,
   });
 };
