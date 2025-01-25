@@ -1,7 +1,7 @@
 import { Channel } from '@/types/channel.type';
 import { User } from '@/types/user.type';
 
-type MessageTypes = 'image' | 'text';
+type MessageTypes = 'image' | 'text' | 'exit';
 
 export interface Message {
   type: MessageTypes;
@@ -17,6 +17,7 @@ export interface ReceiveMessage extends Message {
   messageId: number;
   date: string;
   user: User;
+  userId: User['userId'];
 }
 
 export interface LastMessage extends Message {

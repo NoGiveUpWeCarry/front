@@ -1,4 +1,5 @@
 import Date from '@/components/atoms/Date';
+import ExitMessage from '@/components/molecules/chat/ExitMessage';
 import WelcomeMessage from '@/components/molecules/chat/WelcomeMessage';
 import Message from '@/components/organisms/chat/Message';
 import useAuthStore from '@/store/authStore';
@@ -24,6 +25,10 @@ const Messages = ({ messages }: MessagesProps) => {
             {date}
           </Date>
           {messages.map((message, i) => {
+            if (message.type === 'exit') {
+              return <ExitMessage key={message.messageId} message={message} />;
+            }
+
             const isMyMessage = message.user.userId === myUserId;
             const sameBefore =
               i > 0 && message.user.userId === messages[i - 1].user.userId;
