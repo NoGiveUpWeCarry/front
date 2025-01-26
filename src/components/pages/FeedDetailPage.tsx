@@ -17,7 +17,6 @@ const FeedDetailPage = () => {
   const { data: ChatData, isLoading: ChatLoading } = useFetchFeedChat(
     Number(id)
   );
-  console.log('ChatData: ', ChatData);
   const post = FeedData?.post;
   const comments = ChatData?.comments;
   const userId = useAuthStore((state) => state.userInfo?.userId);

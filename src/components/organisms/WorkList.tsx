@@ -93,7 +93,6 @@ WorkList.Github = function Github({
           </Link>
         </>
       )}
-      ;
     </>
   );
 };
