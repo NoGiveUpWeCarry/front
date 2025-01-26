@@ -6,19 +6,19 @@ interface ContentsUserTitleProps {
   createdAt: string;
 }
 
-const calculateTimeAgo = (createdAt: string): string => {
-  const now = new Date();
-  const createdDate = new Date(createdAt);
-  const diffInMs = now.getTime() - createdDate.getTime();
-  const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
+// const calculateTimeAgo = (createdAt: string): string => {
+//   const now = new Date();
+//   const createdDate = new Date(createdAt);
+//   const diffInMs = now.getTime() - createdDate.getTime();
+//   const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
 
-  if (diffInHours < 24) {
-    return `${diffInHours}시간 전`;
-  }
+//   if (diffInHours < 24) {
+//     return `${diffInHours}시간 전`;
+//   }
 
-  const diffInDays = Math.floor(diffInHours / 24);
-  return `${diffInDays}일 전`;
-};
+//   const diffInDays = Math.floor(diffInHours / 24);
+//   return `${diffInDays}일 전`;
+// };
 
 const ContentsUserTitle = ({
   userNickname,

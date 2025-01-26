@@ -105,7 +105,7 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
         socket.emit('createGroup', {
           userIds,
           title,
-          thumbnailURL: user?.userImage,
+          thumbnailURL: user?.profileUrl,
         });
       },
       sendMessage: (message) => {

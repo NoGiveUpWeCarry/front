@@ -1,4 +1,4 @@
-import { uploadImage } from '@/apis/feed';
+import { uploadImage } from '@/apis/feed.api';
 import {
   mergeAttributes,
   Node,
