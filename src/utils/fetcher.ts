@@ -14,6 +14,7 @@ export interface FetcherOptions {
 export interface FetcherMessage {
   code: number;
   message: string;
+  text?: string;
 }
 
 const fetcher = async <T>(
