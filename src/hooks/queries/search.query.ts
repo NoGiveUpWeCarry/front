@@ -18,9 +18,8 @@ export const useSearchConnectionHub = (
   cursor?: number
 ) => {
   return useInfiniteQuery({
-    queryKey: ['get-search-page', keyword],
-    queryFn: ({ pageParam = cursor }) =>
-      searchConnectionHub({ keyword, latest, cursor: pageParam }),
+    queryKey: ['get-search-hub', keyword],
+    queryFn: () => searchConnectionHub({ keyword, latest, cursor }),
     getNextPageParam: (lastPage) => {
       const { pagination } = lastPage;
       return pagination.lastCursor !== null ? pagination.lastCursor : undefined;
@@ -35,9 +34,8 @@ export const useSearchFeed = (
   cursor?: number
 ) => {
   return useInfiniteQuery({
-    queryKey: ['get-search-page', keyword],
-    queryFn: ({ pageParam = cursor }) =>
-      searchFeed({ keyword, latest, cursor: pageParam }),
+    queryKey: ['get-search-feed', keyword],
+    queryFn: () => searchFeed({ keyword, latest, cursor }),
     getNextPageParam: (lastPage) => {
       const { pagination } = lastPage;
       return pagination.lastCursor !== null ? pagination.lastCursor : undefined;

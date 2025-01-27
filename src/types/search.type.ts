@@ -5,14 +5,14 @@ interface User {
   userProfileUrl: string;
 }
 
-interface FeedResult extends User {
+export interface FeedResult extends User {
   feedId: number;
   title: string;
   tags: string[];
   createdAt: string;
 }
 
-interface ProjectResult extends User {
+export interface ProjectResult extends User {
   userRole: string;
   projectId: number;
   title: string;
@@ -52,7 +52,7 @@ export interface SearchConnectionHubResponse {
   };
 }
 
-interface PostsResponse extends User {
+export interface PostsResponse extends User {
   userRole: string;
   postId: string;
   title: string;
