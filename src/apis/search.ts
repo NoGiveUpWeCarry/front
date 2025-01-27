@@ -54,7 +54,7 @@ export const searchFeed = async ({
   keyword: string;
 }) => {
   const response = await fetcher<SearchPostResponse>({
-    url: '/serach/feed',
+    url: '/search/feed',
     method: 'GET',
     params: {
       latest,
