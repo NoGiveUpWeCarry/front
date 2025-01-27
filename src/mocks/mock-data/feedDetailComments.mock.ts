@@ -1,4 +1,4 @@
-import { Comment } from '@/apis/feed';
+import { Comment } from '@/apis/feed.api';
 import { faker } from '@faker-js/faker';
 
 const feedDetailComments: Comment[] = Array.from(

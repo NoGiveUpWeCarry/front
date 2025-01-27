@@ -1,41 +1,59 @@
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
-import ShortFeed from '@/components/molecules/search/ShortFeed';
-import ShortProject from '@/components/molecules/search/ShortProject';
 import Modal from '@/components/organisms/modals/Modal';
 import { ModalProps } from '@/components/organisms/modals/modalProps';
 import Tabs from '@/components/organisms/Tabs';
-import { feedItem } from '@/mocks/mock-data/feedItem';
-import { hubItem } from '@/mocks/mock-data/hubItem';
 import useDebounce from '@/hooks/useDebounce';
-import { ChevronRightIcon } from '@heroicons/react/24/outline';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTabs } from '@/hooks/useTabs';
+import { useSearchByModal } from '@/hooks/queries/search.query';
+import HorizontalDivider from '@/components/atoms/HorizontalDivider';
+import SearchResults from '@/components/molecules/search/SearchResults';
+import { useSearchTabsStore } from '@/store/searchTabsStore';
+import { useShallow } from 'zustand/shallow';
+import { useSearchModal } from '@/store/modals/searchModalstore';
+
+const CATEGORY = {
+  전체: 'all',
+  피드: 'feed',
+  '커넥션 허브': 'connectionhub',
+};
 
 const SearchModal = ({ onClose }: ModalProps) => {
   const navigate = useNavigate();
-  const [keyword, setKeyword] = useState('');
-  const debouncedKeyword = useDebounce(keyword, 300);
-
-  const feedData = feedItem.filter((el) => el.title.includes(debouncedKeyword));
-  const hubData = hubItem.filter(
-    (el) =>
-      el.title.includes(debouncedKeyword) ||
-      el.roleTags.some((tag) => tag.includes(debouncedKeyword))
-  );
 
   const { tabs, active, setActive } = useTabs(['전체', '피드', '커넥션 허브']);
+  const [setActiveTab] = useSearchTabsStore(
+    useShallow((state) => [state.setActiveTab])
+  );
+  const [keyword, setKeyword] = useSearchModal(
+    useShallow((state) => [state.keyword, state.setKeyword])
+  );
+  const debouncedKeyword = useDebounce(keyword, 300);
 
-  // 키워드 검색 로직
+  const { data, refetch } = useSearchByModal(
+    CATEGORY[active as keyof typeof CATEGORY] as
+      | 'all'
+      | 'feed'
+      | 'connectionhub',
+    debouncedKeyword
+  );
 
-  const handleNaivgate = (endpoint: string) => {
-    navigate(endpoint);
+  const feeds = data?.feedResult?.feeds;
+  const hubs = data?.projectResult?.projects;
+
+  const closeHandler = () => {
     onClose();
+    setKeyword('');
   };
 
+  useEffect(() => {
+    refetch();
+  }, [active]);
+
   return (
-    <Modal onClose={onClose}>
+    <Modal onClose={closeHandler} className='!px-1 min-w-[600px] h-[560px]'>
       <div className='w-full h-full px-[50px] flex flex-col'>
         <div className='mb-6 w-full h-6 flex items-center'>
           <Icon type='search' className='w-6 h-6' color='gray' />
@@ -67,52 +85,43 @@ const SearchModal = ({ onClose }: ModalProps) => {
         >
           {debouncedKeyword ? (
             <div className='mt-6 flex flex-col min-flex-1 text-[14px] pb-10 relative'>
-              <div className='flex flex-col gap-5'>
-                <p className='font-semibold'>피드</p>
-                <div className='flex flex-col gap-5'>
-                  {feedData.slice(0, 2).map((feed) => (
-                    <ShortFeed {...feed} onClick={() => handleNaivgate('/')} />
-                  ))}
-                  {!feedData.length && (
-                    <div className='mt-[-20px] mb-5'>
-                      검색 결과가 존재하지 않습니다.
-                    </div>
-                  )}
-                  {feedData.length > 0 && (
-                    <button
-                      className='text-[#838383] flex w-full justify-end items-center gap-1'
-                      onClick={() =>
-                        handleNaivgate(`/search?q=${debouncedKeyword}`)
-                      }
-                    >
-                      더보기 <ChevronRightIcon width={12} strokeWidth={3} />
-                    </button>
-                  )}
-                </div>
-              </div>
-              <div>
-                <p className='font-semibold mb-4'>커넥션 허브</p>
-                <div className='flex flex-col gap-[30px]'>
-                  {hubData.slice(0, 3).map((hub) => (
-                    <ShortProject key={hub.title} {...hub} onClick={() => {}} />
-                  ))}
-                  {!hubData.length && (
-                    <div className='mt-[-14px]'>
-                      검색 결과가 존재하지 않습니다.
-                    </div>
-                  )}
-                  {hubData.length > 0 && (
-                    <button
-                      className='text-[#838383] flex w-full justify-end items-center gap-1'
-                      onClick={() =>
-                        handleNaivgate(`/search?q=${debouncedKeyword}`)
-                      }
-                    >
-                      더보기 <ChevronRightIcon width={12} strokeWidth={3} />
-                    </button>
-                  )}
-                </div>
-              </div>
+              {active !== '커넥션 허브' && (
+                <SearchResults
+                  items={feeds as any[]}
+                  type='feed'
+                  title='피드'
+                  onNavigate={(id) => {
+                    navigate(`/feed/${id}`);
+                    onClose();
+                  }}
+                  isFirstTab={active === '전체'}
+                  hasMore={data?.feedResult?.hasMore as boolean}
+                  hasMoreNavigate={() => {
+                    setActiveTab('피드');
+                    navigate(`/search?q=${debouncedKeyword}`);
+                    onClose();
+                  }}
+                />
+              )}
+              {active === '전체' && <HorizontalDivider className='my-10' />}
+              {active !== '피드' && (
+                <SearchResults
+                  items={hubs as any[]}
+                  type='hub'
+                  title='커넥션 허브'
+                  onNavigate={(id) => {
+                    navigate(`/connectionhub/${id}`);
+                    onClose();
+                  }}
+                  isFirstTab={active === '전체'}
+                  hasMore={data?.projectResult?.hasMore as boolean}
+                  hasMoreNavigate={() => {
+                    setActiveTab('프로젝트');
+                    navigate(`/search?q=${debouncedKeyword}`);
+                    onClose();
+                  }}
+                />
+              )}
             </div>
           ) : (
             <div className='mt-6 flex flex-col flex-1 h-full justify-center items-center text-[14px] pb-10'>

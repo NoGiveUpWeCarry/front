@@ -37,14 +37,17 @@ const HubBody = ({
         <Role role={role} />
 
         <div className='flex gap-[10px] items-center'>
-          {roleTags.map((roleTag) => (
-            <span
-              key={roleTag}
-              className={`${roleTagItemsColors[roleTag]} bg-[#eaeaea] inline-flex items-center px-3 py-1`}
-            >
-              {roleTagItems[roleTag]}
-            </span>
-          ))}
+          {/* NOTE: 태그가 한글이 아닌 경우는 표시하지 않도록 수정 */}
+          {roleTags
+            ?.filter((el) => roleTagItems[el])
+            .map((roleTag) => (
+              <span
+                key={roleTag}
+                className={`${roleTagItemsColors[roleTag]} bg-[#eaeaea] inline-flex items-center px-3 py-1`}
+              >
+                {roleTagItems[roleTag]}
+              </span>
+            ))}
         </div>
       </div>
       <div>
