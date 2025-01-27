@@ -15,8 +15,9 @@ const FeedBody = ({ title, content, tags }: FeedBodyProps) => {
       <ContentsTitle title={title} />
       <ContentsBody body={content} />
       <div className='flex gap-[10px]'>
-        {tags.map((tag) => (
+        {tags?.map((tag) => (
           <div
+            key={tag}
             className={clsx(
               'px-[5px] py-[2px] text-caption1 rounded-[5px]',
               tagColors[tag]
