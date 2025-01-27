@@ -3,9 +3,12 @@ import FeedDetailUserInfo from '@/components/molecules/FeedDetailUserInfo';
 import FeedDetail from '@/components/molecules/contents/FeedDetail';
 import FeedDetailSkeleton from '@/components/molecules/skeletons/FeedDetailSkeleton';
 import { useFetchFeed, useFetchFeedChat } from '@/hooks/queries/feed.query';
+import useHandlePopState from '@/hooks/useHandlePopState';
 import useAuthStore from '@/store/authStore';
+import { useSearchModal } from '@/store/modals/searchModalstore';
 import { Suspense, lazy } from 'react';
 import { useParams } from 'react-router-dom';
+import { useShallow } from 'zustand/shallow';
 
 const FeedDetailChat = lazy(() => {
   return import('@/components/organisms/FeedDetailChat');
@@ -17,13 +20,20 @@ const FeedDetailPage = () => {
   const { data: ChatData, isLoading: ChatLoading } = useFetchFeedChat(
     Number(id)
   );
-  console.log('ChatData: ', ChatData);
+
   const post = FeedData?.post;
   const comments = ChatData?.comments;
+
   const userId = useAuthStore((state) => state.userInfo?.userId);
+
+  // NOTE: 검색 모달 관련 코드
+  const { openModal, keyword } = useSearchModal(useShallow((state) => state));
+  useHandlePopState(keyword, openModal);
+
   if (FeedLoading) {
-    <div>피드 로딩중</div>;
+    return <div>피드 로딩중</div>;
   }
+
   return (
     <div className='flex w-full flex-col gap-[20px]'>
       {post && (

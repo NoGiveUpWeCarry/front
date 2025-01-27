@@ -4,7 +4,7 @@ import Modal from '@/components/organisms/modals/Modal';
 import { ModalProps } from '@/components/organisms/modals/modalProps';
 import Tabs from '@/components/organisms/Tabs';
 import useDebounce from '@/hooks/useDebounce';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTabs } from '@/hooks/useTabs';
 import { useSearchByModal } from '@/hooks/queries/search.query';
@@ -12,6 +12,7 @@ import HorizontalDivider from '@/components/atoms/HorizontalDivider';
 import SearchResults from '@/components/molecules/search/SearchResults';
 import { useSearchTabsStore } from '@/store/searchTabsStore';
 import { useShallow } from 'zustand/shallow';
+import { useSearchModal } from '@/store/modals/searchModalstore';
 
 const CATEGORY = {
   전체: 'all',
@@ -21,13 +22,15 @@ const CATEGORY = {
 
 const SearchModal = ({ onClose }: ModalProps) => {
   const navigate = useNavigate();
-  const [keyword, setKeyword] = useState('');
-  const debouncedKeyword = useDebounce(keyword, 300);
 
   const { tabs, active, setActive } = useTabs(['전체', '피드', '커넥션 허브']);
   const [setActiveTab] = useSearchTabsStore(
     useShallow((state) => [state.setActiveTab])
   );
+  const [keyword, setKeyword] = useSearchModal(
+    useShallow((state) => [state.keyword, state.setKeyword])
+  );
+  const debouncedKeyword = useDebounce(keyword, 300);
 
   const { data, refetch } = useSearchByModal(
     CATEGORY[active as keyof typeof CATEGORY] as
@@ -40,12 +43,17 @@ const SearchModal = ({ onClose }: ModalProps) => {
   const feeds = data?.feedResult?.feeds;
   const hubs = data?.projectResult?.projects;
 
+  const closeHandler = () => {
+    onClose();
+    setKeyword('');
+  };
+
   useEffect(() => {
     refetch();
   }, [active]);
 
   return (
-    <Modal onClose={onClose} className='!px-1 min-w-[600px] h-[560px]'>
+    <Modal onClose={closeHandler} className='!px-1 min-w-[600px] h-[560px]'>
       <div className='w-full h-full px-[50px] flex flex-col'>
         <div className='mb-6 w-full h-6 flex items-center'>
           <Icon type='search' className='w-6 h-6' color='gray' />
