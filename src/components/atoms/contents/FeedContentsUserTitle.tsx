@@ -1,15 +1,15 @@
 import formatTimeAgo from '@/utils/formatTimeAgo';
 
-interface ContentsUserTitleProps {
+interface FeedContentsUserTitleProps {
   userNickname: string;
   userRole: string;
   createdAt: string;
 }
-const ContentsUserTitle = ({
+const FeedContentsUserTitle = ({
   userNickname,
   userRole,
   createdAt,
-}: ContentsUserTitleProps) => {
+}: FeedContentsUserTitleProps) => {
   return (
     <div className='flex flex-col items-start'>
       <span className='font-bold text-gray-900 text-sm'>{userNickname}</span>
@@ -24,4 +24,4 @@ const ContentsUserTitle = ({
   );
 };
 
-export default ContentsUserTitle;
+export default FeedContentsUserTitle;
