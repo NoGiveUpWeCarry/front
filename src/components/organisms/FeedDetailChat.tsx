@@ -5,6 +5,7 @@ import ChatItem from '@/components/molecules/ChatItem';
 import { Comment } from '@/apis/feed.api';
 import { useDeleteFeedChat, usePostFeedChat } from '@/hooks/queries/feed.query';
 import ChatInput from '@/components/molecules/ChatInput';
+import notifyToast from '@/utils/notifyToast';
 
 interface FeedDetailChatProps {
   comments: Comment[];
@@ -23,11 +24,10 @@ const FeedDetailChat = ({ comments, feedId }: FeedDetailChatProps) => {
       { id: feedId, content },
       {
         onSuccess: () => {
-          console.log('댓글 작성 성공');
+          notifyToast('댓글 작성 성공');
         },
-        onError: (error) => {
-          console.error('댓글 작성 실패:', error);
-          alert('댓글 작성에 실패했습니다. 다시 시도해주세요.');
+        onError: () => {
+          notifyToast('댓글 작성에 실패했습니다. 다시 시도해주세요.');
         },
       }
     );
@@ -41,11 +41,10 @@ const FeedDetailChat = ({ comments, feedId }: FeedDetailChatProps) => {
       { postId: feedId, commentId },
       {
         onSuccess: () => {
-          console.log('댓글 삭제 성공');
+          notifyToast('댓글을 삭제했습니다.');
         },
-        onError: (error) => {
-          console.error('댓글 삭제 실패:', error);
-          alert('댓글 삭제에 실패했습니다. 다시 시도해주세요.');
+        onError: () => {
+          notifyToast('댓글 삭제에 실패했습니다. 다시 시도해주세요.');
         },
       }
     );

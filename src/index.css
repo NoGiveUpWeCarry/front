@@ -212,6 +212,10 @@ body {
   margin: 5px 0px 5px 0px;
 }
 
+.prose img {
+  margin: 5px 0px 5px 0px;
+}
+
 .tiptap-editor a {
   @apply text-gray underline transition-colors;
 }

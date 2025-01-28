@@ -1,5 +1,5 @@
 import Avatar from '@/components/atoms/Avatar';
-import ContentsUserTitle from '@/components/atoms/contents/ConentsUserTitle';
+import FeedContentsUserTitle from '@/components/atoms/contents/FeedContentsUserTitle';
 
 interface ContentsUserProps {
   userProfileUrl: string;
@@ -22,7 +22,7 @@ const ContentsUser = ({
         alt={`${name} Avatar`}
         className='object-cover'
       />
-      <ContentsUserTitle
+      <FeedContentsUserTitle
         userNickname={name}
         userRole={userRole}
         createdAt={createdAt}

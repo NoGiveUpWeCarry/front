@@ -18,6 +18,7 @@ const ChatInput = ({
 }: CommentInputProps) => {
   const [comment, setComment] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   const handleSubmit = () => {
     if (!comment.trim()) {
       alert('댓글 내용을 입력해주세요.');
@@ -26,15 +27,25 @@ const ChatInput = ({
     onSubmit(comment);
     setComment('');
   };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
+
   const checkLoggedIn = () => {
     if (!isLoggedIn) {
       setIsModalOpen(true);
     }
   };
+
   const handleConfirm = () => {
     setIsModalOpen(false);
     window.location.href = '/login';
   };
+
   const handleCancel = () => {
     setIsModalOpen(false);
   };
@@ -55,6 +66,7 @@ const ChatInput = ({
             onChange={(e) => setComment(e.target.value)}
             disabled={isPending}
             onClick={checkLoggedIn}
+            onKeyDown={handleKeyDown}
           />
           <div
             className='absolute left-[713px] bg-white w-[30px] h-[30px] flex items-center justify-center rounded-full cursor-pointer'

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDeleteFeed } from '@/hooks/queries/feed.query';
 import PostFeedModal from '@/components/organisms/modals/PostFeedModal';
 import usePostModal from '@/hooks/usePostModal';
-import formatTimeAgo from '@/utils/\bformatTimeAgo';
+import formatTimeAgo from '@/utils/formatTimeAgo';
 
 interface FeedDetailUserInfoProps {
   userId: number;

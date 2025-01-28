@@ -43,9 +43,8 @@ export const FeedContents = ({
         userRole={user.job}
         createdAt={createdAt}
       />
-
       <div className='w-full'>
-        <div className='bg-white rounded-[10px] p-[20px] w-full'>
+        <div className='bg-white rounded-[10px] p-[20px] w-full hover:shadow-orange-50'>
           <div className='flex flex-col gap-[20px]'>
             <FeedItem
               title={title}

@@ -8,8 +8,8 @@ const Feed = () => {
   const { latest, tags } = useFeedSearchStore((state) => state);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteFetchFeeds(latest, tags || '');
-  const observerRef = useRef<HTMLDivElement | null>(null);
   const flattenedData: Post[] = data?.pages.flatMap((page) => page.posts) || [];
+  const observerRef = useRef<HTMLDivElement | null>(null);
   const handleObserver = useCallback(
     (entries: IntersectionObserverEntry[]) => {
       const [entry] = entries;
@@ -19,7 +19,6 @@ const Feed = () => {
     },
     [hasNextPage, isFetchingNextPage, fetchNextPage]
   );
-
   useEffect(() => {
     const observer = new IntersectionObserver(handleObserver, {
       threshold: 1.0,
@@ -35,7 +34,6 @@ const Feed = () => {
       observer.disconnect();
     };
   }, [handleObserver]);
-
   return (
     <div className='flex flex-col gap-[30px] w-full'>
       {flattenedData.map((item) => (
@@ -64,9 +62,12 @@ const Feed = () => {
           검색 결과가 없습니다.
         </div>
       )}
-      {hasNextPage && <div ref={observerRef} className='h-10 w-full' />}
+      {hasNextPage && (
+        <div ref={observerRef} className='h-10 w-full'>
+          로딩중
+        </div>
+      )}
     </div>
   );
 };
-
 export default Feed;

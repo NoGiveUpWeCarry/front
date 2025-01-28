@@ -10,6 +10,7 @@ import {
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import queryClient from '@/utils/queryClient';
+import usePostModal from '@/hooks/usePostModal';
 
 interface PostFeedModalProps {
   onClose: () => void;
@@ -26,10 +27,9 @@ const PostFeedModal = ({ onClose, onSubmit, onRevise }: PostFeedModalProps) => {
     setTitle,
     setTag,
     resetFeed,
-  } = useFeedStore((state) => state);
-
+  } = useFeedStore();
+  console.log('content: ', content);
   const { id } = useParams<{ id: string }>();
-
   const {
     data: feedData,
     isSuccess,
@@ -37,6 +37,8 @@ const PostFeedModal = ({ onClose, onSubmit, onRevise }: PostFeedModalProps) => {
   } = useFetchFeed(Number(id), {
     enabled: false,
   });
+
+  const { handleSubmitConfirmation } = usePostModal();
 
   useEffect(() => {
     if (onRevise && id) {
@@ -68,7 +70,6 @@ const PostFeedModal = ({ onClose, onSubmit, onRevise }: PostFeedModalProps) => {
       const textContent = doc.body.textContent?.trim() || '';
       return textContent === '';
     };
-
     const hasError = {
       title: title.trim() === '',
       tags: tags.length === 0,
@@ -134,7 +135,7 @@ const PostFeedModal = ({ onClose, onSubmit, onRevise }: PostFeedModalProps) => {
             <p className='text-red-600 text-[14px]'>태그를 선택해주세요.</p>
           )}
         </div>
-        <div className='flex flex-col py-[10px] h-[340px] overflow-y-scroll scrollbar-hide'>
+        <div className='flex flex-col h-[440px] overflow-y-scroll scrollbar-hide'>
           <TiptapEditor content={content} setContent={setContent} />
           {errors.content && (
             <p className='flex flex-col text-red-600 text-[14px] mt-5 absolute'>
@@ -145,7 +146,7 @@ const PostFeedModal = ({ onClose, onSubmit, onRevise }: PostFeedModalProps) => {
         <div className='flex w-full justify-end'>
           <button
             className='bg-close px-[15px] py-[10px] rounded-[5px] text-[12px] text-white'
-            onClick={handleSubmit}
+            onClick={() => handleSubmitConfirmation(handleSubmit)}
             disabled={isPostLoading || isPutLoading}
           >
             {isPostLoading || isPutLoading ? '작성 중...' : '작성하기'}
