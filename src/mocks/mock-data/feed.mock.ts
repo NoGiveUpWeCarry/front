@@ -1,4 +1,4 @@
-import { Comment, FeedsResponse, Post } from '@/apis/feed';
+import { Comment, FeedsResponse, Post } from '@/apis/feed.api';
 import FeedContent from '@/mocks/mock-data/feedContent.mock';
 import { faker } from '@faker-js/faker';
 
@@ -25,7 +25,7 @@ const generateSingleFeed = (): Post => ({
   userProfileUrl: faker.image.avatar(),
   postId: postIdCounter++,
   title: faker.lorem.sentence(),
-  thumbnailUrl: faker.image.url(),
+  thumnailUrl: faker.image.url(),
   content: FeedContent,
   tags: Array.from({ length: faker.number.int({ min: 1, max: 5 }) }, () =>
     faker.helpers.arrayElement(TAGS)

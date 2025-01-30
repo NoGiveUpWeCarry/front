@@ -7,9 +7,10 @@ import {
   usePostFeed,
   usePutFeed,
 } from '@/hooks/queries/feed.query';
-import { date } from '@/utils/date';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import queryClient from '@/utils/queryClient';
+import usePostModal from '@/hooks/usePostModal';
 
 interface PostFeedModalProps {
   onClose: () => void;
@@ -26,22 +27,36 @@ const PostFeedModal = ({ onClose, onSubmit, onRevise }: PostFeedModalProps) => {
     setTitle,
     setTag,
     resetFeed,
-  } = useFeedStore((state) => state);
-
+  } = useFeedStore();
+  console.log('content: ', content);
   const { id } = useParams<{ id: string }>();
-  const { data: FeedData, isSuccess } = useFetchFeed(Number(id));
+  const {
+    data: feedData,
+    isSuccess,
+    refetch,
+  } = useFetchFeed(Number(id), {
+    enabled: false,
+  });
+
+  const { handleSubmitConfirmation } = usePostModal();
 
   useEffect(() => {
-    if (onRevise && isSuccess && FeedData) {
-      console.log('FeedData.post.content: ', FeedData.post.content);
-      setTitle(FeedData.post.title ?? '');
-      setContent(FeedData.post.content ?? '');
-      setTag(FeedData.post.tags ?? []);
+    if (onRevise && id) {
+      refetch();
     }
-  }, [onRevise, isSuccess, FeedData, setTitle, setContent, setTag]);
+  }, [onRevise, id, refetch]);
+
+  useEffect(() => {
+    if (onRevise && isSuccess && feedData) {
+      setTitle(feedData.post.title ?? '');
+      setContent(feedData.post.content ?? '');
+      setTag(feedData.post.tags ?? []);
+    }
+  }, [onRevise, isSuccess, feedData, setTitle, setContent, setTag]);
 
   const { mutate: postFeed, isPending: isPostLoading } = usePostFeed();
   const { mutate: putFeed, isPending: isPutLoading } = usePutFeed();
+
   const [errors, setErrors] = useState({
     title: false,
     tags: false,
@@ -55,7 +70,6 @@ const PostFeedModal = ({ onClose, onSubmit, onRevise }: PostFeedModalProps) => {
       const textContent = doc.body.textContent?.trim() || '';
       return textContent === '';
     };
-
     const hasError = {
       title: title.trim() === '',
       tags: tags.length === 0,
@@ -65,12 +79,12 @@ const PostFeedModal = ({ onClose, onSubmit, onRevise }: PostFeedModalProps) => {
 
     if (!hasError.title && !hasError.tags && !hasError.content) {
       if (onRevise && id) {
+        onSubmit();
         putFeed(
           { id: Number(id), title, tags, content },
           {
             onSuccess: () => {
               resetFeed();
-              onSubmit();
               onClose();
             },
             onError: (error) => {
@@ -79,13 +93,16 @@ const PostFeedModal = ({ onClose, onSubmit, onRevise }: PostFeedModalProps) => {
           }
         );
       } else {
+        onSubmit();
         postFeed(
           { title, tags, content },
           {
             onSuccess: () => {
               resetFeed();
-              onSubmit();
               onClose();
+              queryClient.invalidateQueries({
+                queryKey: ['feeds', true, 'null'],
+              });
             },
             onError: (error) => {
               console.error('폼 제출 실패:', error);
@@ -101,7 +118,7 @@ const PostFeedModal = ({ onClose, onSubmit, onRevise }: PostFeedModalProps) => {
   return (
     <Modal2 onClose={onClose}>
       <div className='flex flex-col'>
-        <Modal2.Title>{date}</Modal2.Title>
+        <Modal2.Title>피드 작성</Modal2.Title>
       </div>
       <div className='flex flex-col w-full gap-[20px]'>
         <div className='flex flex-col w-full'>
@@ -118,7 +135,7 @@ const PostFeedModal = ({ onClose, onSubmit, onRevise }: PostFeedModalProps) => {
             <p className='text-red-600 text-[14px]'>태그를 선택해주세요.</p>
           )}
         </div>
-        <div className='flex flex-col py-[10px] h-[340px] overflow-y-scroll scrollbar-hide'>
+        <div className='flex flex-col h-[440px] overflow-y-scroll scrollbar-hide'>
           <TiptapEditor content={content} setContent={setContent} />
           {errors.content && (
             <p className='flex flex-col text-red-600 text-[14px] mt-5 absolute'>
@@ -126,11 +143,10 @@ const PostFeedModal = ({ onClose, onSubmit, onRevise }: PostFeedModalProps) => {
             </p>
           )}
         </div>
-
         <div className='flex w-full justify-end'>
           <button
             className='bg-close px-[15px] py-[10px] rounded-[5px] text-[12px] text-white'
-            onClick={handleSubmit}
+            onClick={() => handleSubmitConfirmation(handleSubmit)}
             disabled={isPostLoading || isPutLoading}
           >
             {isPostLoading || isPutLoading ? '작성 중...' : '작성하기'}

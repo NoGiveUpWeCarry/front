@@ -1,4 +1,4 @@
-import { HubSelect } from '@/components/atoms/contents/ContentsSelect';
+// import { HubSelect } from '@/components/atoms/contents/HubSelect';
 import { ContentsToggle } from '@/components/atoms/contents/ContentsToggle';
 import { useState } from 'react';
 import Button from '@/components/atoms/Button';
@@ -20,7 +20,7 @@ export const HubContentsTop = () => {
       <div className='flex w-full justify-between items-center border border-gray-300 rounded-lg p-1'>
         <div className='flex items-center gap-[10px]'>
           <ContentsToggle />
-          <HubSelect />
+          {/* <HubSelect /> */}
         </div>
         <Button
           width='90px'

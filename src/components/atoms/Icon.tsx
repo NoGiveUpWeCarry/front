@@ -26,7 +26,11 @@ import {
   ChatBubbleOvalLeftEllipsisIcon,
   ArrowRightStartOnRectangleIcon,
 } from '@heroicons/react/24/outline';
-import { UserCircleIcon, UserGroupIcon } from '@heroicons/react/24/solid';
+import {
+  UserCircleIcon,
+  UserGroupIcon,
+  HeartIcon as HeartSolidIcon,
+} from '@heroicons/react/24/solid';
 import { cva, VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/cn';
 
@@ -40,6 +44,7 @@ type IconType =
   | 'xmark'
   | 'comment'
   | 'like'
+  | 'likeSolid'
   | 'eye'
   | 'bookmark'
   | 'user'
@@ -65,7 +70,7 @@ const iconVariants = cva('', {
       black: 'text-black',
       white: 'text-white',
       gray: 'text-[#838383]',
-      red: 'text-[#FF0000]',
+      red: 'text-[#FF5E5E]',
     },
   },
   defaultVariants: {
@@ -144,6 +149,9 @@ const Icon = ({ type, className = '', color }: IconProps) => {
       <ArrowRightStartOnRectangleIcon
         className={cn(iconVariants({ color }), className)}
       />
+    ),
+    likeSolid: (
+      <HeartSolidIcon className={cn(iconVariants({ color }), className)} />
     ),
   };
 

@@ -9,9 +9,14 @@ const ContentsBody = ({ body }: ContentsBodyProps) => {
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = DOMPurify.sanitize(html);
     const textContent = tempDiv.textContent || '';
+
     const sentences = textContent.match(/([^.!?]+[.!?]+)/g) || [];
+
     const truncatedText =
-      sentences.slice(0, 5).join(' ') + (sentences.length > 5 ? '...' : '');
+      sentences.length > 5
+        ? sentences.slice(0, 5).join(' ') + '...'
+        : textContent;
+
     tempDiv.innerHTML = DOMPurify.sanitize(truncatedText);
     return { __html: tempDiv.innerHTML };
   };

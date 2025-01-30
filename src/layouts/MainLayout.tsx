@@ -7,7 +7,7 @@ const MainLayout = () => {
   const location = useLocation();
 
   return (
-    <div className='min-h-screen flex'>
+    <div className='min-h-screen flex px-[10px]'>
       <div className='sticky top-0 h-screen w-[68px] z-10'>
         <SideMenu />
       </div>
