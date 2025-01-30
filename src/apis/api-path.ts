@@ -2,8 +2,8 @@ export const API_PATH = {
   login: '/auth/:provider/callback',
   updateToken: '/auth/refresh',
   roleSelect: '/auth/roleselect',
-  channel: 'chat/channels/:id',
-  channelMessages: 'chat/channels/:id/messages',
+  channel: 'chat/channels/:channelId',
+  channelMessages: 'chat/channels/:channelId/messages',
   createGroup: '/channel/group',
   feeds: '/feeds',
   feed: '/feed',
@@ -15,5 +15,5 @@ export const API_PATH = {
   connectionhubdetail: '/connectionhubdetail',
   feedLike: '/feed/:id/likes',
   feedImage: '/feed/image',
-  searchMessages: '/chat/channels/:id/messages/search',
+  searchMessages: '/chat/channels/:channelId/messages/search',
 };

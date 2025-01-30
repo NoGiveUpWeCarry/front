@@ -1,6 +1,7 @@
 import { cn } from '@/utils/cn';
 import { cva, VariantProps } from 'class-variance-authority';
 import { ImgHTMLAttributes } from 'react';
+import defaultAvatar from '/src/assets/logos/PAD.svg';
 
 export const AvatarVariants = cva(`rounded-full object-contain`, {
   variants: {
@@ -24,7 +25,7 @@ export interface AvatarProps
 const Avatar = ({
   size,
   className,
-  src = '/src/assets/logos/PAD.svg',
+  src = defaultAvatar,
   ...props
 }: AvatarProps) => {
   return (

@@ -12,7 +12,7 @@ interface RefreshResopnse {
   accessToken: string;
 }
 
-axios.defaults.baseURL = import.meta.env.VITE_BASE_SERVER_URL;
+axios.defaults.baseURL = import.meta.env.VITE_LOCAL_URL;
 
 export const axiosInstance = axios.create({
   withCredentials: true,

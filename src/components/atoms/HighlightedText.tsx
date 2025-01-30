@@ -6,7 +6,7 @@ interface HighlightedTextProps {
 }
 
 const HighlightedText = ({ content }: HighlightedTextProps) => {
-  const keyword = useSearchStore((state) => state.lastSearchKeyword);
+  const keyword = useSearchStore((state) => state.searchKeyword);
   const regex = new RegExp(`(${keyword})`, 'gi');
   const parts = content.split(regex);
 

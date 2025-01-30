@@ -9,7 +9,7 @@ import {
 import fetcher from '@/utils/fetcher';
 
 export const fetchChannel = async (channelId: Channel['channelId']) => {
-  const apiPath = API_PATH.channel.replace(':id', channelId.toString());
+  const apiPath = API_PATH.channel.replace(':channelId', channelId.toString());
   const response = await fetcher<{ channel: Channel }>({
     url: apiPath,
     method: 'GET',
@@ -23,7 +23,10 @@ export const fetchChannelMessages = async ({
   limit,
   direction,
 }: FetchChannelMessagesRequest) => {
-  const apiPath = API_PATH.channelMessages.replace(':id', channelId.toString());
+  const apiPath = API_PATH.channelMessages.replace(
+    ':channelId',
+    channelId.toString()
+  );
   const response = await fetcher<FetchChannelMessagesResponse>({
     url: apiPath,
     method: 'GET',
@@ -36,14 +39,17 @@ export const fetchChannelMessages = async ({
   return response.data;
 };
 
-export const SearchChannelMessages = async ({
+export const searchChannelMessages = async ({
   channelId,
   cursor,
   limit,
   keyword,
   direction,
 }: SearchChannelMessagesRequest) => {
-  const apiPath = API_PATH.searchMessages.replace(':id', channelId.toString());
+  const apiPath = API_PATH.searchMessages.replace(
+    ':channelId',
+    channelId.toString()
+  );
   const response = await fetcher<SearchChannelMessagesResponse>({
     url: apiPath,
     method: 'GET',

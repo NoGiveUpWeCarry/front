@@ -6,7 +6,6 @@ import { useFetchFeed, useFetchFeedChat } from '@/hooks/queries/feed.query';
 import useAuthStore from '@/store/authStore';
 import { Suspense, lazy } from 'react';
 import { useParams } from 'react-router-dom';
-
 const FeedDetailChat = lazy(() => {
   return import('@/components/organisms/FeedDetailChat');
 });

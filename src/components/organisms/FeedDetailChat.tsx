@@ -12,7 +12,9 @@ interface FeedDetailChatProps {
 }
 
 const FeedDetailChat = ({ comments, feedId }: FeedDetailChatProps) => {
-  const { userId, userImage } = useAuthStore((state) => state.userInfo);
+  const { userId, profileUrl: userImage } = useAuthStore(
+    (state) => state.userInfo
+  );
   const groupedComments = groupCommentsByDate(comments);
   const { mutate: postComment, isPending } = usePostFeedChat();
   const { mutate: deleteComment } = useDeleteFeedChat();

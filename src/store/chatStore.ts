@@ -20,11 +20,7 @@ export interface ChatAction {
   createGroup: (userIds: number[], title: Channel['title']) => void;
   sendMessage: (message: SendMessage) => void;
   joinChannel: (userId: number, channleId: Channel['channelId']) => void;
-  setMessages: (
-    messages: ReceiveMessage[],
-    channelId: NonNullable<ChatState['currentChannelId']>
-  ) => void;
-  exitChannel: (userId: number, channelId: Channel['channelId']) => void;
+  exitChannel: (userId: number, channleId: Channel['channelId']) => void;
 }
 
 export interface Handlers {
@@ -45,6 +41,10 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       channels: {},
       connectSocket: () => {
         const protocol = window.location.protocol;
+        const socketUrl =
+          process.env.NODE_ENV === 'development'
+            ? `${protocol}//localhost:8080/chat`
+            : `${import.meta.env.VITE_BASE_SERVER_URL}/chat`;
         const {
           handleFetchChannels,
           handleMessage,
@@ -55,7 +55,7 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
         } = get();
         const socket =
           get().socket ||
-          io(`${protocol}//localhost:8080/chat`, {
+          io(socketUrl, {
             secure: true,
             rejectUnauthorized: false, // 로컬 자체 서명된 인증서의 경우 false 설정
             query: { userId: useAuthStore.getState().userInfo?.userId },
@@ -129,15 +129,6 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
         const { socket } = get();
         if (!socket) return alertSocketNotConnected();
         socket.emit('exitChannel', { userId, channelId });
-      },
-      // http 로 받아온 메시지를 이용해 messages 상태 업데이트
-      setMessages: (messages, channelId) => {
-        set((state) => {
-          if (!state.messages[channelId]) {
-            state.messages[channelId] = [];
-          }
-          state.messages[channelId] = messages;
-        });
       },
       // 메시지 받았을 때 messages 상태 업데이트
       handleMessage: (message) => {

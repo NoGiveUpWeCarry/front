@@ -73,11 +73,16 @@ const router = [
     element: <SubLayout />,
     children: [
       {
-        path: '/chat',
+        index: true,
+        element: <ChatPage />,
+      },
+      {
+        path: '/chat/channels/:channelId',
         element: <ChatPage />,
       },
     ],
   },
+
   {
     path: '/login/pad',
     element: <PadLoginPage />,

@@ -29,6 +29,7 @@ jobs:
           # SSH를 통해 EC2 서버에 접속하여 명령 실행
           ssh -o StrictHostKeyChecking=no -i ec2_key.pem $EC2_USER@$EC2_HOST << 'EOF'
             cd /home/ubuntu/front
+            export NODE_OPTIONS=--max_old_space_size=2048
             git pull origin main
             pnpm install
             npm run build

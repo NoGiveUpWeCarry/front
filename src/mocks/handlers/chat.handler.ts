@@ -1,7 +1,10 @@
 import { API_PATH } from '@/apis/api-path';
 import { channels } from '@/mocks/mock-data/channel.mock';
 import { SearchState } from '@/store/searchStore';
-import { ReceiveMessage } from '@/types/message.type';
+import {
+  ReceiveMessage,
+  SearchChannelMessagesResponse,
+} from '@/types/message.type';
 import { baseURL } from '@/utils/baseUrl';
 import { http, HttpResponse } from 'msw';
 
@@ -18,14 +21,14 @@ export const chatHandlers = [
       const cursor = url.searchParams.get('cursor')
         ? (Number(
             url.searchParams.get('cursor')
-          ) as SearchState['cursors']['search'])
+          ) as SearchChannelMessagesResponse['cursors']['search'])
         : null;
       const keyword = url.searchParams.get('keyword')
-        ? (url.searchParams.get('keyword') as SearchState['lastSearchKeyword'])
+        ? (url.searchParams.get('keyword') as SearchState['searchKeyword'])
         : '';
       const direction = url.searchParams.get(
         'direction'
-      ) as SearchState['direction'];
+      ) as SearchState['searchDirection'];
 
       // 유효한 채널인지 확인
       const channel = channels.find((ch) => ch.channelId === +params.id);
@@ -50,7 +53,6 @@ export const chatHandlers = [
         limit
       );
 
-      console.log('searchResult >>>', searchResult);
       // 키워드를 포함하는 메시지가 없을 경우
       if (searchResult === -1) {
         return HttpResponse.json(
@@ -86,13 +88,11 @@ export const chatHandlers = [
       const url = new URL(request.url);
       const limit = Number(url.searchParams.get('limit'));
       const cursor = url.searchParams.get('cursor')
-        ? (Number(url.searchParams.get('cursor')) as
-            | SearchState['cursors']['next']
-            | SearchState['cursors']['prev'])
+        ? Number(url.searchParams.get('cursor'))
         : null;
       const direction = url.searchParams.get(
         'direction'
-      ) as SearchState['direction'];
+      ) as SearchState['searchDirection'];
 
       if (Number.isNaN(limit)) {
         return HttpResponse.json(
@@ -136,9 +136,9 @@ export const chatHandlers = [
 
         messages = messages.slice(0, limit);
 
-        let prev: SearchState['cursors']['prev'] | null;
-        let next: SearchState['cursors']['next'] | null;
-        let search: SearchState['cursors']['search'] | null;
+        let prev: SearchChannelMessagesResponse['cursors']['prev'] | null;
+        let next: SearchChannelMessagesResponse['cursors']['next'] | null;
+        let search: SearchChannelMessagesResponse['cursors']['search'] | null;
         if (messages.length) {
           next = null;
           prev = messages[messages.length - 1].messageId;
@@ -213,9 +213,9 @@ function findMessageIndex(
 }
 
 function infiniteScroll(
-  cursor: SearchState['cursors']['next'] | SearchState['cursors']['prev'],
+  cursor: number,
   messages: ReceiveMessage[],
-  direction: SearchState['direction'],
+  direction: SearchState['searchDirection'],
   limit: number
 ) {
   if (direction === 'forward') {
@@ -253,10 +253,10 @@ function infiniteScroll(
 }
 
 function searchMessage(
-  cursor: SearchState['cursors']['search'],
+  cursor: SearchChannelMessagesResponse['cursors']['next' | 'prev' | 'search'],
   messages: ReceiveMessage[],
-  direction: SearchState['direction'],
-  keyword: SearchState['lastSearchKeyword'],
+  direction: SearchState['searchDirection'],
+  keyword: SearchState['searchKeyword'],
   limit: number
 ) {
   let start: number;

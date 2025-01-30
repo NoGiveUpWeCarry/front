@@ -7,6 +7,7 @@ import { useAlert } from '@/hooks/useAlert';
 
 export const useChat = () => {
   const location = useLocation();
+
   const userInfo = useAuthStore((state) => state.userInfo);
   const { loginAlert } = useAlert();
 
@@ -25,18 +26,20 @@ export const useChat = () => {
       loginAlert();
       return;
     }
-
     connectSocket();
-    // 개인 채팅방 생성으로 넘어온 경우
+
     if (location.state?.targetUserId) {
+      // 개인 채팅방 생성으로 넘어온 경우
       const userId1 = userInfo.userId;
       const userId2 = location.state.targetUserId;
       createChannel(userId1, userId2);
     } else if (location.state?.userIds && location.state?.title) {
+      // 그룹 채팅방 생성으로 넘어온 경우
       const userIds = location.state.userIds;
       const title = location.state.title;
       createGroup(userIds, title);
     }
+
     return () => {
       disconnectSocket();
       window.history.replaceState({}, '');

@@ -1,8 +1,9 @@
 import Title from '@/components/atoms/Title';
-import { ChatState, useChatStore } from '@/store/chatStore';
+import { useChatStore } from '@/store/chatStore';
+import { Channel } from '@/types/channel.type';
 
 interface ChatHeaderInfoProps {
-  currentChannelId: NonNullable<ChatState['currentChannelId']>;
+  currentChannelId: Channel['channelId'];
 }
 
 const ChatHeaderInfo = ({ currentChannelId }: ChatHeaderInfoProps) => {
@@ -10,10 +11,10 @@ const ChatHeaderInfo = ({ currentChannelId }: ChatHeaderInfoProps) => {
   return (
     <>
       <Title size='md' fontWeight='bold' lineClamp={1}>
-        {channels[currentChannelId].title}
+        {channels[currentChannelId]?.title}
       </Title>
       <div className='text-caption1 text-[#838383]'>
-        {channels[currentChannelId].users.length}명의 맴버가 있습니다.
+        {channels[currentChannelId]?.users.length}명의 맴버가 있습니다.
       </div>
     </>
   );

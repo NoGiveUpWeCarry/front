@@ -26,7 +26,7 @@ const ChannelList = ({ channels }: ChannelListProps) => {
 
   const switchChannel = (channelId: Channel['channelId']) => {
     if (channelId === currentChannelId) return;
-    joinChannel(user!.userId, channelId);
+    joinChannel(user.userId, channelId);
   };
 
   const handleChannelClick = (
