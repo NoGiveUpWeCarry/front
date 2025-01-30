@@ -3,7 +3,7 @@ import { useFetchFeedRank } from '@/hooks/queries/feed.query';
 
 const MainSideBarContents = () => {
   const { data: FeedRankData, isLoading } = useFetchFeedRank();
-  console.log('FeedRankData: ', FeedRankData);
+
   const FormattedContents = FeedRankData?.contents.map((item, index) => ({
     ...item,
     rank: index + 1,

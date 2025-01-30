@@ -9,6 +9,7 @@ export interface Post {
   userRole: string;
   userProfileUrl: string;
   postId: number;
+  // TODO: 여기 thumbnail인데 데이터 전달 시 오타인지 모르겠는데 확인하고 해결 부탁드립니다.
   thumnailUrl: string;
   content: string;
   title: string;

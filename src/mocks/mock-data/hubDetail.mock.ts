@@ -36,7 +36,7 @@ const getRandomElements = <T>(array: T[], min: number, max: number): T[] => {
 //   return `${diffInDays}일 전`;
 // };
 
-const createdAt = faker.date.recent({ days: 7 }); // 최근 7일 이내
+// const createdAt = faker.date.recent({ days: 7 }); // 최근 7일 이내
 // const timeAgo = calculateTimeAgo(createdAt);
 
 export const generatesingleHubDetail = (): DetailItemType => {

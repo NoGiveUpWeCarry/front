@@ -16,7 +16,12 @@ const ContentsUser = ({
 }: ContentsUserProps) => {
   return (
     <div className='flex items-start space-x-3'>
-      <Avatar src={userProfileUrl} size='xs' alt={`${name} Avatar`} />
+      <Avatar
+        src={userProfileUrl}
+        size='xs'
+        alt={`${name} Avatar`}
+        className='object-cover'
+      />
       <FeedContentsUserTitle
         userNickname={name}
         userRole={userRole}
