@@ -43,7 +43,7 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
         const protocol = window.location.protocol;
         const socketUrl =
           process.env.NODE_ENV === 'development'
-            ? `${protocol}//localhost:8080/chat`
+            ? `${protocol}//43.202.172.0:8080/chat`
             : `${import.meta.env.VITE_BASE_SERVER_URL}/chat`;
         const {
           handleFetchChannels,
@@ -108,7 +108,7 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
         const user = useAuthStore.getState().userInfo;
         if (!socket) return alertSocketNotConnected();
         socket.emit('createGroup', {
-          userIds,
+          userIds: [user.userId, ...userIds],
           title,
           thumbnailURL: user?.profileUrl,
         });
