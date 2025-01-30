@@ -63,7 +63,7 @@ const router = [
         element: <ConnectionHubPage />,
       },
       {
-        path: '/connectionhubdetailpage',
+        path: '/connectionhub/:id',
         element: <ConnetcionHubDetailPage />,
       },
     ],

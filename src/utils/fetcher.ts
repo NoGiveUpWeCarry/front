@@ -13,7 +13,8 @@ export interface FetcherOptions {
 
 export interface FetcherMessage {
   code: number;
-  text: string;
+  message: string;
+  text?: string;
 }
 
 const fetcher = async <T>(

@@ -16,4 +16,6 @@ export const API_PATH = {
   feedLike: '/feed/:id/likes',
   feedImage: '/feed/image',
   searchMessages: '/chat/channels/:channelId/messages/search',
+  feedRank: '/feed/weekly',
+  project: '/projects',
 };

@@ -5,6 +5,7 @@ import { roleTagItems } from '@/constants/hub/roleTagsItems';
 import { skillTagItems } from '@/constants/hub/skillTagItems';
 import { statusTagItems } from '@/constants/hub/statusTagItems';
 import fetcher from '@/utils/fetcher';
+import { title } from 'process';
 
 export interface HubPosts {
   userId?: number;
@@ -55,6 +56,19 @@ export interface HubResponse {
   hubpost: HubPost[];
 }
 
+export interface HubRequest {
+  title: string;
+  content: string;
+  role: string;
+  hub_type: string;
+  start_date: string;
+  duration: string;
+  work_type: string;
+  recruiting: boolean;
+  skills: string[];
+  detail_roles: string[];
+}
+
 export const fetchHubs = async () => {
   try {
     const apiPath = API_PATH.connectionhub;
@@ -83,4 +97,36 @@ export const fetchHub = async () => {
     console.log('허브 디테일 페이지 데이터 조회 실패', error);
     throw error;
   }
+};
+
+export const postHub = async ({
+  title,
+  content,
+  role,
+  hub_type,
+  start_date,
+  duration,
+  work_type,
+  recruiting,
+  skills,
+  detail_roles,
+}: HubRequest) => {
+  const apiPath = API_PATH.project;
+  const response = await fetcher({
+    url: apiPath,
+    method: 'POST',
+    data: {
+      title,
+      content,
+      role,
+      hub_type,
+      start_date,
+      duration,
+      work_type,
+      recruiting,
+      skills,
+      detail_roles,
+    } as HubRequest,
+  });
+  return response.data;
 };

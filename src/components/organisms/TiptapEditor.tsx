@@ -3,6 +3,7 @@ import { Editor } from '@tiptap/core';
 import { useCreateTiptapEditor } from '@/hooks/tiptap/useEditor.hook';
 import TiptapBubbleMenu from '@/components/molecules/tiptap/TiptapBubbleMenu';
 import TiptapFloatingMenu from '@/components/molecules/tiptap/TiptapFloatingMenu';
+import { useEffect } from 'react';
 
 interface TiptapEditorProps {
   content: string;
@@ -11,6 +12,12 @@ interface TiptapEditorProps {
 
 const TiptapEditor = ({ content, setContent }: TiptapEditorProps) => {
   const editor: Editor | null = useCreateTiptapEditor(setContent, content);
+
+  useEffect(() => {
+    if (editor && content !== editor.getHTML()) {
+      editor.commands.setContent(content);
+    }
+  }, [content, editor]);
 
   return (
     <div className='relative w-full h-full'>

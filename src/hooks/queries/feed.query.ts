@@ -1,5 +1,6 @@
 import {
   FeedChatResponse,
+  FeedRankResponse,
   FeedRequest,
   FeedResponse,
   FeedsResponse,
@@ -8,13 +9,17 @@ import {
   deleteFeedChat,
   fetchFeed,
   fetchFeedChats,
+  fetchFeedRank,
   fetchFeeds,
+  patchFeedChat,
   patchFeedLike,
   postFeed,
   postFeedChat,
   putChatLike,
   putFeed,
-} from '@/apis/feed';
+  Comment,
+  uploadImage,
+} from '@/apis/feed.api';
 import queryClient from '@/utils/queryClient';
 import {
   InfiniteData,
@@ -26,7 +31,6 @@ import {
   UseQueryResult,
 } from '@tanstack/react-query';
 
-// 타입 에러 해결해야함
 export const useInfiniteFetchFeeds = (
   latest: boolean,
   tags: string
@@ -54,9 +58,9 @@ export const useInfiniteFetchFeeds = (
   });
 };
 
-// 피드 상세 불러오기
 export const useFetchFeed = (
-  id: number
+  id: number,
+  options?: { enabled: boolean }
 ): UseQueryResult<FeedResponse, Error> => {
   return useQuery<FeedResponse>({
     queryKey: ['feed', id],
@@ -64,12 +68,12 @@ export const useFetchFeed = (
     retry: 10,
     staleTime: 60 * 1000,
     gcTime: 5 * 60 * 1000,
+    ...options,
   });
 };
 
-// 피드 댓글 불러오기
 export const useFetchFeedChat = (
-  id: number
+  id: Post['postId']
 ): UseQueryResult<FeedChatResponse, Error> => {
   return useQuery<FeedChatResponse>({
     queryKey: ['feedChats', id],
@@ -80,10 +84,10 @@ export const useFetchFeedChat = (
 };
 
 export const usePostFeed = (): UseMutationResult<
-  unknown, // 성공 시 반환되는 데이터 타입
-  Error, // 에러 타입
-  FeedRequest, // 변수로 전달될 데이터 타입
-  unknown // 선택적으로 쓸 수 있는 컨텍스트 타입
+  unknown,
+  Error,
+  FeedRequest,
+  unknown
 > => {
   return useMutation({
     mutationFn: async ({ title, tags, content }: FeedRequest) => {
@@ -183,7 +187,7 @@ export const usePutFeed = () => {
   });
 };
 
-export const usePutChat = () => {
+export const usePutChatLike = () => {
   return useMutation({
     mutationFn: async ({ id }: { id: number }) => {
       return putChatLike(id);
@@ -207,6 +211,66 @@ export const usePatchFeedLike = () => {
     },
     onError: (error) => {
       console.error('피드 좋아요 처리중 오류 발생:', error);
+    },
+  });
+};
+
+export const useFetchFeedRank = (): UseQueryResult<FeedRankResponse, Error> => {
+  return useQuery<FeedRankResponse>({
+    queryKey: ['feedRank'],
+    queryFn: () => fetchFeedRank(),
+    retry: 10,
+    refetchInterval: 60 * 60 * 1000,
+  });
+};
+
+export const usePatchFeedChat = () => {
+  return useMutation({
+    mutationFn: async ({
+      id,
+      commentId,
+      content,
+    }: {
+      id: Post['postId'];
+      commentId: Comment['commentId'];
+      content: Comment['comment'];
+    }) => {
+      return patchFeedChat(id, commentId, content);
+    },
+    onSuccess: (_, { id }) => {
+      queryClient.invalidateQueries({
+        queryKey: ['feedChats', id] as [string, number],
+      });
+      console.log('댓글 수정 성공');
+    },
+    onError: (error) => {
+      console.error('댓글 수정 중 오류 발생:', error);
+    },
+  });
+};
+
+interface UsePostImageParams {
+  file: File;
+}
+
+interface UsePostImageResponse {
+  imageUrl: string;
+}
+
+export const usePostImage = (): UseMutationResult<
+  UsePostImageResponse,
+  Error,
+  UsePostImageParams
+> => {
+  return useMutation({
+    mutationFn: async ({ file }: UsePostImageParams) => {
+      return uploadImage(file);
+    },
+    onSuccess: (data) => {
+      console.log('이미지 업로드 성공:', data);
+    },
+    onError: (error) => {
+      console.error('이미지 업로드 실패:', error);
     },
   });
 };

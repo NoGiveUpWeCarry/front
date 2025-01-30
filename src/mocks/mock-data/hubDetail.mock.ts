@@ -23,21 +23,21 @@ const getRandomElements = <T>(array: T[], min: number, max: number): T[] => {
   return faker.helpers.shuffle(array).slice(0, count);
 };
 
-const calculateTimeAgo = (createdAt: Date): string => {
-  const now = new Date();
-  const diffInMs = now.getTime() - createdAt.getTime();
-  const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
+// const calculateTimeAgo = (createdAt: Date): string => {
+//   const now = new Date();
+//   const diffInMs = now.getTime() - createdAt.getTime();
+//   const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
 
-  if (diffInHours < 24) {
-    return `${diffInHours}시간 전`;
-  }
+//   if (diffInHours < 24) {
+//     return `${diffInHours}시간 전`;
+//   }
 
-  const diffInDays = Math.floor(diffInHours / 24);
-  return `${diffInDays}일 전`;
-};
+//   const diffInDays = Math.floor(diffInHours / 24);
+//   return `${diffInDays}일 전`;
+// };
 
-const createdAt = faker.date.recent({ days: 7 }); // 최근 7일 이내
-const timeAgo = calculateTimeAgo(createdAt);
+// const createdAt = faker.date.recent({ days: 7 }); // 최근 7일 이내
+// const timeAgo = calculateTimeAgo(createdAt);
 
 export const generatesingleHubDetail = (): DetailItemType => {
   return {
@@ -60,7 +60,7 @@ export const generatesingleHubDetail = (): DetailItemType => {
         'Designer',
       ]),
       userIntroduce: faker.person.jobDescriptor(),
-      createdAt: timeAgo,
+      createdAt: faker.date.recent({ days: 7 }).toISOString(),
     },
   };
 };

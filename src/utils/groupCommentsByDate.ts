@@ -1,4 +1,4 @@
-import { Comment } from '@/apis/feed';
+import { Comment } from '@/apis/feed.api';
 
 const groupCommentsByDate = (comments: Comment[] = []) => {
   if (comments.length === 0) {

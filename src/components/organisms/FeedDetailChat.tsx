@@ -2,9 +2,10 @@ import clsx from 'clsx';
 import useAuthStore from '@/store/authStore';
 import groupCommentsByDate from '@/utils/groupCommentsByDate';
 import ChatItem from '@/components/molecules/ChatItem';
-import { Comment } from '@/apis/feed';
+import { Comment } from '@/apis/feed.api';
 import { useDeleteFeedChat, usePostFeedChat } from '@/hooks/queries/feed.query';
 import ChatInput from '@/components/molecules/ChatInput';
+import notifyToast from '@/utils/notifyToast';
 
 interface FeedDetailChatProps {
   comments: Comment[];
@@ -12,9 +13,8 @@ interface FeedDetailChatProps {
 }
 
 const FeedDetailChat = ({ comments, feedId }: FeedDetailChatProps) => {
-  const { userId, profileUrl: userImage } = useAuthStore(
-    (state) => state.userInfo
-  );
+  const { userId, profileUrl } = useAuthStore((state) => state.userInfo);
+  const { isLoggedIn } = useAuthStore((state) => state);
   const groupedComments = groupCommentsByDate(comments);
   const { mutate: postComment, isPending } = usePostFeedChat();
   const { mutate: deleteComment } = useDeleteFeedChat();
@@ -24,11 +24,10 @@ const FeedDetailChat = ({ comments, feedId }: FeedDetailChatProps) => {
       { id: feedId, content },
       {
         onSuccess: () => {
-          console.log('댓글 작성 성공');
+          notifyToast('댓글 작성 성공');
         },
-        onError: (error) => {
-          console.error('댓글 작성 실패:', error);
-          alert('댓글 작성에 실패했습니다. 다시 시도해주세요.');
+        onError: () => {
+          notifyToast('댓글 작성에 실패했습니다. 다시 시도해주세요.');
         },
       }
     );
@@ -42,18 +41,17 @@ const FeedDetailChat = ({ comments, feedId }: FeedDetailChatProps) => {
       { postId: feedId, commentId },
       {
         onSuccess: () => {
-          console.log('댓글 삭제 성공');
+          notifyToast('댓글을 삭제했습니다.');
         },
-        onError: (error) => {
-          console.error('댓글 삭제 실패:', error);
-          alert('댓글 삭제에 실패했습니다. 다시 시도해주세요.');
+        onError: () => {
+          notifyToast('댓글 삭제에 실패했습니다. 다시 시도해주세요.');
         },
       }
     );
   };
 
   return (
-    <div className='mt-3 w-full h-fit flex flex-col gap-[20px] px-[30px]'>
+    <div className='mt-3 w-full h-fit flex flex-col gap-[20px] px-[50px]'>
       {groupedComments && groupedComments.length > 0 ? (
         <div
           className={clsx(
@@ -85,8 +83,9 @@ const FeedDetailChat = ({ comments, feedId }: FeedDetailChatProps) => {
       )}
       <ChatInput
         onSubmit={submitComment}
-        userImage={userImage}
+        userImage={profileUrl}
         isPending={isPending}
+        isLoggedIn={isLoggedIn}
       />
     </div>
   );

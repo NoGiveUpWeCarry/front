@@ -8,7 +8,9 @@ import {
 } from '@heroicons/react/24/solid';
 import { Editor } from '@tiptap/core';
 
-const FloatingMenuItems: MenuItem[] = [
+export const createFloatingMenuItems = (
+  uploadImageHandler: (file: File, editor: Editor) => void
+): MenuItem[] => [
   {
     label: '제목1',
     icon: HashtagIcon,
@@ -46,13 +48,19 @@ const FloatingMenuItems: MenuItem[] = [
     label: '이미지',
     icon: PhotoIcon,
     action: (editor: Editor) => {
-      const url = prompt('이미지 url을 입력해주세요.');
-      if (url) {
-        editor.chain().focus().setImage({ src: url }).run();
-      }
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+
+      input.onchange = (event) => {
+        const file = (event.target as HTMLInputElement).files?.[0];
+        if (file) {
+          uploadImageHandler(file, editor);
+        }
+      };
+
+      input.click();
     },
     isActive: () => false,
   },
 ];
-
-export default FloatingMenuItems;

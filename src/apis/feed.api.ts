@@ -9,7 +9,8 @@ export interface Post {
   userRole: string;
   userProfileUrl: string;
   postId: number;
-  thumbnailUrl: string;
+  // TODO: 여기 thumbnail인데 데이터 전달 시 오타인지 모르겠는데 확인하고 해결 부탁드립니다.
+  thumnailUrl: string;
   content: string;
   title: string;
   tags: (keyof typeof tagItem)[];
@@ -65,6 +66,20 @@ export interface FeedRequest {
 
 export interface UploadImageResponse {
   imageUrl: string;
+}
+
+export interface FeedRankContent {
+  postId: number;
+  title: string;
+  userId: number;
+  userName: string;
+  userNickname: string;
+  userProfileUrl: string;
+  userRole: string;
+}
+
+export interface FeedRankResponse {
+  contents: FeedRankContent[];
 }
 
 export const fetchFeeds = async ({
@@ -206,14 +221,43 @@ export const putChatLike = async (id: Comment['commentId']) => {
   return response.data;
 };
 
-export const uploadImage = async (file: FormData) => {
+export const uploadImage = async (file: File) => {
   const apiPath = API_PATH.feedImage;
+
+  const formData = new FormData();
+  formData.append('file', file);
+
   const response = await fetcher<UploadImageResponse>({
     url: apiPath,
     method: 'POST',
-    data: {
-      file,
+    data: formData,
+    headers: {
+      'Content-Type': 'multipart/form-data',
     },
+  });
+
+  return response.data;
+};
+export const fetchFeedRank = async () => {
+  const apiPath = API_PATH.feedRank;
+  const response = await fetcher<FeedRankResponse>({
+    url: apiPath,
+    method: 'GET',
+  });
+  return response.data;
+};
+
+export const patchFeedChat = async (
+  id: Post['postId'],
+  commentId: Comment['commentId'],
+  content: Comment['comment']
+) => {
+  const apiPath = `/feed/${id}/comment/${commentId}`;
+  console.log('apiPath: ', apiPath);
+  const response = await fetcher({
+    url: apiPath,
+    method: 'PUT',
+    data: { content },
   });
   return response.data;
 };

@@ -1,5 +1,6 @@
 import FeedDetailTag from '@/components/molecules/feedDetailTag';
 import { Post } from '@/types/feed.type';
+import formatDate from '@/utils/formatDate';
 
 interface FeedDetailProps {
   tags: Post['tags'];
@@ -10,12 +11,12 @@ interface FeedDetailProps {
 
 const FeedDetail = ({ tags, date, title, content }: FeedDetailProps) => {
   return (
-    <div className='px-[50px] flex flex-col gap-[20px] mt-3'>
+    <div className='px-[50px] py-[20px] flex flex-col gap-[20px] w-full'>
       <FeedDetailTag tags={tags} />
-      <div className='text-gray text-body1'>{date}</div>
-      <div className='text-heading1'>{title}</div>
+      <div className='text-gray text-body1'>{formatDate(date)}</div>
+      <div className='text-heading1 font-semibold'>{title}</div>
       <div
-        className='prose w-full h-fit'
+        className='prose flex flex-col w-full h-fit max-w-none'
         dangerouslySetInnerHTML={{ __html: content }}
       ></div>
     </div>
