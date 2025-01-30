@@ -52,8 +52,7 @@ export const useUpdateIntroduction = () => {
 
 export const useUpdateStatus = () => {
   return useMutation({
-    mutationFn: ({ statusId }: { statusId: number }) =>
-      updateStatus({ statusId }),
+    mutationFn: ({ id }: { id: number }) => updateStatus({ id }),
     onSuccess: successHandler,
   });
 };

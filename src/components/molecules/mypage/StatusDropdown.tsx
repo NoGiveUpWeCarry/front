@@ -11,8 +11,12 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
 
+export interface StatusOption extends IDropdown {
+  statusId: string;
+}
+
 const StatusDropdown = () => {
-  const options: IDropdown[] = STATUS_EMOJI;
+  const options: StatusOption[] = STATUS_EMOJI;
 
   const {
     openDropdown,
@@ -23,7 +27,7 @@ const StatusDropdown = () => {
     // onKeyDown,
     // focusedIndex,
     // setFocusedIndex,
-  } = useDropdown({ data: options, initialValue: options[0] });
+  } = useDropdown<StatusOption>({ data: options, initialValue: options[0] });
 
   const [settingsForm] = useSettingsStore(
     useShallow((state) => [state.settingsForm])
@@ -39,10 +43,10 @@ const StatusDropdown = () => {
 
   const { mutate } = useUpdateStatus();
 
-  const handleClickItem = ({ statusId }: Pick<IDropdown, 'statusId'>) => {
-    if (!statusId) return;
+  const handleClickItem = ({ id }: Pick<StatusOption, 'id'>) => {
+    if (!id) return;
     mutate(
-      { statusId },
+      { id },
       {
         onSuccess: () => {
           successHandler();

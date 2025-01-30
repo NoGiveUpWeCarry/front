@@ -1,41 +1,25 @@
 import { useState } from 'react';
 
 export interface IDropdown {
-  statusId?: number;
-  id: string;
+  id: number;
   label: string;
 }
 
-export const useDropdown = ({
+export const useDropdown = <T = IDropdown>({
   data,
   initialValue,
 }: {
-  data: IDropdown[];
-  initialValue: IDropdown;
+  data: T[];
+  initialValue: T;
 }) => {
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [openDropdown, setOpenDropdown] = useState(false);
   const [selectedOption, setSelectedOption] = useState(initialValue);
 
-  const handleSetWorkStatus = () => {
+  const onClickOption = () => {
     setSelectedOption(data[focusedIndex!]);
     setOpenDropdown(false);
   };
-
-  // const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-  //   event.preventDefault();
-  //   if (event.key === 'ArrowDown') {
-  //     setFocusedIndex((prevIndex) =>
-  //       prevIndex === null || prevIndex === data.length - 1 ? 0 : prevIndex + 1
-  //     );
-  //   } else if (event.key === 'ArrowUp') {
-  //     setFocusedIndex((prevIndex) =>
-  //       prevIndex === null || prevIndex === 0 ? data.length - 1 : prevIndex - 1
-  //     );
-  //   } else if (event.key === 'Enter' && focusedIndex !== null) {
-  //     handleSetWorkStatus();
-  //   }
-  // };
 
   const toggleDropdown = () => setOpenDropdown((prev) => !prev);
 
@@ -44,8 +28,7 @@ export const useDropdown = ({
     openDropdown,
     selectedOption,
     setSelectedOption,
-    onClickOption: handleSetWorkStatus,
-    // onKeyDown: handleKeyDown,
+    onClickOption,
     toggleDropdown,
     setFocusedIndex,
   };

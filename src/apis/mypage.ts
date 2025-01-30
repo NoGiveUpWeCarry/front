@@ -290,11 +290,11 @@ export const updateIntroduction = async ({
   return response.data;
 };
 
-export const updateStatus = async ({ statusId }: { statusId: number }) => {
+export const updateStatus = async ({ id }: { id: number }) => {
   const response = await fetcher({
     url: `/users/profile/status`,
     method: 'PATCH',
-    data: { statusId },
+    data: { statusId: id },
   });
   return response.data;
 };

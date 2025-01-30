@@ -2,14 +2,12 @@ import { IDropdown } from '@/hooks/useDropdown';
 import { cn } from '@/lib/utils';
 import { HTMLAttributes } from 'react';
 
-interface DropdownProps extends Pick<HTMLAttributes<HTMLDivElement>, 'style'> {
-  options: IDropdown[];
+interface DropdownProps<T extends IDropdown = IDropdown>
+  extends Pick<HTMLAttributes<HTMLDivElement>, 'style'> {
+  options: T[];
   focusedIndex?: number;
   setFocusedIndex?: (value: number) => void;
-  onClickDropdownItem?: ({
-    statusId,
-    id,
-  }: Pick<IDropdown, 'id' | 'statusId'>) => void;
+  onClickDropdownItem?: ({ id }: Pick<IDropdown, 'id'>) => void;
   className?: string;
   itemClassName?: string;
 }
@@ -42,8 +40,7 @@ const Dropdown = ({
             onMouseOver={() => setFocusedIndex && setFocusedIndex(index)}
             onMouseLeave={() => setFocusedIndex && setFocusedIndex(-1)}
             onClick={() =>
-              onClickDropdownItem &&
-              onClickDropdownItem({ statusId: option.statusId, id: option.id })
+              onClickDropdownItem && onClickDropdownItem({ id: option.id })
             }
           >
             {option.label}
