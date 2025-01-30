@@ -27,8 +27,10 @@ const FeedDetailPage = () => {
   const userId = useAuthStore((state) => state.userInfo?.userId);
 
   // NOTE: 검색 모달 관련 코드
-  const { openModal, keyword } = useSearchModal(useShallow((state) => state));
-  useHandlePopState(keyword, openModal);
+  const { openModal, keyword, setKeyword } = useSearchModal(
+    useShallow((state) => state)
+  );
+  useHandlePopState(keyword, openModal, setKeyword);
 
   if (FeedLoading) {
     return <div>피드 로딩중</div>;

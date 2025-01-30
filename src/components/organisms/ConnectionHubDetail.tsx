@@ -5,7 +5,7 @@ import { useProjectStore } from '@/store/hubDetailStore';
 import { useParams } from 'react-router-dom';
 import useHandlePopState from '@/hooks/useHandlePopState';
 import { useSearchModal } from '@/store/modals/searchModalstore';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
 
 const ConnectionHubDetail = () => {
@@ -21,6 +21,12 @@ const ConnectionHubDetail = () => {
     (state) => state.isOwnConnectionHub
   );
   const currentUserId = useAuthStore((state) => state.userInfo.userId);
+
+  // NOTE: 검색 모달 관련 코드
+  const { openModal, keyword, setKeyword } = useSearchModal(
+    useShallow((state) => state)
+  );
+  useHandlePopState(keyword, openModal, setKeyword);
 
   useEffect(() => {
     setProject(null, currentUserId);
@@ -39,10 +45,6 @@ const ConnectionHubDetail = () => {
   if (isError || !ProjectData?.project) {
     return <div>프로젝트 데이터를 불러오는 중 오류가 발생했습니다.</div>;
   }
-
-  // NOTE: 검색 모달 관련 코드
-  const { openModal, keyword } = useSearchModal(useShallow((state) => state));
-  useHandlePopState(keyword, openModal);
 
   return (
     <div className='flex p-10px'>

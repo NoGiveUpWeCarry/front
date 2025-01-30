@@ -92,7 +92,7 @@ const SearchModal = ({ onClose }: ModalProps) => {
                   type='feed'
                   title='피드'
                   onNavigate={(id) => {
-                    navigate(`/feed/${id}`);
+                    navigate(`/feed/${id}?from=search`);
                     onClose();
                   }}
                   isFirstTab={active === '전체'}
@@ -111,7 +111,7 @@ const SearchModal = ({ onClose }: ModalProps) => {
                   type='hub'
                   title='커넥션 허브'
                   onNavigate={(id) => {
-                    navigate(`/connectionhub/${id}`);
+                    navigate(`/connectionhub/${id}?from=search`);
                     onClose();
                   }}
                   isFirstTab={active === '전체'}
