@@ -12,11 +12,17 @@ import {
 import queryClient from '@/utils/queryClient';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-export const useGetProfileHeader = (userId: number) => {
+const successHandler = (nickname: string) => {
+  queryClient.invalidateQueries({
+    queryKey: ['profile-info', nickname],
+  });
+};
+
+export const useGetProfileHeader = (nickname: string) => {
   return useQuery({
-    queryKey: ['profile-header-info', userId],
-    queryFn: () => getProfileHeader({ userId }),
-    enabled: !!userId,
+    queryKey: ['profile-header-info', nickname],
+    queryFn: () => getProfileHeader({ nickname }),
+    enabled: !!nickname,
   });
 };
 
@@ -61,37 +67,25 @@ export const useUpdateProject = () => {
   });
 };
 
-export const useDeleteProject = (userId: number) => {
+export const useDeleteProject = (nickname: string) => {
   return useMutation({
     mutationFn: ({ projectId }: { projectId: number }) =>
       deleteProject({ projectId }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['profile-info', userId],
-      });
-    },
+    onSuccess: () => successHandler(nickname),
   });
 };
 
-export const useAddMusicWork = (userId: number) => {
+export const useAddMusicWork = (nickname: string) => {
   return useMutation({
     mutationFn: ({ musicUrl }: { musicUrl: string }) => addWorks({ musicUrl }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['profile-info', userId],
-      });
-    },
+    onSuccess: () => successHandler(nickname),
   });
 };
 
-export const useDeleteMusicWork = (userId: number) => {
+export const useDeleteMusicWork = (nickname: string) => {
   return useMutation({
     mutationFn: ({ workId }: { workId: number }) => deleteWork({ workId }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['profile-info', userId],
-      });
-    },
+    onSuccess: () => successHandler(nickname),
   });
 };
 

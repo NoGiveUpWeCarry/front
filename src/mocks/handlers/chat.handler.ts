@@ -147,14 +147,6 @@ export const chatHandlers = [
           next = prev = search = null;
         }
 
-        console.log({
-          messages,
-          cursors: {
-            prev,
-            next,
-            search,
-          },
-        });
         return HttpResponse.json({
           messages,
           cursors: {
@@ -227,7 +219,6 @@ function infiniteScroll(
     if (start === -1) return -1;
     const forwarMessages = messages.slice(start + 1, start + limit + 1);
     const isFirst = start + limit >= messages.length - 1;
-    console.log({ forwarMessages });
     return {
       next: isFirst ? null : forwarMessages.at(-1)!.messageId,
       messages: forwarMessages,
@@ -242,7 +233,6 @@ function infiniteScroll(
     if (start === -1) return -1;
     const backwardMessages = sortedMessages.slice(start + 1, start + limit + 1);
     const isLast = start + limit >= messages.length - 1;
-    console.log({ backwardMessages });
     return {
       // next: cursor,
       messages: backwardMessages,

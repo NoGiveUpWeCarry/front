@@ -1,29 +1,28 @@
 import ContentsThumbnail from '@/components/atoms/contents/ContentsThumbnail';
 import HubBody from '@/components/molecules/contents/HubBody';
-import { RoleProps } from '@/components/atoms/Role';
 import HubTitle from '@/components/molecules/contents/HubTitle';
 import { HubTagItemsKey } from '@/constants/hub/hubTagItems';
 import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
+import { roleItemsKey } from '@/constants/hub/roleItems';
 import { roleTagItemsKey } from '@/constants/hub/roleTagsItems';
 import { statusTagItemskey } from '@/constants/hub/statusTagItems';
 
 interface HubItemProps {
   title: string;
-  hubTags: HubTagItemsKey;
-  meetingTags: meetingTagItemskey;
-  roleTags: roleTagItemsKey[];
-  statusTags: statusTagItemskey;
-  role: RoleProps['role'];
+  hubType: HubTagItemsKey;
+  workType: meetingTagItemskey;
+  detailRoles: roleTagItemsKey[];
+  status: statusTagItemskey;
+  role: roleItemsKey;
   thumbnailUrl?: string;
   startDate: string;
   duration: string;
 }
-
 const HubItem = ({
-  hubTags,
-  meetingTags,
-  roleTags,
-  statusTags,
+  hubType,
+  workType,
+  detailRoles,
+  status,
   role,
   thumbnailUrl,
   title,
@@ -32,12 +31,12 @@ const HubItem = ({
 }: HubItemProps) => {
   return (
     <div className='flex flex-col gap-[20px]'>
-      <HubTitle hubTags={hubTags} title={title} />
+      <HubTitle hubType={hubType} title={title} />
       <div className='flex justify-between'>
         <HubBody
-          statusTags={statusTags}
-          meetingTags={meetingTags}
-          roleTags={roleTags}
+          status={status}
+          workType={workType}
+          detailRoles={detailRoles}
           role={role}
           startDate={startDate}
           duration={duration}

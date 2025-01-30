@@ -54,7 +54,7 @@ const SideMenu = () => {
     {
       type: 'star',
       label: '커넥션 허브',
-      onClick: () => navigate('/connectionhub'),
+      onClick: () => navigate('/projects'),
     },
   ];
 
@@ -226,9 +226,7 @@ const SideMenu = () => {
                     className='group flex w-full rounded-lg px-1 py-2 items-center gap-[20px] cursor-pointer hover:bg-[#f3f4f6]'
                     onClick={() => {
                       if (isLoggedIn) {
-                        navigate(`/@${userInfo?.nickname}`, {
-                          state: { userId: userInfo?.userId },
-                        });
+                        navigate(`/@${userInfo?.nickname}`);
                       } else {
                         navigate('/login');
                       }

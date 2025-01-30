@@ -5,19 +5,28 @@ import { useState } from 'react';
 
 interface PostHubModalProps {
   onClose: () => void;
+  onSubmit: () => void;
+  onRevise: boolean;
+  projectId?: number;
 }
 
-const PostHubModal = ({ onClose }: PostHubModalProps) => {
+const PostHubModal = ({ onClose, onRevise, projectId }: PostHubModalProps) => {
   const [step, setStep] = useState(1);
 
   const goToNextStep = () => setStep((prev) => prev + 1);
   const goToPreviousStep = () => setStep((prev) => prev - 1);
   return (
     <Modal2 onClose={onClose}>
-      <Modal2.Title>새 허브</Modal2.Title>
+      <Modal2.Title>{onRevise ? '허브 수정' : '새 허브'}</Modal2.Title>
+
       {step === 1 && <PostHubContentFirst onNext={goToNextStep} />}
       {step === 2 && (
-        <PostHubContentSecond onPrevious={goToPreviousStep} onClose={onClose} />
+        <PostHubContentSecond
+          onPrevious={goToPreviousStep}
+          onClose={onClose}
+          onRevise={onRevise}
+          projectId={projectId}
+        />
       )}
     </Modal2>
   );

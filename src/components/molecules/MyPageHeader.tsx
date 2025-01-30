@@ -12,19 +12,23 @@ import { useShallow } from 'zustand/shallow';
 
 const MyPageHeader = () => {
   const location = useLocation();
-  const { userId } = location.state || {};
+  const nickname = location.pathname.slice(2);
 
-  const { ownerId } = useMyPageStore(useShallow((state) => state));
-  const { data: headerData } = useGetProfileHeader(ownerId);
-  const { isMyPage, setIsMyPage, setRole, setOwnerId } = useMyPageStore(
-    useShallow((state) => state)
-  );
+  const { data: headerData } = useGetProfileHeader(nickname);
+  const { isMyPage, setIsMyPage, setRole, setOwnerId, setNickname } =
+    useMyPageStore(useShallow((state) => state));
 
   useEffect(() => {
-    if (userId) {
-      setOwnerId(userId);
+    if (nickname) {
+      setNickname(nickname);
     }
   }, [location]);
+
+  useEffect(() => {
+    if (headerData?.userId) {
+      setOwnerId(headerData?.userId);
+    }
+  }, [headerData]);
 
   useEffect(() => {
     if (headerData) {

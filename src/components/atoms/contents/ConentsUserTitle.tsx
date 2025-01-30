@@ -1,8 +1,7 @@
 import formatTimeAgo from '@/utils/formatTimeAgo';
-
 interface ContentsUserTitleProps {
   userNickname: string;
-  userRole: string;
+  userRole?: string;
   createdAt: string;
 }
 const ContentsUserTitle = ({

@@ -3,6 +3,7 @@ import { devtools } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 export interface HubState {
+  projectId?: number | null;
   title: string; // 프로젝트 명
   content: string; // 프로젝트 설명
   role: string; // P, A, D 중 하나
@@ -29,9 +30,11 @@ interface HubAction {
   setSkills: (skills: string[]) => void;
   setDetailRoles: (detailRoles: string[]) => void;
   resetHub: () => void;
+  loadHub: (project: HubState) => void;
 }
 
 const initialState: HubState = {
+  projectId: null,
   title: '',
   content: '',
   role: '',
@@ -40,14 +43,14 @@ const initialState: HubState = {
   duration: '',
   durationType: '',
   workType: 'ONLINE',
-  recruiting: false,
+  recruiting: true,
   skills: [],
   detailRoles: [],
 };
 
 type HubStore = HubState & HubAction;
 
-const useHubStore: () => HubStore = create<HubStore>()(
+const useHubStore = create<HubStore>()(
   devtools(
     immer<HubStore>((set) => ({
       ...initialState,
@@ -95,7 +98,11 @@ const useHubStore: () => HubStore = create<HubStore>()(
         set((state) => {
           state.detailRoles = detailRoles;
         }),
-      resetHub: () => set(() => initialState),
+      resetHub: () =>
+        set(() => ({
+          ...initialState,
+        })),
+      loadHub: (project: HubState) => set(() => ({ ...project })),
     }))
   )
 );

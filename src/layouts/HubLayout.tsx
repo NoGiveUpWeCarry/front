@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import SideMenu from '@/components/organisms/sides/SideMenu';
 import HubSideBar from '@/components/organisms/sides/HubSideBar';
 

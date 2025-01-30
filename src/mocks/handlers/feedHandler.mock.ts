@@ -43,7 +43,6 @@ export const feedHandler = [
       });
     }
     const comments = generateCommentsMockData();
-    console.log('msw comments: ', comments);
     if (!comments) {
       return new HttpResponse('Feed Not Found', {
         status: 404,

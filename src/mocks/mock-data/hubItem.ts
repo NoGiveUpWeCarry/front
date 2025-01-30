@@ -1,49 +1,29 @@
-import { HubTagItemsKey } from '@/constants/hub/hubTagItems';
-import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
-import { roleTagItemsKey } from '@/constants/hub/roleTagsItems';
-import { statusTagItemskey } from '@/constants/hub/statusTagItems';
+import { hubTagItems } from '@/constants/hub/hubTagItems';
+import { meetingTagItems } from '@/constants/hub/meetingTagItems';
+import { roleItems } from '@/constants/hub/roleItems';
+import { roleTagItems } from '@/constants/hub/roleTagsItems';
+import { statusTagItems } from '@/constants/hub/statusTagItems';
 
-export interface HubItemType {
-  statusTags: statusTagItemskey;
-  meetingTags: meetingTagItemskey;
+export interface HubItem {
+  projectId: number;
+  content: string;
+  status: keyof typeof statusTagItems;
+  workType: keyof typeof meetingTagItems;
   title: string;
-  role: 'PROGRAMMER' | 'DESIGNER' | 'ARTIST';
+  role: keyof typeof roleItems;
   startDate: string;
   duration: string;
   thumbnailUrl?: string;
-  hubTags: HubTagItemsKey;
-  roleTags: roleTagItemsKey[];
-  bookmarkCount: number;
-  userCount: number;
-  viewsCount: number;
+  hubType: keyof typeof hubTagItems;
+  detailRoles: (keyof typeof roleTagItems)[];
+  bookMarkCount: number;
+  applyCount: number;
+  viewCount: number;
+  createdAt: string;
   user: {
-    userProfileUrl: string;
-    userNickname: string;
-    userRole: string;
-    createdAt: string;
+    userId?: number;
+    profileUrl: string;
+    nickname: string;
+    role: string;
   };
 }
-
-export const hubItem: HubItemType[] = [
-  {
-    title:
-      '실시간 여행 계획 플랫폼 프로젝트 진행합니다! 🔥 프론트엔드 개발자 많은 지원 부탁합니다.',
-    role: 'PROGRAMMER' as const,
-    startDate: '2025-01-06',
-    duration: '6개월',
-    meetingTags: 'ONLINE',
-    hubTags: 'PROJECT',
-    statusTags: 'OPEN',
-    roleTags: ['HW/임베디드', 'SW/솔루션', 'IOS 개발자'],
-    bookmarkCount: 12,
-    userCount: 5,
-    viewsCount: 6,
-    thumbnailUrl: 'src/assets/images/contentimagetest.png',
-    user: {
-      userProfileUrl: '/src/assets/images/example.svg',
-      userNickname: 'leechan',
-      userRole: 'Programmer',
-      createdAt: '약 4시간 전',
-    },
-  },
-];

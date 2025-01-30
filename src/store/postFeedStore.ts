@@ -24,28 +24,52 @@ const initialState: FeedState = {
 
 type FeedStore = FeedState & FeedAction;
 
-const useFeedStore: () => FeedStore = create<FeedStore>()(
+// const useFeedStore: () => FeedStore = create<FeedStore>()(
+//   devtools(
+//     immer<FeedStore>((set) => ({
+//       ...initialState,
+//       setTitle: (title) =>
+//         set((state) => {
+//           state.title = title;
+//         }),
+//       setTag: (tags) =>
+//         set((state) => {
+//           state.tag = tags;
+//         }),
+//       setContent: (content) =>
+//         set((state) => {
+//           state.content = content;
+//         }),
+//       resetFeed: () =>
+//         set((state) => {
+//           state.title = initialState.title;
+//           state.tag = initialState.tag;
+//           state.content = initialState.content;
+//         }),
+//     }))
+//   )
+// );
+
+const useFeedStore = create<FeedStore>()(
   devtools(
     immer<FeedStore>((set) => ({
       ...initialState,
-      setTitle: (title) =>
-        set((state) => {
+      setTitle: (title: string) =>
+        set((state: FeedStore) => {
           state.title = title;
         }),
-      setTag: (tags) =>
-        set((state) => {
+      setTag: (tags: TagItemKey[]) =>
+        set((state: FeedStore) => {
           state.tag = tags;
         }),
-      setContent: (content) =>
-        set((state) => {
+      setContent: (content: string) =>
+        set((state: FeedStore) => {
           state.content = content;
         }),
       resetFeed: () =>
-        set((state) => {
-          state.title = initialState.title;
-          state.tag = initialState.tag;
-          state.content = initialState.content;
-        }),
+        set(() => ({
+          ...initialState,
+        })),
     }))
   )
 );

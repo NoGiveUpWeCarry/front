@@ -32,26 +32,18 @@ const programmerSkills = [
 ];
 
 const artistSkills = [
-  'Music Theory',
-  'Audio Mixing',
-  'Audio Mastering',
-  'Sound Design',
-  'Composing',
-  'Arranging',
-  'Music Production',
-  'Digital Audio Workstations (DAWs)',
+  'MIDI',
+  'Cubase',
+  'Synthesizers',
+  'Sampling',
+  'Vocal Tuning',
+  'Field Recording',
+  'Game Audio Implementation',
+  'Melodyne',
   'Ableton Live',
   'FL Studio',
   'Logic Pro',
   'Pro Tools',
-  'Cubase',
-  'Melodyne',
-  'Sampling',
-  'MIDI Programming',
-  'Synthesizers',
-  'Vocal Tuning',
-  'Field Recording',
-  'Game Audio Implementation',
 ];
 
 const designerSkills = [

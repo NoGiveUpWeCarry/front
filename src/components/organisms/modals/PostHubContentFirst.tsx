@@ -28,15 +28,27 @@ import WorkTypeSelect from '@/components/atoms/Select/WorkTypeSelect';
 interface PostHubContentFirstProps {
   onNext: () => void;
 }
-
 const PostHubContentFirst = ({ onNext }: PostHubContentFirstProps) => {
+  const handleDurationChange = (
+    type: 'duration' | 'durationType',
+    value: string
+  ) => {
+    setHubContent((prev) => {
+      const updatedContent = { ...prev, [type]: value };
+      if (updatedContent.durationType && updatedContent.duration) {
+        updatedContent.duration = `${updatedContent.duration}${updatedContent.durationType}`;
+      }
+      return updatedContent;
+    });
+  };
+
   const {
     title,
     role,
     hubType,
     startDate,
-    duration,
     durationType,
+    duration,
     workType,
     skills,
     detailRoles,
@@ -58,8 +70,9 @@ const PostHubContentFirst = ({ onNext }: PostHubContentFirstProps) => {
     startDate: '',
     duration: '',
     durationType: '',
+
     workType: 'OFFLINE',
-    recruiting: false,
+    recruiting: true,
     skills: [],
     detailRoles: [],
   });
@@ -81,6 +94,7 @@ const PostHubContentFirst = ({ onNext }: PostHubContentFirstProps) => {
       workType,
       skills,
       detailRoles,
+
       recruiting: false,
     });
   }, [
@@ -90,6 +104,7 @@ const PostHubContentFirst = ({ onNext }: PostHubContentFirstProps) => {
     startDate,
     duration,
     durationType,
+
     workType,
     skills,
     detailRoles,
@@ -158,6 +173,34 @@ const PostHubContentFirst = ({ onNext }: PostHubContentFirstProps) => {
         {errors.role && (
           <p className='text-red-500 text-sm'>직군을 선택해주세요.</p>
         )}
+      </div>
+      <div className='flex border w-full border-black rounded-sm h-[44px] '>
+        <div className='flex items-center px-[10px] py-[10px] gap-[10px]'>
+          {hubContent.detailRoles.length === 0 ? (
+            <span className='text-[12px] text-[#FF6868]'>
+              직군을 선택해주세요.
+            </span>
+          ) : (
+            hubContent.detailRoles.map((detailRoles) => (
+              <div
+                key={detailRoles}
+                className='flex text-[12px] items-center px-2 py-1 bg-[#EAEAEA] rounded-sm'
+              >
+                <span className='mr-1'>{detailRoles}</span>
+                <button
+                  className='text-black'
+                  onClick={() => handleSkillRemove(detailRoles)}
+                >
+                  <Icon
+                    type='xmark'
+                    color='black'
+                    className='w-[18px] h-[18px]'
+                  />
+                </button>
+              </div>
+            ))
+          )}
+        </div>
       </div>
       <div className='flex flex-col items-start w-full gap-[5px]'>
         <div className='flex text-[20px] font-semibold'>스킬</div>
@@ -240,7 +283,9 @@ const PostHubContentFirst = ({ onNext }: PostHubContentFirstProps) => {
           <div className='flex text-[20px] font-semibold'>기간</div>
           <div className='flex items-center gap-2'>
             <Select
-              onValueChange={(value) => handleChange('durationType', value)}
+              onValueChange={(value) =>
+                handleDurationChange('durationType', value)
+              }
               value={hubContent.durationType}
             >
               <SelectTrigger className='w-[90px] border border-black rounded-sm h-[44px]'>
@@ -255,8 +300,11 @@ const PostHubContentFirst = ({ onNext }: PostHubContentFirstProps) => {
               type='number'
               placeholder='0'
               className='w-[90px] border border-black rounded-sm h-[44px]'
-              value={hubContent.duration}
-              onChange={(e) => handleChange('duration', e.target.value)}
+              value={hubContent.duration.replace(
+                hubContent.durationType || '',
+                ''
+              )}
+              onChange={(e) => handleDurationChange('duration', e.target.value)}
             />
           </div>
         </div>

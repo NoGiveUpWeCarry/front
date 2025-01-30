@@ -59,11 +59,11 @@ const router = [
     element: <HubLayout />,
     children: [
       {
-        path: '/connectionhub',
+        path: '/projects',
         element: <ConnectionHubPage />,
       },
       {
-        path: '/connectionhub/:id',
+        path: '/projects/:projectId',
         element: <ConnetcionHubDetailPage />,
       },
     ],

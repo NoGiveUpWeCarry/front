@@ -12,8 +12,6 @@ const Job = ({ openJobModal }: JobProps) => {
     useShallow((state) => [state.settingsForm])
   );
 
-  console.log(settingsForm?.jobDetail);
-
   return (
     <div className='relative w-full mt-5'>
       <Label text='상세 직무' />

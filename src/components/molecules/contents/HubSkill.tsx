@@ -5,18 +5,18 @@ import {
 } from '@/constants/hub/skillTagItems';
 
 interface HubSkillProps {
-  skillTags: skillTagItemsKey[];
+  skills: skillTagItemsKey[];
 }
 
-const HubSkill = ({ skillTags }: HubSkillProps) => {
+const HubSkill = ({ skills }: HubSkillProps) => {
   return (
     <div className='flex gap-[10px] flex-wrap'>
-      {skillTags.map((skillTag) => (
+      {skills.map((skills) => (
         <div
-          key={skillTag}
-          className={`${skillTagItmesColors[skillTag]} px-[10px] py-[5px] border rounded-full bg-[#eaeaea]`}
+          key={skills}
+          className={`${skillTagItmesColors[skills]} px-[10px] py-[5px] border rounded-full bg-[#eaeaea]`}
         >
-          {skillTagItems[skillTag]}
+          {skillTagItems[skills]}
         </div>
       ))}
     </div>

@@ -1,5 +1,5 @@
 import Avatar from '@/components/atoms/Avatar';
-import FeedContentsUserTitle from '@/components/atoms/contents/FeedContentsUserTitle';
+import ContentsUserTitle from '@/components/atoms/contents/ConentsUserTitle';
 
 interface ContentsUserProps {
   userProfileUrl: string;
@@ -16,13 +16,8 @@ const ContentsUser = ({
 }: ContentsUserProps) => {
   return (
     <div className='flex items-start space-x-3'>
-      <Avatar
-        src={userProfileUrl}
-        size='xs'
-        alt={`${name} Avatar`}
-        className='object-cover'
-      />
-      <FeedContentsUserTitle
+      <Avatar src={userProfileUrl} size='xs' alt={`${name} Avatar`} />
+      <ContentsUserTitle
         userNickname={name}
         userRole={userRole}
         createdAt={createdAt}

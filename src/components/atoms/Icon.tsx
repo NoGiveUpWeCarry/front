@@ -30,6 +30,7 @@ import {
   UserCircleIcon,
   UserGroupIcon,
   HeartIcon as HeartSolidIcon,
+  BookmarkIcon as BookmarkSolidIcon,
 } from '@heroicons/react/24/solid';
 import { cva, VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/cn';
@@ -62,6 +63,7 @@ type IconType =
   | 'pencilSquare'
   | 'arrowLongUp'
   | 'chatBubbleOvalLeftEllipsis'
+  | 'bookmarkSolid'
   | 'exit';
 
 const iconVariants = cva('', {
@@ -152,6 +154,9 @@ const Icon = ({ type, className = '', color }: IconProps) => {
     ),
     likeSolid: (
       <HeartSolidIcon className={cn(iconVariants({ color }), className)} />
+    ),
+    bookmarkSolid: (
+      <BookmarkSolidIcon className={cn(iconVariants({ color }), className)} />
     ),
   };
 

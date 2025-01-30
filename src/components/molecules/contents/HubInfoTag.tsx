@@ -3,18 +3,19 @@ import {
   meetingTagItemsColors,
   meetingTagItemskey,
 } from '@/constants/hub/meetingTagItems';
+import { roleItemsKey } from '@/constants/hub/roleItems';
 import {
   statusTagItemsColors,
   statusTagItemskey,
 } from '@/constants/hub/statusTagItems';
 
 interface HubInfoTag {
-  meetingTags: meetingTagItemskey;
-  statusTags: statusTagItemskey;
-  role: RoleProps['role'];
+  workType: meetingTagItemskey;
+  status: statusTagItemskey;
+  role: roleItemsKey;
 }
 
-const HubInfoTag = ({ meetingTags, statusTags, role }: HubInfoTag) => {
+const HubInfoTag = ({ workType, status, role }: HubInfoTag) => {
   return (
     <div className='flex gap-[20px] items-center'>
       <div className='flex'>
@@ -22,14 +23,14 @@ const HubInfoTag = ({ meetingTags, statusTags, role }: HubInfoTag) => {
       </div>
       <div className='flex gap-[10px] text-white'>
         <span
-          className={`${meetingTagItemsColors[meetingTags]} inline-flex items-center px-3 py-1 font-medium`}
+          className={`${meetingTagItemsColors[workType]} inline-flex items-center px-3 py-1 font-medium`}
         >
-          {meetingTags}
+          {workType}
         </span>
         <span
-          className={`${statusTagItemsColors[statusTags]} inline-flex items-center px-3 py-1 font-medium `}
+          className={`${statusTagItemsColors[status]} inline-flex items-center px-3 py-1 font-medium `}
         >
-          {statusTags}
+          {status}
         </span>
       </div>
     </div>

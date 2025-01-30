@@ -39,7 +39,6 @@ const InfoSection = ({ settingsInfo }: { settingsInfo: SettingsResponse }) => {
   useEffect(() => {
     setSettingsForm({
       ...settingsInfo,
-      links: settingsInfo?.links?.map((el) => el.url),
     });
   }, [settingsInfo]);
 
@@ -104,14 +103,10 @@ const InfoSection = ({ settingsInfo }: { settingsInfo: SettingsResponse }) => {
                 <PlusIcon width={24} />
               </button>
             </SettingsSection.InputWithLabel>
+            {/* 링크 */}
             <div className='flex flex-col gap-2'>
               <label className='text-[15px] font-medium'>링크</label>
-              <LinkBox
-                links={settingsForm.links}
-                setLinks={(value) =>
-                  setSettingsForm({ ...settingsForm, links: value })
-                }
-              />
+              <LinkBox links={settingsForm.links} />
             </div>
           </div>
         </SettingsSection.Content>

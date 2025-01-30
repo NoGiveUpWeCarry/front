@@ -4,6 +4,7 @@ import {
   meetingTagItemsColors,
   meetingTagItemskey,
 } from '@/constants/hub/meetingTagItems';
+import { roleItemsKey } from '@/constants/hub/roleItems';
 import {
   roleTagItems,
   roleTagItemsColors,
@@ -15,37 +16,38 @@ import {
 } from '@/constants/hub/statusTagItems';
 
 interface HubBodyProps {
-  meetingTags: meetingTagItemskey;
-  roleTags: roleTagItemsKey[];
-  statusTags: statusTagItemskey;
-  role: RoleProps['role'];
+  workType: meetingTagItemskey;
+  detailRoles: roleTagItemsKey[];
+  status: statusTagItemskey;
+  role: roleItemsKey;
   startDate: string;
   duration: string;
 }
 
 const HubBody = ({
-  meetingTags,
-  roleTags,
+  workType,
+  detailRoles = [],
   role,
   startDate,
-  statusTags,
+  status,
   duration,
 }: HubBodyProps) => {
+  console.log('📌 현재 status 값:', status);
+  console.log('📌 적용된 배경 클래스:', statusTagItemsColors[status]);
   return (
     <div className='flex flex-col gap-[20px]'>
       <div className='flex w-full items-center gap-[20px]'>
         <Role role={role} />
 
         <div className='flex gap-[10px] items-center'>
-          {/* NOTE: 태그가 한글이 아닌 경우는 표시하지 않도록 수정 */}
-          {roleTags
+          {detailRoles
             ?.filter((el) => roleTagItems[el])
-            .map((roleTag) => (
+            .map((detailRoles) => (
               <span
-                key={roleTag}
-                className={`${roleTagItemsColors[roleTag]} bg-[#eaeaea] inline-flex items-center px-3 py-1`}
+                key={detailRoles}
+                className={`${roleTagItemsColors[detailRoles]} bg-[#eaeaea] inline-flex items-center px-3 py-1`}
               >
-                {roleTagItems[roleTag]}
+                {roleTagItems[detailRoles]}
               </span>
             ))}
         </div>
@@ -54,16 +56,16 @@ const HubBody = ({
         <ContentsTime startDate={startDate} duration={duration} />
       </div>
 
-      <div className='flex gap-[10px] text-white'>
+      <div className='flex gap-[10px]'>
         <span
-          className={`${meetingTagItemsColors[meetingTags]} inline-flex items-center px-3 py-1 font-medium`}
+          className={`${meetingTagItemsColors[workType]} inline-flex items-center px-3 py-1 font-medium text-white`}
         >
-          {meetingTags}
+          {workType}
         </span>
         <span
-          className={`${statusTagItemsColors[statusTags]} inline-flex items-center px-3 py-1 font-medium `}
+          className={`${statusTagItemsColors[status]} inline-flex items-center px-3 py-1 font-medium text-white`}
         >
-          {statusTags}
+          {status}
         </span>
       </div>
     </div>

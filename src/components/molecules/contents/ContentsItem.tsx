@@ -1,60 +1,68 @@
 import { HubFooter } from '@/components/molecules/contents/ContentsFooter';
-import ContentsUser from '@/components/molecules/contents/ContentsUser';
-import { RoleProps } from '@/components/atoms/Role';
 import HubItem from '@/components/molecules/contents/HubItem';
 import { HubTagItemsKey } from '@/constants/hub/hubTagItems';
 import { roleTagItemsKey } from '@/constants/hub/roleTagsItems';
 import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
 import { statusTagItemskey } from '@/constants/hub/statusTagItems';
+import { roleItemsKey } from '@/constants/hub/roleItems';
+import ContentsHubUser from '@/components/molecules/contents/ContentsHubUser';
 
 // 허브 컨텐츠
 interface HubContentsProps {
   title: string;
-  hubTags?: HubTagItemsKey;
-  meetingTags?: meetingTagItemskey;
-  roleTags?: roleTagItemsKey[];
-  statusTags?: statusTagItemskey;
-  role: RoleProps['role'];
+  hubType: HubTagItemsKey;
+  workType: meetingTagItemskey;
+  detailRoles: roleTagItemsKey[];
+  status: statusTagItemskey;
+  role: roleItemsKey;
   startDate: string;
   duration: string;
-  bookmarkCount: number;
-  userCount: number;
-  viewsCount: number;
+  bookMarkCount: number;
+  applyCount: number;
+  viewCount: number;
   thumbnailUrl?: string;
+  createdAt: string;
+  projectId: number;
   // 유저
-  user?: {
-    userProfileUrl: string;
-    userNickname: string;
-    userRole: string;
-    createdAt: string;
+  user: {
+    userId?: number;
+    profileUrl: string;
+    nickname: string;
+    role: string;
   };
   hideUser?: boolean;
+  isOwnConnectionHub?: boolean;
 }
 
 export const HubContents = ({
   title,
-  meetingTags,
-  statusTags,
-  roleTags,
-  hubTags,
+  workType,
+  status,
+  detailRoles,
+  hubType,
   role,
-  bookmarkCount,
-  userCount,
-  viewsCount,
+  bookMarkCount,
+  applyCount,
+  viewCount,
   thumbnailUrl,
   user,
   startDate,
   duration,
   hideUser,
+  createdAt,
+  projectId,
+  isOwnConnectionHub,
 }: HubContentsProps) => {
   return (
     <div className='flex flex-col w-full gap-[20px]'>
       {!hideUser && (
-        <ContentsUser
-          userProfileUrl={user!.userProfileUrl}
-          name={user!.userNickname}
-          userRole={user!.userRole}
-          createdAt={user!.createdAt}
+        <ContentsHubUser
+          profileUrl={user!.profileUrl}
+          nickname={user!.nickname}
+          role={user!.role}
+          createdAt={createdAt}
+          isOwnConnectionHub={isOwnConnectionHub}
+          projectId={projectId}
         />
       )}
       <div className='w-full'>
@@ -62,10 +70,10 @@ export const HubContents = ({
           <div className='flex flex-col gap-[20px]'>
             <HubItem
               title={title}
-              hubTags={hubTags!}
-              statusTags={statusTags!}
-              meetingTags={meetingTags!}
-              roleTags={roleTags!}
+              hubType={hubType!}
+              status={status!}
+              workType={workType!}
+              detailRoles={detailRoles!}
               role={role}
               thumbnailUrl={thumbnailUrl}
               startDate={startDate}
@@ -73,9 +81,10 @@ export const HubContents = ({
             />
 
             <HubFooter
-              bookmarkCount={bookmarkCount}
-              userCount={userCount}
-              viewsCount={viewsCount}
+              bookMarkCount={bookMarkCount}
+              applyCount={applyCount}
+              viewCount={viewCount}
+              projectId={projectId}
             />
           </div>
         </div>

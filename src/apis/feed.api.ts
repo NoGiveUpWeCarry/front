@@ -149,7 +149,6 @@ export const postFeed = async (
   tags: string[],
   content: string
 ) => {
-  console.log('피드 작성 요청됨');
   const apiPath = API_PATH.feed;
   const response = await fetcher({
     url: apiPath,
@@ -167,11 +166,9 @@ export const deleteFeedChat = async (
   postId: Post['postId'],
   commentId: Comment['commentId']
 ) => {
-  console.log('deleteFeedChat 요청됨');
   const apiPath = API_PATH.feedChatDelete
     .replace(':id', postId.toString())
     .replace(':commentId', commentId.toString());
-  console.log('apiPath: ', apiPath);
   const response = await fetcher({
     url: apiPath,
     method: 'DELETE',
@@ -186,7 +183,6 @@ export const patchFeedLike = async (id: Post['postId']) => {
     url: apiPath,
     method: 'POST',
   });
-  console.log(response.data.message); // { code: 200, message: "좋아요가 취소되었습니다." }
   return response.data;
 };
 
@@ -198,7 +194,6 @@ export const putFeed = async (
   content: string
 ) => {
   const apiPath = `${API_PATH.feed}/${id}`;
-  console.log('피드 수정 apiPath: ', apiPath);
   const response = await fetcher({
     url: apiPath,
     method: 'PUT',
