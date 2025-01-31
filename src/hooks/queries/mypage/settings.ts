@@ -15,7 +15,7 @@ import {
   updateProfileImage,
   updateStatus,
 } from '@/apis/mypage';
-import queryClient from '@/utils/queryClient';
+import { querySuccessHandler } from '@/utils/querySuccessHandler';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 export const useGetSettingsInfo = () => {
@@ -25,8 +25,8 @@ export const useGetSettingsInfo = () => {
   });
 };
 
-export const successHandler = () => {
-  queryClient.invalidateQueries({ queryKey: ['settings-info'] });
+const successHandler = () => {
+  querySuccessHandler('settings-info');
 };
 
 export const useUpdateNickname = () => {

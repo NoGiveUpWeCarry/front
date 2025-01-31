@@ -10,7 +10,7 @@ import {
 } from '@/hooks/queries/mypage/introduce';
 import { useAddProjectFormStore } from '@/store/addProjectFormStore';
 import { useMyPageStore } from '@/store/mypageStore';
-import queryClient from '@/utils/queryClient';
+import { querySuccessHandler } from '@/utils/querySuccessHandler';
 import { CameraIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
 import { ChangeEvent, useRef } from 'react';
 import { useShallow } from 'zustand/shallow';
@@ -38,9 +38,7 @@ const AddProjectModal = ({
   };
 
   const successHandler = () => {
-    queryClient.invalidateQueries({
-      queryKey: ['profile-info', nickname],
-    });
+    querySuccessHandler('profile-info', [nickname]);
     resetProjectForm();
     onClose();
   };

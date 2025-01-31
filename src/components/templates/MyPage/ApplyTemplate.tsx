@@ -9,7 +9,7 @@ import {
 import { useApplyFormStore } from '@/store/applyFormStore';
 import useAuthStore from '@/store/authStore';
 import { useMyPageStore } from '@/store/mypageStore';
-import queryClient from '@/utils/queryClient';
+import { querySuccessHandler } from '@/utils/querySuccessHandler';
 import { FormEvent, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
@@ -66,10 +66,7 @@ const ApplyTemplate = () => {
         },
         {
           onSuccess: () => {
-            queryClient.invalidateQueries({
-              queryKey: ['get-resume'],
-              ownerId,
-            });
+            querySuccessHandler('get-resume', [ownerId]);
             setIsEditing(false);
           },
         }
@@ -84,10 +81,7 @@ const ApplyTemplate = () => {
         },
         {
           onSuccess: () => {
-            queryClient.invalidateQueries({
-              queryKey: ['get-resume'],
-              ownerId,
-            });
+            querySuccessHandler('get-resume', [ownerId]);
             setIsEditing(false);
           },
         }

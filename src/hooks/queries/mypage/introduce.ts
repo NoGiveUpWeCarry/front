@@ -9,13 +9,11 @@ import {
   updateGithubNickname,
   updateProject,
 } from '@/apis/mypage';
-import queryClient from '@/utils/queryClient';
+import { querySuccessHandler } from '@/utils/querySuccessHandler';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 const successHandler = (nickname: string) => {
-  queryClient.invalidateQueries({
-    queryKey: ['profile-info', nickname],
-  });
+  querySuccessHandler('profile-info', [nickname]);
 };
 
 export const useGetProfileHeader = (nickname: string) => {
