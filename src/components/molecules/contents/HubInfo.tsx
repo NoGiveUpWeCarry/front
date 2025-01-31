@@ -2,6 +2,7 @@ import Icon from '@/components/atoms/Icon';
 import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
 import { roleItemsKey } from '@/constants/hub/roleItems';
 import { roleTagItemsKey } from '@/constants/hub/roleTagsItems';
+import { useNavigate } from 'react-router-dom';
 
 export interface HubInfoProps {
   startDate: string;
@@ -18,10 +19,13 @@ const HubInfo = ({
   role,
   detailRoles,
 }: HubInfoProps) => {
+  const navigate = useNavigate();
+
   const formatDate = (isoDate: string): string => {
     const date = new Date(isoDate);
     return date.toISOString().split('T')[0];
   };
+
   return (
     <div className='flex flex-col gap-[20px]'>
       <div className='flex gap-[20px] items-center'>
@@ -42,7 +46,13 @@ const HubInfo = ({
             <div className='flex gap-[10px] text-[14px] items-center'>&gt;</div>
             <div className='flex gap-[10px] text-[14px]'>
               {detailRoles.map((tag, index) => (
-                <div key={index}>
+                <div
+                  key={index}
+                  className='hover:text-[#525252] hover:cursor-pointer'
+                  onClick={() => {
+                    navigate(`/search?q=${tag}`);
+                  }}
+                >
                   {tag}
                   {index !== detailRoles.length - 1 && ','}
                 </div>
