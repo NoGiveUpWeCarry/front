@@ -27,7 +27,7 @@ interface HubDetailProps {
   duration: string;
   content: string;
   createdAt: string;
-  projectId: number;
+  // projectId: number;
   manager: {
     userId?: number;
     profileUrl: string;
@@ -52,17 +52,15 @@ const HubDetail = ({
   manager,
   createdAt,
   isOwnConnectionHub,
-  projectId,
+  // projectId,
 }: HubDetailProps) => {
   return (
     <div className='flex flex-col w-full gap-[20px]'>
       <ContentsUser
-        profileUrl={manager.profileUrl}
-        nickname={manager.nickname}
-        role={manager.role}
+        userProfileUrl={manager.profileUrl}
+        name={manager.nickname}
+        userRole={manager.role!}
         createdAt={createdAt}
-        isOwnConnectionHub={isOwnConnectionHub}
-        projectId={projectId}
       />
 
       <div className='flex flex-col w-full bg-white rounded-[20px] p-[20px]'>
