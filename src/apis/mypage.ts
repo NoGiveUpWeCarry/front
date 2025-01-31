@@ -231,6 +231,7 @@ export interface Project {
   bookmarkCount: number;
   viewCount: number;
   status: statusTagItemskey;
+  createdAt: string;
 }
 
 export interface HubResponse {
