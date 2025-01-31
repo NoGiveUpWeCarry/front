@@ -7,6 +7,7 @@ import { useTabs } from '@/hooks/useTabs';
 import { useMyPageStore } from '@/store/mypageStore';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
 
 const FollowersModal = ({
@@ -14,6 +15,8 @@ const FollowersModal = ({
   type,
   isOpen,
 }: ModalProps & { type: 'followers' | 'following'; isOpen: boolean }) => {
+  const navigate = useNavigate();
+
   const [ownerId] = useMyPageStore(useShallow((state) => [state.ownerId]));
   const { tabs, active, setActive } = useTabs(['팔로워', '팔로잉']);
 
@@ -21,19 +24,21 @@ const FollowersModal = ({
     setActive(type === 'followers' ? '팔로워' : '팔로잉');
   }, [setActive, type]);
 
-  const { data: followers } = useGetFollows({
+  const { data, refetch } = useGetFollows({
     userId: ownerId,
-    type: 'followers',
+    type: active === '팔로워' ? 'followers' : 'following',
   });
-  const { data: followings } = useGetFollows({
-    userId: ownerId,
-    type: 'following',
-  });
+
+  console.log(data);
+
+  useEffect(() => {
+    refetch();
+  }, [active]);
 
   if (!isOpen) return null;
 
   return (
-    <Modal onClose={onClose} className='!px-5 !pt-4 w-[320px]'>
+    <Modal onClose={onClose} className='!px-5 !pt-4 w-[320px] min-h-[440px]'>
       <div className='w-full'>
         <div className='flex'>
           {tabs.map((item) => (
@@ -46,38 +51,41 @@ const FollowersModal = ({
             </button>
           ))}
         </div>
-        <div className='mt-4'>
-          {active === '팔로워'
-            ? followers?.followerUsers?.map((user) => (
-                <ListItem className='px-[10px] h-12 flex items-center relative'>
-                  <ListItem.Col>
+        <div className='mt-4 flex flex-col gap-3 h-full overflow-y-scroll'>
+          {data?.length! > 0 ? (
+            data?.map((user) => (
+              <ListItem
+                key={user.userId}
+                className='px-[10px] h-12 flex items-center relative hover:bg-[#f3f3f3] cursor-pointer rounded-md'
+                onClick={() => {
+                  onClose();
+                  navigate(`/@${user.nickname}`);
+                }}
+              >
+                <ListItem.Col>
+                  {user?.profileUrl ? (
                     <Avatar size='xs' src={user?.profileUrl} />
-                  </ListItem.Col>
-                  <ListItem.Col className='ml-[10px]'>
-                    <ListItem.Label className='text-[12px] font-medium'>
-                      {user?.nickname}
-                    </ListItem.Label>
-                  </ListItem.Col>
-                  <ListItem.Col className='absolute right-0 top-1/2 transform -translate-y-1/2'>
-                    <CursorArrowRaysIcon width={20} />
-                  </ListItem.Col>
-                </ListItem>
-              ))
-            : followings?.followerUsers?.map((user) => (
-                <ListItem className='px-[10px] h-12 flex items-center relative'>
-                  <ListItem.Col>
-                    <Avatar size='xs' src={user?.profileUrl} />
-                  </ListItem.Col>
-                  <ListItem.Col className='ml-[10px]'>
-                    <ListItem.Label className='text-[12px] font-medium'>
-                      {user?.nickname}
-                    </ListItem.Label>
-                  </ListItem.Col>
-                  <ListItem.Col className='absolute right-0 top-1/2 transform -translate-y-1/2'>
-                    <CursorArrowRaysIcon width={20} />
-                  </ListItem.Col>
-                </ListItem>
-              ))}
+                  ) : (
+                    <div className='w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center overflow-hidden'>
+                      <img src='/src/assets/logos/PAD.svg' width={22} />
+                    </div>
+                  )}
+                </ListItem.Col>
+                <ListItem.Col className='ml-[10px]'>
+                  <ListItem.Label className='text-[12px] font-medium'>
+                    {user?.nickname}
+                  </ListItem.Label>
+                </ListItem.Col>
+                <ListItem.Col className='absolute right-0 top-1/2 transform -translate-y-1/2 pr-1'>
+                  <CursorArrowRaysIcon width={20} />
+                </ListItem.Col>
+              </ListItem>
+            ))
+          ) : (
+            <div className='text-[12px] text-gray-600 font-light h-100% flex justify-center items-center'>
+              팔로워가 없습니다.
+            </div>
+          )}
         </div>
       </div>
     </Modal>

@@ -6,7 +6,9 @@ interface ListItemProps extends PropsWithChildren {
 
 export interface ListItemColProps extends ListItemProps {}
 
-export interface ItemMainProps extends ListItemProps {}
+export interface ItemMainProps extends ListItemProps {
+  onClick?: () => void;
+}
 
 export interface ItemTitleProps extends ListItemProps {}
 
