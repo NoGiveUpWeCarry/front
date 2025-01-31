@@ -10,11 +10,17 @@ import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
 
+const LINK_ICONS = {
+  github: '/src/assets/icons/github.svg',
+  notion: '/src/assets/icons/notion.svg',
+  linkedin: '/src/assets/icons/linkedin.svg',
+};
+
 const MyPageHeader = () => {
   const location = useLocation();
   const nickname = location.pathname.slice(2);
 
-  const { data: headerData } = useGetProfileHeader(nickname);
+  const { data: headerData, isLoading } = useGetProfileHeader(nickname);
   const { isMyPage, setIsMyPage, setRole, setOwnerId, setNickname } =
     useMyPageStore(useShallow((state) => state));
 
@@ -28,9 +34,7 @@ const MyPageHeader = () => {
     if (headerData?.userId) {
       setOwnerId(headerData?.userId);
     }
-  }, [headerData]);
 
-  useEffect(() => {
     if (headerData) {
       setRole(headerData?.role);
       setIsMyPage(!!headerData?.isOwnProfile);
@@ -50,38 +54,59 @@ const MyPageHeader = () => {
         </div>
       )}
 
-      <div className='flex-1 flex flex-col gap-5 justify-center relative'>
-        <div className='flex items-center gap-[10px] h-[29px]'>
-          <h1 className='text-heading2 font-semibold'>
-            {headerData?.nickname}
-          </h1>
-          {!isMyPage && <FollowButton isFollowing />}
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <div className='flex-1 flex flex-col gap-5 justify-center relative'>
+          <div className='flex items-center gap-[10px] h-[29px]'>
+            <h1 className='text-heading2 font-semibold'>
+              {headerData?.nickname}
+            </h1>
+            {!isMyPage && <FollowButton isFollowing />}
+          </div>
+          <p
+            className={cn(
+              'text-body1 font-regular line-clamp-2',
+              headerData?.introduce ? 'text-black' : 'text-[#838383]'
+            )}
+          >
+            {headerData?.introduce || '한 줄 소개가 없습니다.'}
+          </p>
+          <div className='flex gap-3 items-center'>
+            {headerData?.userLinks.map((link) => {
+              const items = Object.keys(LINK_ICONS).filter((el) =>
+                link.includes(el)
+              )[0];
+
+              if (items.length) {
+                return (
+                  <Link to={link} key={link}>
+                    <img
+                      src={LINK_ICONS[items as keyof typeof LINK_ICONS]}
+                      width={20}
+                      height={20}
+                    />
+                  </Link>
+                );
+              }
+              return (
+                <Link to={link} key={link}>
+                  <LinkIcon width={20} height={20} />
+                </Link>
+              );
+            })}
+          </div>
+          <div className='absolute right-0 top-0'>
+            {isMyPage ? (
+              <Link to='/settings'>
+                <Cog6ToothIcon width={24} />
+              </Link>
+            ) : (
+              <MessageButton targetUserId={6} />
+            )}
+          </div>
         </div>
-        <p
-          className={cn(
-            'text-body1 font-regular line-clamp-2',
-            headerData?.introduce ? 'text-black' : 'text-[#838383]'
-          )}
-        >
-          {headerData?.introduce || '한 줄 소개가 없습니다.'}
-        </p>
-        <div className='flex gap-3 items-center'>
-          {headerData?.userLinks.map((link) => (
-            <button key={link}>
-              <LinkIcon width={20} height={20} />
-            </button>
-          ))}
-        </div>
-        <div className='absolute right-0 top-0'>
-          {isMyPage ? (
-            <Link to='/settings'>
-              <Cog6ToothIcon width={24} />
-            </Link>
-          ) : (
-            <MessageButton targetUserId={6} />
-          )}
-        </div>
-      </div>
+      )}
     </div>
   );
 };
