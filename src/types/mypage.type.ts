@@ -34,7 +34,7 @@ export interface IntroductionSection {
 }
 
 export interface FollowUsers {
-  id: number;
+  userId: number;
   nickname: string;
   profileUrl: string;
 }
