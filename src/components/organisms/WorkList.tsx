@@ -49,7 +49,7 @@ WorkList.Github = function Github({
 
   return (
     <>
-      {(changeGithubId || originId === null) && (
+      {isMyPage && (changeGithubId || !githubId) && (
         <div className='flex flex-col items-center justify-center bg-white border border-[#e1e1e1] rounded-[5px] pb-[10px] pt-4 h-[158px]'>
           <span className='text-[15px] font-medium text-[#838383]'>
             깃허브 계정을 연결해주세요
@@ -78,19 +78,32 @@ WorkList.Github = function Github({
               깃허브 아이디 변경하기 <ChevronRightIcon width={12} />
             </button>
           )}
-          <Link
-            to={`https://github.com/${githubId}`}
-            className='flex justify-center bg-white border border-[#e1e1e1] rounded-[5px] pb-[10px] pt-4 relative'
-          >
-            <GitHubCalendar
-              username={originId}
-              blockSize={9.4}
-              fontSize={11}
-              showWeekdayLabels
-              blockMargin={3.2}
-              loading={loading}
-            />
-          </Link>
+          {githubId?.length > 0 ? (
+            <Link
+              to={`https://github.com/${githubId}`}
+              className='flex justify-center bg-white border border-[#e1e1e1] rounded-[5px] pb-[10px] pt-4 relative'
+            >
+              <GitHubCalendar
+                username={originId}
+                blockSize={9.4}
+                fontSize={11}
+                showWeekdayLabels
+                blockMargin={3.2}
+                loading={loading}
+              />
+            </Link>
+          ) : (
+            <div className='flex justify-center bg-white border border-[#e1e1e1] rounded-[5px] pb-[10px] pt-4 relative'>
+              <GitHubCalendar
+                username={originId}
+                blockSize={9.4}
+                fontSize={11}
+                showWeekdayLabels
+                blockMargin={3.2}
+                loading={loading}
+              />
+            </div>
+          )}
         </>
       )}
     </>
