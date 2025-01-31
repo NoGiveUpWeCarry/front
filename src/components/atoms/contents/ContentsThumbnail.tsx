@@ -10,7 +10,7 @@ const ContentsThumbnail = ({
   alt = '',
 }: ContentsThumbnailProps) => {
   return (
-    <div className='flex w-full h-full'>
+    <div className='flex w-full max-h-[110px]'>
       {thumbnailUrl ? (
         <img
           src={thumbnailUrl}

@@ -29,7 +29,7 @@ const FeedItem = ({
     >
       <FeedBody title={title} content={content} tags={tags} />
       {thumnailUrl && (
-        <div className='w-[180px] flex-shrink-0'>
+        <div className='w-[180px] flex-shrink-0 max-h-[110px]'>
           <ContentsThumbnail thumbnailUrl={thumnailUrl} />
         </div>
       )}
