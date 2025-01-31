@@ -7,7 +7,6 @@ import {
   useUpdateResume,
 } from '@/hooks/queries/mypage/apply';
 import { useApplyFormStore } from '@/store/applyFormStore';
-import useAuthStore from '@/store/authStore';
 import { useMyPageStore } from '@/store/mypageStore';
 import { querySuccessHandler } from '@/utils/querySuccessHandler';
 import { FormEvent, useEffect } from 'react';
@@ -15,8 +14,7 @@ import { Link } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
 
 const ApplyTemplate = () => {
-  const [ownerId] = useMyPageStore(useShallow((state) => [state.ownerId]));
-  const [userInfo] = useAuthStore(useShallow((state) => [state.userInfo]));
+  const { ownerId } = useMyPageStore(useShallow((state) => state));
 
   const {
     isEditing,
@@ -27,7 +25,7 @@ const ApplyTemplate = () => {
     resetApplyForm,
   } = useApplyFormStore(useShallow((state) => state));
 
-  const { data: originResume } = useGetResume(userInfo?.userId!);
+  const { data: originResume } = useGetResume(ownerId!);
   const { mutate: saveResume } = useMakeResume();
   const { mutate: updateResume } = useUpdateResume();
 
