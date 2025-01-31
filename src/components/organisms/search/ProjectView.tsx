@@ -1,7 +1,5 @@
 import { RoleProps } from '@/components/atoms/Role';
 import { HubContents } from '@/components/molecules/contents/ContentsItem';
-import { HubTagItemsKey } from '@/constants/hub/hubTagItems';
-import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
 import { roleTagItemsKey } from '@/constants/hub/roleTagsItems';
 import { statusTagItemskey } from '@/constants/hub/statusTagItems';
 import { useSearchConnectionHub } from '@/hooks/queries/search.query';
@@ -31,28 +29,21 @@ const ProjectView = ({ keyword }: { keyword: string }) => {
   ) : (
     <div className='flex flex-col gap-10'>
       {hubs?.pages[0].projects?.map((project) => (
-        <Link to={`/connectionhub/${project.projectId}`}>
+        <Link to={`/projects/${project.projectId}`}>
           <HubContents
             key={project.projectId}
             {...project}
             user={{
-              userProfileUrl: project.userProfileUrl,
-              userNickname: project.userNickname,
-              userRole: project.userRole,
-              createdAt: project.createdAt,
+              profileUrl: project.userProfileUrl,
+              nickname: project.userNickname,
+              role: project.userRole,
             }}
             title={project.title}
-            meetingTags={project.workType as meetingTagItemskey}
-            statusTags={project.status as statusTagItemskey}
-            hubTags={project.hubType as HubTagItemsKey}
-            roleTags={
-              (project.detailRoles || project.skills) as roleTagItemsKey[]
-            }
+            workType={project.workType === '온라인' ? 'ONLINE' : 'OFFLINE'}
+            hubType={project.hubType === '프로젝트' ? 'PROJECT' : 'OUTSOURCING'}
+            detailRoles={project.detailRoles as roleTagItemsKey[]}
             role={project.role as RoleProps['role']}
-            bookmarkCount={project.bookMarkCount}
-            userCount={project.applyCount}
-            viewsCount={project.viewCount}
-            thumbnailUrl={project.userProfileUrl}
+            status={project.status as statusTagItemskey}
           />
         </Link>
       ))}

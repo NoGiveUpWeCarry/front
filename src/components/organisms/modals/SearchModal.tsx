@@ -111,7 +111,7 @@ const SearchModal = ({ onClose }: ModalProps) => {
                   type='hub'
                   title='커넥션 허브'
                   onNavigate={(id) => {
-                    navigate(`/connectionhub/${id}?from=search`);
+                    navigate(`/projects/${id}?from=search`);
                     onClose();
                   }}
                   isFirstTab={active === '전체'}
