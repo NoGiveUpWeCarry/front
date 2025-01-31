@@ -47,9 +47,11 @@ WorkList.Github = function Github({
     );
   };
 
+  console.log(isMyPage, githubId);
+
   return (
     <>
-      {isMyPage && (changeGithubId || !githubId) && (
+      {isMyPage && changeGithubId && (
         <div className='flex flex-col items-center justify-center bg-white border border-[#e1e1e1] rounded-[5px] pb-[10px] pt-4 h-[158px]'>
           <span className='text-[15px] font-medium text-[#838383]'>
             깃허브 계정을 연결해주세요
