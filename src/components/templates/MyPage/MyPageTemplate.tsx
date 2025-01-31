@@ -4,7 +4,9 @@ import ApplyTemplate from '@/components/templates/MyPage/ApplyTemplate';
 import ConnectionHubTemplate from '@/components/templates/MyPage/ConnectionHubTemplate';
 import FeedTemplate from '@/components/templates/MyPage/FeedTemplate';
 import IntroductionTemplate from '@/components/templates/MyPage/IntroductionTemplate';
+import { useApplyFormStore } from '@/store/applyFormStore';
 import { useMyPageTabsStore } from '@/store/myTabsStore';
+import { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
 
 const MyPageTabs = Object.assign({
@@ -21,6 +23,14 @@ const MyPageTemplate = () => {
 
   const currentTab = activeTab as keyof typeof MyPageTabs;
   const ActiveComponent = MyPageTabs[currentTab];
+
+  const { resetApplyForm } = useApplyFormStore(useShallow((state) => state));
+
+  useEffect(() => {
+    return () => {
+      resetApplyForm();
+    };
+  }, [resetApplyForm]);
 
   return (
     <div className='w-full min-h-screen max-w-[1920px] bg-background'>
