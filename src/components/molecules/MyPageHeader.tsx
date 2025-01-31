@@ -7,7 +7,7 @@ import { useMyPageStore } from '@/store/mypageStore';
 
 import { Cog6ToothIcon, LinkIcon } from '@heroicons/react/16/solid';
 import { useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
 
 const LINK_ICONS = {
@@ -17,12 +17,20 @@ const LINK_ICONS = {
 };
 
 const MyPageHeader = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const nickname = location.pathname.slice(2);
 
-  const { data: headerData, isLoading } = useGetProfileHeader(nickname);
+  const { data: headerData, isLoading, error } = useGetProfileHeader(nickname);
   const { isMyPage, setIsMyPage, setRole, setOwnerId, setNickname } =
     useMyPageStore(useShallow((state) => state));
+
+  useEffect(() => {
+    if (error?.response?.data.statusCode === 404) {
+      alert('존재하지 않는 사용자입니다.');
+      navigate(-1);
+    }
+  }, [error]);
 
   useEffect(() => {
     if (nickname) {
@@ -62,7 +70,13 @@ const MyPageHeader = () => {
             <h1 className='text-heading2 font-semibold'>
               {headerData?.nickname}
             </h1>
-            {!isMyPage && <FollowButton isFollowing />}
+            {!isMyPage && (
+              <FollowButton
+                isFollowing={headerData?.isFollowing!}
+                nickname={headerData?.nickname!}
+                userId={headerData?.userId!}
+              />
+            )}
           </div>
           <p
             className={cn(
@@ -78,7 +92,7 @@ const MyPageHeader = () => {
                 link.includes(el)
               )[0];
 
-              if (items.length) {
+              if (items?.length) {
                 return (
                   <Link to={link} key={link}>
                     <img
