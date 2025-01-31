@@ -50,7 +50,7 @@ const StatusDropdown = () => {
       {
         onSuccess: () => {
           successHandler();
-          onClickOption();
+          onClickOption({ id });
         },
       }
     );
@@ -68,6 +68,7 @@ const StatusDropdown = () => {
       </button>
       {openDropdown && (
         <Dropdown
+          type='status'
           options={options}
           // focusedIndex={focusedIndex!}
           // setFocusedIndex={setFocusedIndex}

@@ -5,19 +5,19 @@ export interface IDropdown {
   label: string;
 }
 
-export const useDropdown = <T = IDropdown>({
+export const useDropdown = <T extends IDropdown = IDropdown>({
   data,
   initialValue,
 }: {
   data: T[];
-  initialValue: T;
+  initialValue: T | null;
 }) => {
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [openDropdown, setOpenDropdown] = useState(false);
   const [selectedOption, setSelectedOption] = useState(initialValue);
 
-  const onClickOption = () => {
-    setSelectedOption(data[focusedIndex!]);
+  const onClickOption = ({ id }: Pick<IDropdown, 'id'>) => {
+    setSelectedOption(data.find((el) => el.id === id) ?? null);
     setOpenDropdown(false);
   };
 
@@ -31,5 +31,6 @@ export const useDropdown = <T = IDropdown>({
     onClickOption,
     toggleDropdown,
     setFocusedIndex,
+    setOpenDropdown,
   };
 };
