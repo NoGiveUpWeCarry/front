@@ -102,7 +102,7 @@ const MyPageHeader = () => {
                 <Cog6ToothIcon width={24} />
               </Link>
             ) : (
-              <MessageButton targetUserId={6} />
+              <MessageButton targetUserId={headerData?.userId!} />
             )}
           </div>
         </div>
