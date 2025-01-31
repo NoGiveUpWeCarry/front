@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
 
 const ApplyTemplate = () => {
-  const { ownerId } = useMyPageStore(useShallow((state) => state));
+  const { ownerId, isMyPage } = useMyPageStore(useShallow((state) => state));
 
   const {
     isEditing,
@@ -89,7 +89,7 @@ const ApplyTemplate = () => {
 
   return (
     <div className='flex flex-col gap-[17px]'>
-      {isEditing ? (
+      {isMyPage && isEditing && (
         <form onSubmit={handleSubmit}>
           <ApplyFormSection>
             <ApplyFormSection.Input
@@ -138,7 +138,8 @@ const ApplyTemplate = () => {
             </Button>
           </div>
         </form>
-      ) : (
+      )}
+      {!isEditing && (
         <div>
           <div className='border border-[#D9D9D9] flex flex-col gap-[10px] rounded-[10px] p-[30px] text-[15px] text-black'>
             <span className='font-light'>
@@ -168,19 +169,21 @@ const ApplyTemplate = () => {
             <HorizontalDivider className='my-5' />
             <span className='font-light'>{applyForm.detail}</span>
           </div>
-          <div className='flex gap-[17px] justify-center my-5'>
-            <Button
-              type='submit'
-              width='227px'
-              height='36px'
-              variants='outline'
-              radius='sm'
-              className='border border-[#838383]'
-              onClick={() => setIsEditing(true)}
-            >
-              수정
-            </Button>
-          </div>
+          {isMyPage && (
+            <div className='flex gap-[17px] justify-center my-5'>
+              <Button
+                type='submit'
+                width='227px'
+                height='36px'
+                variants='outline'
+                radius='sm'
+                className='border border-[#838383]'
+                onClick={() => setIsEditing(true)}
+              >
+                수정
+              </Button>
+            </div>
+          )}
         </div>
       )}
     </div>
