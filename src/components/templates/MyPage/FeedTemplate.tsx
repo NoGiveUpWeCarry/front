@@ -32,7 +32,7 @@ const FeedTemplate = () => {
       {data?.pages.map((page) => {
         let lastDate = '';
         return page.feeds.map((feed) => {
-          const currentDate = new Date(feed.createdAt).toLocaleDateString();
+          const currentDate = feed.createdAt.split('T')[0];
           const showDate = currentDate !== lastDate;
           lastDate = currentDate;
           return (

@@ -67,7 +67,7 @@ const ConnectionHubTemplate = () => {
       {data?.pages.map((page) => {
         let lastDate = '';
         return page.projects.map((project) => {
-          const currentDate = new Date(project.startDate).toLocaleDateString();
+          const currentDate = project.createdAt.split('T')[0];
           const showDate = currentDate !== lastDate;
           lastDate = currentDate;
           return (
@@ -75,7 +75,7 @@ const ConnectionHubTemplate = () => {
               {showDate && (
                 <DateText
                   hasBg
-                  date={project.startDate}
+                  date={project.createdAt}
                   className='mb-[28px]'
                 />
               )}
