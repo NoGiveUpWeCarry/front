@@ -1,9 +1,7 @@
 import SettingsSection from '@/components/organisms/settings/SettingsSection';
-import {
-  successHandler,
-  useUpdateNickname,
-} from '@/hooks/queries/mypage/settings';
+import { useUpdateNickname } from '@/hooks/queries/mypage/settings';
 import { useSettingsStore } from '@/store/settingsStore';
+import { querySuccessHandler } from '@/utils/querySuccessHandler';
 import { useState } from 'react';
 import { useShallow } from 'zustand/shallow';
 
@@ -23,7 +21,7 @@ const UsernameInput = () => {
         },
         {
           onSuccess: () => {
-            successHandler();
+            querySuccessHandler('settings-info');
             setIsEditing(false);
           },
         }

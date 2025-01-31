@@ -2,12 +2,9 @@ import Button from '@/components/atoms/Button';
 import Input from '@/components/atoms/Input';
 import Modal from '@/components/organisms/modals/Modal';
 import { ModalProps } from '@/components/organisms/modals/modalProps';
-import {
-  successHandler,
-  useAddSkills,
-  useDeleteSkills,
-} from '@/hooks/queries/mypage/settings';
+import { useAddSkills, useDeleteSkills } from '@/hooks/queries/mypage/settings';
 import { useSettingsStore } from '@/store/settingsStore';
+import { querySuccessHandler } from '@/utils/querySuccessHandler';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { KeyboardEvent, useState } from 'react';
 import { useShallow } from 'zustand/shallow';
@@ -23,6 +20,8 @@ const AddSkillModal = ({ onClose }: ModalProps) => {
 
   const { mutate: addSkills } = useAddSkills();
   const { mutate: deleteSkills } = useDeleteSkills();
+
+  const successHandler = () => querySuccessHandler('settings-info');
 
   const handleSaveSkills = () => {
     addSkills(

@@ -3,11 +3,9 @@ import HorizontalDivider from '@/components/atoms/HorizontalDivider';
 import Modal from '@/components/organisms/modals/Modal';
 import { ModalProps } from '@/components/organisms/modals/modalProps';
 import { ROLE_LIST } from '@/constants/roles';
-import {
-  successHandler,
-  useUpdateDetailJob,
-} from '@/hooks/queries/mypage/settings';
+import { useUpdateDetailJob } from '@/hooks/queries/mypage/settings';
 import { useSettingsStore } from '@/store/settingsStore';
+import { querySuccessHandler } from '@/utils/querySuccessHandler';
 import { useState } from 'react';
 import { useShallow } from 'zustand/shallow';
 
@@ -39,11 +37,7 @@ const SelectDetailJobModal = ({ onClose }: ModalProps) => {
       },
       {
         onSuccess: () => {
-          successHandler();
-          // setSettingsForm({
-          //   ...settingsForm,
-          //   jobDetail: newJob,
-          // });
+          querySuccessHandler('settings-info');
           onClose();
         },
       }

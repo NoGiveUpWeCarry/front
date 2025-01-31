@@ -1,12 +1,10 @@
 import Label from '@/components/atoms/Label';
 import Dropdown from '@/components/molecules/Dropdown';
 import { STATUS_EMOJI } from '@/constants/userStatus';
-import {
-  successHandler,
-  useUpdateStatus,
-} from '@/hooks/queries/mypage/settings';
+import { useUpdateStatus } from '@/hooks/queries/mypage/settings';
 import { IDropdown, useDropdown } from '@/hooks/useDropdown';
 import { useSettingsStore } from '@/store/settingsStore';
+import { querySuccessHandler } from '@/utils/querySuccessHandler';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
@@ -49,7 +47,7 @@ const StatusDropdown = () => {
       { id },
       {
         onSuccess: () => {
-          successHandler();
+          querySuccessHandler('settings-info');
           onClickOption();
         },
       }

@@ -7,13 +7,11 @@ import LinkBox from '@/components/organisms/LinkBox';
 import AddSkillModal from '@/components/organisms/modals/AddSkillModal';
 import SelectDetailJobModal from '@/components/organisms/modals/SelectDetailJobModal';
 import SettingsSection from '@/components/organisms/settings/SettingsSection';
-import {
-  successHandler,
-  useDeleteSkills,
-} from '@/hooks/queries/mypage/settings';
+import { useDeleteSkills } from '@/hooks/queries/mypage/settings';
 import { useModal } from '@/hooks/useModal';
 import { useSettingsStore } from '@/store/settingsStore';
 import { SettingsResponse } from '@/types/mypage.type';
+import { querySuccessHandler } from '@/utils/querySuccessHandler';
 import { PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
@@ -46,7 +44,7 @@ const InfoSection = ({ settingsInfo }: { settingsInfo: SettingsResponse }) => {
     deleteSkills(
       { skillData: [skill] },
       {
-        onSuccess: successHandler,
+        onSuccess: () => querySuccessHandler('settings-info'),
       }
     );
   };

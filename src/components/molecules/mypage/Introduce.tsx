@@ -1,10 +1,8 @@
 import SettingsSection from '@/components/organisms/settings/SettingsSection';
-import {
-  successHandler,
-  useUpdateIntroduction,
-} from '@/hooks/queries/mypage/settings';
+import { useUpdateIntroduction } from '@/hooks/queries/mypage/settings';
 import useDebounce from '@/hooks/useDebounce';
 import { useSettingsStore } from '@/store/settingsStore';
+import { querySuccessHandler } from '@/utils/querySuccessHandler';
 import { useEffect, useState } from 'react';
 import { useShallow } from 'zustand/shallow';
 
@@ -23,7 +21,7 @@ const Introduce = () => {
         { introduce: debouncedIntroduce },
         {
           onSuccess: () => {
-            successHandler();
+            querySuccessHandler('settings-info');
             alert('ok');
           },
         }

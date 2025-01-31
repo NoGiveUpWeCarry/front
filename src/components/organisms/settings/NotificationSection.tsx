@@ -1,8 +1,9 @@
 import { Notification } from '@/apis/mypage';
 import SettingsSection from '@/components/organisms/settings/SettingsSection';
-import { successHandler, useUpdateNoti } from '@/hooks/queries/mypage/settings';
+import { useUpdateNoti } from '@/hooks/queries/mypage/settings';
 import { useToggle } from '@/hooks/useToggle';
 import { SettingsResponse } from '@/types/mypage.type';
+import { querySuccessHandler } from '@/utils/querySuccessHandler';
 import { useEffect } from 'react';
 
 const TOGGLE_TEXT = [
@@ -61,7 +62,7 @@ const NotificationSection = ({
             [type]: !notifications[type],
           },
         },
-        { onSuccess: successHandler }
+        { onSuccess: () => querySuccessHandler('settings-info') }
       );
     });
   };
