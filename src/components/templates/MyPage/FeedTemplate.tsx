@@ -13,7 +13,8 @@ const FeedTemplate = () => {
   const { ref, inView } = useInView();
 
   const { ownerId } = useMyPageStore(useShallow((state) => state));
-  const { data, fetchNextPage, hasNextPage, isFetching } = useGetFeeds(ownerId);
+  const { data, fetchNextPage, hasNextPage, isFetching, isLoading } =
+    useGetFeeds(ownerId);
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetching) {
@@ -23,6 +24,11 @@ const FeedTemplate = () => {
 
   return (
     <div className='flex flex-col gap-[30px] w-full mt-3'>
+      {isLoading && (
+        <div className='flex justify-center text-[13px]'>
+          피드 가져오는 중..
+        </div>
+      )}
       {data?.pages.map((page) => {
         let lastDate = '';
         return page.feeds.map((feed) => {

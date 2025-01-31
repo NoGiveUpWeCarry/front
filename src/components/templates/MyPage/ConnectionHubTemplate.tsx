@@ -21,7 +21,7 @@ const ConnectionHubTemplate = () => {
   const { tabs, active, setActive } = useTabs(Object.values(TAB_DATA));
 
   const { ownerId } = useMyPageStore(useShallow((state) => state));
-  const { data, fetchNextPage, hasNextPage, isFetching, refetch } =
+  const { data, fetchNextPage, hasNextPage, isFetching, refetch, isLoading } =
     useGetConnectionHubs(
       ownerId,
       active.startsWith('내가') ? 'created' : 'applied'
@@ -57,6 +57,11 @@ const ConnectionHubTemplate = () => {
       {data?.pages[0].projects.length === 0 && (
         <div className='flex justify-center text-[13px]'>
           프로젝트가 존재하지 않습니다.
+        </div>
+      )}
+      {isLoading && (
+        <div className='flex justify-center text-[13px]'>
+          프로젝트 가져오는 중..
         </div>
       )}
       {data?.pages.map((page) => {
