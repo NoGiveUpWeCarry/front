@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import { useEffect, PropsWithChildren, ReactNode } from 'react';
 
-interface ModalProps {
+export interface ModalProps {
   width?: string;
   height?: string;
   hasCloseButton?: boolean;

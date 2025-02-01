@@ -27,12 +27,19 @@ const ChatInput = ({ currentChannelId }: ChatInputProps) => {
 
   const handleSubmitFile = (fileUploader: FileUploader) => {
     if (!fileUploader.file) return;
+    console.log('handleSubmitFile');
+    // let type: string;
+    // switch(fileUploader.accept) {
+    //   case 'image/*':
+
+    // }
     sendMessage({
       type: 'image',
       content: fileUploader.file,
       channelId: currentChannelId,
       userId: userInfo.userId,
     });
+
     fileUploader.unloadFile();
   };
 
@@ -67,7 +74,7 @@ const ChatInput = ({ currentChannelId }: ChatInputProps) => {
 
   return (
     <div className='pb-[50px] px-[56px] mt-[50px]'>
-      <FilePreview fileUploader={imageUploader} />
+      <FilePreview fileUploader={{ ...imageUploader }} />
       <div className='flex items-center gap-[10px]'>
         <Avatar
           src={userInfo.profileUrl || undefined}

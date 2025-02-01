@@ -4,7 +4,7 @@ import { useInfiniteMessagesQuery } from '@/hooks/chat/useMessages';
 import { useChatStore } from '@/store/chatStore';
 import { Channel } from '@/types/channel.type';
 import { ReceiveMessage } from '@/types/message.type';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 interface ChatMessagesProps {
@@ -12,6 +12,10 @@ interface ChatMessagesProps {
 }
 
 const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
+  const previousHeightRef = useRef(0);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const [imagesLoaded, setImagesLoaded] = useState(0);
+
   const {
     data,
     hasPreviousPage,
@@ -41,8 +45,11 @@ const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
     return deduplicateAndSortMessages(messages);
   }, [data, socketMessages]);
 
-  const previousHeightRef = useRef(0);
-  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const totalImages = messages.filter((message) => message.type === 'image');
+
+  const handleImageLoad = () => {
+    setImagesLoaded((prev) => prev + 1);
+  };
 
   useEffect(() => {
     refetch();
@@ -66,6 +73,16 @@ const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
     }
   }, [isTopInView, hasPreviousPage]);
 
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (imagesLoaded === totalImages.length && scrollContainer) {
+      const newHeight = scrollContainer.scrollHeight;
+      scrollContainer.scrollTop =
+        scrollContainer.scrollTop + (newHeight - previousHeightRef.current);
+      previousHeightRef.current = scrollContainer.scrollHeight;
+    }
+  }, [imagesLoaded, totalImages]);
+
   if (isLoading) {
     return (
       <div className='flex justify-center grow'>
@@ -84,7 +101,7 @@ const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
         <>
           {hasPreviousPage && <div ref={loadPrevRef}></div>}
           {isFetching && <LoadingDots />}
-          <Messages messages={messages} />
+          <Messages messages={messages} handleImageLoad={handleImageLoad} />
         </>
       )}
     </div>

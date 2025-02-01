@@ -40,6 +40,21 @@ const ChannelList = ({ channels }: ChannelListProps) => {
   return (
     <ul className='grow flex flex-col gap-[24px] pb-[50px] overflow-y-scroll mr-[10px] hover:mr-0 scrollbar'>
       {Object.entries(channels).map(([_, channel]) => {
+        const date = formatDateFromNow(
+          messages[channel.channelId]?.at(-1)?.date || channel.lastMessage.date
+        );
+        const lastMessage =
+          messages[channel.channelId]?.at(-1) ?? channel.lastMessage;
+        let lastMessageContent: string;
+        switch (lastMessage.type) {
+          case 'text':
+          case 'exit':
+            lastMessageContent = lastMessage.content;
+            break;
+          case 'image':
+            lastMessageContent = '이미지를 보냈습니다.';
+            break;
+        }
         return (
           <li
             key={channel.channelId}
@@ -65,17 +80,13 @@ const ChannelList = ({ channels }: ChannelListProps) => {
                   <ListItem.Label
                     className={clsx('text-caption1', 'text-mediumgray')}
                   >
-                    {formatDateFromNow(
-                      messages[channel.channelId]?.at(-1)?.date ||
-                        channel.lastMessage.date
-                    )}
+                    {date}
                   </ListItem.Label>
                 </div>
                 <ListItem.Subtitle
                   className={clsx('text-caption1', 'text-mediumgray')}
                 >
-                  {messages[channel.channelId]?.at(-1)?.content ||
-                    channel.lastMessage.content}
+                  {lastMessageContent}
                 </ListItem.Subtitle>
               </ListItem.Col>
             </ListItem>
