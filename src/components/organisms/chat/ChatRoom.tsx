@@ -12,7 +12,7 @@ const ChatRoom = () => {
 
   return (
     <>
-      <ChatHeader currentChannelId={currentChannelId}>
+      <ChatHeader>
         {currentChannelId ? (
           <ChatHeaderInfo currentChannelId={currentChannelId} />
         ) : (
@@ -26,7 +26,7 @@ const ChatRoom = () => {
           <ChatMessagesWelcome />
         )}
       </ChatBody>
-      <ChatInput />
+      {currentChannelId && <ChatInput currentChannelId={currentChannelId} />}
     </>
   );
 };

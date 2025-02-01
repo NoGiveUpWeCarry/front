@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Icon from '@/components/atoms/Icon';
 import ConfirmModal from '@/components/atoms/ConfirmModal';
-import defaultAvator from '@/assets/images/avatar.png';
+import Avatar from '@/components/atoms/Avatar';
 
 interface CommentInputProps {
   onSubmit: (content: string) => void;
@@ -53,8 +53,8 @@ const ChatInput = ({
   return (
     <>
       <div className='w-full h-[40px] flex gap-[10px] mb-[20px]'>
-        <img
-          src={userImage ? userImage : defaultAvator}
+        <Avatar
+          src={userImage}
           alt='User Avatar'
           className='w-[40px] h-[40px] rounded-full'
         />

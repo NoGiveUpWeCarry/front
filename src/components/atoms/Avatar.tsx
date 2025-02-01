@@ -1,7 +1,7 @@
 import { cn } from '@/utils/cn';
 import { cva, VariantProps } from 'class-variance-authority';
 import { ImgHTMLAttributes } from 'react';
-import defaultAvatar from '/src/assets/logos/PAD.svg';
+import defaultAvatar from '@/assets/images/avatar.svg';
 
 export const AvatarVariants = cva(`rounded-full object-contain`, {
   variants: {

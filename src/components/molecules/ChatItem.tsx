@@ -4,6 +4,7 @@ import { HandThumbUpIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { useParams } from 'react-router-dom';
 import notifyToast from '@/utils/notifyToast';
+import Avatar from '@/components/atoms/Avatar';
 
 interface ChatItemProps {
   chat: {
@@ -89,7 +90,7 @@ const ChatItem = ({ chat, isCurrentUser, onDelete }: ChatItemProps) => {
         'flex-row-reverse': isCurrentUser,
       })}
     >
-      <img
+      <Avatar
         src={chat.userProfileUrl}
         alt={chat.userName}
         className='w-[40px] h-[40px] rounded-full'

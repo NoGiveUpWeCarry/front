@@ -1,15 +1,19 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useChatStore } from '@/store/chatStore';
 import { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
 import useAuthStore from '@/store/authStore';
-import { useAlert } from '@/hooks/useAlert';
 
 export const useChat = () => {
   const location = useLocation();
 
-  const userInfo = useAuthStore((state) => state.userInfo);
-  const { loginAlert } = useAlert();
+  const { userInfo, isLoggedIn } = useAuthStore(
+    useShallow((state) => ({
+      userInfo: state.userInfo,
+      isLoggedIn: state.isLoggedIn,
+    }))
+  );
+  const navigate = useNavigate();
 
   const { createChannel, connectSocket, disconnectSocket, createGroup } =
     useChatStore(
@@ -22,8 +26,9 @@ export const useChat = () => {
     );
 
   useEffect(() => {
-    if (!userInfo) {
-      loginAlert();
+    if (!isLoggedIn) {
+      alert('로그인을 해주세요');
+      navigate('/login');
       return;
     }
     connectSocket();

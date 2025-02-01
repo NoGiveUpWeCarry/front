@@ -1,5 +1,5 @@
 import { ListItem } from '@/components/molecules/ListItem';
-import avatar from '@/assets/images/avatar.png';
+import avatar from '@/assets/images/avatar.svg';
 import Avatar from '@/components/atoms/Avatar';
 import Title from '@/components/atoms/Title';
 import clsx from 'clsx';

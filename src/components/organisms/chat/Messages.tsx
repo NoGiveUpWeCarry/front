@@ -8,13 +8,14 @@ import { formatDateMessages } from '@/utils/format';
 import { Fragment } from 'react/jsx-runtime';
 interface MessagesProps {
   messages: ReceiveMessage[];
+  handleImageLoad: () => void;
 }
 
-const Messages = ({ messages }: MessagesProps) => {
+const Messages = ({ messages, handleImageLoad }: MessagesProps) => {
   const dateMessages = Object.entries(formatDateMessages(messages));
 
   // 유저 정보 관련 로직
-  const user = useAuthStore.getState().userInfo!;
+  const user = useAuthStore.getState().userInfo;
   const myUserId = user.userId;
 
   return dateMessages?.length ? (
@@ -31,13 +32,14 @@ const Messages = ({ messages }: MessagesProps) => {
 
             const isMyMessage = message.user.userId === myUserId;
             const sameBefore =
-              i > 0 && message.user.userId === messages[i - 1].user.userId;
+              i > 0 && message.user.userId === messages[i - 1]?.user?.userId;
             return (
               <Message
                 key={message.messageId}
                 message={message}
                 sameBefore={sameBefore}
                 isMyMessage={isMyMessage}
+                handleImageLoad={handleImageLoad}
               />
             );
           })}

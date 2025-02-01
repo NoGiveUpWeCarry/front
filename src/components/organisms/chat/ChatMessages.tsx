@@ -1,108 +1,68 @@
+import LoadingDots from '@/components/molecules/LoadingDots';
 import Messages from '@/components/organisms/chat/Messages';
 import { useInfiniteMessagesQuery } from '@/hooks/chat/useMessages';
-import { useSearchMessagesQuery } from '@/hooks/chat/useSearchMessages';
+import { useScroll } from '@/hooks/useScroll';
 import { useChatStore } from '@/store/chatStore';
-import { useSearchStore } from '@/store/searchStore';
 import { Channel } from '@/types/channel.type';
 import { ReceiveMessage } from '@/types/message.type';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useShallow } from 'zustand/shallow';
 
-interface ChatMessagesProsp {
+interface ChatMessagesProps {
   currentChannelId: Channel['channelId'];
 }
 
-const ChatMessages = ({ currentChannelId }: ChatMessagesProsp) => {
-  const { searchMode, setState, searchKeyword } = useSearchStore(
-    useShallow((state) => ({
-      searchMode: state.searchMode,
-      setState: state.setState,
-      searchKeyword: state.searchKeyword,
-    }))
-  );
-
-  const { data: searchData } = useSearchMessagesQuery(
-    currentChannelId,
-    searchKeyword
-  );
-
+const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
   const {
     data,
-    hasNextPage,
     hasPreviousPage,
-    fetchNextPage,
     fetchPreviousPage,
     isLoading,
     refetch,
+    isFetching,
   } = useInfiniteMessagesQuery(currentChannelId);
 
   const socketMessages = useChatStore(
     (state) => state.messages[currentChannelId!]
   );
 
-  const { ref: loadNextRef, inView: isBottomInView } = useInView({
-    threshold: 1,
-  });
   const { ref: loadPrevRef, inView: isTopInView } = useInView({
     threshold: 1,
   });
 
   const messages = useMemo(() => {
-    const searchMessages = searchData ? searchData.messages : [];
     const infiniteMessages = data
       ? data.pages?.flatMap((page) => page.messages)
       : [];
     const messages = [
-      ...(searchMessages ? searchMessages : []),
-      ...(searchMode ? [] : infiniteMessages),
+      ...(infiniteMessages ? infiniteMessages : []),
       ...(socketMessages ? socketMessages : []),
     ];
 
     return deduplicateAndSortMessages(messages);
-  }, [searchData, data, socketMessages, searchMode]);
+  }, [data, socketMessages]);
 
-  const previousHeightRef = useRef(0);
-  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const totalImages = messages.filter((message) => message.type === 'image');
 
-  // 스크롤 위치 조정
-  useEffect(() => {
-    const scrollContainer = scrollContainerRef.current;
-
-    if (!scrollContainer || searchMode) return;
-
-    const newHeight = scrollContainer.scrollHeight;
-    scrollContainer.scrollTop =
-      scrollContainer.scrollTop + (newHeight - previousHeightRef.current);
-    previousHeightRef.current = scrollContainer.scrollHeight;
-  }, [messages, searchMode]);
+  const { handleImageLoad, scrollContainerRef } = useScroll<ReceiveMessage>({
+    datas: messages,
+    totalImageCount: totalImages.length,
+  });
 
   useEffect(() => {
-    if (isBottomInView && hasNextPage) {
-      if (searchMode) {
-        setState({ searchDirection: 'forward', searchMode: false });
-        refetch();
-      } else {
-        fetchNextPage();
-      }
-    }
-  }, [isBottomInView, hasNextPage]);
+    refetch();
+  }, [currentChannelId]);
 
   useEffect(() => {
     if (isTopInView && hasPreviousPage) {
-      if (searchMode) {
-        setState({ searchDirection: 'backward', searchMode: false });
-        refetch();
-      } else {
-        fetchPreviousPage();
-      }
+      fetchPreviousPage();
     }
   }, [isTopInView, hasPreviousPage]);
 
   if (isLoading) {
     return (
       <div className='flex justify-center grow'>
-        <div>메시지 불러오는중...</div>
+        <LoadingDots />
       </div>
     );
   }
@@ -115,9 +75,9 @@ const ChatMessages = ({ currentChannelId }: ChatMessagesProsp) => {
     >
       {messages && (
         <>
-          <div ref={loadPrevRef}></div>
-          <Messages messages={messages} />
-          <div ref={loadNextRef}></div>
+          {hasPreviousPage && <div ref={loadPrevRef}></div>}
+          {isFetching && <LoadingDots />}
+          <Messages messages={messages} handleImageLoad={handleImageLoad} />
         </>
       )}
     </div>

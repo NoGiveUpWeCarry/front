@@ -96,9 +96,14 @@ export default {
           '0%': { transform: 'translateX(0%)' },
           '100%': { transform: 'translateX(-100%)' },
         },
+        flashing: {
+          '0%': { backgroundColor: '#9880ff' },
+          '50%, 100%': { backgroundColor: 'rgba(152, 128, 255, 0.2)' },
+        },
       },
       animation: {
         slide: 'slide 10s linear infinite',
+        flashing: 'flashing 1s infinite linear alternate',
       },
     },
   },

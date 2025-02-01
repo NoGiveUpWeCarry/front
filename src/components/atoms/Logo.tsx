@@ -1,4 +1,4 @@
-import defaultAvatar from '/src/assets/logos/PAD.svg';
+import logo from '/src/assets/logos/PAD.svg';
 
 interface LogoProps {
   width?: string;
@@ -17,7 +17,7 @@ const Logo = ({
       style={{ width, height }}
     >
       <img
-        src={defaultAvatar}
+        src={logo}
         alt='PAD Logo'
         style={{ width: '100%', height: '100%' }}
       />
