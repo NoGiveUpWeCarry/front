@@ -47,7 +47,12 @@ const ContentsHubUser = ({
   return (
     <div className='flex items-center w-full justify-between'>
       <div className='flex space-x-3'>
-        <Avatar src={profileUrl} size='xs' alt={`${nickname} Avatar`} />
+        <Avatar
+          src={profileUrl}
+          size='xs'
+          alt={`${nickname} Avatar`}
+          className='object-cover'
+        />
         <ContentsHubUserTitle
           nickname={nickname}
           role={role}
@@ -91,7 +96,7 @@ const ContentsHubUser = ({
         <PostHubModal
           onClose={closePostModal}
           onSubmit={() => setIsSubmitted(true)}
-          onRevise={true}
+          onRevise
           projectId={projectId}
         />
       )}
