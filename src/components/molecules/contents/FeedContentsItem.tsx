@@ -15,6 +15,7 @@ interface FeedContentsProps {
   isLiked: boolean;
   createdAt: string;
   user: {
+    id?: number;
     avatarSrc: string;
     name: string;
     job: string;
@@ -42,6 +43,7 @@ export const FeedContents = ({
         name={user.name}
         userRole={user.job}
         createdAt={createdAt}
+        userId={user.id!}
       />
       <div className='w-full'>
         <div className='bg-white rounded-[10px] p-[20px] w-full hover:shadow-orange-50'>

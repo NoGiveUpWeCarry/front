@@ -53,6 +53,7 @@ const Feed = () => {
             name: item.userNickname,
             job: item.userRole,
             time: item.createdAt,
+            id: item.userId,
           }}
           createdAt={item.createdAt}
         />
