@@ -21,9 +21,15 @@ const FeedView = ({ keyword }: { keyword: string }) => {
     }
   }, [inView, hasNextPage, isFetching, fetchNextPage]);
 
-  return isPostsLoading ? (
-    <div>검색 결과를 가져오는 중 입니다...</div>
-  ) : (
+  if (isPostsLoading) {
+    return <div className='text-[14px]'>검색 결과를 가져오는 중 입니다...</div>;
+  }
+
+  if (feeds?.pages[0].posts?.length === 0) {
+    return <div className='text-[14px]'>검색 결과가 존재하지 않습니다.</div>;
+  }
+
+  return (
     <div className='flex flex-col gap-10'>
       {feeds?.pages[0].posts?.map((post) => (
         <FeedContents

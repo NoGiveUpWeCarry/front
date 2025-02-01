@@ -24,9 +24,15 @@ const ProjectView = ({ keyword }: { keyword: string }) => {
     }
   }, [inView, hasNextPage, isFetching, fetchNextPage]);
 
-  return isProjectsLoading ? (
-    <div>검색 결과를 가져오는 중 입니다...</div>
-  ) : (
+  if (isProjectsLoading) {
+    return <div className='text-[14px]'>검색 결과를 가져오는 중 입니다...</div>;
+  }
+
+  if (hubs?.pages[0].posts?.length === 0) {
+    return <div className='text-[14px]'>검색 결과가 존재하지 않습니다.</div>;
+  }
+
+  return (
     <div className='flex flex-col gap-10'>
       {hubs?.pages[0].projects?.map((project) => (
         <Link to={`/projects/${project.projectId}`}>
