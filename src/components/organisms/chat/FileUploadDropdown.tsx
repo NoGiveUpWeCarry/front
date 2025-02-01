@@ -31,7 +31,7 @@ const FileUploadDropdown = ({ options }: FileUploadDropdownProps) => {
               options.find((option) => option.id === id) ?? null
             )
           }
-          className='absolute right-0 bottom-[38px] w-max bg-darkgray p-[10px] rounded-sm'
+          className='absolute right-0 bottom-[38px] w-max bg-[#a8a8a8] p-[10px] rounded-sm'
           itemClassName='text-white cursor-pointer'
         />
       )}
