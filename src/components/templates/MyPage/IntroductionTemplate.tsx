@@ -89,7 +89,7 @@ const IntroductionTemplate = () => {
             />
             <ContributionBox
               text='💬 피드 작성 수'
-              amount={profileInfo?.postCount!}
+              amount={profileInfo?.feedCount!}
               onClick={() => setActiveTab('피드')}
             />
             <ContributionBox
