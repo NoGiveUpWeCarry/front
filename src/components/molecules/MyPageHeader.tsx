@@ -54,7 +54,12 @@ const MyPageHeader = () => {
     <div className='h-[166px] flex items-center gap-7'>
       {headerData?.profileUrl ? (
         <div className='w-[120px] h-[120px] rounded-full'>
-          <Avatar size='lg' src={headerData?.profileUrl} alt='profile' />
+          <Avatar
+            size='lg'
+            src={headerData?.profileUrl}
+            alt='profile'
+            className='object-cover'
+          />
         </div>
       ) : (
         <div className='w-[120px] h-[120px] rounded-full bg-[#EDEDED] flex justify-center items-center'>
