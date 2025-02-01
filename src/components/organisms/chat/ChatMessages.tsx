@@ -1,10 +1,11 @@
 import LoadingDots from '@/components/molecules/LoadingDots';
 import Messages from '@/components/organisms/chat/Messages';
 import { useInfiniteMessagesQuery } from '@/hooks/chat/useMessages';
+import { useScroll } from '@/hooks/useScroll';
 import { useChatStore } from '@/store/chatStore';
 import { Channel } from '@/types/channel.type';
 import { ReceiveMessage } from '@/types/message.type';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 interface ChatMessagesProps {
@@ -12,10 +13,6 @@ interface ChatMessagesProps {
 }
 
 const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
-  const previousHeightRef = useRef(0);
-  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
-  const [imagesLoaded, setImagesLoaded] = useState(0);
-
   const {
     data,
     hasPreviousPage,
@@ -47,41 +44,20 @@ const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
 
   const totalImages = messages.filter((message) => message.type === 'image');
 
-  const handleImageLoad = () => {
-    setImagesLoaded((prev) => prev + 1);
-  };
+  const { handleImageLoad, scrollContainerRef } = useScroll<ReceiveMessage>({
+    datas: messages,
+    totalImageCount: totalImages.length,
+  });
 
   useEffect(() => {
     refetch();
   }, [currentChannelId]);
-
-  // 스크롤 위치 조정
-  useEffect(() => {
-    const scrollContainer = scrollContainerRef.current;
-
-    if (!scrollContainer) return;
-
-    const newHeight = scrollContainer.scrollHeight;
-    scrollContainer.scrollTop =
-      scrollContainer.scrollTop + (newHeight - previousHeightRef.current);
-    previousHeightRef.current = scrollContainer.scrollHeight;
-  }, [messages]);
 
   useEffect(() => {
     if (isTopInView && hasPreviousPage) {
       fetchPreviousPage();
     }
   }, [isTopInView, hasPreviousPage]);
-
-  useEffect(() => {
-    const scrollContainer = scrollContainerRef.current;
-    if (imagesLoaded === totalImages.length && scrollContainer) {
-      const newHeight = scrollContainer.scrollHeight;
-      scrollContainer.scrollTop =
-        scrollContainer.scrollTop + (newHeight - previousHeightRef.current);
-      previousHeightRef.current = scrollContainer.scrollHeight;
-    }
-  }, [imagesLoaded, totalImages]);
 
   if (isLoading) {
     return (

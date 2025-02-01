@@ -17,7 +17,7 @@ const Messages = ({ messages, handleImageLoad }: MessagesProps) => {
   // 유저 정보 관련 로직
   const user = useAuthStore.getState().userInfo;
   const myUserId = user.userId;
-  console.log(dateMessages);
+
   return dateMessages?.length ? (
     dateMessages.map(([date, messages]) => {
       return (

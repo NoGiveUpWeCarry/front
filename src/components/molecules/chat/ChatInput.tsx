@@ -74,7 +74,7 @@ const ChatInput = ({ currentChannelId }: ChatInputProps) => {
 
   return (
     <div className='pb-[50px] px-[56px] mt-[50px]'>
-      <FilePreview fileUploader={{ ...imageUploader }} />
+      <FilePreview fileUploader={imageUploader} />
       <div className='flex items-center gap-[10px]'>
         <Avatar
           src={userInfo.profileUrl || undefined}
