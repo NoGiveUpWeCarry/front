@@ -1,3 +1,4 @@
+import LoadingDots from '@/components/molecules/LoadingDots';
 import Messages from '@/components/organisms/chat/Messages';
 import { useInfiniteMessagesQuery } from '@/hooks/chat/useMessages';
 import { useChatStore } from '@/store/chatStore';
@@ -11,8 +12,14 @@ interface ChatMessagesProps {
 }
 
 const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
-  const { data, hasPreviousPage, fetchPreviousPage, isLoading, refetch } =
-    useInfiniteMessagesQuery(currentChannelId);
+  const {
+    data,
+    hasPreviousPage,
+    fetchPreviousPage,
+    isLoading,
+    refetch,
+    isFetching,
+  } = useInfiniteMessagesQuery(currentChannelId);
 
   const socketMessages = useChatStore(
     (state) => state.messages[currentChannelId!]
@@ -62,7 +69,7 @@ const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
   if (isLoading) {
     return (
       <div className='flex justify-center grow'>
-        <div>메시지 불러오는중...</div>
+        <LoadingDots />
       </div>
     );
   }
@@ -76,6 +83,7 @@ const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
       {messages && (
         <>
           {hasPreviousPage && <div ref={loadPrevRef}></div>}
+          {isFetching && <LoadingDots />}
           <Messages messages={messages} />
         </>
       )}

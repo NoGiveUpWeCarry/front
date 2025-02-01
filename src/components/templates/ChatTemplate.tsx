@@ -8,12 +8,12 @@ const ChatTemplate = () => {
 
   return (
     <div className='w-full h-screen flex justify-center'>
-      <div className='flex h-full my-[40px] max-w-[1240px] gap-[50px] relative'>
-        <div className='w-[320px] xl:flex xl:mt-[100px] hidden'>
+      <div className='flex h-full max-w-[1240px] gap-[50px] relative'>
+        <div className='w-[320px] xl:flex xl:my-[100px] hidden'>
           <ChatSidebar />
         </div>
         {isOpen && (
-          <div className='w-[320px] flex mt-[100px] xl:hidden absolute bg-background h-[85%]'>
+          <div className='w-[320px] flex my-[100px] xl:hidden absolute bg-background h-[85%]'>
             <ChatSidebar />
           </div>
         )}
