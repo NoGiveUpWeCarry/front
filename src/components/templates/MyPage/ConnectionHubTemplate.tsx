@@ -56,9 +56,11 @@ const ConnectionHubTemplate = () => {
       {data?.pages.map((page: HubResponse) => {
         let lastDate = '';
         return page.projects.map((project) => {
+          const [show, date] = showDate(project.createdAt, lastDate);
+          lastDate = date as string;
           return (
             <div key={project.title}>
-              {showDate(project.createdAt, lastDate) && (
+              {show && (
                 <DateText
                   hasBg
                   date={project.createdAt}

@@ -31,9 +31,11 @@ const FeedTemplate = () => {
       {data?.pages.map((page: FeedResponse) => {
         let lastDate = '';
         return page.feeds.map((feed) => {
+          const [show, date] = showDate(feed.createdAt, lastDate);
+          lastDate = date as string;
           return (
             <Link to={`/feed/${feed.id}`} key={feed.title}>
-              {showDate(feed.createdAt, lastDate) && (
+              {show && (
                 <DateText hasBg date={feed.createdAt} className='mb-[28px]' />
               )}
               <div className='w-full'>

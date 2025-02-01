@@ -3,5 +3,5 @@ export const showDate = (createdAt: string, lastDate: string) => {
   const canShow = currentDate !== lastDate;
   lastDate = currentDate;
 
-  return canShow;
+  return [canShow, lastDate];
 };
