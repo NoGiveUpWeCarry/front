@@ -17,8 +17,8 @@ const MyPageTabs = Object.assign({
 });
 
 const MyPageTemplate = () => {
-  const [activeTab, setActiveTab] = useMyPageTabsStore(
-    useShallow((state) => [state.activeTab, state.setActiveTab])
+  const { activeTab, setActiveTab } = useMyPageTabsStore(
+    useShallow((state) => state)
   );
 
   const currentTab = activeTab as keyof typeof MyPageTabs;
@@ -29,6 +29,7 @@ const MyPageTemplate = () => {
   useEffect(() => {
     return () => {
       resetApplyForm();
+      setActiveTab('소개');
     };
   }, [resetApplyForm]);
 
