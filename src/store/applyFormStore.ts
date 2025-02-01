@@ -11,9 +11,6 @@ export type ApplyFormData = {
 };
 
 interface ApplyFormStore {
-  isEditing: boolean;
-  setIsEditing: (isEditing: boolean) => void;
-
   applyForm: ApplyFormData;
   setSingleApplyForm: (name: string, value: string) => void;
   setApplyForm: (value: ApplyFormData) => void;
@@ -31,9 +28,6 @@ const initialInputs = {
 
 export const useApplyFormStore = create<ApplyFormStore>()(
   immer((set) => ({
-    isEditing: false,
-    setIsEditing: (isEditing) => set({ isEditing }),
-
     applyForm: initialInputs,
     setSingleApplyForm: (name, value) =>
       set((state) => ({ applyForm: { ...state.applyForm, [name]: value } })),

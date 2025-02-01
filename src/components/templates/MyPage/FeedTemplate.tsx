@@ -1,20 +1,18 @@
 import DateText from '@/components/atoms/DateText';
-import { useGetFeeds } from '@/hooks/queries/mypage/feed';
-import { useMyPageStore } from '@/store/mypageStore';
-import { useShallow } from 'zustand/shallow';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import FeedItem from '@/components/molecules/contents/FeedItem';
 import { FeedFooter } from '@/components/molecules/contents/FeedFooter';
 import { TagItemKey } from '@/constants/tagItem';
+import { FeedResponse } from '@/apis/mypage';
+import useMyFeed from '@/hooks/mypage/useMyFeed.business';
+import { showDate } from '@/utils/showDate';
 
 const FeedTemplate = () => {
   const { ref, inView } = useInView();
-
-  const { ownerId } = useMyPageStore(useShallow((state) => state));
-  const { data, fetchNextPage, hasNextPage, isFetching, isLoading } =
-    useGetFeeds(ownerId);
+  const { data, fetchNextPage, hasNextPage, isFetching, isLoading, error } =
+    useMyFeed();
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetching) {
@@ -26,18 +24,16 @@ const FeedTemplate = () => {
     <div className='flex flex-col gap-[30px] w-full mt-3'>
       {isLoading && (
         <div className='flex justify-center text-[13px]'>
-          피드 가져오는 중..
+          {isLoading && '피드 가져오는 중..'}
+          {error && <span className='text-red-500'>에러가 발생했습니다.</span>}
         </div>
       )}
-      {data?.pages.map((page) => {
+      {data?.pages.map((page: FeedResponse) => {
         let lastDate = '';
         return page.feeds.map((feed) => {
-          const currentDate = feed.createdAt.split('T')[0];
-          const showDate = currentDate !== lastDate;
-          lastDate = currentDate;
           return (
             <Link to={`/feed/${feed.id}`} key={feed.title}>
-              {showDate && (
+              {showDate(feed.createdAt, lastDate) && (
                 <DateText hasBg date={feed.createdAt} className='mb-[28px]' />
               )}
               <div className='w-full'>

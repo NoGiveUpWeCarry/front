@@ -1,33 +1,19 @@
 import Button from '@/components/atoms/Button';
 import HorizontalDivider from '@/components/atoms/HorizontalDivider';
 import ApplyFormSection from '@/components/organisms/ApplyFormSection/ApplyFormSection';
-import {
-  useGetResume,
-  useMakeResume,
-  useUpdateResume,
-} from '@/hooks/queries/mypage/apply';
+import useApply from '@/hooks/mypage/useApply.business';
+import useApplyUI from '@/hooks/mypage/useApply.ui';
 import { useApplyFormStore } from '@/store/applyFormStore';
-import { useMyPageStore } from '@/store/mypageStore';
-import { querySuccessHandler } from '@/utils/querySuccessHandler';
 import { FormEvent, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
 
 const ApplyTemplate = () => {
-  const { ownerId, isMyPage } = useMyPageStore(useShallow((state) => state));
+  const { applyForm, setSingleApplyForm, setApplyForm, resetApplyForm } =
+    useApplyFormStore(useShallow((state) => state));
 
-  const {
-    isEditing,
-    setIsEditing,
-    applyForm,
-    setSingleApplyForm,
-    setApplyForm,
-    resetApplyForm,
-  } = useApplyFormStore(useShallow((state) => state));
-
-  const { data: originResume } = useGetResume(ownerId!);
-  const { mutate: saveResume } = useMakeResume();
-  const { mutate: updateResume } = useUpdateResume();
+  const { isEditing, setIsEditing, ownerId, isMyPage } = useApplyUI();
+  const { originResume, submitHandler } = useApply(applyForm, ownerId);
 
   useEffect(() => {
     if (originResume?.title && originResume?.detail) {
@@ -50,42 +36,7 @@ const ApplyTemplate = () => {
     }
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    commonSubmitHandlers(e);
-
-    if (originResume?.title) {
-      updateResume(
-        {
-          resumeData: {
-            ...applyForm,
-            portfolioUrl: applyForm.link,
-          },
-          resumeId: applyForm?.resumeId!,
-        },
-        {
-          onSuccess: () => {
-            querySuccessHandler('get-resume', [ownerId]);
-            setIsEditing(false);
-          },
-        }
-      );
-    } else {
-      saveResume(
-        {
-          resumeData: {
-            ...applyForm,
-            portfolioUrl: applyForm.link,
-          },
-        },
-        {
-          onSuccess: () => {
-            querySuccessHandler('get-resume', [ownerId]);
-            setIsEditing(false);
-          },
-        }
-      );
-    }
-  };
+  const handleSuccess = () => setIsEditing(false);
 
   return (
     <div className='flex flex-col gap-[17px]'>
@@ -95,7 +46,11 @@ const ApplyTemplate = () => {
         </div>
       )}
       {isEditing && (
-        <form onSubmit={handleSubmit}>
+        <form
+          onSubmit={(e: FormEvent<HTMLFormElement>) =>
+            submitHandler(e, commonSubmitHandlers, handleSuccess)
+          }
+        >
           <ApplyFormSection>
             <ApplyFormSection.Input
               name={{
