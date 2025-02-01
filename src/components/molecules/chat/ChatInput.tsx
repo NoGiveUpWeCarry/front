@@ -19,7 +19,9 @@ const ChatInput = ({ currentChannelId }: ChatInputProps) => {
   const [text, setText] = useState('');
   const sendMessage = useChatStore((state) => state.sendMessage);
   const userInfo = useAuthStore.getState().userInfo;
-  const imageUploader = useFileUpload('image/*');
+  const imageUploader = useFileUpload(
+    'image/png, image/jpg, image/jpeg, image/gif'
+  );
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);

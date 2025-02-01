@@ -1,11 +1,11 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, InputHTMLAttributes, useState } from 'react';
 
 export interface FileUploader {
   fileUrl: string | null;
   file: File | null;
   setFileUrl: (fileUrl: string) => void;
   handleFileChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  accept: 'image/*' | 'audio/*' | 'video/*';
+  accept: InputHTMLAttributes<HTMLInputElement>['accept'];
   unloadFile: () => void;
 }
 
@@ -26,5 +26,12 @@ export const useFileUpload = (accept: FileUploader['accept']): FileUploader => {
     setFile(null);
   };
 
-  return { fileUrl, setFileUrl, handleFileChange, accept, file, unloadFile };
+  return {
+    fileUrl,
+    setFileUrl,
+    handleFileChange,
+    accept,
+    file,
+    unloadFile,
+  };
 };
