@@ -9,6 +9,7 @@ import useAuthStore from '@/store/authStore';
 import { useLogout } from '@/hooks/queries/auth.query';
 import { useSearchModal } from '@/store/modals/searchModalstore';
 import { useShallow } from 'zustand/shallow';
+import Popup from '@/components/molecules/Popup';
 
 const SideMenu = () => {
   const navigate = useNavigate();
@@ -207,69 +208,52 @@ const SideMenu = () => {
           />
 
           {showLogin && (
-            <div
-              className='
-                absolute
-                top-[-30%]
-                w-max
-                left-full
-                transform
-                -translate-y-1/2
-                transition-opacity
-                duration-300
-                z-50
-              '
-            >
-              <div className='flex ml-4 w-full bg-white rounded-xl items-center px-[10px] py-[10px] drop-shadow-lg'>
-                <div className='flex w-full flex-col gap-[10px]'>
-                  <button
-                    className='group flex w-full rounded-lg px-1 py-2 items-center gap-[20px] cursor-pointer hover:bg-[#f3f4f6]'
-                    onClick={() => {
-                      if (isLoggedIn) {
-                        navigate(`/@${userInfo?.nickname}`);
-                      } else {
-                        navigate('/login');
-                      }
-                      setShowLogin(false);
-                    }}
-                  >
+            <Popup
+              position='right'
+              popupHandler={[
+                {
+                  onClick: () => {
+                    if (isLoggedIn) {
+                      navigate(`/@${userInfo?.nickname}`);
+                    } else {
+                      navigate('/login');
+                    }
+                    setShowLogin(false);
+                  },
+                  text: isLoggedIn ? '마이페이지' : '로그인',
+                  icon: (
                     <Icon
                       type='user'
                       color='gray'
                       className='w-[30px] h-[30px]'
                     />
-                    <div className='flex text-[18px] text-[#48484a]'>
-                      {isLoggedIn ? '마이페이지' : '로그인'}
-                    </div>
-                  </button>
-                  <button
-                    className='group flex w-full rounded-lg px-1 py-1.5 items-center gap-[20px] cursor-pointer hover:bg-[#f3f4f6]'
-                    onClick={() => {
-                      if (isLoggedIn) {
-                        mutate(undefined, {
-                          onSuccess: () => {
-                            logout();
-                          },
-                        });
-                      } else {
-                        navigate('/signup');
-                      }
+                  ),
+                },
+                {
+                  onClick: () => {
+                    if (isLoggedIn) {
+                      mutate(undefined, {
+                        onSuccess: () => {
+                          logout();
+                        },
+                      });
+                    } else {
+                      navigate('/signup');
+                    }
 
-                      setShowLogin(false);
-                    }}
-                  >
+                    setShowLogin(false);
+                  },
+                  text: isLoggedIn ? '로그아웃' : '회원가입',
+                  icon: (
                     <Icon
                       type={isLoggedIn ? 'logout' : 'join'}
                       color='gray'
                       className='w-[30px] h-[30px]'
                     />
-                    <div className='flex text-[18px] text-[#48484a]'>
-                      {isLoggedIn ? '로그아웃' : '회원가입'}
-                    </div>
-                  </button>
-                </div>
-              </div>
-            </div>
+                  ),
+                },
+              ]}
+            />
           )}
         </div>
       </div>
