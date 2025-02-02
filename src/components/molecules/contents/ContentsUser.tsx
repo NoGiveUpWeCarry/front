@@ -9,7 +9,7 @@ interface ContentsUserProps {
   createdAt: string;
   name: string;
   userRole: string;
-  userId: number;
+  userId?: number;
 }
 
 const ContentsUser = ({
@@ -28,7 +28,12 @@ const ContentsUser = ({
         className='cursor-pointer relative'
         onClick={() => (isOpen ? closeModal() : openModal())}
       >
-        <Avatar src={userProfileUrl} size='xs' alt={`${name} Avatar`} />
+        <Avatar
+          src={userProfileUrl}
+          size='xs'
+          alt={`${name} Avatar`}
+          className='object-cover'
+        />
         {isOpen && (
           <Popup
             position='bottom'
