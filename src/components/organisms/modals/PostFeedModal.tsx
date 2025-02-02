@@ -64,19 +64,13 @@ const PostFeedModal = ({ onClose, onSubmit, onRevise }: PostFeedModalProps) => {
   });
 
   const handleSubmit = () => {
-    const isContentEmpty = (html: string) => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      const textContent = doc.body.textContent?.trim() || '';
-      return textContent === '';
-    };
+    const plainText = content.replace(/<[^>]*>?/g, '').trim() === '';
     const hasError = {
       title: title.trim() === '',
       tags: tags.length === 0,
-      content: isContentEmpty(content),
+      content: plainText,
     };
     setErrors(hasError);
-
     if (!hasError.title && !hasError.tags && !hasError.content) {
       if (onRevise && id) {
         onSubmit();

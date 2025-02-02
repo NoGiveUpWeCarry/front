@@ -1,11 +1,12 @@
 import Avatar from '@/components/atoms/Avatar';
-import ContentsUserTitle from '@/components/atoms/contents/ConentsUserTitle';
 import Icon from '@/components/atoms/Icon';
 import Popup from '@/components/molecules/Popup';
 import { useModal } from '@/hooks/useModal';
 import useAuthStore from '@/store/authStore';
 import { useNavigate } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
+import FeedContentsUserTitle from '@/components/atoms/contents/FeedContentsUserTitle';
+
 interface ContentsUserProps {
   userProfileUrl: string;
   createdAt: string;
@@ -63,7 +64,7 @@ const ContentsUser = ({
           />
         )}
       </div>
-      <ContentsUserTitle
+      <FeedContentsUserTitle
         userNickname={name}
         userRole={userRole}
         createdAt={createdAt}

@@ -1,6 +1,6 @@
 import useAuthStore from '@/store/authStore';
 import { Channel } from '@/types/channel.type';
-import { SendMessage, ReceiveMessage } from '@/types/message.type';
+import { SendMessage, ReceiveMessage, FileMessage } from '@/types/message.type';
 import { formatChannelData } from '@/utils/format';
 import { io, Socket } from 'socket.io-client';
 import { create } from 'zustand';
@@ -11,6 +11,7 @@ export interface ChatState {
   messages: Record<string, ReceiveMessage[]>;
   currentChannelId: number | null;
   channels: Record<Channel['channelId'], Channel>;
+  channelSearchKeyword: string;
 }
 
 export interface ChatAction {
@@ -18,9 +19,11 @@ export interface ChatAction {
   disconnectSocket: () => void;
   createChannel: (userId1: number, userId2: number) => void;
   createGroup: (userIds: number[], title: Channel['title']) => void;
-  sendMessage: (message: SendMessage) => void;
+  sendMessage(message: SendMessage): void;
+  sendMessage(message: FileMessage): void;
   joinChannel: (userId: number, channleId: Channel['channelId']) => void;
-  exitChannel: (userId: number, channelId: Channel['channelId']) => void;
+  exitChannel: (userId: number, channleId: Channel['channelId']) => void;
+  setChannelSearchKeyword: (keyword: string) => void;
 }
 
 export interface Handlers {
@@ -39,6 +42,7 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       messages: {},
       currentChannelId: null,
       channels: {},
+      channelSearchKeyword: '',
       connectSocket: () => {
         // const protocol = window.location.protocol;
         const socketUrl = `${import.meta.env.VITE_BASE_SERVER_URL}/chat`;
@@ -92,6 +96,11 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
           channels: {},
         }));
       },
+      setChannelSearchKeyword: (keyword) => {
+        set((state) => {
+          state.channelSearchKeyword = keyword;
+        });
+      },
       createChannel: (userId1, userId2) => {
         const { socket } = get();
         if (!socket) return;
@@ -139,6 +148,7 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       // 채널에 참가 했을 때 channels 상태 업데이트
       handleChannelJoined: (channel) => {
         const myUserId = useAuthStore.getState().userInfo?.userId;
+        console.log({ channel });
         set((state) => {
           state.currentChannelId = channel.channelId;
           if (!state.messages[channel.channelId]) {

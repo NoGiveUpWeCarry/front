@@ -50,7 +50,7 @@ type FeedStore = FeedState & FeedAction;
 //   )
 // );
 
-const useFeedStore = create<FeedStore>()(
+const useFeedStore: () => FeedStore = create<FeedStore>()(
   devtools(
     immer<FeedStore>((set) => ({
       ...initialState,

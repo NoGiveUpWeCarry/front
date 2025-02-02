@@ -20,4 +20,6 @@ export const API_PATH = {
   feedRank: '/feed/weekly',
   hubBookmark: '/projects/:projectId/bookmark',
   hubImage: '/projects/image',
+  notificationUnread: '/notifications/unread',
+  notificationsAsRead: '/notifications/:notificationId/delete',
 };

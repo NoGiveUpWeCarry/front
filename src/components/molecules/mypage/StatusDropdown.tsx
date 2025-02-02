@@ -48,7 +48,7 @@ const StatusDropdown = () => {
       {
         onSuccess: () => {
           querySuccessHandler('settings-info');
-          onClickOption();
+          onClickOption({ id });
         },
       }
     );
@@ -66,6 +66,7 @@ const StatusDropdown = () => {
       </button>
       {openDropdown && (
         <Dropdown
+          type='status'
           options={options}
           // focusedIndex={focusedIndex!}
           // setFocusedIndex={setFocusedIndex}
