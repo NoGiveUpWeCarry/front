@@ -45,7 +45,7 @@ const ApplyTemplate = () => {
           지원서가 존재하지 않습니다.
         </div>
       )}
-      {isEditing && (
+      {isEditing && isMyPage && (
         <form
           onSubmit={(e: FormEvent<HTMLFormElement>) =>
             submitHandler(e, commonSubmitHandlers, handleSuccess)
