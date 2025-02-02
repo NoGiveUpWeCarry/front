@@ -20,12 +20,12 @@ const Popup = ({ popupHandler, position, className }: IProps) => {
     {
       variants: {
         position: {
-          right: 'top-[-30%] transform -translate-y-1/2 ml-4 text-[18px] ',
+          right: 'top-[-30%] transform -translate-y-1/2 text-[18px] ',
           bottom: 'left-0 mt-3 text-[15px]',
         },
       },
       defaultVariants: {
-        variants: 'filled',
+        position: 'right',
       },
     }
   );
@@ -33,11 +33,13 @@ const Popup = ({ popupHandler, position, className }: IProps) => {
   return (
     <div
       className={cn(
-        'absolute  w-max left-full transition-opacity duration-300 z-50',
+        'absolute w-max left-full transition-opacity duration-300 z-50',
         popupStyle({ position })
       )}
     >
-      <div className='flex w-full bg-white rounded-xl items-center px-[10px] py-[10px] drop-shadow-lg'>
+      <div
+        className={`flex w-full bg-white rounded-xl items-center px-[10px] py-[10px] drop-shadow-lg ${position === 'right' && 'ml-4'}`}
+      >
         <div
           className={`flex w-full flex-col ${position === 'right' ? 'gap-[10px]' : 'gap-1'} ${className}`}
         >
