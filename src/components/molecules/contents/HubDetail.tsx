@@ -61,6 +61,7 @@ const HubDetail = ({
         name={manager.nickname}
         userRole={manager.role!}
         createdAt={createdAt}
+        userId={manager.userId}
       />
 
       <div className='flex flex-col w-full bg-white rounded-[20px] p-[20px]'>
