@@ -7,6 +7,7 @@ import { Channel } from '@/types/channel.type';
 import { ReceiveMessage } from '@/types/message.type';
 import { useEffect, useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useShallow } from 'zustand/shallow';
 
 interface ChatMessagesProps {
   currentChannelId: Channel['channelId'];
@@ -15,15 +16,21 @@ interface ChatMessagesProps {
 const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
   const {
     data,
-    hasPreviousPage,
-    fetchPreviousPage,
+    // hasPreviousPage,
+    // fetchPreviousPage,
+    hasNextPage,
+    fetchNextPage,
     isLoading,
     refetch,
     isFetching,
   } = useInfiniteMessagesQuery(currentChannelId);
 
-  const socketMessages = useChatStore(
-    (state) => state.messages[currentChannelId!]
+  const { socketMessages, updatedNeeded, setState } = useChatStore(
+    useShallow((state) => ({
+      socketMessages: state.messages[currentChannelId!],
+      updatedNeeded: state.updateNeeded,
+      setState: state.setState,
+    }))
   );
 
   const { ref: loadPrevRef, inView: isTopInView } = useInView({
@@ -54,10 +61,17 @@ const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
   }, [currentChannelId]);
 
   useEffect(() => {
-    if (isTopInView && hasPreviousPage) {
-      fetchPreviousPage();
+    if (updatedNeeded) {
+      refetch();
+      setState({ updateNeeded: false });
     }
-  }, [isTopInView, hasPreviousPage]);
+  }, [updatedNeeded]);
+
+  useEffect(() => {
+    if (isTopInView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [isTopInView, hasNextPage]);
 
   if (isLoading) {
     return (
@@ -75,7 +89,7 @@ const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
     >
       {messages && (
         <>
-          {hasPreviousPage && <div ref={loadPrevRef}></div>}
+          {hasNextPage && <div ref={loadPrevRef}></div>}
           {isFetching && <LoadingDots />}
           <Messages messages={messages} handleImageLoad={handleImageLoad} />
         </>

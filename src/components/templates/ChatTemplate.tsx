@@ -4,7 +4,6 @@ import { useSidebarStore } from '@/store/sidebarStore';
 
 const ChatTemplate = () => {
   const isOpen = useSidebarStore((state) => state.isOpen);
-  console.log(isOpen);
 
   return (
     <div className='w-full h-screen flex justify-center'>

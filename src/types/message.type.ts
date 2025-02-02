@@ -22,6 +22,7 @@ export interface ReceiveMessage extends Message {
   date: string;
   user: User;
   userId: User['userId'];
+  readCount: number;
 }
 
 export interface LastMessage extends Message {

@@ -12,6 +12,7 @@ export interface ChatState {
   currentChannelId: number | null;
   channels: Record<Channel['channelId'], Channel>;
   channelSearchKeyword: string;
+  updateNeeded: boolean;
 }
 
 export interface ChatAction {
@@ -24,6 +25,7 @@ export interface ChatAction {
   joinChannel: (userId: number, channleId: Channel['channelId']) => void;
   exitChannel: (userId: number, channleId: Channel['channelId']) => void;
   setChannelSearchKeyword: (keyword: string) => void;
+  setState: (state: Partial<ChatState>) => void;
 }
 
 export interface Handlers {
@@ -33,6 +35,14 @@ export interface Handlers {
   handleChannelAdded: (channel: Channel) => void;
   handleChannelCreated: (channel: Channel) => void;
   handleChannelExited: (channelId: Channel['channelId']) => void;
+  handleReadCounted: (messageId: ReceiveMessage['messageId']) => void;
+  handleBroadcaseChannelJoined: ({
+    lastMessageId,
+    channelId,
+  }: {
+    channelId: Channel['channelId'];
+    lastMessageId: ReceiveMessage['messageId'];
+  }) => void;
 }
 
 export const useChatStore = create<ChatState & ChatAction & Handlers>()(
@@ -43,9 +53,10 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       currentChannelId: null,
       channels: {},
       channelSearchKeyword: '',
+      updateNeeded: false,
       connectSocket: () => {
-        // const protocol = window.location.protocol;
-        const socketUrl = `${import.meta.env.VITE_BASE_SERVER_URL}/chat`;
+        // const socketUrl = `${import.meta.env.VITE_BASE_SERVER_URL}/chat`;
+        const socketUrl = `${import.meta.env.VITE_LOCAL_URL}/chat`;
         const {
           handleFetchChannels,
           handleMessage,
@@ -53,6 +64,8 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
           handleChannelCreated,
           handleChannelJoined,
           handleChannelExited,
+          handleReadCounted,
+          handleBroadcaseChannelJoined,
         } = get();
         const socket =
           get().socket ||
@@ -68,6 +81,8 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
         socket.on('channelCreated', handleChannelCreated);
         socket.on('groupCreated', handleChannelCreated);
         socket.on('channelExited', handleChannelExited);
+        socket.on('readCounted', handleReadCounted);
+        socket.on('broadcastChannelJoined', handleBroadcaseChannelJoined);
         set(() => ({ socket }));
       },
       disconnectSocket: () => {
@@ -79,6 +94,8 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
           handleChannelJoined,
           handleChannelCreated,
           handleChannelExited,
+          handleReadCounted,
+          handleBroadcaseChannelJoined,
         } = get();
         if (!socket) return;
         socket.off('message', handleMessage);
@@ -88,6 +105,8 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
         socket.off('channelCreated', handleChannelCreated);
         socket.off('groupCreated', handleChannelCreated);
         socket.off('channelExited', handleChannelExited);
+        socket.off('readCounted', handleReadCounted);
+        socket.off('broadcastChannelJoined', handleBroadcaseChannelJoined);
         socket.disconnect();
         set(() => ({
           socket: null,
@@ -138,11 +157,17 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       },
       // 메시지 받았을 때 messages 상태 업데이트
       handleMessage: (message) => {
+        const { socket } = get();
         set((state) => {
           if (!state.messages[message.channelId]) {
             state.messages[message.channelId] = [];
           }
           state.messages[message.channelId].push(message);
+          socket!.emit('readMessage', {
+            userId: useAuthStore.getState().userInfo.userId,
+            messageId: message.messageId,
+            channelId: message.channelId,
+          });
         });
       },
       // 채널에 참가 했을 때 channels 상태 업데이트
@@ -196,6 +221,29 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
           delete state.messages[channelId];
           state.currentChannelId = null;
         });
+      },
+      // readCount 1 증가
+      handleReadCounted: (messageId) => {
+        const { currentChannelId } = get();
+        set((state) => {
+          state.messages[currentChannelId!] = state.messages[
+            currentChannelId!
+          ].map((message) => ({
+            ...message,
+            readCount:
+              message.messageId === messageId
+                ? message.readCount + 1
+                : message.readCount,
+          }));
+        });
+      },
+      handleBroadcaseChannelJoined: () => {
+        set((state) => {
+          state.updateNeeded = true;
+        });
+      },
+      setState: (state) => {
+        set(() => ({ ...state }));
       },
     };
   })

@@ -2,6 +2,7 @@ import Avatar from '@/components/atoms/Avatar';
 import ChatImageModal from '@/components/molecules/chat/ChatImageModal';
 import MessageBubble from '@/components/molecules/chat/MessageBubble';
 import { useModal } from '@/hooks/useModal';
+import { useChatStore } from '@/store/chatStore';
 import { ReceiveMessage } from '@/types/message.type';
 import { Role } from '@/types/role.type';
 import { cn } from '@/utils/cn';
@@ -18,8 +19,10 @@ interface MessageProps {
 
 const Message = memo(
   ({ message, sameBefore, isMyMessage, handleImageLoad }: MessageProps) => {
-    const { content, user } = message;
+    const { content, user, channelId } = message;
+    const channel = useChatStore((state) => state.channels[channelId]);
     const { closeModal, isOpen, openModal } = useModal();
+    const unreadCount = channel.users.length - message.readCount;
     return (
       <div
         className={cn(
@@ -73,6 +76,9 @@ const Message = memo(
             )}
             <div className='text-caption2 text-darkgray'>
               {formatTime(message.date)}
+            </div>
+            <div className='text-caption2 text-yellow-500'>
+              {unreadCount || undefined}
             </div>
           </div>
         </div>
