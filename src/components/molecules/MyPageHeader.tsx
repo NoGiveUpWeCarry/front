@@ -21,7 +21,12 @@ const MyPageHeader = () => {
   const location = useLocation();
   const nickname = location.pathname.slice(2);
 
-  const { data: headerData, isLoading, error } = useGetProfileHeader(nickname);
+  const {
+    data: headerData,
+    isLoading,
+    error,
+    refetch,
+  } = useGetProfileHeader(nickname);
   const { isMyPage, setIsMyPage, setRole, setOwnerId, setNickname } =
     useMyPageStore(useShallow((state) => state));
 
@@ -80,6 +85,7 @@ const MyPageHeader = () => {
                 isFollowing={headerData?.isFollowing!}
                 nickname={headerData?.nickname!}
                 userId={headerData?.userId!}
+                onRefetch={refetch}
               />
             )}
           </div>
