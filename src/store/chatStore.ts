@@ -12,6 +12,7 @@ export interface ChatState {
   currentChannelId: number | null;
   channels: Record<Channel['channelId'], Channel>;
   channelSearchKeyword: string;
+  updateNeeded: boolean;
 }
 
 export interface ChatAction {
@@ -24,6 +25,7 @@ export interface ChatAction {
   joinChannel: (userId: number, channleId: Channel['channelId']) => void;
   exitChannel: (userId: number, channleId: Channel['channelId']) => void;
   setChannelSearchKeyword: (keyword: string) => void;
+  setState: (state: Partial<ChatState>) => void;
 }
 
 export interface Handlers {
@@ -51,9 +53,10 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       currentChannelId: null,
       channels: {},
       channelSearchKeyword: '',
+      updateNeeded: false,
       connectSocket: () => {
-        const socketUrl = `${import.meta.env.VITE_BASE_SERVER_URL}/chat`;
-        // const socketUrl = `${import.meta.env.VITE_LOCAL_URL}/chat`;
+        // const socketUrl = `${import.meta.env.VITE_BASE_SERVER_URL}/chat`;
+        const socketUrl = `${import.meta.env.VITE_LOCAL_URL}/chat`;
         const {
           handleFetchChannels,
           handleMessage,
@@ -93,8 +96,6 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
           handleChannelExited,
           handleReadCounted,
           handleBroadcaseChannelJoined,
-          currentChannelId,
-          messages,
         } = get();
         if (!socket) return;
         socket.off('message', handleMessage);
@@ -106,14 +107,6 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
         socket.off('channelExited', handleChannelExited);
         socket.off('readCounted', handleReadCounted);
         socket.off('broadcastChannelJoined', handleBroadcaseChannelJoined);
-        if (currentChannelId && messages[currentChannelId].at(-1)) {
-          const userId = useAuthStore.getState().userInfo.userId;
-          socket.emit('disconnectChannel', {
-            userId,
-            channelId: currentChannelId,
-            lastMessageId: messages[currentChannelId].at(-1)?.messageId,
-          });
-        }
         socket.disconnect();
         set(() => ({
           socket: null,
@@ -152,15 +145,8 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       },
       // 채널 참가
       joinChannel: (userId, channelId) => {
-        const { socket, currentChannelId, messages } = get();
+        const { socket } = get();
         if (!socket) return alertSocketNotConnected();
-        if (currentChannelId && messages[currentChannelId].at(-1)) {
-          socket.emit('disconnectChannel', {
-            userId,
-            channelId: currentChannelId,
-            lastMessageId: messages[currentChannelId].at(-1)?.messageId,
-          });
-        }
         socket.emit('joinChannel', { userId, channelId });
       },
       // 채널 나가기
@@ -171,7 +157,6 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       },
       // 메시지 받았을 때 messages 상태 업데이트
       handleMessage: (message) => {
-        console.log('handleMessage', message);
         const { socket } = get();
         set((state) => {
           if (!state.messages[message.channelId]) {
@@ -179,6 +164,7 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
           }
           state.messages[message.channelId].push(message);
           socket!.emit('readMessage', {
+            userId: useAuthStore.getState().userInfo.userId,
             messageId: message.messageId,
             channelId: message.channelId,
           });
@@ -250,18 +236,13 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
           }));
         });
       },
-      handleBroadcaseChannelJoined: ({ lastMessageId, channelId }) => {
+      handleBroadcaseChannelJoined: () => {
         set((state) => {
-          state.messages[channelId] = state.messages[channelId].map(
-            (message) => ({
-              ...message,
-              readCount:
-                message.messageId > lastMessageId
-                  ? message.readCount + 1
-                  : message.readCount,
-            })
-          );
+          state.updateNeeded = true;
         });
+      },
+      setState: (state) => {
+        set(() => ({ ...state }));
       },
     };
   })
