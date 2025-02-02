@@ -3,7 +3,9 @@ import ContentsUserTitle from '@/components/atoms/contents/ConentsUserTitle';
 import Icon from '@/components/atoms/Icon';
 import Popup from '@/components/molecules/Popup';
 import { useModal } from '@/hooks/useModal';
+import useAuthStore from '@/store/authStore';
 import { useNavigate } from 'react-router-dom';
+import { useShallow } from 'zustand/shallow';
 interface ContentsUserProps {
   userProfileUrl: string;
   createdAt: string;
@@ -21,12 +23,19 @@ const ContentsUser = ({
 }: ContentsUserProps) => {
   const navigate = useNavigate();
   const { isOpen, openModal, closeModal } = useModal();
+  const { userInfo } = useAuthStore(useShallow((state) => state));
 
   return (
     <div className='flex items-start space-x-3'>
       <div
         className='cursor-pointer relative'
-        onClick={() => (isOpen ? closeModal() : openModal())}
+        onClick={() =>
+          userId === userInfo?.userId
+            ? navigate(`/@${userInfo?.nickname}`)
+            : isOpen
+              ? closeModal()
+              : openModal()
+        }
       >
         <Avatar
           src={userProfileUrl}

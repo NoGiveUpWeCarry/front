@@ -6,6 +6,7 @@ import PostHubModal from '@/components/organisms/modals/PostHubModal';
 import { useDeleteHub } from '@/hooks/queries/hub.query';
 import { useModal } from '@/hooks/useModal';
 import usePostHubModal from '@/hooks/usePostHubModal';
+import useAuthStore from '@/store/authStore';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -35,6 +36,7 @@ const ContentsHubUser = ({
   const { mutate: deleteHub } = useDeleteHub();
 
   const { isOpen, openModal, closeModal } = useModal();
+  const { userInfo } = useAuthStore();
 
   const handleDelete = () => {
     const confirmDelete = window.confirm('정말 삭제하시겠습니다?');
@@ -54,7 +56,13 @@ const ContentsHubUser = ({
       <div className='flex space-x-3'>
         <div
           className='cursor-pointer relative'
-          onClick={() => (isOpen ? closeModal() : openModal())}
+          onClick={() =>
+            userId === userInfo?.userId
+              ? navigate(`/@${userInfo?.nickname}`)
+              : isOpen
+                ? closeModal()
+                : openModal()
+          }
         >
           <Avatar
             src={profileUrl}
@@ -62,7 +70,7 @@ const ContentsHubUser = ({
             alt={`${nickname} Avatar`}
             className='object-cover'
           />
-          {isOpen && (
+          {isOpen && userId !== userInfo?.userId && (
             <Popup
               position='bottom'
               popupHandler={[
