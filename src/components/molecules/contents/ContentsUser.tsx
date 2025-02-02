@@ -21,7 +21,6 @@ const ContentsUser = ({
 }: ContentsUserProps) => {
   const navigate = useNavigate();
   const { isOpen, openModal, closeModal } = useModal();
-  console.log(userId);
 
   return (
     <div className='flex items-start space-x-3'>

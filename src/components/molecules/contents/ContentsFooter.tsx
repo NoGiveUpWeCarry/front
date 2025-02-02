@@ -40,8 +40,6 @@ export const HubFooter = ({
       setBookmarked(bookmarkStatus.bookmarked);
     }
   }, [bookmarkStatus]);
-  console.log('프로젝트 id:', projectId);
-  console.log('북마크 데이터:', bookmarkStatus);
 
   const handleBookmarkClick = () => {
     if (!isLoggedIn || !userInfo?.userId) {

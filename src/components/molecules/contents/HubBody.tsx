@@ -32,8 +32,6 @@ const HubBody = ({
   status,
   duration,
 }: HubBodyProps) => {
-  console.log('📌 현재 status 값:', status);
-  console.log('📌 적용된 배경 클래스:', statusTagItemsColors[status]);
   return (
     <div className='flex flex-col gap-[20px]'>
       <div className='flex w-full items-center gap-[20px]'>
