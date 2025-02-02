@@ -33,6 +33,14 @@ export interface Handlers {
   handleChannelAdded: (channel: Channel) => void;
   handleChannelCreated: (channel: Channel) => void;
   handleChannelExited: (channelId: Channel['channelId']) => void;
+  handleReadCounted: (messageId: ReceiveMessage['messageId']) => void;
+  handleBroadcaseChannelJoined: ({
+    lastMessageId,
+    channelId,
+  }: {
+    channelId: Channel['channelId'];
+    lastMessageId: ReceiveMessage['messageId'];
+  }) => void;
 }
 
 export const useChatStore = create<ChatState & ChatAction & Handlers>()(
@@ -44,8 +52,8 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       channels: {},
       channelSearchKeyword: '',
       connectSocket: () => {
-        // const protocol = window.location.protocol;
         const socketUrl = `${import.meta.env.VITE_BASE_SERVER_URL}/chat`;
+        // const socketUrl = `${import.meta.env.VITE_LOCAL_URL}/chat`;
         const {
           handleFetchChannels,
           handleMessage,
@@ -53,6 +61,8 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
           handleChannelCreated,
           handleChannelJoined,
           handleChannelExited,
+          handleReadCounted,
+          handleBroadcaseChannelJoined,
         } = get();
         const socket =
           get().socket ||
@@ -68,6 +78,8 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
         socket.on('channelCreated', handleChannelCreated);
         socket.on('groupCreated', handleChannelCreated);
         socket.on('channelExited', handleChannelExited);
+        socket.on('readCounted', handleReadCounted);
+        socket.on('broadcastChannelJoined', handleBroadcaseChannelJoined);
         set(() => ({ socket }));
       },
       disconnectSocket: () => {
@@ -79,6 +91,10 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
           handleChannelJoined,
           handleChannelCreated,
           handleChannelExited,
+          handleReadCounted,
+          handleBroadcaseChannelJoined,
+          currentChannelId,
+          messages,
         } = get();
         if (!socket) return;
         socket.off('message', handleMessage);
@@ -88,6 +104,16 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
         socket.off('channelCreated', handleChannelCreated);
         socket.off('groupCreated', handleChannelCreated);
         socket.off('channelExited', handleChannelExited);
+        socket.off('readCounted', handleReadCounted);
+        socket.off('broadcastChannelJoined', handleBroadcaseChannelJoined);
+        if (currentChannelId && messages[currentChannelId].at(-1)) {
+          const userId = useAuthStore.getState().userInfo.userId;
+          socket.emit('disconnectChannel', {
+            userId,
+            channelId: currentChannelId,
+            lastMessageId: messages[currentChannelId].at(-1)?.messageId,
+          });
+        }
         socket.disconnect();
         set(() => ({
           socket: null,
@@ -126,8 +152,15 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       },
       // 채널 참가
       joinChannel: (userId, channelId) => {
-        const { socket } = get();
+        const { socket, currentChannelId, messages } = get();
         if (!socket) return alertSocketNotConnected();
+        if (currentChannelId && messages[currentChannelId].at(-1)) {
+          socket.emit('disconnectChannel', {
+            userId,
+            channelId: currentChannelId,
+            lastMessageId: messages[currentChannelId].at(-1)?.messageId,
+          });
+        }
         socket.emit('joinChannel', { userId, channelId });
       },
       // 채널 나가기
@@ -138,17 +171,22 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       },
       // 메시지 받았을 때 messages 상태 업데이트
       handleMessage: (message) => {
+        console.log('handleMessage', message);
+        const { socket } = get();
         set((state) => {
           if (!state.messages[message.channelId]) {
             state.messages[message.channelId] = [];
           }
           state.messages[message.channelId].push(message);
+          socket!.emit('readMessage', {
+            messageId: message.messageId,
+            channelId: message.channelId,
+          });
         });
       },
       // 채널에 참가 했을 때 channels 상태 업데이트
       handleChannelJoined: (channel) => {
         const myUserId = useAuthStore.getState().userInfo?.userId;
-        console.log({ channel });
         set((state) => {
           state.currentChannelId = channel.channelId;
           if (!state.messages[channel.channelId]) {
@@ -195,6 +233,34 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
           delete state.channels[channelId];
           delete state.messages[channelId];
           state.currentChannelId = null;
+        });
+      },
+      // readCount 1 증가
+      handleReadCounted: (messageId) => {
+        const { currentChannelId } = get();
+        set((state) => {
+          state.messages[currentChannelId!] = state.messages[
+            currentChannelId!
+          ].map((message) => ({
+            ...message,
+            readCount:
+              message.messageId === messageId
+                ? message.readCount + 1
+                : message.readCount,
+          }));
+        });
+      },
+      handleBroadcaseChannelJoined: ({ lastMessageId, channelId }) => {
+        set((state) => {
+          state.messages[channelId] = state.messages[channelId].map(
+            (message) => ({
+              ...message,
+              readCount:
+                message.messageId > lastMessageId
+                  ? message.readCount + 1
+                  : message.readCount,
+            })
+          );
         });
       },
     };
