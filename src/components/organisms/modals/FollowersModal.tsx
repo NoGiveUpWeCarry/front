@@ -5,7 +5,6 @@ import { ModalProps } from '@/components/organisms/modals/modalProps';
 import { useGetFollows } from '@/hooks/queries/mypage/introduce';
 import { useTabs } from '@/hooks/useTabs';
 import { useMyPageStore } from '@/store/mypageStore';
-import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
@@ -70,12 +69,9 @@ const FollowersModal = ({
                   )}
                 </ListItem.Col>
                 <ListItem.Col className='ml-[10px]'>
-                  <ListItem.Label className='text-[12px] font-medium'>
+                  <ListItem.Label className='text-[14px] font-medium'>
                     {user?.nickname}
                   </ListItem.Label>
-                </ListItem.Col>
-                <ListItem.Col className='absolute right-0 top-1/2 transform -translate-y-1/2 pr-1'>
-                  <CursorArrowRaysIcon width={20} />
                 </ListItem.Col>
               </ListItem>
             ))
