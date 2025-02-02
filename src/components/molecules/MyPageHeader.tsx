@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { useMyPageStore } from '@/store/mypageStore';
 
 import { Cog6ToothIcon, LinkIcon } from '@heroicons/react/16/solid';
+import { AxiosError } from 'axios';
 import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
@@ -31,7 +32,10 @@ const MyPageHeader = () => {
     useMyPageStore(useShallow((state) => state));
 
   useEffect(() => {
-    if (error?.response?.data.statusCode === 404) {
+    if (
+      error instanceof AxiosError &&
+      error.response?.data?.statusCode === 404
+    ) {
       alert('존재하지 않는 사용자입니다.');
       navigate(-1);
     }
