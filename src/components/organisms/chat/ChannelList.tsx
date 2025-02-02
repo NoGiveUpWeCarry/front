@@ -40,7 +40,6 @@ const ChannelList = ({ channels }: ChannelListProps) => {
 
   const handleChannelExit = () => {
     if (window.confirm('현재 채팅방을 나가시겠습니까?')) {
-      // console.log(`${currentChannelId} 번 채팅방 나감`);
       const userId = useAuthStore.getState().userInfo.userId;
       exitChannel(userId, currentChannelId!);
     } else {

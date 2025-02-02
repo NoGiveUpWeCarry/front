@@ -10,7 +10,6 @@ interface IProps {
 
 const FollowButton = ({ userId, isFollowing, nickname }: IProps) => {
   const { mutate } = useFollow(nickname);
-  console.log(userId, nickname);
 
   return (
     <Button

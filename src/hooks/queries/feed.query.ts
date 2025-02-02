@@ -227,7 +227,6 @@ export const usePatchFeedChat = () => {
     },
     onSuccess: (_, { id }) => {
       querySuccessHandler('feedChats', [id]);
-      console.log('댓글 수정 성공');
     },
     onError: (error) => {
       console.error('댓글 수정 중 오류 발생:', error);

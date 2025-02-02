@@ -40,7 +40,6 @@ const ChatItem = ({ chat, isCurrentUser, onDelete }: ChatItemProps) => {
       { id: chat.commentId },
       {
         onSuccess: () => {
-          console.log(`댓글 ${chat.commentId} 좋아요 상태 변경 성공`);
           setIsLoading(false);
         },
         onError: (error) => {

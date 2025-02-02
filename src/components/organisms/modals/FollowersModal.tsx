@@ -29,8 +29,6 @@ const FollowersModal = ({
     type: active === '팔로워' ? 'followers' : 'following',
   });
 
-  console.log(data);
-
   useEffect(() => {
     refetch();
   }, [active]);

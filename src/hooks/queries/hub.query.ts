@@ -79,7 +79,6 @@ export const useDeleteHub = () => {
       queryClient.invalidateQueries({
         queryKey: ['project', projectId],
       });
-      console.log(`허브 ${projectId} 삭제 성공`);
     },
     onError: (error) => {
       console.error('허브 삭제 중 오류 발생', error);
@@ -287,7 +286,6 @@ export const usePutHub = () => {
       queryClient.invalidateQueries({
         queryKey: ['project', projectId],
       });
-      console.log(`허브 ${projectId} 수정 성공`);
     },
     onError: (error) => {
       console.error('허브 수정 중 오류 발생:', error);

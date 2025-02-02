@@ -46,7 +46,6 @@ export const FeedFooter = ({
       { id: postId },
       {
         onSuccess: () => {
-          console.log('좋아요 상태 변경 성공');
           setIsLoading(false);
         },
         onError: () => {

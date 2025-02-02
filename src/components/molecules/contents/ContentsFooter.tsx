@@ -62,7 +62,6 @@ export const HubFooter = ({
       { projectId },
       {
         onSuccess: () => {
-          console.log('북마크 상태 변경 성공');
           setIsLoading(false);
         },
         onError: (error) => {

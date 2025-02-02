@@ -11,7 +11,6 @@ const usePostModal = () => {
   };
 
   const closePostModal = () => {
-    console.log('isSubmitted: ', isSubmitted);
     if (!isSubmitted) {
       const answer = window.confirm(
         '작성중인 피드가 사라집니다. 정말 나가시겠습니까?'

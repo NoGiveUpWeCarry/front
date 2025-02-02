@@ -41,11 +41,9 @@ const ContentsHubUser = ({
     if (confirmDelete) {
       deleteHub(projectId, {
         onSuccess: () => {
-          console.log('허브 삭제 성공');
           navigate('/projects');
         },
-        onError: (error) => {
-          console.log('허브 삭제 실패: ', error);
+        onError: () => {
           alert('삭제에 실패했습니다. 다시 시도해주세요.');
         },
       });

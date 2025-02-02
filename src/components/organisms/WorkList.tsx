@@ -47,8 +47,6 @@ WorkList.Github = function Github({
     );
   };
 
-  console.log(isMyPage, githubId);
-
   return (
     <>
       {isMyPage && changeGithubId && (

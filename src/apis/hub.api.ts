@@ -174,7 +174,6 @@ export const fetchHubs = async ({
     params,
   });
 
-  console.log('fetchHubs 응답 데이터:', response.data);
   return response.data;
 };
 
