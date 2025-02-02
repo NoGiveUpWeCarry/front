@@ -48,7 +48,6 @@ const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
 
     return deduplicateAndSortMessages(messages);
   }, [data, socketMessages]);
-  console.log({ messages });
 
   const totalImages = messages.filter((message) => message.type === 'image');
 

@@ -173,6 +173,7 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       // 채널에 참가 했을 때 channels 상태 업데이트
       handleChannelJoined: (channel) => {
         const myUserId = useAuthStore.getState().userInfo?.userId;
+        console.log({ channel });
         set((state) => {
           state.currentChannelId = channel.channelId;
           if (!state.messages[channel.channelId]) {
