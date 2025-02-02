@@ -73,7 +73,7 @@ const ConnectionHubTemplate = () => {
                   onClick={() => navigate(`/projects/${project.projectPostId}`)}
                 >
                   <div className='flex flex-col gap-[20px]'>
-                    <HubItem {...project} />
+                    <HubItem {...project} projectId={project.projectPostId} />
                     <HubFooter
                       {...project}
                       projectId={project.projectPostId}
