@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef } from 'react';
 import { HubContents } from '@/components/molecules/contents/ContentsItem';
 // 실제 API와 연동하기 위한 fetchHubs 함수 (경로는 프로젝트 구조에 맞게 수정)
 import { HubItem } from '@/mocks/mock-data/hubItem'; // 실제 API 응답 형태에 맞춰 타입 조정 필요
-import { useNavigate } from 'react-router-dom';
 import { useInfiniteFetchHubs } from '@/hooks/queries/hub.query';
 import useHubSearchStore from '@/store/hubSeartchStore';
 
@@ -22,7 +21,6 @@ const Hub = () => {
     },
     [hasNextPage, isFetchingNextPage, fetchNextPage]
   );
-  const navigate = useNavigate();
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleObserver, {
@@ -40,10 +38,6 @@ const Hub = () => {
     };
   }, [handleObserver]);
 
-  const handleClickProject = (projectId: number) => {
-    navigate(`/projects/${projectId}`);
-  };
-
   return (
     <div className='flex flex-col gap-[30px] w-full h-full'>
       {flattenedData.map((item) => (
@@ -53,9 +47,7 @@ const Hub = () => {
             if ((e.target as HTMLElement).closest('.bookmark-button')) {
               return;
             }
-            handleClickProject(item.projectId);
           }}
-          className='cursor-pointer'
         >
           <HubContents
             key={item.projectId}

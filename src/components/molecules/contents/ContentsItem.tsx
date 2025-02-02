@@ -63,6 +63,7 @@ export const HubContents = ({
           createdAt={createdAt}
           isOwnConnectionHub={isOwnConnectionHub}
           projectId={projectId}
+          userId={user.userId}
         />
       )}
       <div className='w-full'>
@@ -78,6 +79,7 @@ export const HubContents = ({
               thumbnailUrl={thumbnailUrl}
               startDate={startDate}
               duration={duration}
+              projectId={projectId}
             />
 
             <HubFooter

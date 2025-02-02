@@ -6,6 +6,7 @@ import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
 import { roleItemsKey } from '@/constants/hub/roleItems';
 import { roleTagItemsKey } from '@/constants/hub/roleTagsItems';
 import { statusTagItemskey } from '@/constants/hub/statusTagItems';
+import { useNavigate } from 'react-router-dom';
 
 interface HubItemProps {
   title: string;
@@ -17,6 +18,7 @@ interface HubItemProps {
   thumbnailUrl?: string;
   startDate: string;
   duration: string;
+  projectId: number;
 }
 const HubItem = ({
   hubType,
@@ -28,9 +30,15 @@ const HubItem = ({
   title,
   startDate,
   duration,
+  projectId,
 }: HubItemProps) => {
+  const navigate = useNavigate();
+
   return (
-    <div className='flex flex-col gap-[20px]'>
+    <div
+      className='flex flex-col gap-[20px] cursor-pointer'
+      onClick={() => navigate(`/projects/${projectId}`)}
+    >
       <HubTitle hubType={hubType} title={title} />
       <div className='flex justify-between'>
         <HubBody

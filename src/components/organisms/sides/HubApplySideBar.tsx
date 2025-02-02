@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { changeHubStatus } from '@/hooks/queries/hub.query';
 import { useProjectStore } from '@/store/hubDetailStore';
 import { useFetchHub } from '@/hooks/queries/hub.query';
@@ -9,6 +9,7 @@ const HubApplySideBar = () => {
   const mutation = changeHubStatus();
   const hubStatus = useProjectStore((state) => state.project?.status);
   const { refetch } = useFetchHub(Number(projectId));
+  const navigate = useNavigate();
 
   const handleCloseRecruitment = () => {
     if (!projectId) {
@@ -62,6 +63,15 @@ const HubApplySideBar = () => {
       </div>
 
       <div className='flex gap-[10px]'>
+        <button
+          onClick={() => {
+            navigate('/chat', {
+              state: { userIds: [9, 1, 8], title: 'test1,test2,test3' },
+            });
+          }}
+        >
+          그룹 채팅 시작
+        </button>
         {hubStatus === 'OPEN' && (
           <button
             onClick={handleCloseRecruitment}
