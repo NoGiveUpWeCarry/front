@@ -215,40 +215,53 @@ const SideMenu = () => {
             src={userInfo?.profileUrl || undefined}
             onClick={() => setShowLogin((prev) => !prev)}
           />
-          {showLogin && (
-            <Popup
-              position='right'
-              popupHandler={[
-                {
-                  onClick: () => {
-                    navigate(isLoggedIn ? `/@${userInfo?.nickname}` : '/login');
-                    setShowLogin(false);
+          {showLogin &&
+            (isLoggedIn ? (
+              <Popup
+                position='right'
+                popupHandler={[
+                  {
+                    onClick: () => {
+                      navigate(`/@${userInfo?.nickname}`);
+                      setShowLogin(false);
+                    },
+                    text: '마이페이지',
+                    icon: <Icon type='user' className='w-6' />,
                   },
-                  text: isLoggedIn ? '마이페이지' : '로그인',
-                  icon: <Icon type='user' className='w-6' />,
-                },
-                {
-                  onClick: () => {
-                    if (isLoggedIn) {
+                  {
+                    onClick: () => {
                       mutate(undefined, {
                         onSuccess: () => logout(),
                       });
-                    } else {
-                      navigate('/signup');
-                    }
-                    setShowLogin(false);
+                      setShowLogin(false);
+                    },
+                    text: '로그아웃',
+                    icon: (
+                      <Icon
+                        type={isLoggedIn ? 'logout' : 'user'}
+                        className='w-6'
+                      />
+                    ),
                   },
-                  text: isLoggedIn ? '로그아웃' : '회원가입',
-                  icon: (
-                    <Icon
-                      type={isLoggedIn ? 'logout' : 'user'}
-                      className='w-6'
-                    />
-                  ),
-                },
-              ]}
-            />
-          )}
+                ]}
+                innerClassname='top-[-30%]'
+              />
+            ) : (
+              <Popup
+                position='right'
+                popupHandler={[
+                  {
+                    onClick: () => {
+                      navigate('/login');
+                      setShowLogin(false);
+                    },
+                    text: '로그인/회원가입',
+                    icon: <Icon type='user' className='w-6' />,
+                  },
+                ]}
+                innerClassname='top-[10px]'
+              />
+            ))}
         </div>
       </div>
     </>

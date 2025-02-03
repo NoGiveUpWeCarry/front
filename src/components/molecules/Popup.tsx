@@ -20,7 +20,7 @@ const Popup = ({ popupHandler, position, innerClassname }: IProps) => {
     {
       variants: {
         position: {
-          right: 'top-[-30%] transform -translate-y-1/2 text-[18px] ',
+          right: 'transform -translate-y-1/2 text-[18px] ',
           bottom: 'left-0 mt-3 text-[15px] z-20',
         },
       },
