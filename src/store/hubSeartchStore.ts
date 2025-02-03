@@ -13,8 +13,8 @@ import { immer } from 'zustand/middleware/immer';
 
 interface HubSearchState {
   sort: boolean;
-  role: RoleItemValues | null;
-  unit: roleTagItemsValue | string | null;
+  role: RoleItemValues | string;
+  unit: roleTagItemsValue | string;
 }
 
 interface HubSearchAction {
@@ -26,16 +26,16 @@ interface HubSearchAction {
 
 const initialState: HubSearchState = {
   sort: true,
-  role: null,
-  unit: null,
+  role: '',
+  unit: '',
 };
 
 const useHubSearchStore = create<HubSearchState & HubSearchAction>()(
   devtools(
     immer((set) => ({
       sort: true,
-      role: null,
-      unit: null,
+      role: '',
+      unit: '',
       setSort: (sort) => {
         set((state) => {
           state.sort = sort;
@@ -43,13 +43,13 @@ const useHubSearchStore = create<HubSearchState & HubSearchAction>()(
       },
       setRole: (roleKey) => {
         set((state) => {
-          state.role = roleKey ? roleItems[roleKey] : null;
-          state.unit = null;
+          state.role = roleKey ? roleItems[roleKey] : '';
+          state.unit = '';
         });
       },
       setUnit: (unitKey) => {
         set((state) => {
-          state.unit = unitKey ?? null;
+          state.unit = unitKey ?? '';
         });
       },
       reset: () => {

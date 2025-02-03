@@ -54,6 +54,8 @@ export const useInfiniteFetchHubs = (
       }
       return lastPage.pagination.lastCursor;
     },
+    staleTime: 0,
+    gcTime: 0,
     initialPageParam: 0,
   });
 };
