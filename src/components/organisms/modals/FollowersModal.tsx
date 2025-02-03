@@ -9,6 +9,8 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
 
+import logoIcon from '@/assets/logos/PAD.svg';
+
 const FollowersModal = ({
   onClose,
   type,
@@ -64,7 +66,7 @@ const FollowersModal = ({
                     <Avatar size='xs' src={user?.profileUrl || undefined} />
                   ) : (
                     <div className='w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center overflow-hidden'>
-                      <img src='/src/assets/logos/PAD.svg' width={22} />
+                      <img src={logoIcon} width={22} />
                     </div>
                   )}
                 </ListItem.Col>

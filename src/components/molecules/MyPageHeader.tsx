@@ -11,10 +11,14 @@ import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
 
+import githubIcon from '@/assets/icons/github.svg';
+import linkedInIcon from '@/assets/icons/linkedin.svg';
+import notionIcon from '@/assets/icons/notion.svg';
+
 const LINK_ICONS = {
-  github: '/src/assets/icons/github.svg',
-  notion: '/src/assets/icons/notion.svg',
-  linkedin: '/src/assets/icons/linkedin.svg',
+  github: githubIcon,
+  notion: notionIcon,
+  linkedin: linkedInIcon,
 };
 
 const MyPageHeader = () => {

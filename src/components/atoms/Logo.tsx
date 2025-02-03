@@ -1,4 +1,4 @@
-import logo from '/src/assets/logos/PAD.svg';
+import logo from '@/assets/logos/PAD.svg';
 
 interface LogoProps {
   width?: string;

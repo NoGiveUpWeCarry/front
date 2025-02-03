@@ -5,6 +5,9 @@ import { PenIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
 
+import androidIcon from '@/assets/icons/android.svg';
+import appleIcon from '@/assets/icons/apple.svg';
+
 const MyPageProjectCard = ({
   onClickUpdate,
   ...work
@@ -48,14 +51,10 @@ const MyPageProjectCard = ({
           <div className='mt-3 flex gap-1'>
             {linkTypes.includes('Web') && <GlobeAltIcon width={18} />}
             {linkTypes.includes('IOS') && (
-              <img
-                src='/src/assets/icons/apple.svg'
-                width={20}
-                className='pb-[2px]'
-              />
+              <img src={appleIcon} width={20} className='pb-[2px]' />
             )}
             {linkTypes.includes('Android') && (
-              <img src='/src/assets/icons/android.svg' width={18} />
+              <img src={androidIcon} width={18} />
             )}
           </div>
         </div>

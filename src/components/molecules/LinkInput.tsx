@@ -1,4 +1,3 @@
-import { MY_LINKS } from '@/constants/mypageLinks';
 import { LinkIcon } from '@heroicons/react/24/outline';
 import useDebounce from '@/hooks/useDebounce';
 import UrlInput from '@/components/molecules/UrlInput';
@@ -6,6 +5,18 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { useDeleteLink, useUpdateLink } from '@/hooks/queries/mypage/settings';
 import { useSettingsStore } from '@/store/settingsStore';
 import { useShallow } from 'zustand/shallow';
+
+import notionIcon from '@/assets/icons/notion.svg';
+import githubIcon from '@/assets/icons/github.svg';
+import figmaIcon from '@/assets/icons/figma.svg';
+import linkedInIcon from '@/assets/icons/linkedin.svg';
+
+const MY_LINKS = {
+  notion: notionIcon,
+  github: githubIcon,
+  figma: figmaIcon,
+  linkedin: linkedInIcon,
+};
 
 interface UrlInputProps {
   link: { linkId: number; url: string };
