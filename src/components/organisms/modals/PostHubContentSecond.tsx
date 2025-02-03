@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
 import { HubState } from '@/store/postHubStore';
 import useHubStore from '@/store/postHubStore';
-import { usePostHub, usePutHub } from '@/hooks/queries/hub.query';
+import {
+  useInfiniteFetchHubs,
+  usePostHub,
+  usePutHub,
+} from '@/hooks/queries/hub.query';
 import TiptapHubEditor from '@/components/organisms/TiptapHubEditor';
+import useHubSearchStore from '@/store/hubSeartchStore';
 
 interface PostHubContentSecondProps {
   onPrevious: () => void;
@@ -32,7 +37,9 @@ const PostHubContentSecond = ({
   const { mutate: postHub } = usePostHub();
   const { mutate: putHub } = usePutHub();
   const { resetHub } = useHubStore();
+  const { sort, role: filterRole, unit } = useHubSearchStore();
 
+  const { refetch } = useInfiniteFetchHubs(sort, filterRole, unit);
   const [hubContent, setHubContent] = useState<Pick<HubState, 'content'>>({
     content: '',
   });
@@ -71,6 +78,7 @@ const PostHubContentSecond = ({
         return;
       }
 
+      // 수정 로직
       putHub(
         {
           projectId,
@@ -89,10 +97,12 @@ const PostHubContentSecond = ({
         }
       );
     } else {
+      // 생성 로직
       postHub(data, {
         onSuccess: () => {
           alert('허브 생성이 완료되었습니다.');
           resetHub();
+          refetch();
           onClose();
         },
         onError: (error) => {
