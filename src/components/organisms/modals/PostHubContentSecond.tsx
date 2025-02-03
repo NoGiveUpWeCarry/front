@@ -71,7 +71,6 @@ const PostHubContentSecond = ({
         return;
       }
 
-      // 수정 로직
       putHub(
         {
           projectId,
@@ -90,7 +89,6 @@ const PostHubContentSecond = ({
         }
       );
     } else {
-      // 생성 로직
       postHub(data, {
         onSuccess: () => {
           alert('허브 생성이 완료되었습니다.');

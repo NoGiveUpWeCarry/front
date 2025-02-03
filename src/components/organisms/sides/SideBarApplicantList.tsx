@@ -1,7 +1,7 @@
 import AvatarPopup from '@/components/molecules/AvatarPopup';
 import {
-  applicantsStatus,
-  changeHubStatus,
+  useApplicantsStatus,
+  useChangeHubStatus,
   useFetchApplicants,
 } from '@/hooks/queries/hub.query';
 import { useProjectStore } from '@/store/hubDetailStore';
@@ -17,9 +17,9 @@ const SideBarApplicantList = () => {
   } = useFetchApplicants(Number(projectId));
 
   const navigate = useNavigate();
-  const changeStatusMutation = applicantsStatus();
+  const changeStatusMutation = useApplicantsStatus();
   const hubTitle = useProjectStore((state) => state.project?.title);
-  const hubStatusMutation = changeHubStatus();
+  const hubStatusMutation = useChangeHubStatus();
 
   const handleStatusChange = (
     userId: number,

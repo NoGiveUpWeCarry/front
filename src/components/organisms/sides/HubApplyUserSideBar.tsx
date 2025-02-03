@@ -1,6 +1,6 @@
 import {
-  applyCancel,
-  applyHub,
+  useApplyCancel,
+  useApplyHub,
   useFetchApplyStatus,
   useFetchHub,
 } from '@/hooks/queries/hub.query';
@@ -10,8 +10,8 @@ const HubApplyUserSideBar = () => {
   const hubType = useProjectStore((state) => state.project?.hubType);
   const hubStatus = useProjectStore((state) => state.project?.status);
   const { projectId } = useParams<{ projectId: string }>();
-  const applyMutation = applyHub();
-  const applyCancelMutation = applyCancel();
+  const applyMutation = useApplyHub();
+  const applyCancelMutation = useApplyCancel();
   const { refetch } = useFetchHub(Number(projectId));
   const {
     data: applyStatusData,

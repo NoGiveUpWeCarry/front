@@ -97,7 +97,7 @@ export const useTogledHubBookmark = () => {
   });
 };
 
-export const changeHubStatus = () => {
+export const useChangeHubStatus = () => {
   return useMutation({
     mutationFn: async ({
       projectId,
@@ -114,7 +114,7 @@ export const changeHubStatus = () => {
   });
 };
 
-export const applyHub = () => {
+export const useApplyHub = () => {
   return useMutation({
     mutationFn: async ({ projectId }: { projectId: number }) => {
       return fetchApply(projectId);
@@ -125,7 +125,7 @@ export const applyHub = () => {
   });
 };
 
-export const applyCancel = () => {
+export const useApplyCancel = () => {
   return useMutation({
     mutationFn: async ({ projectId }: { projectId: number }) => {
       return fetchCancelApply(projectId);
@@ -146,7 +146,7 @@ export const useFetchApplicants = (projectId: number) => {
   });
 };
 
-export const applicantsStatus = () => {
+export const useApplicantsStatus = () => {
   return useMutation({
     mutationFn: async ({
       projectId,
