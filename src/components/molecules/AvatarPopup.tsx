@@ -24,7 +24,7 @@ const AvatarPopup = ({
   popupClassname,
 }: IProps) => {
   const navigate = useNavigate();
-  const { userInfo } = useAuthStore(useShallow((state) => state));
+  const { userInfo, isLoggedIn } = useAuthStore(useShallow((state) => state));
 
   const { isOpen, openModal, closeModal } = useModal();
 
@@ -33,13 +33,18 @@ const AvatarPopup = ({
   return (
     <div className='relative cursor-pointer flex items-center !h-fit'>
       <button
-        onClick={() =>
-          userId === userInfo?.userId
-            ? navigate(`/@${userInfo?.nickname}`)
-            : isOpen
-              ? closeModal()
-              : openModal()
-        }
+        onClick={() => {
+          if (!isLoggedIn) return null;
+          if (userId === userInfo?.userId) {
+            navigate(`/@${userInfo?.nickname}`);
+          } else {
+            if (isOpen) {
+              closeModal();
+            } else {
+              openModal();
+            }
+          }
+        }}
         className='!h-fit'
       >
         <Avatar
