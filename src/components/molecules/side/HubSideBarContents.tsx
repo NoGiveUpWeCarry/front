@@ -1,10 +1,13 @@
 import { fetchBestHubs } from '@/apis/hub.api';
-import AvatarPopup from '@/components/molecules/AvatarPopup';
+import Avatar from '@/components/atoms/Avatar';
 import { hubTagItemsColors } from '@/constants/hub/hubTagItems';
 import { HubSideBarItemType } from '@/types/hubSideBarItem.type';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const HubSideBarContents = () => {
+  const navigate = useNavigate();
+
   const [data, setData] = useState<HubSideBarItemType[]>([]);
   // const [isLoading, setIsLoading] = useState<boolean>(false);
   // const [isError, setError] = useState<string | null>(null);
@@ -29,16 +32,21 @@ const HubSideBarContents = () => {
   return (
     <div className='flex flex-col bg-white rounded-[10px] py-[20px] px-[20px] gap-[30px]'>
       {data.map((item, index) => (
-        <div key={item.projectId} className='flex flex-col w-full gap-[10px]'>
+        <div
+          key={item.projectId}
+          className='flex flex-col w-full gap-[10px] cursor-pointer'
+          onClick={() => navigate(`/projects/${item.projectId}`)}
+        >
           <div className='flex items-center justify-between'>
             <div className='flex items-center gap-[10px]'>
               <div className='flex text-[12px]'>{index + 1}</div>
-              <AvatarPopup
+              {/* <AvatarPopup
                 {...item.user}
                 avatarSize='xxs'
                 popupClassname='top-4'
                 avatarClassname=''
-              />
+              /> */}
+              <Avatar size='xxs' src={item.user.profileUrl || undefined} />
               <div className='flex text-[12px] font-medium'>
                 {item.user.nickname}
               </div>
