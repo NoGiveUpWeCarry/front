@@ -148,8 +148,8 @@ export const fetchHubs = async ({
   sort,
 }: {
   cursor: number;
-  role?: string | null;
-  unit?: string | null;
+  role?: string;
+  unit?: string;
   sort: boolean;
 }) => {
   const apiPath = API_PATH.projects;
@@ -159,12 +159,12 @@ export const fetchHubs = async ({
   };
 
   // role이 유효한 경우에만 추가
-  if (role && role !== 'null') {
+  if (role && role !== '') {
     params.role = role;
   }
 
   // unit이 유효한 경우에만 추가
-  if (unit && unit !== 'null') {
+  if (unit && unit !== '') {
     params.unit = unit;
   }
 
