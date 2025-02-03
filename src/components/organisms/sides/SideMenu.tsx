@@ -221,9 +221,7 @@ const SideMenu = () => {
               popupHandler={[
                 {
                   onClick: () => {
-                    navigate(
-                      isLoggedIn ? `/@/${userInfo?.nickname}` : '/login'
-                    );
+                    navigate(isLoggedIn ? `/@${userInfo?.nickname}` : '/login');
                     setShowLogin(false);
                   },
                   text: isLoggedIn ? '마이페이지' : '로그인',
