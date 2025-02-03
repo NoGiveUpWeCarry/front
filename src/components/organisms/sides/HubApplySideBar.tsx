@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-dom';
-import { changeHubStatus } from '@/hooks/queries/hub.query';
+import { useChangeHubStatus } from '@/hooks/queries/hub.query';
 import { useProjectStore } from '@/store/hubDetailStore';
 import { useFetchHub } from '@/hooks/queries/hub.query';
 import SideBarApplicantList from '@/components/organisms/sides/SideBarApplicantList';
 
 const HubApplySideBar = () => {
   const { projectId } = useParams<{ projectId: string }>();
-  const mutation = changeHubStatus();
+  const mutation = useChangeHubStatus();
   const hubStatus = useProjectStore((state) => state.project?.status);
   const { refetch } = useFetchHub(Number(projectId));
 
