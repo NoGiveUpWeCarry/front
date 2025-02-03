@@ -11,16 +11,16 @@ import useHubSearchStore from '@/store/hubSeartchStore';
 
 interface PostHubContentSecondProps {
   onPrevious: () => void;
-  onClose: () => void;
+  onSubmit: (...arg: any) => void;
   onRevise: boolean;
   projectId?: number;
 }
 
 const PostHubContentSecond = ({
   onPrevious,
-  onClose,
   onRevise,
   projectId,
+  onSubmit,
 }: PostHubContentSecondProps) => {
   const {
     content,
@@ -88,7 +88,7 @@ const PostHubContentSecond = ({
           onSuccess: () => {
             alert('허브 수정이 완료되었습니다.');
             resetHub();
-            onClose();
+            onSubmit();
           },
           onError: (error) => {
             console.error('허브 수정 중 오류 발생:', error);
@@ -103,7 +103,7 @@ const PostHubContentSecond = ({
           alert('허브 생성이 완료되었습니다.');
           resetHub();
           refetch();
-          onClose();
+          onSubmit();
         },
         onError: (error) => {
           console.error('허브 생성 중 오류 발생:', error);

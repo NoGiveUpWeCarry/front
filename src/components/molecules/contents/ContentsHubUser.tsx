@@ -26,8 +26,12 @@ const ContentsHubUser = ({
   projectId,
   userId,
 }: ContentsUserProps) => {
-  const { isModalOpen, setIsSubmitted, openPostModal, closePostModal } =
-    usePostHubModal();
+  const {
+    isModalOpen,
+    openPostModal,
+    closePostModal,
+    handleSubmitConfirmation,
+  } = usePostHubModal();
   const [clicked, setClicked] = useState<boolean>(false);
   const navigate = useNavigate();
   const { mutate: deleteHub } = useDeleteHub();
@@ -45,6 +49,7 @@ const ContentsHubUser = ({
       });
     }
   };
+
   return (
     <div className='flex items-center w-full justify-between'>
       <div className='flex space-x-3'>
@@ -97,7 +102,7 @@ const ContentsHubUser = ({
       {isModalOpen && (
         <PostHubModal
           onClose={closePostModal}
-          onSubmit={() => setIsSubmitted(true)}
+          onSubmit={handleSubmitConfirmation}
           onRevise
           projectId={projectId}
         />

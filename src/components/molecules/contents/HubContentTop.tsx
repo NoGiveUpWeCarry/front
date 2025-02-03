@@ -7,8 +7,12 @@ import HubTopRoleSelect from '@/components/molecules/contents/HubTopRoleSelect';
 import HubUnitSelect from '@/components/molecules/contents/HubUnitSelect';
 
 export const HubContentsTop = () => {
-  const { isModalOpen, setIsSubmitted, openPostModal, closePostModal } =
-    usePostHubModal();
+  const {
+    isModalOpen,
+    openPostModal,
+    closePostModal,
+    handleSubmitConfirmation,
+  } = usePostHubModal();
   return (
     <div className='flex flex-col items-start gap-[20px]'>
       <div className='flex w-full justify-between items-center border border-gray-300 rounded-lg p-1'>
@@ -31,9 +35,7 @@ export const HubContentsTop = () => {
       {isModalOpen && (
         <PostHubModal
           onClose={closePostModal}
-          onSubmit={() => {
-            setIsSubmitted(true);
-          }}
+          onSubmit={handleSubmitConfirmation}
           onRevise={false}
         />
       )}
