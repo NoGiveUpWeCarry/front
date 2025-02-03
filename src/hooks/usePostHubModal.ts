@@ -11,11 +11,9 @@ const usePostHubModal = () => {
   };
 
   const handleSubmitConfirmation = (onSubmit: () => void) => {
-    const confirmSubmit = window.confirm('작성을 완료하시겠습니까?');
-    if (confirmSubmit) {
-      setIsSubmitted(true);
-      onSubmit();
-    }
+    setIsSubmitted(true);
+    if (typeof onSubmit === 'function') onSubmit();
+    setIsModalOpen(false);
   };
   const closePostModal = () => {
     resetHub();

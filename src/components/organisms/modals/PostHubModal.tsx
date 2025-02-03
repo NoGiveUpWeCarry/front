@@ -5,12 +5,17 @@ import { useState } from 'react';
 
 interface PostHubModalProps {
   onClose: () => void;
-  onSubmit: () => void;
+  onSubmit: (...arg: any) => void;
   onRevise: boolean;
   projectId?: number;
 }
 
-const PostHubModal = ({ onClose, onRevise, projectId }: PostHubModalProps) => {
+const PostHubModal = ({
+  onClose,
+  onRevise,
+  projectId,
+  onSubmit,
+}: PostHubModalProps) => {
   const [step, setStep] = useState(1);
 
   const goToNextStep = () => setStep((prev) => prev + 1);
@@ -23,7 +28,7 @@ const PostHubModal = ({ onClose, onRevise, projectId }: PostHubModalProps) => {
       {step === 2 && (
         <PostHubContentSecond
           onPrevious={goToPreviousStep}
-          onClose={onClose}
+          onSubmit={onSubmit}
           onRevise={onRevise}
           projectId={projectId}
         />
