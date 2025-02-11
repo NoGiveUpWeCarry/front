@@ -19,8 +19,14 @@ const TiptapEditor = ({ content, setContent }: TiptapEditorProps) => {
     }
   }, [content, editor]);
 
+  const handleEditorClick = () => {
+    if (editor) {
+      editor.commands.focus();
+    }
+  };
+
   return (
-    <div className='relative w-full h-full'>
+    <div className='relative w-full h-full' onClick={handleEditorClick}>
       <EditorContent editor={editor} />
       {editor && <TiptapFloatingMenu editor={editor} />}
       {editor && <TiptapBubbleMenu editor={editor} />}
