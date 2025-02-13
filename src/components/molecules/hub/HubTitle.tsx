@@ -1,4 +1,4 @@
-import ContentsTitle from '@/components/atoms/contents/ContentsTitle';
+import FeedContentsTitle from '@/components/molecules/contents/FeedContentsTitle';
 import { hubTagItemsColors, HubTagItemsKey } from '@/constants/hub/hubTagItems';
 
 export interface HubTitleProps {
@@ -17,7 +17,7 @@ const HubTitle = ({ hubType, title }: HubTitleProps) => {
         </span>
       </div>
       <div className='flex'>
-        <ContentsTitle title={title} />
+        <FeedContentsTitle title={title} />
       </div>
     </div>
   );

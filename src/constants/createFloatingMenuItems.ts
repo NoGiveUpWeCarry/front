@@ -1,9 +1,9 @@
 import { MenuItem } from '@/constants/BubbleMenuItems';
+import { H1Icon, H2Icon } from '@heroicons/react/24/outline';
 import {
   CheckCircleIcon,
   ListBulletIcon,
   CodeBracketIcon,
-  HashtagIcon,
   PhotoIcon,
 } from '@heroicons/react/24/solid';
 import { Editor } from '@tiptap/core';
@@ -13,14 +13,14 @@ export const createFloatingMenuItems = (
 ): MenuItem[] => [
   {
     label: '제목1',
-    icon: HashtagIcon,
+    icon: H1Icon,
     action: (editor: Editor) =>
       editor.chain().focus().toggleHeading({ level: 1 }).run(),
     isActive: (editor: Editor) => editor.isActive('heading', { level: 1 }),
   },
   {
     label: '제목2',
-    icon: HashtagIcon,
+    icon: H2Icon,
     action: (editor: Editor) =>
       editor.chain().focus().toggleHeading({ level: 2 }).run(),
     isActive: (editor: Editor) => editor.isActive('heading', { level: 2 }),
@@ -55,7 +55,7 @@ export const createFloatingMenuItems = (
       input.onchange = async (event) => {
         const file = (event.target as HTMLInputElement).files?.[0];
         if (file) {
-          const resizedFile = await resizeImage(file, 400, 400); // 이미지 크기 제한 적용
+          const resizedFile = await resizeImage(file, 400, 400);
           uploadImageHandler(resizedFile, editor);
         }
       };

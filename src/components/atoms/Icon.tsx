@@ -26,6 +26,7 @@ import {
   ChatBubbleOvalLeftEllipsisIcon,
   ArrowRightStartOnRectangleIcon,
   ListBulletIcon,
+  H1Icon,
 } from '@heroicons/react/24/outline';
 import {
   UserCircleIcon,
@@ -66,7 +67,8 @@ type IconType =
   | 'chatBubbleOvalLeftEllipsis'
   | 'bookmarkSolid'
   | 'exit'
-  | 'list';
+  | 'list'
+  | 'h1';
 
 const iconVariants = cva('', {
   variants: {
@@ -161,6 +163,7 @@ const Icon = ({ type, className = '', color }: IconProps) => {
       <BookmarkSolidIcon className={cn(iconVariants({ color }), className)} />
     ),
     list: <ListBulletIcon className={cn(iconVariants({ color }), className)} />,
+    h1: <H1Icon className={cn(iconVariants({ color }), className)} />,
   };
 
   return <>{icons[type]}</>;

@@ -2,8 +2,8 @@ interface ContentsTitleProps {
   title: string;
 }
 
-const ContentsTitle = ({ title }: ContentsTitleProps) => {
+const FeedContentsTitle = ({ title }: ContentsTitleProps) => {
   return <div className='flex text-[20px] font-medium'>{title}</div>;
 };
 
-export default ContentsTitle;
+export default FeedContentsTitle;

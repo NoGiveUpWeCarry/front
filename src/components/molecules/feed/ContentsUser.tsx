@@ -1,5 +1,5 @@
-import FeedContentsUserTitle from '@/components/atoms/contents/FeedContentsUserTitle';
 import AvatarPopup from '@/components/molecules/AvatarPopup';
+import FeedContentsUserTitle from '@/components/molecules/contents/FeedContentsUserTitle';
 
 interface ContentsUserProps {
   userProfileUrl: string;

@@ -1,6 +1,6 @@
-import ContentsUser from '@/components/molecules/contents/ContentsUser';
 import { FeedFooter } from '@/components/molecules/contents/FeedFooter';
-import FeedItem from '@/components/molecules/contents/FeedItem';
+import ContentsUser from '@/components/molecules/feed/ContentsUser';
+import FeedItem from '@/components/organisms/feed/FeedItem';
 import { TagItemKey } from '@/constants/tagItem';
 
 interface FeedContentsProps {
@@ -23,7 +23,7 @@ interface FeedContentsProps {
   };
 }
 
-export const FeedContents = ({
+const FeedListContent = ({
   title,
   content,
   feedTags,
@@ -68,3 +68,5 @@ export const FeedContents = ({
     </div>
   );
 };
+
+export default FeedListContent;

@@ -9,7 +9,6 @@ const ContentsBody = ({ body }: ContentsBodyProps) => {
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = DOMPurify.sanitize(html);
     const textContent = tempDiv.textContent || '';
-
     tempDiv.innerHTML = DOMPurify.sanitize(textContent);
     return { __html: tempDiv.innerHTML };
   };

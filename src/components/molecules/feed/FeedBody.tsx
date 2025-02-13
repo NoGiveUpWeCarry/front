@@ -1,5 +1,5 @@
-import ContentsTitle from '@/components/atoms/contents/ContentsTitle';
-import ContentsBody from '@/components/atoms/contents/ContentsBody';
+import FeedContentsTitle from '@/components/molecules/contents/FeedContentsTitle';
+import ContentsBody from '@/components/molecules/feed/ContentsBody';
 import { TagItemKey, tagColors } from '@/constants/tagItem';
 import clsx from 'clsx';
 
@@ -12,7 +12,7 @@ interface FeedBodyProps {
 const FeedBody = ({ title, content, tags }: FeedBodyProps) => {
   return (
     <div className='flex flex-col w-full gap-[20px]'>
-      <ContentsTitle title={title} />
+      <FeedContentsTitle title={title} />
       <ContentsBody body={content} />
       <div className='flex gap-[10px]'>
         {tags?.map((tag) => (

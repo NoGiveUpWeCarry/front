@@ -2,7 +2,7 @@ import { useEffect, useRef, useCallback } from 'react';
 import useFeedSearchStore from '@/store/feedSearchStore';
 import { useInfiniteFetchFeeds } from '@/hooks/queries/feed.query';
 import { Post } from '@/apis/feed.api';
-import { FeedContents } from '@/components/molecules/contents/FeedContentsItem';
+import FeedListContent from '@/components/organisms/feed/FeedListContent';
 
 const Feed = () => {
   const { latest, tags } = useFeedSearchStore((state) => state);
@@ -37,7 +37,7 @@ const Feed = () => {
   return (
     <div className='flex flex-col gap-[30px] w-full'>
       {flattenedData.map((item) => (
-        <FeedContents
+        <FeedListContent
           key={item.postId}
           title={item.title}
           content={item.content}

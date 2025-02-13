@@ -1,4 +1,4 @@
-import { HubContents } from '@/components/molecules/contents/ContentsItem';
+import { HubContents } from '@/components/organisms/hub/HubContents';
 import { useSearchConnectionHub } from '@/hooks/queries/search.query';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';

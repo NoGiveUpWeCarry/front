@@ -1,6 +1,6 @@
-import ContentsHubUserTitle from '@/components/atoms/contents/ContentsHubUserTitle';
 import Icon from '@/components/atoms/Icon';
 import AvatarPopup from '@/components/molecules/AvatarPopup';
+import HubContentsUserTitle from '@/components/molecules/hub/HubContentsUserTitle';
 import PostHubModal from '@/components/organisms/modals/PostHubModal';
 import { useDeleteHub } from '@/hooks/queries/hub.query';
 import usePostHubModal from '@/hooks/usePostHubModal';
@@ -17,7 +17,7 @@ interface ContentsUserProps {
   userId?: number;
 }
 
-const ContentsHubUser = ({
+const HubContentsUser = ({
   createdAt,
   nickname,
   role,
@@ -60,7 +60,7 @@ const ContentsHubUser = ({
           userId={userId!}
           popupClassname='top-10'
         />
-        <ContentsHubUserTitle
+        <HubContentsUserTitle
           nickname={nickname}
           role={role}
           createdAt={createdAt}
@@ -111,4 +111,4 @@ const ContentsHubUser = ({
   );
 };
 
-export default ContentsHubUser;
+export default HubContentsUser;

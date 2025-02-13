@@ -4,7 +4,8 @@ interface ContentsUserTitleProps {
   role?: string;
   createdAt: string;
 }
-const ContentsHubUserTitle = ({
+
+const HubContentsUserTitle = ({
   nickname,
   role,
   createdAt,
@@ -23,4 +24,4 @@ const ContentsHubUserTitle = ({
   );
 };
 
-export default ContentsHubUserTitle;
+export default HubContentsUserTitle;

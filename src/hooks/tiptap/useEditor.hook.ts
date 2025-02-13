@@ -27,7 +27,7 @@ export const useCreateTiptapEditor: UseCreateTiptapEditor = (
         linkOnPaste: true,
       }),
       Placeholder.configure({
-        placeholder: '내용을 작성해주세요...',
+        placeholder: '내용을 작성해주세요',
       }),
     ],
     editorProps: {
