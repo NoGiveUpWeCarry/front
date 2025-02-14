@@ -2,8 +2,8 @@ import Button from '@/components/atoms/Button';
 import { Plus } from 'lucide-react';
 import PostFeedModal from '@/components/organisms/modals/PostFeedModal';
 import usePostModal from '@/hooks/usePostModal';
-import { FeedTagSelect } from '@/components/molecules/contents/FeedTagSelect';
 import FeedSortToggle from '@/components/molecules/feed/FeedSortToggle';
+import { FeedTagSelect } from '@/components/molecules/feed/FeedTagSelect';
 
 export const FeedContentsTop = () => {
   const { isModalOpen, setIsSubmitted, openPostModal, closePostModal } =

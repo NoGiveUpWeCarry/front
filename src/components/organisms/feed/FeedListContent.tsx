@@ -1,5 +1,5 @@
-import { FeedFooter } from '@/components/molecules/contents/FeedFooter';
 import ContentsUser from '@/components/molecules/feed/ContentsUser';
+import { FeedFooter } from '@/components/organisms/feed/FeedFooter';
 import FeedItem from '@/components/organisms/feed/FeedItem';
 import { TagItemKey } from '@/constants/tagItem';
 
