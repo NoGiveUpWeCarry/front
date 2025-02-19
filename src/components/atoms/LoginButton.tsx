@@ -8,7 +8,7 @@ import { AuthProvider } from '@/types/user.type';
 
 export const LoginButtonVariants = cva(
   `
-  w-[410px] h-[66px] flex justify-center items-center gap-[8px]
+  w-full h-[66px] flex justify-center items-center gap-[8px]
   rounded-full border border-black
   text-heading2 font-semibold
   hover:shadow-md active:scale-95 transition-transform

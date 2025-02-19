@@ -7,11 +7,9 @@ const LoginPage = () => {
   const handleGoogleLogin = () => {
     window.location.href = `${import.meta.env.VITE_BASE_SERVER_URL}/auth/google`;
   };
-
   const handleGitHubLogin = () => {
     window.location.href = `${import.meta.env.VITE_BASE_SERVER_URL}/auth/github`;
   };
-
   // const handlePadLogin = () => {
   //   navigate('/login/pad');
   // };

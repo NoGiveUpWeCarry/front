@@ -6,10 +6,10 @@ import { useFetchFeed, useFetchFeedChat } from '@/hooks/queries/feed.query';
 import useAuthStore from '@/store/authStore';
 import { Suspense, lazy } from 'react';
 import { useParams } from 'react-router-dom';
-
-const FeedDetailChat = lazy(() => {
-  return import('@/components/organisms/feed/FeedDetailChat');
-});
+import FeedDetailChat from '@/components/organisms/feed/FeedDetailChat';
+// const FeedDetailChat = lazy(() => {
+//   return import('@/components/organisms/feed/FeedDetailChat');
+// });
 
 const FeedDetailPage = () => {
   const { id } = useParams<{ id: string }>();

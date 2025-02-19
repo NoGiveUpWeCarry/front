@@ -17,6 +17,7 @@ import { createPortal } from 'react-dom';
 import { NotificationTypes } from '@/apis/notification.api';
 import Popup from '@/components/molecules/Popup';
 import formatTimeAgo from '@/utils/formatTimeAgo';
+import LoginModal from '@/components/organisms/login/LoginModal';
 
 interface NotificationProp {
   notificationId: number;
@@ -29,6 +30,7 @@ interface NotificationProp {
 }
 
 const SideMenu = () => {
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const navigate = useNavigate();
   const token = useAuthStore.getState().accessToken;
   const { logout, isLoggedIn, userInfo } = useAuthStore((state) => state);
@@ -285,7 +287,7 @@ const SideMenu = () => {
                 popupHandler={[
                   {
                     onClick: () => {
-                      navigate('/login');
+                      setShowLoginModal(true);
                       setShowLogin(false);
                     },
                     text: '로그인/회원가입',
@@ -297,6 +299,9 @@ const SideMenu = () => {
             ))}
         </div>
       </div>
+      {showLoginModal && (
+        <LoginModal onClose={() => setShowLoginModal(false)} />
+      )}
     </>
   );
 };
