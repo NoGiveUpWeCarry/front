@@ -31,7 +31,8 @@ export const fetchChannelMessages = async ({
     url: apiPath,
     method: 'GET',
     params: {
-      cursor,
+      prev: cursor.prev,
+      next: cursor.next,
       limit,
       direction,
     },

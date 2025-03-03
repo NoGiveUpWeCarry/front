@@ -1,5 +1,6 @@
 import Avatar from '@/components/atoms/Avatar';
 import Title from '@/components/atoms/Title';
+import ChannelExitButton from '@/components/molecules/chat/ChannelExitButton';
 import { ListItem } from '@/components/molecules/ListItem';
 import useAuthStore from '@/store/authStore';
 import { ChatState, useChatStore } from '@/store/chatStore';
@@ -70,7 +71,7 @@ const ChannelList = ({ channels, currentChannelId }: ChannelListProps) => {
                 />
               </ListItem.Col>
               <ListItem.Col className='w-[calc(100% - 40px)] flex-auto'>
-                <div className='flex justify-between gap-2'>
+                <div className='flex justify-between gap-2 h-8'>
                   <Title
                     size='xs'
                     fontWeight='medium'
@@ -79,11 +80,17 @@ const ChannelList = ({ channels, currentChannelId }: ChannelListProps) => {
                   >
                     {channel.title}
                   </Title>
-                  <ListItem.Label
-                    className={clsx('text-caption1', 'text-mediumgray')}
-                  >
-                    {date}
-                  </ListItem.Label>
+                  <div className='w-[100px]'>
+                    <ListItem.Label
+                      className={clsx('text-caption1', 'text-mediumgray')}
+                    >
+                      {date}
+                    </ListItem.Label>
+                    <ChannelExitButton
+                      channelId={channel.channelId}
+                      className='sr-only group-hover:not-sr-only'
+                    />
+                  </div>
                 </div>
                 <ListItem.Subtitle
                   className={clsx('text-caption1', 'text-mediumgray')}

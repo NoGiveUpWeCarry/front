@@ -1,10 +1,10 @@
-import Icon from '@/components/atoms/Icon';
 import SearchInput from '@/components/molecules/chat/SearchInput';
-import { useSearchMessagesQuery } from '@/hooks/chat/useSearchMessages';
-import { useSearchUpDown } from '@/hooks/chat/useSearchUpDown';
-import { SearchState, useSearchStore } from '@/store/searchStore';
+import UpDownButton from '@/components/organisms/chat/UpDownButton';
+import { LIMIT } from '@/constants/limit';
+import { useSearchMessages } from '@/hooks/chat/useSearchMessages';
+import { initialState, SearchState, useSearchStore } from '@/store/searchStore';
 import { Channel } from '@/types/channel.type';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useShallow } from 'zustand/shallow';
 
 interface SearchMessageProps {
@@ -13,28 +13,25 @@ interface SearchMessageProps {
 
 const SearchMessage = ({ currentChannelId }: SearchMessageProps) => {
   const [keyword, setKeyword] = useState('');
-  const { setState, searchMode, searchDirection } = useSearchStore(
-    useShallow((state) => ({
-      setState: state.setState,
-      searchMode: state.searchMode,
-      searchDirection: state.searchDirection,
-    }))
-  );
 
-  const { data, isFetching, refetch } =
-    useSearchMessagesQuery(currentChannelId);
+  const { setState, searchDirection, searchCursor, searchKeyword } =
+    useSearchStore(
+      useShallow((state) => ({
+        setState: state.setState,
+        searchMode: state.searchMode,
+        searchDirection: state.searchDirection,
+        searchCursor: state.searchCursor,
+        searchKeyword: state.searchKeyword,
+      }))
+    );
 
-  const { isFirstMessage, isLastMessage } = useSearchUpDown(
-    data,
-    searchDirection
-  );
-
-  const handleUpDown = (direciton: SearchState['searchDirection']) => {
-    if (isFetching) return;
-
-    setState({ searchDirection: direciton });
-    refetch();
-  };
+  const { data, isFetching, error, isError } = useSearchMessages({
+    channelId: currentChannelId,
+    cursor: searchCursor,
+    direction: searchDirection,
+    keyword: searchKeyword,
+    limit: LIMIT.SEARCH_MESSAGES,
+  });
 
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
@@ -44,49 +41,32 @@ const SearchMessage = ({ currentChannelId }: SearchMessageProps) => {
       searchDirection: 'backward',
       searchKeyword: keyword,
       searchMode: true,
-      // searchCursors: null,
+      cursors: initialState.cursors,
+    });
+  };
+
+  const handleUpDown = (direciton: SearchState['searchDirection']) => {
+    if (isFetching || !searchKeyword.trim()) return;
+
+    setState({
+      searchDirection: direciton,
+      searchCursor: data?.cursors.search,
+      searchMode: true,
     });
   };
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-    // setState({ searchKeyword: e.target.value });
     setKeyword(e.target.value);
   };
 
-  useEffect(() => {
-    if (!data) return;
-    if (data.cursors) {
-      setState({
-        searchCursors: data.cursors,
-      });
-    }
-  }, [data?.cursors]);
-
   return (
     <div className='shrink-0 flex items-center gap-2'>
-      {searchMode && (
-        <>
-          <button
-            className='p-[5px] bg-[#333333] text-white rounded-full hover:bg-[#555555] disabled:bg-[#949494] disabled:text-[#c5c5c5]'
-            aria-label='이전 메시지'
-            disabled={isFirstMessage}
-            onClick={() => handleUpDown('backward')}
-          >
-            <Icon type='arrow' className='w-[20px] h-[20px] text-inherit' />
-          </button>
-          <button
-            className='p-[5px] bg-[#333333] text-white rounded-full hover:bg-[#555555] disabled:bg-[#949494] disabled:text-[#c5c5c5]'
-            aria-label='다음 메시지'
-            disabled={isLastMessage}
-            onClick={() => handleUpDown('forward')}
-          >
-            <Icon
-              type='arrow'
-              className='transform rotate-180 w-[20px] h-[20px] text-inherit'
-            />
-          </button>
-        </>
-      )}
+      <UpDownButton
+        onUpDown={handleUpDown}
+        error={error}
+        isError={isError}
+        searchDirection={searchDirection}
+      />
       <SearchInput
         value={keyword}
         onChange={handleInput}

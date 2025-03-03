@@ -1,36 +1,40 @@
 import { SearchState } from '@/store/searchStore';
-import { SearchChannelMessagesResponse } from '@/types/message.type';
-import { FetcherMessage } from '@/utils/fetcher';
-import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useMemo } from 'react';
 
-export const useSearchUpDown = (
-  data:
-    | (SearchChannelMessagesResponse & {
-        message: FetcherMessage;
-      })
-    | undefined,
-  searchDirection: SearchState['searchDirection']
-) => {
-  const [isFirstMessage, setIsFirstMessage] = useState(false);
-  const [isLastMessage, setIsLastMessage] = useState(false);
+interface Params {
+  searchDirection: SearchState['searchDirection'];
+  error: Error | null;
+  isError: boolean;
+}
 
-  useEffect(() => {
-    if (!data) return;
-    if (data.message.code === 404) {
-      alert(data.message.text);
+export const useSearchUpDown = ({
+  searchDirection,
+  error,
+  isError,
+}: Params) => {
+  const { isFirstMessage, isLastMessage } = useMemo(() => {
+    let isFirstMessage = false;
+    let isLastMessage = false;
+    if (
+      isError &&
+      axios.isAxiosError(error) &&
+      error.response?.status === 404
+    ) {
       switch (searchDirection) {
-        case 'backward':
-          setIsFirstMessage(true);
+        case 'backward': {
+          isFirstMessage = true;
           break;
-        case 'forward':
-          setIsLastMessage(true);
+        }
+        case 'forward': {
+          isLastMessage = true;
           break;
+        }
       }
-    } else {
-      setIsFirstMessage(false);
-      setIsLastMessage(false);
+      alert(error.response.data.message);
     }
-  }, [data]);
+    return { isFirstMessage, isLastMessage };
+  }, [isError, error]);
 
   return { isFirstMessage, isLastMessage };
 };

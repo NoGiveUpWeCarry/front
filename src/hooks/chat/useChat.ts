@@ -54,7 +54,6 @@ export const useChat = () => {
     }
 
     if (currentChannelId) {
-      console.log('useChat >>> ', currentChannelId);
       joinChannel(userInfo.userId, currentChannelId);
     }
 

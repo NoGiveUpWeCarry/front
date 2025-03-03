@@ -14,6 +14,7 @@ import PadSignupPage from '@/components/pages/PadSignupPage';
 import ConnetcionHubDetailPage from '@/components/pages/ConnetcionHubDetailPage';
 import FeedDetailPage from '@/components/pages/FeedDetailPage';
 import HubLayout from '@/layouts/HubLayout';
+import ChannelSelectPage from '@/components/pages/ChannelSelectPage';
 
 const router = [
   {
@@ -74,7 +75,7 @@ const router = [
     children: [
       {
         index: true,
-        element: <ChatPage />,
+        element: <ChannelSelectPage />,
       },
       {
         path: '/chat/channels/:channelId',

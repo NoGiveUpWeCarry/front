@@ -2,10 +2,17 @@ import SearchInput from '@/components/molecules/chat/SearchInput';
 import { InputHTMLAttributes } from 'react';
 
 interface SearchChannelProps
-  extends Pick<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {}
+  extends Pick<
+    InputHTMLAttributes<HTMLInputElement>,
+    'value' | 'onChange' | 'className'
+  > {}
 
-const SearchChannel = ({ value, onChange }: SearchChannelProps) => {
-  return <SearchInput value={value} onChange={onChange} />;
+const SearchChannel = ({ value, onChange, className }: SearchChannelProps) => {
+  return (
+    <div className={className}>
+      <SearchInput value={value} onChange={onChange} />
+    </div>
+  );
 };
 
 export default SearchChannel;
