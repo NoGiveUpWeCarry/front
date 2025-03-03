@@ -12,9 +12,9 @@ interface MenuProps {
 const Menu = ({ items }: MenuProps) => {
   return (
     <nav className='flex flex-col w-[68px] space-y-[80px] transition-all duration-300 ease-in-out items-center'>
-      {items.map((item, label) => (
+      {items.map((item) => (
         <button
-          key={label}
+          key={item.label}
           onClick={item.onClick}
           className='relative group flex items-center cursor-pointer transition-all duration-300 ease-in-out'
         >
@@ -23,7 +23,6 @@ const Menu = ({ items }: MenuProps) => {
               type={item.type}
               className='h-6 w-6 text-[#838383] transition-all duration-200 ease-in-out group-hover:text-black'
             />
-            {/* 🔔 알림이 있으면 빨간 점 추가 */}
             {item.hasNotification && (
               <span className='absolute top-[1px] left-3 w-2 h-2 bg-red-500 rounded-full animate-pulse'></span>
             )}
