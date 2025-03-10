@@ -1,3 +1,4 @@
+import Icon from '@/components/atoms/Icon';
 import FeedDetailFooter from '@/components/molecules/FeedDetailFooter';
 import FeedDetailUserInfo from '@/components/molecules/FeedDetailUserInfo';
 import FeedDetailSkeleton from '@/components/molecules/skeletons/FeedDetailSkeleton';
@@ -43,13 +44,19 @@ const FeedDetailPage = () => {
   const comments = ChatData?.comments;
 
   const userId = useAuthStore((state) => state.userInfo?.userId);
-
   if (FeedLoading) {
     return <div>피드 로딩중</div>;
   }
 
   return (
-    <div className='flex w-full flex-col gap-[20px]'>
+    <div className='flex w-full flex-col lg:gap-[20px] gap-3'>
+      <div className='w-full flex pb-2 justify-between'>
+        <div className='w-6 h-6' onClick={() => window.history.back()}>
+          <Icon type={'behindSolid'} />
+        </div>
+        <div className='font-bold text-md'>{FeedData?.post.userName}</div>
+        <div></div>
+      </div>
       {post && (
         <>
           <FeedDetailUserInfo
@@ -63,7 +70,7 @@ const FeedDetailPage = () => {
             postId={post.postId}
           />
           <div
-            className='w-full flex flex-col overflow-y-scroll [&::-webkit-scrollbar]:hidden py-[10px] z-10 border-t-[1px]'
+            className='w-full flex flex-col overflow-y-scroll [&::-webkit-scrollbar]:hidden  z-10 border-t-[1px]'
             style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',

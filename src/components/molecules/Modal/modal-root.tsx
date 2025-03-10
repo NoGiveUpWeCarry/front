@@ -20,23 +20,21 @@ const ModalRoot = ({
   }, []);
 
   return ReactDOM.createPortal(
-    <div className='w-full h-full bg-black bg-opacity-80 fixed top-0 left-0 z-50 flex justify-center items-center cursor-pointer'>
+    <div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 cursor-pointer'>
       <div
-        className={`relative w-[800px] bg-white flex flex-col px-[30px] py-[20px] rounded-[10px] cursor-default z-50 ${className}`}
+        className={`relative w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl bg-white flex flex-col px-4 py-6 sm:px-6 sm:py-8 md:px-8 md:py-10 rounded-lg cursor-default z-50 ${className}`}
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className='flex justify-end text-gray-400 hover:text-gray-600'
+          className='absolute top-4 right-4 text-gray-400 hover:text-gray-600'
           onClick={onClose}
           aria-label='Close'
         >
-          <Icon
-            type={'xmark'}
-            color={'black'}
-            className='w-[24px] h-[24px]'
-          ></Icon>
+          <Icon type={'xmark'} color={'black'} className='w-6 h-6' />
         </button>
-        <div className='flex flex-col px-[10px]'>{children}</div>
+        <div className='flex flex-col w-full max-h-[90vh] overflow-y-auto rounded-lg'>
+          {children}
+        </div>
       </div>
     </div>,
     document.body

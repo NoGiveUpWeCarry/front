@@ -213,6 +213,15 @@ body {
 
 .prose img {
   margin: 5px 0px 5px 0px;
+  border-radius: 10px;
+}
+
+.prose ol {
+  margin: 5px 0px 5px 0px;
+}
+
+.prose ul {
+  margin: 5px 0px 5px 0px;
 }
 
 .tiptap-editor a {
@@ -257,4 +266,16 @@ body {
   100% {
     background-position: 100% 0;
   }
+}
+
+.mobile-nav::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.3);
+  z-index: -1;
 }

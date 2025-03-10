@@ -24,12 +24,12 @@ const FeedItem = ({
   };
   return (
     <div
-      className='flex w-full justify-between items-center gap-10 hover:cursor-pointer hover:sh'
+      className='flex flex-col-reverse lg:flex-col w-full justify-between items-center gap-2 lg:hover:cursor-pointer'
       onClick={navigateToDetail}
     >
       <FeedBody title={title} content={content} tags={tags} />
       {thumnailUrl && (
-        <div className='w-[180px] flex-shrink-0 max-h-[110px]'>
+        <div className='w-full lg:flex-shrink-0 lg:max-h-[110px] h-fit'>
           <FeedContentsThumbnail thumbnailUrl={thumnailUrl} />
         </div>
       )}

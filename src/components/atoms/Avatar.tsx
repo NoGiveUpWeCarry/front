@@ -6,6 +6,7 @@ import defaultAvatar from '@/assets/images/avatar.svg';
 export const AvatarVariants = cva(`rounded-full object-cover`, {
   variants: {
     size: {
+      xxxs: 'w-7 h-7',
       xxs: 'w-[25px] h-[25px]',
       xs: 'w-[40px] h-[40px]',
       sm: 'w-[50px] h-[50px]',

@@ -133,7 +133,7 @@ const PostFeedModal = ({ onClose, onRevise }: PostFeedModalProps) => {
             <p className='text-red-600 text-[14px]'>태그를 선택해주세요.</p>
           )}
         </div>
-        <div className='flex flex-col h-[440px] overflow-y-scroll scrollbar-hide'>
+        <div className='flex flex-col lg:h-[440px] overflow-y-scroll scrollbar-hide'>
           <TiptapEditor content={content} setContent={setContent} />
           {errors.content && (
             <p className='flex flex-col text-red-600 text-[14px] mt-5 absolute'>

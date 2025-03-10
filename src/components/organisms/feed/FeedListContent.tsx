@@ -38,35 +38,29 @@ const FeedListContent = ({
   createdAt,
 }: FeedContentsProps) => {
   return (
-    <div className='flex flex-col w-full gap-[10px]'>
-      <div className='w-full'>
-        <div className='rounded-[10px] p-[20px] w-full hover:shadow-[4px_4px_6px_rgba(0,0,0,0.1)]'>
-          <div className='flex flex-col gap-[10px]'>
-            <ContentsUser
-              userProfileUrl={user.avatarSrc}
-              name={user.name}
-              userRole={user.job}
-              createdAt={createdAt}
-              userId={user.id!}
-              hideRole={user.hideRole}
-            />
-            <FeedItem
-              title={title}
-              content={content}
-              tags={feedTags}
-              thumnailUrl={thumnailUrl}
-              postId={postId}
-            />
-            <FeedFooter
-              commentsCount={commentsCount}
-              likesCount={likesCount}
-              viewsCount={viewsCount}
-              isLiked={isLiked}
-              postId={postId}
-            />
-          </div>
-        </div>
-      </div>
+    <div className='flex flex-col gap-3 rounded-[10px] p-5 w-full lg:hover:shadow-[4px_4px_6px_rgba(0,0,0,0.1)] lg:bg-transparent bg-white lg:m-0'>
+      <ContentsUser
+        userProfileUrl={user.avatarSrc}
+        name={user.name}
+        userRole={user.job}
+        createdAt={createdAt}
+        userId={user.id!}
+        hideRole={user.hideRole}
+      />
+      <FeedItem
+        title={title}
+        content={content}
+        tags={feedTags}
+        thumnailUrl={thumnailUrl}
+        postId={postId}
+      />
+      <FeedFooter
+        commentsCount={commentsCount}
+        likesCount={likesCount}
+        viewsCount={viewsCount}
+        isLiked={isLiked}
+        postId={postId}
+      />
     </div>
   );
 };
