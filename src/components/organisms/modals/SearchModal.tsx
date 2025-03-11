@@ -5,7 +5,7 @@ import { ModalProps } from '@/components/organisms/modals/modalProps';
 import Tabs from '@/components/organisms/Tabs';
 
 import useDebounce from '@/hooks/useDebounce';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTabs } from '@/hooks/useTabs';
 import { useSearchByModal } from '@/hooks/queries/search.query';
@@ -33,7 +33,9 @@ const SearchModal = ({ onClose }: ModalProps) => {
   );
   const debouncedKeyword = useDebounce(keyword, 300);
 
-  const { data, refetch } = useSearchByModal(
+  const prevActiveRef = useRef(active);
+
+  const { data, refetch, isLoading } = useSearchByModal(
     CATEGORY[active as keyof typeof CATEGORY] as
       | 'all'
       | 'feed'
@@ -51,8 +53,12 @@ const SearchModal = ({ onClose }: ModalProps) => {
     setKeyword('');
   };
 
+  // 값이 변경되었을 경우에만 실행
   useEffect(() => {
-    refetch();
+    if (prevActiveRef.current !== active) {
+      refetch();
+      prevActiveRef.current = active;
+    }
   }, [active]);
 
   return (
@@ -66,6 +72,7 @@ const SearchModal = ({ onClose }: ModalProps) => {
             className='border-0 h-full !text-[16px]'
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
+            autoFocus
           />
         </div>
         <div className='h-10'>
@@ -104,6 +111,7 @@ const SearchModal = ({ onClose }: ModalProps) => {
                     navigate(`/search?q=${debouncedKeyword}&type=page`);
                     onClose();
                   }}
+                  isLoading={isLoading}
                 />
               )}
               {active === '전체' && <HorizontalDivider className='my-10' />}
@@ -123,6 +131,7 @@ const SearchModal = ({ onClose }: ModalProps) => {
                     navigate(`/search?q=${debouncedKeyword}`);
                     onClose();
                   }}
+                  isLoading={isLoading}
                 />
               )}
             </div>
