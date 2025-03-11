@@ -19,7 +19,11 @@ export const FeedTagSelect = () => {
 
   return (
     <>
-      <Select onValueChange={handleChange} aria-label='태그 선택'>
+      <Select
+        onValueChange={handleChange}
+        aria-label='태그 선택'
+        aria-hidden='true'
+      >
         <SelectTrigger className='w-[110px] bg-white'>
           <SelectValue placeholder='🏷️ 태그' />
         </SelectTrigger>
