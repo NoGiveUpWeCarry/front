@@ -13,6 +13,10 @@ const MobileNav = () => {
   );
 
   const keyHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (!keyword) {
+      alert('검색어를 입력해주세요.');
+      return;
+    }
     if (e.key === 'Enter') {
       navigate(`/search?q=${keyword}&type=page`);
     }
