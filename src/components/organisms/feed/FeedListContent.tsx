@@ -1,6 +1,6 @@
-import ContentsUser from '@/components/molecules/contents/ContentsUser';
-import { FeedFooter } from '@/components/molecules/contents/FeedFooter';
-import FeedItem from '@/components/molecules/contents/FeedItem';
+import ContentsUser from '@/components/molecules/feed/ContentsUser';
+import { FeedFooter } from '@/components/organisms/feed/FeedFooter';
+import FeedItem from '@/components/organisms/feed/FeedItem';
 import { TagItemKey } from '@/constants/tagItem';
 
 interface FeedContentsProps {
@@ -23,7 +23,7 @@ interface FeedContentsProps {
   };
 }
 
-export const FeedContents = ({
+const FeedListContent = ({
   title,
   content,
   feedTags,
@@ -37,17 +37,17 @@ export const FeedContents = ({
   createdAt,
 }: FeedContentsProps) => {
   return (
-    <div className='flex flex-col w-full gap-[20px]'>
-      <ContentsUser
-        userProfileUrl={user.avatarSrc}
-        name={user.name}
-        userRole={user.job}
-        createdAt={createdAt}
-        userId={user.id!}
-      />
+    <div className='flex flex-col w-full gap-[10px]'>
       <div className='w-full'>
-        <div className='bg-white rounded-[10px] p-[20px] w-full hover:shadow-orange-50'>
-          <div className='flex flex-col gap-[20px]'>
+        <div className='rounded-[10px] p-[20px] w-full hover:shadow-[4px_4px_6px_rgba(0,0,0,0.1)]'>
+          <div className='flex flex-col gap-[10px]'>
+            <ContentsUser
+              userProfileUrl={user.avatarSrc}
+              name={user.name}
+              userRole={user.job}
+              createdAt={createdAt}
+              userId={user.id!}
+            />
             <FeedItem
               title={title}
               content={content}
@@ -68,3 +68,5 @@ export const FeedContents = ({
     </div>
   );
 };
+
+export default FeedListContent;

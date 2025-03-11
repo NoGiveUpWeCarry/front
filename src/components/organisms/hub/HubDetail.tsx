@@ -1,14 +1,14 @@
-import HubDetailUser from '@/components/atoms/contents/HubDetailUser';
 import AvatarPopup from '@/components/molecules/AvatarPopup';
-import ContentsHubUser from '@/components/molecules/contents/ContentsHubUser';
-import DetailContents from '@/components/molecules/contents/DetailContents';
-import HubDetailTitle from '@/components/molecules/contents/HubDetailTitle';
-import HubInfo from '@/components/molecules/contents/HubInfo';
-import HubInfoTag from '@/components/molecules/contents/HubInfoTag';
-import HubIntroduce from '@/components/molecules/contents/HubIntroduce';
-import HubSkill from '@/components/molecules/contents/HubSkill';
-import HubTitle from '@/components/molecules/contents/HubTitle';
+import DetailContents from '@/components/molecules/hub/DetailContents';
+import HubDetailTitle from '@/components/molecules/hub/HubDetailTitle';
+import HubDetailUser from '@/components/molecules/hub/HubDetailUser';
+import HubInfo from '@/components/molecules/hub/HubInfo';
+import HubInfoTag from '@/components/molecules/hub/HubInfoTag';
+import HubIntroduce from '@/components/molecules/hub/HubIntroduce';
+import HubSkill from '@/components/molecules/hub/HubSkill';
+import HubTitle from '@/components/molecules/hub/HubTitle';
 import HubDetailFooter from '@/components/molecules/HubDetailFooter';
+import HubContentsUser from '@/components/organisms/hub/HubContentsUser';
 import { HubTagItemsKey } from '@/constants/hub/hubTagItems';
 import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
 import { RoleItemKeys } from '@/constants/hub/roleItems';
@@ -63,7 +63,7 @@ const HubDetail = ({
 }: HubDetailProps) => {
   return (
     <div className='flex flex-col w-full gap-[20px]'>
-      <ContentsHubUser
+      <HubContentsUser
         profileUrl={manager.profileUrl}
         nickname={manager.nickname}
         role={manager.role}

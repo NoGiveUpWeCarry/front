@@ -1,5 +1,5 @@
-import ContentsTime from '@/components/atoms/contents/ContentsTime';
 import Role from '@/components/atoms/Role';
+import HubContentsTime from '@/components/molecules/hub/HubContentsTime';
 import {
   meetingTagItemsColors,
   meetingTagItemskey,
@@ -51,7 +51,7 @@ const HubBody = ({
         </div>
       </div>
       <div>
-        <ContentsTime startDate={startDate} duration={duration} />
+        <HubContentsTime startDate={startDate} duration={duration} />
       </div>
 
       <div className='flex gap-[10px]'>

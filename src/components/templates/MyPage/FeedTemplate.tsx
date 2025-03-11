@@ -2,12 +2,12 @@ import DateText from '@/components/atoms/DateText';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import FeedItem from '@/components/molecules/contents/FeedItem';
-import { FeedFooter } from '@/components/molecules/contents/FeedFooter';
 import { TagItemKey } from '@/constants/tagItem';
 import { FeedResponse } from '@/apis/mypage';
 import useMyFeed from '@/hooks/mypage/useMyFeed.business';
 import { showDate } from '@/utils/showDate';
+import FeedItem from '@/components/organisms/feed/FeedItem';
+import { FeedFooter } from '@/components/organisms/feed/FeedFooter';
 
 const FeedTemplate = () => {
   const { ref, inView } = useInView();

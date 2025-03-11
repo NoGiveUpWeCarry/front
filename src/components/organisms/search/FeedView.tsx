@@ -1,4 +1,4 @@
-import { FeedContents } from '@/components/molecules/contents/FeedContentsItem';
+import FeedListContent from '@/components/organisms/feed/FeedListContent';
 import { TagItemKey } from '@/constants/tagItem';
 import { useSearchFeed } from '@/hooks/queries/search.query';
 import { useEffect } from 'react';
@@ -32,7 +32,7 @@ const FeedView = ({ keyword }: { keyword: string }) => {
   return (
     <div className='flex flex-col gap-10'>
       {feeds?.pages[0].posts?.map((post) => (
-        <FeedContents
+        <FeedListContent
           key={post.postId}
           {...post}
           feedTags={post.tags as TagItemKey[]}

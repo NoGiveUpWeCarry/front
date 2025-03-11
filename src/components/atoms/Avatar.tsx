@@ -11,6 +11,7 @@ export const AvatarVariants = cva(`rounded-full object-cover`, {
       sm: 'w-[50px] h-[50px]',
       md: 'w-[80px] h-[80px]',
       lg: 'w-[120px] h-[120px]',
+      gg: 'w-[30px] h-[30px]',
     },
   },
   defaultVariants: {

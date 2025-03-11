@@ -2,9 +2,9 @@ import Button from '@/components/atoms/Button';
 import { Plus } from 'lucide-react';
 import PostHubModal from '@/components/organisms/modals/PostHubModal';
 import usePostHubModal from '@/hooks/usePostHubModal';
-import { ContentsHubToggle } from '@/components/atoms/contents/ContentsHubToggle';
-import HubTopRoleSelect from '@/components/molecules/contents/HubTopRoleSelect';
-import HubUnitSelect from '@/components/molecules/contents/HubUnitSelect';
+import { ContentsHubToggle } from '@/components/molecules/hub/ContentsHubToggle';
+import HubUnitSelect from '@/components/molecules/hub/HubUnitSelect';
+import HubTopRoleSelect from '@/components/molecules/hub/HubTopRoleSelect';
 
 export const HubContentsTop = () => {
   const {

@@ -1,9 +1,9 @@
-import HubDetail from '@/components/molecules/contents/HubDetail';
 import { useFetchHub } from '@/hooks/queries/hub.query';
 import useAuthStore from '@/store/authStore';
 import { useProjectStore } from '@/store/hubDetailStore';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import HubDetail from '@/components/organisms/hub/HubDetail';
 
 const ConnectionHubDetail = () => {
   const { projectId } = useParams<{ projectId: string }>();

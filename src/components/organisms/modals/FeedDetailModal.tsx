@@ -1,5 +1,5 @@
 import Modal2 from '@/components/molecules/Modal';
-import FeedDetailChat from '@/components/organisms/FeedDetailChat';
+import FeedDetailChat from '@/components/organisms/feed/FeedDetailChat';
 
 interface FeedDetailModalProps {
   onClose: () => void;

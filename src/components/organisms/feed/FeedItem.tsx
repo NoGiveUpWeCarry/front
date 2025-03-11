@@ -1,5 +1,5 @@
-import ContentsThumbnail from '@/components/atoms/contents/ContentsThumbnail';
-import FeedBody from '@/components/molecules/contents/FeedBody';
+import FeedContentsThumbnail from '@/components/molecules/feed/FeedContentsThumbnail';
+import FeedBody from '@/components/molecules/feed/FeedBody';
 import { TagItemKey } from '@/constants/tagItem';
 import { useNavigate } from 'react-router-dom';
 
@@ -30,7 +30,7 @@ const FeedItem = ({
       <FeedBody title={title} content={content} tags={tags} />
       {thumnailUrl && (
         <div className='w-[180px] flex-shrink-0 max-h-[110px]'>
-          <ContentsThumbnail thumbnailUrl={thumnailUrl} />
+          <FeedContentsThumbnail thumbnailUrl={thumnailUrl} />
         </div>
       )}
     </div>

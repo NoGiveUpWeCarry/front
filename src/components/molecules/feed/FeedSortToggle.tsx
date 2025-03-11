@@ -1,10 +1,10 @@
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import useHubSearchStore from '@/store/hubSeartchStore';
+import useFeedSearchStore from '@/store/feedSearchStore';
 
-export function HubToggle() {
-  const setLatest = useHubSearchStore((state) => state.setSort);
+export default function FeedSortToggle() {
+  const setLetest = useFeedSearchStore((state) => state.setLatest);
   const onChangeToggle = (value: string) => {
-    setLatest(value === 'recent');
+    setLetest(value === 'recent');
   };
   return (
     <ToggleGroup

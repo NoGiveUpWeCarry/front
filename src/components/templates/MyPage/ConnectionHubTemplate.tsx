@@ -2,12 +2,12 @@ import DateText from '@/components/atoms/DateText';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import { useTabs } from '@/hooks/useTabs';
-import HubItem from '@/components/molecules/contents/HubItem';
-import { HubFooter } from '@/components/molecules/contents/ContentsFooter';
 import { useNavigate } from 'react-router-dom';
 import { HubResponse } from '@/apis/mypage';
 import { showDate } from '@/utils/showDate';
 import useConnectionHub from '@/hooks/mypage/useConnectionHub.business';
+import { HubFooter } from '@/components/molecules/hub/ContentsFooter';
+import HubItem from '@/components/molecules/hub/HubItem';
 
 const TAB_DATA = {
   applied: '지원한 프로젝트',

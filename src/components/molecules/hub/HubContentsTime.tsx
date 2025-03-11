@@ -1,9 +1,9 @@
-interface ContentsTimeProps {
+interface HubContentsTimeProps {
   startDate: string;
   duration: string;
 }
 
-const ContentsTime = ({ startDate, duration }: ContentsTimeProps) => {
+const HubContentsTime = ({ startDate, duration }: HubContentsTimeProps) => {
   return (
     <div className='flex text-[12px] text-[#7d7d7d] gap-[10px]'>
       <span>시작 예정일 : {startDate}</span>
@@ -12,4 +12,4 @@ const ContentsTime = ({ startDate, duration }: ContentsTimeProps) => {
   );
 };
 
-export default ContentsTime;
+export default HubContentsTime;

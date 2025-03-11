@@ -1,5 +1,5 @@
-import { FeedContentsTop } from '@/components/molecules/contents/FeedContentsTop';
-import Feed from '@/components/organisms/Feed';
+import Feed from '@/components/organisms/feed/Feed';
+import { FeedContentsTop } from '@/components/organisms/feed/FeedContentsTop';
 
 const HomePage = () => {
   return (

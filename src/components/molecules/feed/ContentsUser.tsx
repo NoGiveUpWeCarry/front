@@ -1,5 +1,5 @@
-import FeedContentsUserTitle from '@/components/atoms/contents/FeedContentsUserTitle';
 import AvatarPopup from '@/components/molecules/AvatarPopup';
+import FeedContentsUserTitle from '@/components/molecules/contents/FeedContentsUserTitle';
 
 interface ContentsUserProps {
   userProfileUrl: string;
@@ -17,13 +17,13 @@ const ContentsUser = ({
   userId,
 }: ContentsUserProps) => {
   return (
-    <div className='flex items-start space-x-3'>
+    <div className='flex items-center sm:mb-1 px-0 sm:px-0 gap-2'>
       <AvatarPopup
         profileUrl={userProfileUrl}
-        avatarSize='xs'
+        avatarSize='gg'
         userId={userId!}
         nickname={name}
-        popupClassname='top-10'
+        popupClassname='top-8'
       />
       <FeedContentsUserTitle
         userNickname={name}

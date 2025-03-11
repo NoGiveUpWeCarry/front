@@ -9,7 +9,7 @@ import {
 import { tagItem } from '@/constants/tagItem';
 import useFeedSearchStore from '@/store/feedSearchStore';
 
-export function FeedSelect() {
+export function FeedTagSelect() {
   const setTags = useFeedSearchStore((state) => state.setTags);
 
   const handleChange = (value: string) => {

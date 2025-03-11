@@ -5,7 +5,7 @@ interface ContentsThumbnailProps {
 
 // 1.21 피드 이미지 max-height 고정 (마이페이지)
 
-const ContentsThumbnail = ({
+const FeedContentsThumbnail = ({
   thumbnailUrl,
   alt = '',
 }: ContentsThumbnailProps) => {
@@ -22,4 +22,4 @@ const ContentsThumbnail = ({
   );
 };
 
-export default ContentsThumbnail;
+export default FeedContentsThumbnail;

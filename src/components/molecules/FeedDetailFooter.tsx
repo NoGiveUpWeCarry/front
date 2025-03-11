@@ -63,34 +63,38 @@ const FeedDetailFooter = ({
     );
   };
   return (
-    <div className='fixed bottom-[10px] bg-[#4B4B4B] ml-[20px] w-[760px] h-[40px] rounded-[10px] py-[10px] px-[200px] flex text-white text-heading2'>
-      <div className='flex w-full justify-between'>
-        <div className='flex'>
+    <div className='fixed bottom-[10px] left-[30%] h-[40px] w-full text-white text-heading2 hidden md:flex'>
+      <div className='flex justify-between bg-[rgb(75,75,75)] rounded-lg items-center px-2 w-80 py-1'>
+        <div className='flex text-[18px] h-full items-center px-5'>
           <Icon
             type='chatBubbleOvalLeftEllipsis'
-            className='w-[24px] h-[24px] text-white'
+            className='w-5 h-5 text-zinc-300'
           />
           &nbsp;
           {commentCount}
         </div>
         <div
-          className={`flex cursor-pointer ${
+          className={`flex h-full px-5 rounded-sm items-center justify-center cursor-pointer hover:bg-gray text-[18px] ${
             isLoading ? 'cursor-not-allowed' : 'cursor-pointer'
           }`}
           onClick={handleLikeClick}
         >
           <Icon
-            type={isLiked ? 'likeSolid' : 'like'}
+            type={'likeSolid'}
             color={isLiked ? 'red' : 'black'}
-            className='w-[24px] h-[24px] text-white'
+            className='w-5 h-5 text-zinc-300'
           />
           &nbsp;
           {likesCount}
         </div>
-        <div className='flex'>
-          <Icon type='eye' className='w-[24px] h-[24px] text-white' />
+        <div className='flex text-[18px] h-full items-center px-5'>
+          <Icon type='eye' className='w-5 h-5 text-zinc-300' />
           &nbsp;
           {viewCount}
+        </div>
+        <div className='flex text-[18px] h-full items-center px-5'>
+          <Icon type='eye' className='w-5 h-5 text-zinc-300' />
+          &nbsp;
         </div>
       </div>
     </div>

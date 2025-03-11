@@ -1,6 +1,6 @@
-import ContentsThumbnail from '@/components/atoms/contents/ContentsThumbnail';
-import HubBody from '@/components/molecules/contents/HubBody';
-import HubTitle from '@/components/molecules/contents/HubTitle';
+import FeedContentsThumbnail from '@/components/molecules/feed/FeedContentsThumbnail';
+import HubTitle from '@/components/molecules/hub/HubTitle';
+import HubBody from '@/components/organisms/hub/HubBody';
 import { HubTagItemsKey } from '@/constants/hub/hubTagItems';
 import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
 import { RoleItemKeys } from '@/constants/hub/roleItems';
@@ -51,7 +51,7 @@ const HubItem = ({
         />
         <div className='flex'>
           <div className='w-[200px] h-[120px]'>
-            <ContentsThumbnail thumbnailUrl={thumbnailUrl} />
+            <FeedContentsThumbnail thumbnailUrl={thumbnailUrl} />
           </div>
         </div>
       </div>

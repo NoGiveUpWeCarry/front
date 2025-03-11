@@ -52,10 +52,16 @@ const FeedDetailChat = ({ comments, feedId }: FeedDetailChatProps) => {
 
   return (
     <div className='mt-3 w-full h-fit flex flex-col gap-[20px] px-[50px]'>
+      <ChatInput
+        onSubmit={submitComment}
+        userImage={profileUrl}
+        isPending={isPending}
+        isLoggedIn={isLoggedIn}
+      />
       {groupedComments && groupedComments.length > 0 ? (
         <div
           className={clsx(
-            'relative bg-lightgray w-full h-[600px] rounded-[20px] overflow-hidden p-4'
+            'relative w-full rounded-[20px] overflow-hidden p-4 mb-8'
           )}
         >
           <div
@@ -81,12 +87,6 @@ const FeedDetailChat = ({ comments, feedId }: FeedDetailChatProps) => {
       ) : (
         <div className='w-full h-[30px]' />
       )}
-      <ChatInput
-        onSubmit={submitComment}
-        userImage={profileUrl}
-        isPending={isPending}
-        isLoggedIn={isLoggedIn}
-      />
     </div>
   );
 };

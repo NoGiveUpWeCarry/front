@@ -1,17 +1,14 @@
 import FeedDetailFooter from '@/components/molecules/FeedDetailFooter';
 import FeedDetailUserInfo from '@/components/molecules/FeedDetailUserInfo';
-import FeedDetail from '@/components/molecules/contents/FeedDetail';
 import FeedDetailSkeleton from '@/components/molecules/skeletons/FeedDetailSkeleton';
+import FeedDetail from '@/components/organisms/feed/FeedDetail';
 import { useFetchFeed, useFetchFeedChat } from '@/hooks/queries/feed.query';
 import useAuthStore from '@/store/authStore';
-// import { useSearchModal } from '@/store/modals/searchModalstore';
-// import { useShallow } from 'zustand/shallow';
-// import useHandlePopState from '@/hooks/useHandlePopState';
 import { Suspense, lazy } from 'react';
 import { useParams } from 'react-router-dom';
 
 const FeedDetailChat = lazy(() => {
-  return import('@/components/organisms/FeedDetailChat');
+  return import('@/components/organisms/feed/FeedDetailChat');
 });
 
 const FeedDetailPage = () => {
@@ -50,7 +47,7 @@ const FeedDetailPage = () => {
             postId={post.postId}
           />
           <div
-            className='relative bg-white w-full flex flex-col overflow-y-scroll [&::-webkit-scrollbar]:hidden py-[10px] rounded-[20px] z-10'
+            className='w-full flex flex-col overflow-y-scroll [&::-webkit-scrollbar]:hidden py-[10px] z-10 border-t-[1px]'
             style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
