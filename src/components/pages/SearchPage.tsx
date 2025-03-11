@@ -39,12 +39,12 @@ const SearchPage = () => {
   if (!keyword) return null;
 
   return (
-    <div className='flex flex-col gap-5 px-5 md:px-0'>
-      <h1 className='flex gap-4 items-center text-[25px] font-semibold'>
+    <div className='flex flex-col gap-5'>
+      <h1 className='flex gap-4 items-center text-[25px] font-semibold px-5 md:px-0'>
         <span className='text-[#FFBA6C]'>&ldquo;{keyword}&rdquo;</span>
         <span>검색 결과</span>
       </h1>
-      <div className='flex items-center w-full'>
+      <div className='flex items-center w-full px-5 md:px-0'>
         <div className='flex'>
           {tabs.map((item) => (
             <button
