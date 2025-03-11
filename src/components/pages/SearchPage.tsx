@@ -1,6 +1,8 @@
 import FeedView from '@/components/organisms/search/FeedView';
 import ProjectView from '@/components/organisms/search/ProjectView';
+import { useSearchModal } from '@/store/modals/searchModalstore';
 import { useSearchTabsStore } from '@/store/searchTabsStore';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
 
@@ -9,6 +11,27 @@ const SearchPage = () => {
   const query = new URLSearchParams(search);
   const keyword = query.get('q') as string;
 
+  const { keyword: searchKeyword } = useSearchModal();
+
+  useEffect(() => {
+    if (query.get('q')) {
+      const handlePopState = () => {
+        const currentUrl = window.location.href;
+        const newUrl = currentUrl.includes('q=')
+          ? currentUrl
+          : `${currentUrl}?q=${searchKeyword}`;
+        window.history.pushState(
+          null,
+          '',
+          window.innerWidth >= 768 ? newUrl : currentUrl // 탭 이하는 모달 제외
+        );
+      };
+
+      window.addEventListener('popstate', handlePopState);
+      return () => window.removeEventListener('popstate', handlePopState);
+    }
+  }, [location]);
+
   const { tabs, activeTab, setActiveTab } = useSearchTabsStore(
     useShallow((state) => state)
   );
@@ -16,7 +39,7 @@ const SearchPage = () => {
   if (!keyword) return null;
 
   return (
-    <div className='flex flex-col gap-5'>
+    <div className='flex flex-col gap-5 px-5 md:px-0'>
       <h1 className='flex gap-4 items-center text-[25px] font-semibold'>
         <span className='text-[#FFBA6C]'>&ldquo;{keyword}&rdquo;</span>
         <span>검색 결과</span>

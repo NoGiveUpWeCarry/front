@@ -80,7 +80,11 @@ const HubUnitSelect = () => {
   return (
     <div className={cn('flex items-center gap-4')}>
       <Select onValueChange={handleUnitChange} disabled={!role}>
-        <SelectTrigger className={cn('w-[180px] h-[44px] bg-white')}>
+        <SelectTrigger
+          className={cn(
+            'bg-white h-[44px] w-[100px] sm:w-[160px] md:w-[180px]'
+          )}
+        >
           <SelectValue placeholder={unit || '모집 단위'} />
         </SelectTrigger>
         <SelectContent>

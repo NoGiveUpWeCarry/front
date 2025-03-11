@@ -7,6 +7,7 @@ interface ContentsUserProps {
   name: string;
   userRole: string;
   userId?: number;
+  hideRole?: boolean;
 }
 
 const ContentsUser = ({
@@ -15,6 +16,7 @@ const ContentsUser = ({
   userRole,
   userProfileUrl,
   userId,
+  hideRole,
 }: ContentsUserProps) => {
   return (
     <div className='flex items-center sm:mb-1 px-0 sm:px-0 gap-2'>
@@ -29,6 +31,7 @@ const ContentsUser = ({
         userNickname={name}
         userRole={userRole}
         createdAt={createdAt}
+        hideRole={hideRole}
       />
     </div>
   );

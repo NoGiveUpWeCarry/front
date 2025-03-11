@@ -45,6 +45,8 @@ const SearchModal = ({ onClose }: ModalProps) => {
   const hubs = data?.projectResult?.projects;
 
   const closeHandler = () => {
+    const currentPath = window.location.pathname;
+    navigate(currentPath);
     onClose();
     setKeyword('');
   };
@@ -99,7 +101,7 @@ const SearchModal = ({ onClose }: ModalProps) => {
                   hasMore={data?.feedResult?.hasMore as boolean}
                   hasMoreNavigate={() => {
                     setActiveTab('피드');
-                    navigate(`/search?q=${debouncedKeyword}`);
+                    navigate(`/search?q=${debouncedKeyword}&type=page`);
                     onClose();
                   }}
                 />

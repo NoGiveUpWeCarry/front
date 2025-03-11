@@ -37,13 +37,13 @@ const HubBody = ({
       <div className='flex w-full items-center gap-[20px]'>
         <Role role={role} />
 
-        <div className='flex gap-[10px] items-center'>
+        <div className='flex gap-[10px] items-center overflow-hidden'>
           {detailRoles
             ?.filter((el) => roleTagItems[el])
             .map((detailRoles) => (
               <span
                 key={detailRoles}
-                className={`${roleTagItemsColors[detailRoles]} bg-[#eaeaea] inline-flex items-center px-3 py-1`}
+                className={`${roleTagItemsColors[detailRoles]} bg-[#eaeaea] block px-3 py-1 max-w-[130px] overflow-hidden text-ellipsis whitespace-nowrap`}
               >
                 {roleTagItems[detailRoles]}
               </span>

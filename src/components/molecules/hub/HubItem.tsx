@@ -1,4 +1,4 @@
-import FeedContentsThumbnail from '@/components/molecules/feed/FeedContentsThumbnail';
+import HubContentsThumbnail from '@/components/molecules/hub/HubContentsThumbnail';
 import HubTitle from '@/components/molecules/hub/HubTitle';
 import HubBody from '@/components/organisms/hub/HubBody';
 import { HubTagItemsKey } from '@/constants/hub/hubTagItems';
@@ -40,7 +40,10 @@ const HubItem = ({
       onClick={() => navigate(`/projects/${projectId}`)}
     >
       <HubTitle hubType={hubType} title={title} />
-      <div className='flex justify-between'>
+      <div className='flex flex-col gap-[20px]'>
+        <div className='w-full '>
+          <HubContentsThumbnail thumbnailUrl={thumbnailUrl} />
+        </div>
         <HubBody
           status={status}
           workType={workType}
@@ -49,11 +52,6 @@ const HubItem = ({
           startDate={startDate}
           duration={duration}
         />
-        <div className='flex'>
-          <div className='w-[200px] h-[120px]'>
-            <FeedContentsThumbnail thumbnailUrl={thumbnailUrl} />
-          </div>
-        </div>
       </div>
     </div>
   );

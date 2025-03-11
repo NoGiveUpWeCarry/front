@@ -9,6 +9,8 @@ import HubSkill from '@/components/molecules/hub/HubSkill';
 import HubTitle from '@/components/molecules/hub/HubTitle';
 import HubDetailFooter from '@/components/molecules/HubDetailFooter';
 import HubContentsUser from '@/components/organisms/hub/HubContentsUser';
+import HubApplySideBar from '@/components/organisms/sides/HubApplySideBar';
+import HubApplyUserSideBar from '@/components/organisms/sides/HubApplyUserSideBar';
 import { HubTagItemsKey } from '@/constants/hub/hubTagItems';
 import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
 import { RoleItemKeys } from '@/constants/hub/roleItems';
@@ -92,9 +94,19 @@ const HubDetail = ({
           <div>
             <DetailContents content={content} />
           </div>
+          {isOwnConnectionHub && (
+            <>
+              <div className='flex w-full border rounded-lg  lg:hidden p-2'>
+                <HubApplySideBar />
+              </div>
+            </>
+          )}
 
           {!isOwnConnectionHub && (
             <>
+              <div className='flex w-full lg:hidden'>
+                <HubApplyUserSideBar />
+              </div>
               <div className='flex'>
                 <HubDetailTitle title='허브 매니저 소개' />
               </div>

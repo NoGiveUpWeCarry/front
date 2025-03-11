@@ -28,6 +28,9 @@ const FeedTemplate = () => {
           {error && <span className='text-red-500'>에러가 발생했습니다.</span>}
         </div>
       )}
+      {!isLoading && data === undefined && (
+        <div className='flex justify-center'>피드가 않습니다.</div>
+      )}
       {data?.pages.map((page: FeedResponse) => {
         let lastDate = '';
         return page.feeds.map((feed) => {

@@ -29,7 +29,9 @@ const HubTopRoleSelect = () => {
           role ? roleValueToKeyMap[role as RoleItemValues] || 'All' : 'All'
         }
       >
-        <SelectTrigger className={cn('w-[130px] h-[44px] bg-white')}>
+        <SelectTrigger
+          className={cn('w-[80px] sm:w-[120px] md:w-[140px] h-[44px] bg-white')}
+        >
           <SelectValue
             placeholder={
               role

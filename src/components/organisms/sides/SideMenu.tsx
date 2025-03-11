@@ -180,7 +180,7 @@ const SideMenu = () => {
     <>
       {isSearchModalOpen && <SearchModal onClose={closeSearchModal} />}
 
-      <div className='flex lg:flex-col lg:py-[20px] justify-between items-center h-full bg-green-200'>
+      <div className='flex lg:flex-col lg:py-[20px] justify-between items-center h-full'>
         <div className='mb-8 cursor-pointer' onClick={() => navigate('/')}>
           <Logo />
         </div>

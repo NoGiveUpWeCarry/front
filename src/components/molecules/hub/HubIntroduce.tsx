@@ -49,11 +49,9 @@ const HubIntroduce = ({ nickname }: IProps) => {
   return (
     <div className='flex gap-[10px]'>
       <Button
-        width='90px'
-        height='40px'
         variants='filled'
         radius='md'
-        className='bg-white text-black shadow-xl'
+        className='bg-white text-black shadow-xl w-[80px] h-[40px] sm:w-[90px]'
         onClick={handleFollow}
       >
         {isFollowing ? (
@@ -67,11 +65,9 @@ const HubIntroduce = ({ nickname }: IProps) => {
         )}
       </Button>
       <Button
-        width='90px'
-        height='40px'
         variants='filled'
         radius='md'
-        className='bg-gradient-to-b from-[#2E2E2E] to-[#949494] text-white shadow-xl'
+        className='bg-gradient-to-b from-[#2E2E2E] to-[#949494] text-white shadow-xl w-[80px] sm:w-[90px]'
         onClick={() => navigate('/chat', { state: { targetUserId } })}
       >
         <Send className='mr-2 w-5 h-5' /> 메세지

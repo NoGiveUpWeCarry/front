@@ -20,6 +20,7 @@ interface FeedContentsProps {
     name: string;
     job: string;
     time: string;
+    hideRole?: boolean;
   };
 }
 
@@ -47,6 +48,7 @@ const FeedListContent = ({
               userRole={user.job}
               createdAt={createdAt}
               userId={user.id!}
+              hideRole={user.hideRole}
             />
             <FeedItem
               title={title}

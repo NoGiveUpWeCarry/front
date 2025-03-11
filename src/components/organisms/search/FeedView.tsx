@@ -46,6 +46,7 @@ const FeedView = ({ keyword }: { keyword: string }) => {
             name: post.userNickname,
             job: post.userRole,
             time: post.createdAt,
+            hideRole: true,
           }}
         />
       ))}

@@ -22,11 +22,9 @@ export const HubContentsTop = () => {
           <HubUnitSelect />
         </div>
         <Button
-          width='90px'
-          height='50px'
           variants='filled'
           radius='md'
-          className='bg-gradient-to-b from-[#2E2E2E] to-[#949494] text-white shadow-md'
+          className='bg-gradient-to-b from-[#2E2E2E] to-[#949494] text-white shadow-md text-[12px] sm:text-[14px] w-[70px] h-[40px] sm:w-[80px] sm:h-[50px]'
           onClick={openPostModal}
         >
           <Plus className='mr-2 w-5 h-5' /> 새 허브

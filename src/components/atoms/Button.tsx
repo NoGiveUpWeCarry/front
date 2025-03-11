@@ -3,8 +3,8 @@ import { cva } from 'class-variance-authority';
 import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  width: string;
-  height: string;
+  width?: string;
+  height?: string;
   variants?: 'filled' | 'outline' | 'text';
   radius: 'sm' | 'md' | 'lg' | 'full';
   className?: string;

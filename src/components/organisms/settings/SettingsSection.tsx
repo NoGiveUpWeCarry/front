@@ -108,7 +108,7 @@ SettingsSection.TextWithToggle = function ({
 }) {
   return (
     <div className='flex justify-between items-center'>
-      <div className='flex flex-col gap-1 text-[15px]'>
+      <div className='flex flex-col gap-1 text-[15px] mr-[10px] sm:mr-0'>
         <strong className='text-black font-medium'>{title}</strong>
         <span className='text-[#7D7D7D]'>{description}</span>
       </div>

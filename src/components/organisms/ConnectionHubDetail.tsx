@@ -1,9 +1,10 @@
 import { useFetchHub } from '@/hooks/queries/hub.query';
 import useAuthStore from '@/store/authStore';
 import { useProjectStore } from '@/store/hubDetailStore';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import HubDetail from '@/components/organisms/hub/HubDetail';
+import { useSearchModal } from '@/store/modals/searchModalstore';
 
 const ConnectionHubDetail = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -12,6 +13,26 @@ const ConnectionHubDetail = () => {
     isLoading: ProjectLoading,
     isError,
   } = useFetchHub(Number(projectId));
+
+  // 검색 관련 코드
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const { keyword: searchKeyword } = useSearchModal();
+
+  useEffect(() => {
+    if (query.get('from') === 'search') {
+      const handlePopState = () => {
+        const currentUrl = window.location.href;
+        const newUrl = currentUrl.includes('q=')
+          ? currentUrl
+          : `${currentUrl}?q=${searchKeyword}`;
+        window.history.pushState(null, '', newUrl);
+      };
+
+      window.addEventListener('popstate', handlePopState);
+      return () => window.removeEventListener('popstate', handlePopState);
+    }
+  }, [location]);
 
   const setProject = useProjectStore((state) => state.setProject);
   const isOwnConnectionHub = useProjectStore(

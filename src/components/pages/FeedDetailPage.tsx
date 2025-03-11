@@ -4,8 +4,9 @@ import FeedDetailSkeleton from '@/components/molecules/skeletons/FeedDetailSkele
 import FeedDetail from '@/components/organisms/feed/FeedDetail';
 import { useFetchFeed, useFetchFeedChat } from '@/hooks/queries/feed.query';
 import useAuthStore from '@/store/authStore';
-import { Suspense, lazy } from 'react';
-import { useParams } from 'react-router-dom';
+import { useSearchModal } from '@/store/modals/searchModalstore';
+import { Suspense, lazy, useEffect } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 
 const FeedDetailChat = lazy(() => {
   return import('@/components/organisms/feed/FeedDetailChat');
@@ -18,15 +19,30 @@ const FeedDetailPage = () => {
     Number(id)
   );
 
+  // 검색 관련 코드
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const { keyword: searchKeyword } = useSearchModal();
+
+  useEffect(() => {
+    if (query.get('from') === 'search') {
+      const handlePopState = () => {
+        const currentUrl = window.location.href;
+        const newUrl = currentUrl.includes('q=')
+          ? currentUrl
+          : `${currentUrl}?q=${searchKeyword}`;
+        window.history.pushState(null, '', newUrl);
+      };
+
+      window.addEventListener('popstate', handlePopState);
+      return () => window.removeEventListener('popstate', handlePopState);
+    }
+  }, [location]);
+
   const post = FeedData?.post;
   const comments = ChatData?.comments;
 
   const userId = useAuthStore((state) => state.userInfo?.userId);
-
-  // NOTE: 검색 모달 관련 코드
-  // const { isModalOpen, openModal, closeModal, keyword, setKeyword } =
-  //   useSearchModal(useShallow((state) => state));
-  // useHandlePopState(keyword, openModal, setKeyword);
 
   if (FeedLoading) {
     return <div>피드 로딩중</div>;

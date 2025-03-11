@@ -42,6 +42,9 @@ const ConnectionHubTemplate = () => {
           </button>
         ))}
       </div>
+      {!isLoading && !data && (
+        <div className='flex justify-center mt-3'>허브가 않습니다.</div>
+      )}
       {data?.pages[0].projects.length === 0 && (
         <div className='flex justify-center text-[13px]'>
           프로젝트가 존재하지 않습니다.
