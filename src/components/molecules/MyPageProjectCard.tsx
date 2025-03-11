@@ -51,10 +51,15 @@ const MyPageProjectCard = ({
           <div className='mt-3 flex gap-1'>
             {linkTypes.includes('Web') && <GlobeAltIcon width={18} />}
             {linkTypes.includes('IOS') && (
-              <img src={appleIcon} width={20} className='pb-[2px]' />
+              <img
+                src={appleIcon}
+                alt='apple'
+                width={20}
+                className='pb-[2px]'
+              />
             )}
             {linkTypes.includes('Android') && (
-              <img src={androidIcon} width={18} />
+              <img src={androidIcon} width={18} alt='android' />
             )}
           </div>
         </div>

@@ -116,6 +116,7 @@ const MyPageHeader = () => {
                   <Link to={link} key={link}>
                     <img
                       src={LINK_ICONS[items as keyof typeof LINK_ICONS]}
+                      alt={`link icon to ${items}`}
                       width={20}
                       height={20}
                     />
