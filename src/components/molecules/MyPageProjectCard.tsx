@@ -23,6 +23,7 @@ const MyPageProjectCard = ({
         <button
           className='absolute right-0 top-3 px-3 pointer-default z-10'
           onClick={onClickUpdate}
+          aria-label='프로젝트 수정'
         >
           <PenIcon width={14} />
         </button>
