@@ -5,6 +5,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import HubDetail from '@/components/organisms/hub/HubDetail';
 import { useSearchModal } from '@/store/modals/searchModalstore';
+import MetaTag from '@/utils/MetaTags';
 
 const ConnectionHubDetail = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -60,6 +61,11 @@ const ConnectionHubDetail = () => {
 
   return (
     <div className='flex p-10px'>
+      <MetaTag
+        title={ProjectData.project.title}
+        description={ProjectData.project.title}
+        url={`/projects/${projectId}`}
+      />
       <HubDetail
         title={ProjectData.project.title}
         hubType={ProjectData.project.hubType}

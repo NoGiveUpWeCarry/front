@@ -5,6 +5,7 @@ import FeedDetail from '@/components/organisms/feed/FeedDetail';
 import { useFetchFeed, useFetchFeedChat } from '@/hooks/queries/feed.query';
 import useAuthStore from '@/store/authStore';
 import { useSearchModal } from '@/store/modals/searchModalstore';
+import MetaTag from '@/utils/MetaTags';
 import { Suspense, lazy, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 
@@ -50,6 +51,12 @@ const FeedDetailPage = () => {
 
   return (
     <div className='flex w-full flex-col gap-[20px]'>
+      <MetaTag
+        title={post?.title}
+        description={post?.title}
+        imgSrc={post?.thumnailUrl}
+        url={`/feed/${id}`}
+      />
       {post && (
         <>
           <FeedDetailUserInfo

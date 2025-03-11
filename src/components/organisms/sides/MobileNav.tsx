@@ -19,7 +19,7 @@ const MobileNav = () => {
   };
 
   return (
-    <div className='border-b border-lightgray w-full h-full'>
+    <div className='border-b border-lightgray w-full h-full bg-[#f5f5f5]'>
       <div className='w-full h-full flex items-center px-2 justify-between'>
         <nav
           aria-label='모바일 메뉴'
