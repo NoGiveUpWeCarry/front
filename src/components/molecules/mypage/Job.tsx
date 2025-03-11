@@ -25,7 +25,7 @@ const Job = ({ openJobModal }: JobProps) => {
             <ChevronRightIcon width={16} strokeWidth={2} />
           </div>
         ) : (
-          <span className='text-[15px] text-[#838383]'>
+          <span className='text-[15px] text-[#707070]'>
             상세 직무를 선택해주세요
           </span>
         )}
