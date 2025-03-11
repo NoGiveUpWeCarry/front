@@ -19,7 +19,7 @@ const InputWithLabel = ({
 }: InputWithLabelProps) => {
   return (
     <div className='w-full flex flex-col gap-[10px]'>
-      <Label {...props} />
+      <Label {...props} aria-required={props.required} />
       <input
         value={value}
         onChange={(e) => setValue(e)}

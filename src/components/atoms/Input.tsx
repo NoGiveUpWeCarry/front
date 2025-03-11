@@ -72,6 +72,7 @@ const Input = ({
           className,
         })
       )}
+      aria-required={props.required}
       {...props}
     />
   );
