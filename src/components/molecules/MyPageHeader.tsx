@@ -107,7 +107,7 @@ const MyPageHeader = () => {
           <p
             className={cn(
               'text-body1 font-regular line-clamp-2',
-              headerData?.introduce ? 'text-black' : 'text-[#838383]'
+              headerData?.introduce ? 'text-black' : 'text-[#696969]'
             )}
           >
             {headerData?.introduce || '한 줄 소개가 없습니다.'}

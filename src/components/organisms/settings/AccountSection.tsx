@@ -41,7 +41,7 @@ const AccountSection = () => {
               radius='md'
               width='66px'
               height='40px'
-              className='bg-red-500 text-white absolute right-0 top-1/2 transform -translate-y-1/2'
+              className='bg-[#da3434] text-white absolute right-0 top-1/2 transform -translate-y-1/2'
               onClick={openModal}
             >
               삭제

@@ -34,7 +34,7 @@ const FollowButton = ({ userId, isFollowing, nickname, onRefetch }: IProps) => {
       className={clsx(
         isFollowing
           ? '!text-[#373A3A] bg-lightgray'
-          : 'text-white bg-[#FF7E5F]',
+          : 'text-white bg-[#121212]',
         'text-[15px]'
       )}
       onClick={handleClick}
