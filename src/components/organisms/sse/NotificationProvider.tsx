@@ -4,6 +4,7 @@ import {
   useEffect,
   useState,
   ReactNode,
+  useMemo,
 } from 'react';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 import {
@@ -132,15 +133,18 @@ export const NotificationProvider = ({
     );
   };
 
+  const valueData = useMemo(
+    () => ({
+      messages,
+      newNotification,
+      markNotificationAsRead,
+      setNewNotification,
+    }),
+    [messages, newNotification]
+  );
+
   return (
-    <NotificationContext.Provider
-      value={{
-        messages,
-        newNotification,
-        markNotificationAsRead,
-        setNewNotification,
-      }}
-    >
+    <NotificationContext.Provider value={valueData}>
       {children}
     </NotificationContext.Provider>
   );

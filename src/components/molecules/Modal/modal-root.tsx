@@ -30,7 +30,7 @@ const ModalRoot = ({
           onClick={onClose}
           aria-label='Close'
         >
-          <Icon type={'xmark'} color={'black'} className='w-6 h-6' />
+          <Icon type='xmark' color='black' className='w-6 h-6' />
         </button>
         <div className='flex flex-col w-full max-h-[90vh] overflow-y-auto rounded-lg'>
           {children}

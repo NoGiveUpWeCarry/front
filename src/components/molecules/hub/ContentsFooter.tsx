@@ -27,11 +27,10 @@ export const HubFooter = ({
   const [bookmarked, setBookmarked] = useState(initialIsBookmarked);
   const [bookMarkCount, setBookMarkCount] = useState(initialBookMarkCount);
   const [isLoading, setIsLoading] = useState(false);
+  const bookmark = useFetchBookmarkStatus(projectId);
 
   // 북마크 상태
-  const { data: bookmarkStatus } = isLoggedIn
-    ? useFetchBookmarkStatus(projectId)
-    : { data: null };
+  const { data: bookmarkStatus } = isLoggedIn ? bookmark : { data: null };
 
   const { mutate: toggleBookmark } = useTogledHubBookmark();
 

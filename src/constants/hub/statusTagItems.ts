@@ -3,9 +3,9 @@ export const statusTagItems = {
   CLOSED: 'CLOSED',
 } as const;
 
-export type statusTagItemskey = keyof typeof statusTagItems;
+export type StatusTagItemskey = keyof typeof statusTagItems;
 
-export const statusTagItemsColors: Record<statusTagItemskey, string> = {
+export const statusTagItemsColors: Record<StatusTagItemskey, string> = {
   OPEN: 'bg-gradient-to-r from-[#9340FF] to-[#FFDCDC] text-[14px] rounded-full',
   CLOSED:
     'bg-gradient-to-r from-[#000000] to-[#FFFFFF] text-[14px] rounded-full',

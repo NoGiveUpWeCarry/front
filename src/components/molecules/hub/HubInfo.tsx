@@ -1,22 +1,22 @@
 import Icon from '@/components/atoms/Icon';
-import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
-import { RoleItemKeys } from '@/constants/hub/roleItems';
-import { roleTagItemsKey } from '@/constants/hub/roleTagsItems';
+import { MeetingTagItemskey } from '@/constants/hub/meetingTagItems';
+// import { RoleItemKeys } from '@/constants/hub/roleItems';
+import { RoleTagItemsKey } from '@/constants/hub/roleTagsItems';
 import { useNavigate } from 'react-router-dom';
 
 export interface HubInfoProps {
   startDate: string;
   duration: string;
-  workType: meetingTagItemskey;
-  role: RoleItemKeys;
-  detailRoles: roleTagItemsKey[];
+  workType: MeetingTagItemskey;
+  // role: RoleItemKeys;
+  detailRoles: RoleTagItemsKey[];
 }
 
 const HubInfo = ({
   startDate,
   duration,
   workType,
-  role,
+  // role,
   detailRoles,
 }: HubInfoProps) => {
   const navigate = useNavigate();

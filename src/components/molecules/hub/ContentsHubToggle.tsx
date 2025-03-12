@@ -1,7 +1,7 @@
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import useHubSearchStore from '@/store/hubSeartchStore';
 
-export function ContentsHubToggle() {
+export const ContentsHubToggle = () => {
   const sort = useHubSearchStore((state) => state.sort);
   const setSort = useHubSearchStore((state) => state.setSort);
 
@@ -30,4 +30,4 @@ export function ContentsHubToggle() {
       </ToggleGroupItem>
     </ToggleGroup>
   );
-}
+};

@@ -106,8 +106,8 @@ const iconVariants = cva('', {
 interface IconProps extends VariantProps<typeof iconVariants> {
   type: IconType;
   className?: string;
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
+  // onMouseEnter?: () => void;
+  // onMouseLeave?: () => void;
 }
 
 const Icon = ({ type, className = '', color }: IconProps) => {
