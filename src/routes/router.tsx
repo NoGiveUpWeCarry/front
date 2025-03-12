@@ -15,6 +15,7 @@ import ConnetcionHubDetailPage from '@/components/pages/ConnetcionHubDetailPage'
 import FeedDetailPage from '@/components/pages/FeedDetailPage';
 import HubLayout from '@/layouts/HubLayout';
 import ChannelSelectPage from '@/components/pages/ChannelSelectPage';
+import ChatLayout from '@/layouts/ChatLayout';
 
 const router = [
   {
@@ -71,7 +72,7 @@ const router = [
   },
   {
     path: '/chat',
-    element: <SubLayout />,
+    element: <ChatLayout />,
     children: [
       {
         index: true,

@@ -1,14 +1,12 @@
 import ChannelList from '@/components/organisms/chat/ChannelList';
 import SearchChannel from '@/components/organisms/chat/SearchChannel';
 import { useChannelId } from '@/hooks/chat/useChannelId';
-import { useChat } from '@/hooks/chat/useChat';
 import useDebounce from '@/hooks/useDebounce';
 import { useChatStore } from '@/store/chatStore';
 import { filterChannels } from '@/utils/filter';
 import { useShallow } from 'zustand/shallow';
 
 const ChannelSelectPage = () => {
-  useChat();
   const { channels, keyword, setKeyword } = useChatStore(
     useShallow((state) => ({
       channels: state.channels,
