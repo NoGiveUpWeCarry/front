@@ -31,7 +31,9 @@ const FollowersModal = ({
   });
 
   useEffect(() => {
-    refetch();
+    if (active) {
+      refetch();
+    }
   }, [active]);
 
   if (!isOpen) return null;
