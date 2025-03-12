@@ -41,12 +41,11 @@ const MobileNav = () => {
   }, [isMenuOpen]);
 
   const handleKeyEvent = (e: KeyboardEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    if (!keyword) {
-      alert('검색어를 입력해주세요.');
-      return;
-    }
     if (e.key === 'Enter') {
+      if (!keyword) {
+        alert('검색어를 입력해주세요.');
+        return;
+      }
       navigate(`/search?q=${keyword}&type=page`);
     }
   };
