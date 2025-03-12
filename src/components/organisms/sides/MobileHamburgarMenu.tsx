@@ -10,25 +10,25 @@ const MobileHamburgarMenu = () => {
   return (
     <div className='absolute mt-1 px-1 w-full h-full'>
       <nav className='w-full h-fit border rounded-2xl bg-white px-1 py-1 flex-col gap'>
-        <div
+        <button
           className='w-full px-2 py-[6px] flex items-center gap-2'
           onClick={() => navgiate('/')}
         >
           <div className='w-5 h-5'>
-            <Icon type='homeSolid' color={'black'} />
+            <Icon type='homeSolid' color='black' />
           </div>
           <div className='text-sm ml-1'>피드</div>
-        </div>
-        <div
+        </button>
+        <button
           className='w-full px-2 py-[6px] flex items-center gap-2'
-          onClick={() => navgiate('/projects')}
+          onClick={() => navgiate('/chat')}
         >
           <div className='w-5 h-5'>
             <Icon type='mailSolid' />
           </div>
           <div className='text-sm ml-1'>메세지</div>
-        </div>
-        <div
+        </button>
+        <button
           className='w-full px-2 py-[6px] flex items-center gap-2'
           onClick={() => navgiate('/projects')}
         >
@@ -36,7 +36,7 @@ const MobileHamburgarMenu = () => {
             <Icon type='starSolid' />
           </div>
           <div className='text-sm ml-1'>커넥션 허브</div>
-        </div>
+        </button>
         <div className='w-full px-2 py-[6px] flex items-center gap-2'>
           {isLoggedIn ? (
             <div className='border-t w-full border-black flex-col'>

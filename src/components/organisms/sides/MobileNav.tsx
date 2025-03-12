@@ -5,16 +5,21 @@ import Logo from '@/components/atoms/Logo';
 import MobileHamburgarMenu from '@/components/organisms/sides/MobileHamburgarMenu';
 import { useNotification } from '@/components/organisms/sse/NotificationProvider';
 import useAuthStore from '@/store/authStore';
+import { useSearchModal } from '@/store/modals/searchModalstore';
 import { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const MobileNav = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const menuRef = useRef<HTMLDivElement>(null);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAlarmOpen, setIsAlarmOpen] = useState(false);
   const { isLoggedIn } = useAuthStore();
-  const menuRef = useRef<HTMLDivElement>(null);
   const { messages, markNotificationAsRead } = useNotification();
-  const location = useLocation();
+  const { setKeyword, keyword } = useSearchModal();
+
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
@@ -43,37 +48,45 @@ const MobileNav = () => {
       <div className='w-full h-full flex items-center px-2 justify-between relative'>
         <nav
           aria-label='모바일 메뉴'
-          className='flex flex-row items-center mr-1 w-full'
+          className='flex justify-between items-center mr-1 w-full'
         >
           <a href='/' className='w-[40px] h-[16px]'>
             <Logo width='44px' height='18px' />
           </a>
-          <a href='/search' className='w-full h-full ml-3'>
-            <div className='w-full h-8 px-3 py-[6px] border rounded-lg border-none bg-[#f1f1f7] flex items-center'>
-              <div className='w-5 h-5'>
-                <Icon type='search' className='text-[#838383]' />
+          <div className='flex-1 ml-6 mr-6 h-8 px-3 border rounded-lg border-none bg-[#f1f1f7] flex items-center'>
+            <Icon type='search' className='w-6 h-6' color='gray' />
+            <Input
+              placeholder='검색어 입력'
+              bgColor='transparent'
+              className='border-0 h-full !text-[16px] !pl-2'
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  navigate(`/search?q=${keyword}`);
+                }
+              }}
+            />
+          </div>
+          <div className='flex h-8 justify-end items-center gap-2'>
+            {isLoggedIn && (
+              <div
+                className='w-6 h-6'
+                onClick={() => setIsAlarmOpen(!isAlarmOpen)}
+              >
+                <Icon type='bellSolid' className='text-[#838383]' />
               </div>
-              <input
-                className='w-full bg-transparent text-sm justify-self-center h-full outline-none'
-                placeholder='검색하기'
+            )}
+            <div
+              className='w-6 h-6 cursor-pointer'
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <Icon
+                type={isMenuOpen ? 'xmark' : 'bar3'}
+                className='text-[#838383]'
               />
             </div>
-          </a>
-        </nav>
-        <nav className='flex w-[102px] h-8 justify-end items-center gap-2'>
-          {isLoggedIn && (
-            <div
-              className='w-6 h-6'
-              onClick={() => setIsAlarmOpen(!isAlarmOpen)}
-            >
-              <Icon type='bellSolid' className='text-[#838383]' />
-            </div>
-          )}
-          <div className='w-6 h-6' onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            <Icon
-              type={isMenuOpen ? 'xmark' : 'bar3'}
-              className='text-[#838383]'
-            />
           </div>
         </nav>
       </div>
