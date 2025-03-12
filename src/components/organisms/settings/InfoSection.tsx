@@ -89,7 +89,7 @@ const InfoSection = ({ settingsInfo }: { settingsInfo: SettingsResponse }) => {
                     </button>
                   ))
                 ) : (
-                  <span className='text-[#707070] text-[14px]'>
+                  <span className='text-[#707070] text-[14px] cursor-default select-none'>
                     오른쪽 추가 버튼을 눌러 기술 스택을 추가해주세요
                   </span>
                 )}
