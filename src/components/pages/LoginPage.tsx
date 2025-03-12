@@ -13,7 +13,7 @@ const LoginPage = () => {
   };
 
   const handlePadLogin = () => {
-    navigate('/login/pad');
+    navigate('/login/pad', { state: { prevUrl: document.referrer } });
   };
   return (
     <div className='flex justify-center w-full min-h-svh'>
