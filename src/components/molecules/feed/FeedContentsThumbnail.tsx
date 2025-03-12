@@ -10,7 +10,7 @@ const FeedContentsThumbnail = ({
   alt = '',
 }: ContentsThumbnailProps) => {
   return (
-    <div className='flex w-full max-h-[110px]'>
+    <div className='flex lg:w-80 w-full lg:max-h-[110px]'>
       {thumbnailUrl ? (
         <img
           src={thumbnailUrl}

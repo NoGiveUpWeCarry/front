@@ -3,7 +3,7 @@ import { FeedContentsTop } from '@/components/organisms/feed/FeedContentsTop';
 
 const HomePage = () => {
   return (
-    <div className='flex flex-col gap-[30px]'>
+    <div className='flex flex-col lg:gap-[30px] gap-3'>
       <FeedContentsTop />
       <Feed />
     </div>
