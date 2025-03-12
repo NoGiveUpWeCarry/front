@@ -48,7 +48,7 @@ const FeedDetailUserInfo = ({
     }
   };
   return (
-    <div className='w-full flex justify-between items-center px-12'>
+    <div className='w-full flex justify-between items-center lg:px-12 px-2'>
       <div className='w-fit h-[40px] flex gap-[10px]'>
         <AvatarPopup
           profileUrl={userProfileUrl}
