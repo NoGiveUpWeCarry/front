@@ -1,9 +1,10 @@
 import FeedView from '@/components/organisms/search/FeedView';
 import ProjectView from '@/components/organisms/search/ProjectView';
+import useAuthStore from '@/store/authStore';
 import { useSearchModal } from '@/store/modals/searchModalstore';
 import { useSearchTabsStore } from '@/store/searchTabsStore';
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
 
 const SearchPage = () => {
@@ -11,6 +12,7 @@ const SearchPage = () => {
   const query = new URLSearchParams(search);
   const keyword = query.get('q') as string;
 
+  const { isLoggedIn } = useAuthStore(useShallow((state) => state));
   const { keyword: searchKeyword } = useSearchModal();
 
   useEffect(() => {
@@ -59,7 +61,15 @@ const SearchPage = () => {
       </div>
       <div className='mt-5'>
         {activeTab === '피드' && <FeedView keyword={keyword} />}
-        {activeTab === '프로젝트' && <ProjectView keyword={keyword} />}
+        {activeTab === '프로젝트' && isLoggedIn ? (
+          <ProjectView keyword={keyword} />
+        ) : (
+          <div className='w-full flex justify-center'>
+            <Link to='/login' className='hover:text-blue-500'>
+              로그인하고 프로젝트보기 👉
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

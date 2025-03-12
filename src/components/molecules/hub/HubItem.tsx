@@ -2,18 +2,18 @@ import HubContentsThumbnail from '@/components/molecules/hub/HubContentsThumbnai
 import HubTitle from '@/components/molecules/hub/HubTitle';
 import HubBody from '@/components/organisms/hub/HubBody';
 import { HubTagItemsKey } from '@/constants/hub/hubTagItems';
-import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
+import { MeetingTagItemskey } from '@/constants/hub/meetingTagItems';
 import { RoleItemKeys } from '@/constants/hub/roleItems';
-import { roleTagItemsKey } from '@/constants/hub/roleTagsItems';
-import { statusTagItemskey } from '@/constants/hub/statusTagItems';
+import { RoleTagItemsKey } from '@/constants/hub/roleTagsItems';
+import { StatusTagItemskey } from '@/constants/hub/statusTagItems';
 import { useNavigate } from 'react-router-dom';
 
 interface HubItemProps {
   title: string;
   hubType: HubTagItemsKey;
-  workType: meetingTagItemskey;
-  detailRoles: roleTagItemsKey[];
-  status: statusTagItemskey;
+  workType: MeetingTagItemskey;
+  detailRoles: RoleTagItemsKey[];
+  status: StatusTagItemskey;
   role: RoleItemKeys;
   thumbnailUrl?: string;
   startDate: string;
