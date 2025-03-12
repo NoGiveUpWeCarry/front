@@ -52,7 +52,7 @@ const ConnectionHubDetail = () => {
   }, [ProjectData, currentUserId, setProject]);
 
   if (ProjectLoading) {
-    return <div>피드 로딩 중...</div>;
+    return <div>프로젝트 로딩 중...</div>;
   }
 
   if (isError || !ProjectData?.project) {
