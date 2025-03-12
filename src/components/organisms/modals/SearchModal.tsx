@@ -128,7 +128,7 @@ const SearchModal = ({ onClose }: ModalProps) => {
                   hasMore={data?.projectResult?.hasMore as boolean}
                   hasMoreNavigate={() => {
                     setActiveTab('프로젝트');
-                    navigate(`/search?q=${debouncedKeyword}`);
+                    navigate(`/search?q=${debouncedKeyword}&type=page`);
                     onClose();
                   }}
                   isLoading={isLoading}
