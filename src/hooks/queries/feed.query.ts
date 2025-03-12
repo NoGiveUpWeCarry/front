@@ -20,6 +20,7 @@ import {
   Comment,
   uploadImage,
 } from '@/apis/feed.api';
+import { optimizeImage } from '@/constants/OptimizeImage';
 import { querySuccessHandler } from '@/utils/querySuccessHandler';
 import {
   InfiniteData,
@@ -242,7 +243,11 @@ export const usePostImage = (): UseMutationResult<
 > => {
   return useMutation({
     mutationFn: async ({ file }: UsePostImageParams) => {
-      return uploadImage(file);
+      console.log('🖼️ 원본 이미지 크기:', file.size / 760, 'KB');
+      const optimizedFile = await optimizeImage(file);
+      console.log('🖼️ 최적화된 이미지 크기:', optimizedFile.size / 760, 'KB');
+
+      return uploadImage(optimizedFile);
     },
     onError: (error) => {
       console.error('이미지 업로드 실패:', error);
