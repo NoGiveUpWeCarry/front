@@ -1,11 +1,13 @@
 import Avatar from '@/components/atoms/Avatar';
 import Icon from '@/components/atoms/Icon';
+import { useLogout } from '@/hooks/queries/auth.query';
 import useAuthStore from '@/store/authStore';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const MobileHamburgarMenu = () => {
   const { userInfo, isLoggedIn } = useAuthStore();
   const navgiate = useNavigate();
+  const { mutate } = useLogout();
 
   return (
     <div className='absolute mt-1 px-1 w-full h-full'>
@@ -48,38 +50,40 @@ const MobileHamburgarMenu = () => {
                   src={userInfo?.profileUrl || undefined}
                 />
                 <div className='flex flex-col text-sm h-full w-full justify-between'>
-                  <div className='text-md font-semibold'>{userInfo.name}</div>
+                  <div className='text-md font-semibold mt-1'>
+                    {userInfo.name}
+                  </div>
                   <div className='text-gray'>@ {userInfo.nickname}</div>
                 </div>
               </div>
               <div className='w-full flex flex-col text-sm items-start'>
-                <div
+                <Link
+                  to={`/@${userInfo.nickname}`}
                   className='w-full py-[6px] flex items-center gap-2'
-                  onClick={() => navgiate(`/@${userInfo.nickname}`)}
                 >
                   <div className='w-5 h-5'>
                     <Icon type='user' />
                   </div>
                   <div className='text-sm ml-1'>마이 페이지</div>
-                </div>
-                <div
+                </Link>
+                <Link
+                  to='/settings'
                   className='w-full py-[6px] flex items-center gap-2'
-                  onClick={() => navgiate('/settings')}
                 >
                   <div className='w-5 h-5'>
                     <Icon type='cog' />
                   </div>
                   <div className='text-sm ml-1'>계정 설정</div>
-                </div>
-                <div
+                </Link>
+                <button
                   className='w-full py-[6px] flex items-center gap-2'
-                  onClick={() => navgiate('/settings')}
+                  onClick={() => mutate()}
                 >
                   <div className='w-5 h-5'>
                     <Icon type='logout' />
                   </div>
                   <div className='text-sm ml-1'>로그아웃</div>
-                </div>
+                </button>
               </div>
             </div>
           ) : (
