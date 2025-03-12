@@ -26,9 +26,6 @@ export const FeedContentsTop = () => {
             <Plus className='mr-2 w-5 h-5' /> 새 피드
           </Button>
         </div>
-        <div className='px-[6px]'>
-          <FeedTagSelect />
-        </div>
       </div>
       {isModalOpen && (
         <PostFeedModal
