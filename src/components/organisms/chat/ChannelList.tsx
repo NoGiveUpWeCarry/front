@@ -2,12 +2,10 @@ import Avatar from '@/components/atoms/Avatar';
 import Title from '@/components/atoms/Title';
 import ChannelExitButton from '@/components/molecules/chat/ChannelExitButton';
 import { ListItem } from '@/components/molecules/ListItem';
-import useAuthStore from '@/store/authStore';
 import { ChatState, useChatStore } from '@/store/chatStore';
 import { Channel } from '@/types/channel.type';
 import { formatDateFromNow } from '@/utils/format';
 import clsx from 'clsx';
-import { useNavigate } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
 
 interface ChannelListProps {
@@ -16,19 +14,15 @@ interface ChannelListProps {
 }
 
 const ChannelList = ({ channels, currentChannelId }: ChannelListProps) => {
-  const navigate = useNavigate();
-  const { joinChannel, messages } = useChatStore(
+  const { setState, messages } = useChatStore(
     useShallow((state) => ({
-      joinChannel: state.joinChannel,
+      setState: state.setState,
       messages: state.messages,
     }))
   );
-  const user = useAuthStore((state) => state.userInfo);
 
   const handleChannelClick = (channelId: Channel['channelId']) => {
-    if (channelId === currentChannelId) return;
-    navigate(`/chat/channels/${channelId}`);
-    joinChannel(user.userId, channelId);
+    setState({ currentChannelId: channelId });
   };
 
   return (
