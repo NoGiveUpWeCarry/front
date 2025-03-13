@@ -7,10 +7,15 @@ import { formatDateMessages } from '@/utils/format';
 import { Fragment } from 'react/jsx-runtime';
 interface MessagesProps {
   messages: ReceiveMessage[];
+  searchMessageId?: number | null;
   handleImageLoad: () => void;
 }
 
-const Messages = ({ messages, handleImageLoad }: MessagesProps) => {
+const Messages = ({
+  messages,
+  searchMessageId,
+  handleImageLoad,
+}: MessagesProps) => {
   const dateMessages = Object.entries(formatDateMessages(messages));
 
   // 유저 정보 관련 로직
@@ -38,6 +43,7 @@ const Messages = ({ messages, handleImageLoad }: MessagesProps) => {
               sameBefore={sameBefore}
               isMyMessage={isMyMessage}
               handleImageLoad={handleImageLoad}
+              searchMessageId={searchMessageId}
             />
           );
         })}

@@ -13,6 +13,7 @@ interface MessageProps {
   message: ReceiveMessage;
   sameBefore: boolean; // 한 유저가 연속으로 보낸 메시지인지 유무
   isMyMessage: boolean;
+  searchMessageId?: number | null;
   handleImageLoad: () => void;
 }
 
@@ -21,10 +22,12 @@ const Message = ({
   sameBefore,
   isMyMessage,
   handleImageLoad,
+  searchMessageId,
 }: MessageProps) => {
   const { content, user, channelId } = message;
   const channel = useChatStore((state) => state.channels[channelId]);
   const { closeModal, isOpen, openModal } = useModal();
+
   const unreadCount = channel ? channel.users.length - message.readCount : 0;
   return (
     <div
@@ -75,14 +78,15 @@ const Message = ({
               content={content}
               messageId={message.messageId}
               isMyMessage={isMyMessage}
+              searchMessageId={searchMessageId}
             />
           )}
           <div className='text-caption2 text-darkgray'>
             {formatTime(message.date)}
           </div>
           <div className='text-caption2 text-yellow-500'>
-            {/* {unreadCount || undefined} */}
-            {unreadCount <= 0 ? undefined : unreadCount}
+            {unreadCount || undefined}
+            {/* {unreadCount <= 0 ? undefined : unreadCount} */}
           </div>
         </div>
       </div>
