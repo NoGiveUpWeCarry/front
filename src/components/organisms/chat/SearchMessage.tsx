@@ -1,10 +1,8 @@
+import Icon from '@/components/atoms/Icon';
 import SearchInput from '@/components/molecules/chat/SearchInput';
-import UpDownButton from '@/components/organisms/chat/UpDownButton';
-import { LIMIT } from '@/constants/limit';
 import { useSearchMessages } from '@/hooks/chat/useSearchMessages';
-import { initialState, SearchState, useSearchStore } from '@/store/searchStore';
+import { useSearchStore } from '@/store/searchStore';
 import { Channel } from '@/types/channel.type';
-import { ChangeEvent, FormEvent, useState } from 'react';
 import { useShallow } from 'zustand/shallow';
 
 interface SearchMessageProps {
@@ -12,66 +10,57 @@ interface SearchMessageProps {
 }
 
 const SearchMessage = ({ currentChannelId }: SearchMessageProps) => {
-  const [keyword, setKeyword] = useState('');
-
-  const { setState, searchDirection, searchCursor, searchKeyword } =
+  const { setState, searchKeyword, searchDirection, searchCursor } =
     useSearchStore(
       useShallow((state) => ({
         setState: state.setState,
-        searchMode: state.searchMode,
+        searchKeyword: state.searchKeyword,
         searchDirection: state.searchDirection,
         searchCursor: state.searchCursor,
-        searchKeyword: state.searchKeyword,
       }))
     );
 
-  const { data, isFetching, error, isError } = useSearchMessages({
+  const queryKey = {
     channelId: currentChannelId,
-    cursor: searchCursor,
-    direction: searchDirection,
     keyword: searchKeyword,
-    limit: LIMIT.SEARCH_MESSAGES,
-  });
-
-  const handleSearch = (e: FormEvent) => {
-    e.preventDefault();
-    if (!keyword.trim() || isFetching) return;
-
-    setState({
-      searchDirection: 'backward',
-      searchKeyword: keyword,
-      searchMode: true,
-      cursors: initialState.cursors,
-    });
+    direction: searchDirection,
+    cursor: searchCursor,
   };
 
-  const handleUpDown = (direciton: SearchState['searchDirection']) => {
-    if (isFetching || !searchKeyword.trim()) return;
+  const { data, isFetching, error } = useSearchMessages(queryKey);
 
-    setState({
-      searchDirection: direciton,
-      searchCursor: data?.cursors.search,
-      searchMode: true,
-    });
+  const onClickUp = () => {
+    setState({ searchDirection: 'backward', searchCursor: data?.cursor });
   };
 
-  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
+  const onClickDown = () => {
+    setState({ searchDirection: 'forward', searchCursor: data?.cursor });
   };
 
   return (
     <div className='shrink-0 flex items-center gap-2'>
-      <UpDownButton
-        onUpDown={handleUpDown}
-        error={error}
-        isError={isError}
-        searchDirection={searchDirection}
-      />
-      <SearchInput
-        value={keyword}
-        onChange={handleInput}
-        onSubmit={handleSearch}
-      />
+      <>
+        <button
+          className='p-[5px] bg-[#333333] text-white rounded-full hover:bg-[#555555] disabled:bg-[#949494] disabled:text-[#c5c5c5]'
+          aria-label='이전 메시지'
+          disabled={isFetching || !!error}
+          onClick={onClickUp}
+        >
+          <Icon type='arrow' className='w-[20px] h-[20px] text-inherit' />
+        </button>
+        <button
+          className='p-[5px] bg-[#333333] text-white rounded-full hover:bg-[#555555] disabled:bg-[#949494] disabled:text-[#c5c5c5]'
+          aria-label='다음 메시지'
+          disabled={isFetching || !!error}
+          onClick={onClickDown}
+        >
+          <Icon
+            type='arrow'
+            className='transform rotate-180 w-[20px] h-[20px] text-inherit'
+          />
+        </button>
+      </>
+      <SearchInput isFetching={isFetching} setState={setState} />
     </div>
   );
 };

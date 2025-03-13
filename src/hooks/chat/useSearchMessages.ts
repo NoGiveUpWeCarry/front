@@ -5,7 +5,6 @@ import { useQuery } from '@tanstack/react-query';
 interface QueryKey {
   channelId: number;
   cursor: number | null;
-  limit: number;
   direction: 'backward' | 'forward';
   keyword: string;
 }
