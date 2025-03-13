@@ -22,7 +22,7 @@ const PadContact = () => {
           </div>
 
           <div className='flex items-center gap-[5px] w-full justify-between'>
-            <div>jaehyuk</div>
+            <div>jaehyeok</div>
             <a href='https://github.com/JaeHye0k'>
               <img
                 src={GitHubIcon}
