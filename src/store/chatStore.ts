@@ -1,7 +1,15 @@
+import { SOCKET_EVENTS } from '@/constants/socketEvents';
 import useAuthStore from '@/store/authStore';
 import { Channel } from '@/types/channel.type';
-import { SendMessage, ReceiveMessage, FileMessage } from '@/types/message.type';
+import {
+  SendMessage,
+  ReceiveMessage,
+  FileMessage,
+  FetchChannelMessagesResponse,
+} from '@/types/message.type';
 import { formatChannelData } from '@/utils/format';
+import queryClient from '@/utils/queryClient';
+import { InfiniteData } from '@tanstack/react-query';
 import { io, Socket } from 'socket.io-client';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
@@ -12,7 +20,6 @@ export interface ChatState {
   currentChannelId: number | null;
   channels: Record<Channel['channelId'], Channel>;
   channelSearchKeyword: string;
-  updateNeeded: boolean;
 }
 
 export interface ChatAction {
@@ -36,7 +43,7 @@ export interface Handlers {
   handleChannelCreated: (channel: Channel) => void;
   handleChannelExited: (channelId: Channel['channelId']) => void;
   handleReadCounted: (messageId: ReceiveMessage['messageId']) => void;
-  handleBroadcaseChannelJoined: ({
+  handleBroadcastChannelJoined: ({
     lastMessageId,
     channelId,
   }: {
@@ -45,69 +52,158 @@ export interface Handlers {
   }) => void;
 }
 
+interface PageParam {
+  cursors: {
+    prev: number | null;
+    next: number | null;
+  };
+  direction: 'backward' | 'forward';
+}
+
+// 에러 처리 함수
+const alertSocketNotConnected = () => {
+  throw new Error('소켓에 연결되어있지 않습니다.');
+};
+
+const alertLoginRequired = () => {
+  throw new Error('로그인이 필요합니다.');
+};
+
 export const useChatStore = create<ChatState & ChatAction & Handlers>()(
   immer((set, get) => {
+    // 핸들러 래퍼 함수 수정
+    const withValidationCheck = <T extends any[]>(
+      handler: (...args: T) => void
+    ) => {
+      return (...args: T) => {
+        const { socket } = get();
+        const user = useAuthStore.getState().userInfo;
+
+        // 체크 순서: 로그인 -> 소켓 연결 -> 현재 채널
+        if (!user) {
+          console.log('User not logged in');
+          alertLoginRequired();
+          return;
+        }
+
+        if (!socket) {
+          console.log('Socket not connected');
+          alertSocketNotConnected();
+          return;
+        }
+
+        return handler(...args);
+      };
+    };
+
+    // 소켓 이벤트 핸들러 설정 수정
+    const setupSocketEventHandlers = (socket: Socket) => {
+      const {
+        handleMessage,
+        handleFetchChannels,
+        handleChannelAdded,
+        handleChannelJoined,
+        handleChannelCreated,
+        handleChannelExited,
+        handleReadCounted,
+        handleBroadcastChannelJoined,
+      } = get();
+
+      const handlers = {
+        [SOCKET_EVENTS.MESSAGE]: withValidationCheck(handleMessage),
+        [SOCKET_EVENTS.FETCH_CHANNELS]:
+          withValidationCheck(handleFetchChannels),
+        [SOCKET_EVENTS.CHANNEL_ADDED]: withValidationCheck(handleChannelAdded),
+        [SOCKET_EVENTS.CHANNEL_JOINED]:
+          withValidationCheck(handleChannelJoined),
+        [SOCKET_EVENTS.CHANNEL_CREATED]:
+          withValidationCheck(handleChannelCreated),
+        [SOCKET_EVENTS.GROUP_CREATED]:
+          withValidationCheck(handleChannelCreated),
+        [SOCKET_EVENTS.CHANNEL_EXITED]:
+          withValidationCheck(handleChannelExited),
+        [SOCKET_EVENTS.READ_COUNTED]: withValidationCheck(handleReadCounted),
+        [SOCKET_EVENTS.BROADCAST_CHANNEL_JOINED]: withValidationCheck(
+          handleBroadcastChannelJoined
+        ),
+      };
+
+      Object.entries(handlers).forEach(([event, handler]) => {
+        socket.on(event, handler);
+      });
+    };
+
+    // 소켓 이벤트 핸들러 제거
+    const removeSocketEventHandlers = (socket: Socket) => {
+      const {
+        handleMessage,
+        handleFetchChannels,
+        handleChannelAdded,
+        handleChannelJoined,
+        handleChannelCreated,
+        handleChannelExited,
+        handleReadCounted,
+        handleBroadcastChannelJoined,
+      } = get();
+
+      const handlers = {
+        [SOCKET_EVENTS.MESSAGE]: withValidationCheck(handleMessage),
+        [SOCKET_EVENTS.FETCH_CHANNELS]:
+          withValidationCheck(handleFetchChannels),
+        [SOCKET_EVENTS.CHANNEL_ADDED]: withValidationCheck(handleChannelAdded),
+        [SOCKET_EVENTS.CHANNEL_JOINED]:
+          withValidationCheck(handleChannelJoined),
+        [SOCKET_EVENTS.CHANNEL_CREATED]:
+          withValidationCheck(handleChannelCreated),
+        [SOCKET_EVENTS.GROUP_CREATED]:
+          withValidationCheck(handleChannelCreated),
+        [SOCKET_EVENTS.CHANNEL_EXITED]:
+          withValidationCheck(handleChannelExited),
+        [SOCKET_EVENTS.READ_COUNTED]: withValidationCheck(handleReadCounted),
+        [SOCKET_EVENTS.BROADCAST_CHANNEL_JOINED]: withValidationCheck(
+          handleBroadcastChannelJoined
+        ),
+      };
+
+      Object.entries(handlers).forEach(([event, handler]) => {
+        socket.off(event, handler);
+      });
+    };
+
     return {
       socket: null,
       messages: {},
       currentChannelId: null,
       channels: {},
       channelSearchKeyword: '',
-      updateNeeded: false,
       connectSocket: () => {
-        const socketUrl = `${import.meta.env.VITE_BASE_SERVER_URL}/chat`;
-        // const socketUrl = `${import.meta.env.VITE_LOCAL_URL}/chat`;
-        const {
-          handleFetchChannels,
-          handleMessage,
-          handleChannelAdded,
-          handleChannelCreated,
-          handleChannelJoined,
-          handleChannelExited,
-          handleReadCounted,
-          handleBroadcaseChannelJoined,
-        } = get();
+        // const socketUrl = `${import.meta.env.VITE_BASE_SERVER_URL}/chat`;
+        const socketUrl = `${import.meta.env.VITE_LOCAL_URL}/chat`;
+        const userId = useAuthStore.getState().userInfo?.userId;
+
+        if (!userId) {
+          alertLoginRequired();
+          return;
+        }
+
         const socket =
           get().socket ||
           io(socketUrl, {
             secure: true,
             rejectUnauthorized: false, // 로컬 자체 서명된 인증서의 경우 false 설정
-            query: { userId: useAuthStore.getState().userInfo?.userId },
+            query: { userId },
           });
-        socket.on('message', handleMessage);
-        socket.on('fetchChannels', handleFetchChannels);
-        socket.on('channelAdded', handleChannelAdded);
-        socket.on('channelJoined', handleChannelJoined);
-        socket.on('channelCreated', handleChannelCreated);
-        socket.on('groupCreated', handleChannelCreated);
-        socket.on('channelExited', handleChannelExited);
-        socket.on('readCounted', handleReadCounted);
-        socket.on('broadcastChannelJoined', handleBroadcaseChannelJoined);
+
+        setupSocketEventHandlers(socket);
         set(() => ({ socket }));
       },
       disconnectSocket: () => {
-        const {
-          socket,
-          handleMessage,
-          handleFetchChannels,
-          handleChannelAdded,
-          handleChannelJoined,
-          handleChannelCreated,
-          handleChannelExited,
-          handleReadCounted,
-          handleBroadcaseChannelJoined,
-        } = get();
+        const { socket } = get();
         if (!socket) return;
-        socket.off('message', handleMessage);
-        socket.off('fetchChannels', handleFetchChannels);
-        socket.off('channelAdded', handleChannelAdded);
-        socket.off('channelJoined', handleChannelJoined);
-        socket.off('channelCreated', handleChannelCreated);
-        socket.off('groupCreated', handleChannelCreated);
-        socket.off('channelExited', handleChannelExited);
-        socket.off('readCounted', handleReadCounted);
-        socket.off('broadcastChannelJoined', handleBroadcaseChannelJoined);
+
+        removeSocketEventHandlers(socket);
         socket.disconnect();
+
         set(() => ({
           socket: null,
           currentChannelId: null,
@@ -122,17 +218,13 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       },
       createChannel: (userId1, userId2) => {
         const { socket } = get();
-        if (!socket) return;
-        socket.emit('createChannel', {
-          userId1,
-          userId2,
-        });
+        socket!.emit('createChannel', { userId1, userId2 });
       },
       createGroup: (userIds, title) => {
         const { socket } = get();
         const user = useAuthStore.getState().userInfo;
-        if (!socket) return alertSocketNotConnected();
-        socket.emit('createGroup', {
+
+        socket!.emit('createGroup', {
           userIds: [user.userId, ...userIds],
           title,
           thumbnailURL: user?.profileUrl,
@@ -140,29 +232,23 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       },
       sendMessage: (message) => {
         const { socket } = get();
-        if (!socket) return alertSocketNotConnected();
-        socket.emit('sendMessage', message);
+        socket!.emit('sendMessage', message);
       },
-      // 채널 참가
       joinChannel: (userId, channelId) => {
         const { socket } = get();
-        if (!socket) return alertSocketNotConnected();
-        socket.emit('joinChannel', { userId, channelId });
+        socket!.emit('joinChannel', { userId, channelId });
       },
-      // 채널 나가기
       exitChannel: (userId, channelId) => {
         const { socket } = get();
-        if (!socket) return alertSocketNotConnected();
-        socket.emit('exitChannel', { userId, channelId });
+        socket!.emit('exitChannel', { userId, channelId });
       },
-      // 메시지 받았을 때 messages 상태 업데이트
       handleMessage: (message) => {
-        const { socket, channels } = get();
+        const { socket, channels, currentChannelId } = get();
+        console.log({ currentChannelId });
+        if (!currentChannelId) return;
+        console.log('handleMessage');
+
         set((state) => {
-          if (!state.messages[message.channelId]) {
-            state.messages[message.channelId] = [];
-          }
-          state.messages[message.channelId].push(message);
           if (message.type === 'exit') {
             state.channels[message.channelId] = {
               ...channels[message.channelId],
@@ -171,28 +257,54 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
               ),
             };
           }
-          socket!.emit('readMessage', {
-            userId: useAuthStore.getState().userInfo.userId,
-            messageId: message.messageId,
-            channelId: message.channelId,
-          });
+        });
+
+        // 메시지 추가(깊은 복사를 해야 리렌더링이 유발됨.)
+        queryClient.setQueriesData(
+          { queryKey: ['messages', { channelId: currentChannelId }] },
+          (oldData: InfiniteData<FetchChannelMessagesResponse, PageParam>) => {
+            if (!oldData) return oldData;
+            return {
+              pages: oldData.pages.map((page, index) =>
+                index === oldData.pages.length - 1
+                  ? { ...page, messages: [...page.messages, message] }
+                  : page
+              ),
+              pageParams: oldData.pageParams.map((param, index) =>
+                index === oldData.pageParams.length - 1
+                  ? {
+                      ...param,
+                      cursors: { ...param.cursors, prev: message.messageId },
+                    }
+                  : param
+              ),
+            };
+          }
+        );
+
+        socket!.emit('readMessage', {
+          userId: useAuthStore.getState().userInfo.userId,
+          messageId: message.messageId,
+          channelId: message.channelId,
         });
       },
       // 채널에 참가 했을 때 channels 상태 업데이트
       handleChannelJoined: (channel) => {
+        const { currentChannelId } = get();
+        if (!currentChannelId) return;
+        console.log('channelJoined');
         const myUserId = useAuthStore.getState().userInfo?.userId;
         set((state) => {
-          state.currentChannelId = channel.channelId;
-          if (!state.messages[channel.channelId]) {
-            state.messages[channel.channelId] = [];
-          }
           state.channels[channel.channelId] = formatChannelData(
             channel,
             myUserId
           );
         });
+
+        queryClient.invalidateQueries({
+          queryKey: ['messages', { channelId: currentChannelId }],
+        });
       },
-      // 채팅 페이지 입장시 채널 리스트 조회
       handleFetchChannels: (channels) => {
         const myUserId = useAuthStore.getState().userInfo?.userId;
         set((state) => {
@@ -204,7 +316,6 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
           });
         });
       },
-      // 채널이 추가되었을 때 실시간으로 채널 리스트에 추가
       handleChannelAdded: (channel) => {
         const myUserId = useAuthStore.getState().userInfo?.userId;
         set((state) => {
@@ -214,15 +325,9 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
           );
         });
       },
-      // 채널 생성시 해당 채널 참가
       handleChannelCreated: (channel) => {
-        const { joinChannel } = get();
-        const user = useAuthStore.getState().userInfo;
-        if (!user) return alertLoginRequired();
-
-        joinChannel(user.userId, channel.channelId);
+        set(() => ({ currentChannelId: channel.channelId }));
       },
-      // 채팅방 나가기 완료 시 채팅방 목록에서 해당 채널 삭제
       handleChannelExited: (channelId) => {
         set((state) => {
           delete state.channels[channelId];
@@ -230,24 +335,22 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
           state.currentChannelId = null;
         });
       },
-      // readCount 1 증가
-      handleReadCounted: (messageId) => {
+      handleReadCounted: () => {
         const { currentChannelId } = get();
-        set((state) => {
-          state.messages[currentChannelId!] = state.messages[
-            currentChannelId!
-          ].map((message) => ({
-            ...message,
-            readCount:
-              message.messageId === messageId
-                ? message.readCount + 1
-                : message.readCount,
-          }));
+        if (!currentChannelId) return;
+        console.log('handleReadCounted');
+
+        queryClient.invalidateQueries({
+          queryKey: ['messages', { channelId: currentChannelId }],
         });
       },
-      handleBroadcaseChannelJoined: () => {
-        set((state) => {
-          state.updateNeeded = true;
+      handleBroadcastChannelJoined: () => {
+        const { currentChannelId } = get();
+        if (!currentChannelId) return;
+        console.log('handleBroadcastChannelJoined');
+
+        queryClient.invalidateQueries({
+          queryKey: ['messages', { channelId: currentChannelId }],
         });
       },
       setState: (state) => {
@@ -256,11 +359,3 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
     };
   })
 );
-
-function alertSocketNotConnected() {
-  return alert('소켓에 연결되어있지 않습니다.');
-}
-
-function alertLoginRequired() {
-  return alert('로그인을 해주세요');
-}
