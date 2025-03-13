@@ -1,4 +1,5 @@
 import { API_PATH } from '@/apis/api-path';
+import { LIMIT } from '@/constants/limit';
 import { Channel } from '@/types/channel.type';
 import {
   FetchChannelMessagesRequest,
@@ -20,7 +21,7 @@ export const fetchChannel = async (channelId: Channel['channelId']) => {
 export const fetchChannelMessages = async ({
   channelId,
   cursor,
-  limit,
+  limit = LIMIT.INFINITE_MESSAGES,
   direction,
 }: FetchChannelMessagesRequest) => {
   const apiPath = API_PATH.channelMessages.replace(
@@ -31,8 +32,7 @@ export const fetchChannelMessages = async ({
     url: apiPath,
     method: 'GET',
     params: {
-      prev: cursor.prev,
-      next: cursor.next,
+      cursor,
       limit,
       direction,
     },
@@ -43,7 +43,7 @@ export const fetchChannelMessages = async ({
 export const searchChannelMessages = async ({
   channelId,
   cursor,
-  limit,
+  limit = LIMIT.SEARCH_MESSAGES,
   keyword,
   direction,
 }: SearchChannelMessagesRequest) => {
