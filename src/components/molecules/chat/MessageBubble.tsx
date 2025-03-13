@@ -1,22 +1,14 @@
 import HighlightedText from '@/components/atoms/HighlightedText';
-import { LIMIT } from '@/constants/limit';
-import { useChannelId } from '@/hooks/chat/useChannelId';
-import { useSearchStore } from '@/store/searchStore';
-import {
-  ReceiveMessage,
-  SearchChannelMessagesResponse,
-} from '@/types/message.type';
+import { ReceiveMessage } from '@/types/message.type';
 import { cn } from '@/utils/cn';
-import { FetcherMessage } from '@/utils/fetcher';
-import queryClient from '@/utils/queryClient';
 import { useEffect, useRef } from 'react';
-import { useShallow } from 'zustand/shallow';
 
 interface MessageBubbleProps {
   content: ReceiveMessage['content'];
   className?: string;
   messageId: number;
   isMyMessage: boolean;
+  searchMessageId?: number | null;
 }
 
 const MessageBubble = ({
@@ -24,31 +16,9 @@ const MessageBubble = ({
   className,
   messageId,
   isMyMessage,
+  searchMessageId,
 }: MessageBubbleProps) => {
   const messageRef = useRef<HTMLDivElement>(null);
-  const { currentChannelId } = useChannelId();
-
-  const { searchDirection, searchCursor, searchKeyword } = useSearchStore(
-    useShallow((state) => ({
-      searchDirection: state.searchDirection,
-      searchCursor: state.searchCursor,
-      searchKeyword: state.searchKeyword,
-    }))
-  );
-
-  const queryKey = {
-    channelId: currentChannelId!,
-    cursor: searchCursor,
-    direction: searchDirection,
-    keyword: searchKeyword,
-    limit: LIMIT.SEARCH_MESSAGES,
-  };
-
-  const data = queryClient.getQueryData(['searchMessages', queryKey]) as
-    | (SearchChannelMessagesResponse & { message: FetcherMessage })
-    | undefined;
-
-  const searchMessageId = data?.cursors?.search ?? searchCursor;
   const isSearchMessage = searchMessageId === messageId;
 
   useEffect(() => {
@@ -56,7 +26,7 @@ const MessageBubble = ({
       behavior: 'instant',
       block: 'center',
     });
-  }, [data]);
+  }, [isSearchMessage]);
 
   return (
     <div
