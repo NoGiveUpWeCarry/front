@@ -33,26 +33,19 @@ export interface LastMessage extends Message {
 
 export interface FetchChannelMessagesRequest {
   channelId: Channel['channelId'];
-  limit: number;
-  cursor: {
-    prev: number | null;
-    next: number | null;
-  };
-
+  limit?: number;
+  cursor: number | null;
   direction: 'forward' | 'backward';
 }
 
 export interface FetchChannelMessagesResponse {
   messages: ReceiveMessage[];
-  cursors: {
-    next: number | null;
-    prev: number | null;
-  };
+  cursor: number | null;
 }
 
 export interface SearchChannelMessagesRequest {
   channelId: Channel['channelId'];
-  limit: number;
+  limit?: number;
   cursor: number | null;
   keyword: string;
   direction: 'forward' | 'backward';
@@ -60,9 +53,5 @@ export interface SearchChannelMessagesRequest {
 
 export interface SearchChannelMessagesResponse {
   messages: ReceiveMessage[];
-  cursors: {
-    next: number | null;
-    prev: number | null;
-    search: number | null;
-  };
+  cursor: number | null;
 }
