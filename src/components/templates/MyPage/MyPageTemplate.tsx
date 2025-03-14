@@ -34,21 +34,28 @@ const MyPageTemplate = () => {
   }, [resetApplyForm]);
 
   return (
-    <div className='w-full min-h-screen max-w-[1920px] bg-background'>
+    <div className='w-full min-h-screen max-w-[1920px] bg-background lg:px-0 px-4'>
       <div className='max-w-screen-center h-full mx-auto flex flex-col gap-[17px]'>
         <MyPageHeader />
         <div className='h-[38px]'>
           <Tabs>
-            {Object.keys(MyPageTabs).map((tab, index) => (
-              <Tabs.TabItem
-                key={tab}
-                hideDivider={index == 3}
-                onClick={() => setActiveTab(tab)}
-                isActive={activeTab === tab}
-              >
-                {tab}
-              </Tabs.TabItem>
-            ))}
+            {Object.keys(MyPageTabs).map((tab, index) => {
+              console.log(window.innerWidth);
+              const displayTab =
+                tab === '커넥션 허브' && window.innerWidth <= 410
+                  ? '허브'
+                  : tab;
+              return (
+                <Tabs.TabItem
+                  key={tab}
+                  hideDivider={index == 3}
+                  onClick={() => setActiveTab(tab)}
+                  isActive={activeTab === tab}
+                >
+                  {displayTab}
+                </Tabs.TabItem>
+              );
+            })}
           </Tabs>
         </div>
         {ActiveComponent ? <ActiveComponent /> : null}

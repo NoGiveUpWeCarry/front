@@ -20,15 +20,28 @@ import {
   SelectValue,
 } from '@/components/ui/Select';
 import Icon from '@/components/atoms/Icon';
-import JobSelect from '@/components/atoms/Select/JobSelect';
-import SkillSelect from '@/components/atoms/Select/SkillSelect';
-import ProjectTypeSelect from '@/components/atoms/Select/ProjectTypeSelect';
-import WorkTypeSelect from '@/components/atoms/Select/WorkTypeSelect';
+import JobSelect from '@/components/molecules/Select/JobSelect';
+import SkillSelect from '@/components/molecules/Select/SkillSelect';
+import ProjectTypeSelect from '@/components/molecules/Select/ProjectTypeSelect';
+import WorkTypeSelect from '@/components/molecules/Select/WorkTypeSelect';
 
 interface PostHubContentFirstProps {
   onNext: () => void;
 }
 const PostHubContentFirst = ({ onNext }: PostHubContentFirstProps) => {
+  const [hubContent, setHubContent] = useState<Omit<HubState, 'content'>>({
+    title: '',
+    role: '',
+    hubType: 'PROJECT',
+    startDate: '',
+    duration: '',
+    durationType: '',
+    workType: 'OFFLINE',
+    recruiting: true,
+    skills: [],
+    detailRoles: [],
+  });
+
   const handleDurationChange = (
     type: 'duration' | 'durationType',
     value: string
@@ -62,19 +75,6 @@ const PostHubContentFirst = ({ onNext }: PostHubContentFirstProps) => {
     setSkills,
     setDetailRoles,
   } = useHubStore();
-
-  const [hubContent, setHubContent] = useState<Omit<HubState, 'content'>>({
-    title: '',
-    role: '',
-    hubType: 'PROJECT',
-    startDate: '',
-    duration: '',
-    durationType: '',
-    workType: 'OFFLINE',
-    recruiting: true,
-    skills: [],
-    detailRoles: [],
-  });
 
   const [errors, setErrors] = useState({
     title: false,

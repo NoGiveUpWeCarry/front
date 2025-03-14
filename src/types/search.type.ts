@@ -1,9 +1,9 @@
 import { RoleProps } from '@/components/atoms/Role';
 import { HubTagItemsKey } from '@/constants/hub/hubTagItems';
-import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
+import { MeetingTagItemskey } from '@/constants/hub/meetingTagItems';
 import { RoleItemKeys } from '@/constants/hub/roleItems';
-import { roleTagItemsKey } from '@/constants/hub/roleTagsItems';
-import { statusTagItemskey } from '@/constants/hub/statusTagItems';
+import { RoleTagItemsKey } from '@/constants/hub/roleTagsItems';
+import { StatusTagItemskey } from '@/constants/hub/statusTagItems';
 
 interface User {
   userId: number;
@@ -24,12 +24,12 @@ export interface ProjectResult extends User {
   projectId: number;
   title: string;
   role: RoleProps['role'];
-  detailRoles: roleTagItemsKey[];
+  detailRoles: RoleTagItemsKey[];
   skills: string[];
   startDate: string;
   duration: string;
   hubType: HubTagItemsKey;
-  workType: meetingTagItemskey;
+  workType: MeetingTagItemskey;
 }
 
 export interface SearchModalResponse {
@@ -47,7 +47,7 @@ interface ConnectionHubResponse extends ProjectResult {
   applyCount: number;
   bookMarkCount: number;
   viewCount: number;
-  status: statusTagItemskey;
+  status: StatusTagItemskey;
   createdAT: string;
   isMarked: boolean;
 }
@@ -63,7 +63,7 @@ export interface PostsResponse extends User {
   userRole: string;
   postId: string;
   title: string;
-  thumbnailUrl: string;
+  thumnailUrl: string;
   content: string;
   tags: string[];
   commentCount: number;

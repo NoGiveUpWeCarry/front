@@ -24,20 +24,17 @@ export const searchByModal = async ({
 };
 
 export const searchConnectionHub = async ({
-  latest,
-  cursor,
+  pageParam = 0,
   keyword,
 }: {
-  latest?: boolean;
-  cursor?: number;
+  pageParam: number;
   keyword: string;
 }) => {
   const response = await fetcher<SearchConnectionHubResponse>({
     url: '/search/connectionhub',
     method: 'GET',
     params: {
-      latest,
-      cursor,
+      cursor: pageParam,
       keyword,
     },
   });
@@ -45,20 +42,17 @@ export const searchConnectionHub = async ({
 };
 
 export const searchFeed = async ({
-  latest,
-  cursor,
+  pageParam = 0,
   keyword,
 }: {
-  latest?: boolean;
-  cursor?: number;
+  pageParam: number;
   keyword: string;
 }) => {
   const response = await fetcher<SearchPostResponse>({
     url: '/search/feed',
     method: 'GET',
     params: {
-      latest,
-      cursor,
+      cursor: pageParam,
       keyword,
     },
   });

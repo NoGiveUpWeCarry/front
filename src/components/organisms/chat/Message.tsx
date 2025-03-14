@@ -63,10 +63,23 @@ const Message = ({
           {message.type === 'image' && (
             <>
               <img
+                alt='message type: image'
                 onLoad={handleImageLoad}
                 onClick={openModal}
                 src={message.content}
                 className='w-[300px] object-cover rounded-lg shadow'
+              />
+              {isOpen && (
+                <ChatImageModal src={message.content} onClose={closeModal} />
+              )}
+            </>
+          )}
+          {message.type === 'text' && (
+            <>
+              <MessageBubble
+                content={content}
+                messageId={message.messageId}
+                isMyMessage={isMyMessage}
               />
               {isOpen && (
                 <ChatImageModal src={message.content} onClose={closeModal} />
@@ -86,7 +99,6 @@ const Message = ({
           </div>
           <div className='text-caption2 text-yellow-500'>
             {unreadCount || undefined}
-            {/* {unreadCount <= 0 ? undefined : unreadCount} */}
           </div>
         </div>
       </div>

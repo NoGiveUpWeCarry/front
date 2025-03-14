@@ -62,7 +62,7 @@ const HubApplyUserSideBar = () => {
       {hubType === 'OUTSOURCING' && (
         <button
           onClick={isApplied ? handleCancelApply : handleApply}
-          className={`w-[314px] h-[50px] rounded-md text-white ${
+          className={`w-full lg:w-[314px] h-[50px] rounded-md text-white ${
             hubStatus === 'CLOSED'
               ? 'bg-gradient-to-r from-[#555555] to-[#777777] cursor-not-allowed'
               : isApplied
@@ -83,7 +83,7 @@ const HubApplyUserSideBar = () => {
       {hubType === 'PROJECT' && (
         <button
           onClick={isApplied ? handleCancelApply : handleApply}
-          className={`w-[314px] h-[50px] rounded-md text-white ${
+          className={`w-full lg:w-[314px] h-[50px] rounded-md text-white ${
             hubStatus === 'CLOSED'
               ? 'bg-gradient-to-r from-[#000000] to-[#777777] cursor-not-allowed'
               : isApplied

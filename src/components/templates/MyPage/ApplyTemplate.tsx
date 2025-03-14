@@ -41,9 +41,7 @@ const ApplyTemplate = () => {
   return (
     <div className='flex flex-col gap-[17px]'>
       {!originResume && !isMyPage && (
-        <div className='flex w-full h-10 justify-center items-center'>
-          지원서가 존재하지 않습니다.
-        </div>
+        <div className='flex justify-center mt-3'>지원서가 않습니다.</div>
       )}
       {isEditing && isMyPage && (
         <form

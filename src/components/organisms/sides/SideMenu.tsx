@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { EventSourcePolyfill } from 'event-source-polyfill';
+import { createPortal } from 'react-dom';
+
 import Logo from '@/components/atoms/Logo';
 import Menu from '@/components/molecules/Menu';
 import Avatar from '@/components/atoms/Avatar';
@@ -8,152 +9,33 @@ import Icon from '@/components/atoms/Icon';
 import SearchModal from '@/components/organisms/modals/SearchModal';
 import { useModal } from '@/hooks/useModal';
 import useAuthStore from '@/store/authStore';
-import { useLogout } from '@/hooks/queries/auth.query';
-import {
-  useFetchMissedNotifications,
-  usePatchNotificationAsRead,
-} from '@/hooks/queries/notification.query';
-import { createPortal } from 'react-dom';
-import { NotificationTypes } from '@/apis/notification.api';
 import Popup from '@/components/molecules/Popup';
-import formatTimeAgo from '@/utils/formatTimeAgo';
-
-interface NotificationProp {
-  notificationId: number;
-  type: NotificationTypes;
-  message: string;
-  senderNickname: string;
-  senderProfileUrl: string;
-  timestamp: string;
-  isRead?: boolean;
-}
+import { useNotification } from '@/components/organisms/sse/NotificationProvider';
 
 const SideMenu = () => {
   const navigate = useNavigate();
-  const token = useAuthStore.getState().accessToken;
-  const { logout, isLoggedIn, userInfo } = useAuthStore((state) => state);
-  const { mutate } = useLogout();
+  const { userInfo, logout } = useAuthStore((state) => state);
   const [showLogin, setShowLogin] = useState(false);
-  const loginRef = useRef<HTMLDivElement>(null);
+  const loginRef = useRef(null);
   const {
     isOpen: isSearchModalOpen,
     openModal: openSearchModal,
     closeModal: closeSearchModal,
   } = useModal();
 
+  const {
+    messages,
+    newNotification,
+    markNotificationAsRead,
+    setNewNotification,
+  } = useNotification();
   const [showNotificationBox, setShowNotificationBox] = useState(false);
-  const [newNotification, setNewNotification] = useState(false);
-  const [messages, setMessages] = useState<NotificationProp[]>([]);
-  const notificationRef = useRef<HTMLDivElement>(null);
-  const { data: missedNotifications } = useFetchMissedNotifications();
-  const { mutate: markAsRead } = usePatchNotificationAsRead();
-
-  useEffect(() => {
-    if (missedNotifications?.notifications) {
-      setMessages((prevMessages) => {
-        const newNotifications = missedNotifications.notifications
-          .map((notification) => ({
-            notificationId: notification.notificationId,
-            type: notification.type,
-            message: notification.message,
-            senderNickname: notification.sender.nickname,
-            senderProfileUrl: notification.sender.profileUrl,
-            timestamp: formatTimeAgo(notification.createdAt),
-            isRead: notification.isRead,
-          }))
-          .filter(
-            (newNotification) =>
-              !prevMessages.some(
-                (existing) =>
-                  existing.notificationId === newNotification.notificationId
-              )
-          );
-
-        return [...prevMessages, ...newNotifications];
-      });
-    }
-  }, [missedNotifications]);
-
-  useEffect(() => {
-    if (!token) return;
-
-    const eventSource = new EventSourcePolyfill(
-      `${import.meta.env.VITE_BASE_SERVER_URL}/notifications/stream`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-        withCredentials: true,
-      }
-    );
-
-    eventSource.addEventListener('open', () => {
-      console.log('✅ SSE 연결 성공');
-    });
-
-    eventSource.addEventListener('message', (event) => {
-      const data = JSON.parse(event.data);
-
-      const formattedData: NotificationProp = {
-        notificationId: data.notificationId,
-        type: data.type,
-        message: data.message,
-        senderNickname: data.senderNickname,
-        senderProfileUrl: data.senderProfileUrl,
-        timestamp: formatTimeAgo(data.timestamp),
-        isRead: data.isRead,
-      };
-
-      setMessages((prevMessages) => {
-        if (
-          !prevMessages.some(
-            (msg) => msg.notificationId === formattedData.notificationId
-          )
-        ) {
-          return [formattedData, ...prevMessages];
-        }
-        return prevMessages;
-      });
-      setNewNotification(true);
-    });
-    return () => {
-      eventSource.close();
-    };
-  }, [token]);
+  const notificationRef = useRef<HTMLDivElement | null>(null);
 
   const handleNotificationClick = () => {
     setShowNotificationBox((prev) => !prev);
     setNewNotification(false);
   };
-
-  const handleCheckNotificationClick = (notificationId: number) => {
-    markAsRead({ notificationId: String(notificationId) });
-    setMessages((prevMessages) =>
-      prevMessages.filter(
-        (message) => message.notificationId !== notificationId
-      )
-    );
-  };
-
-  const menuItems: {
-    type: 'search' | 'bell' | 'mail' | 'home' | 'star';
-    label?: string;
-    onClick?: () => void;
-    hasNotification?: boolean;
-  }[] = [
-    {
-      type: 'bell',
-      label: '알림',
-      onClick: handleNotificationClick,
-      hasNotification: newNotification,
-    },
-    { type: 'mail', label: '메세지', onClick: () => navigate('/chat') },
-    { type: 'home', label: '피드', onClick: () => navigate('/') },
-    { type: 'search', label: '검색', onClick: openSearchModal },
-    {
-      type: 'star',
-      label: '커넥션 허브',
-      onClick: () => navigate('/projects'),
-    },
-  ];
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -174,15 +56,39 @@ const SideMenu = () => {
     };
   }, [showNotificationBox]);
 
+  const menuItems: {
+    type: 'bell' | 'mail' | 'home' | 'search' | 'star';
+    label?: string;
+    onClick?: () => void;
+    hasNotification?: boolean;
+  }[] = [
+    {
+      type: 'bell',
+      label: '알림',
+      onClick: handleNotificationClick,
+      hasNotification: newNotification,
+    },
+    { type: 'mail', label: '메세지', onClick: () => navigate('/chat') },
+    { type: 'home', label: '피드', onClick: () => navigate('/') },
+    { type: 'search', label: '검색', onClick: openSearchModal },
+    {
+      type: 'star',
+      label: '커넥션 허브',
+      onClick: () => navigate('/projects'),
+    },
+  ];
+
   return (
     <>
       {isSearchModalOpen && <SearchModal onClose={closeSearchModal} />}
 
-      <div className='flex flex-col justify-between items-center h-full py-[20px]'>
+      <div className='flex lg:flex-col lg:py-[20px] justify-between items-center h-full'>
         <div className='mb-8 cursor-pointer' onClick={() => navigate('/')}>
-          <Logo />
+          {' '}
+          <Logo />{' '}
         </div>
         <Menu items={menuItems} />
+
         {showNotificationBox &&
           createPortal(
             <div className='fixed inset-0 flex items-center justify-center z-[1000]'>
@@ -213,13 +119,11 @@ const SideMenu = () => {
                             <div>{message.message}</div>
                             <div className='text-[12px] text-gray-500'>
                               {message.timestamp}
-                            </div>{' '}
+                            </div>
                           </div>
                           <div
                             onClick={() =>
-                              handleCheckNotificationClick(
-                                message.notificationId
-                              )
+                              markNotificationAsRead(message.notificationId)
                             }
                           >
                             <Icon
@@ -246,53 +150,24 @@ const SideMenu = () => {
             src={userInfo?.profileUrl || undefined}
             onClick={() => setShowLogin((prev) => !prev)}
           />
-          {showLogin &&
-            (isLoggedIn ? (
-              <Popup
-                position='right'
-                popupHandler={[
-                  {
-                    onClick: () => {
-                      navigate(`/@${userInfo?.nickname}`);
-                      setShowLogin(false);
-                    },
-                    text: '마이페이지',
-                    icon: <Icon type='user' className='w-6' />,
-                  },
-                  {
-                    onClick: () => {
-                      mutate(undefined, {
-                        onSuccess: () => logout(),
-                      });
-                      setShowLogin(false);
-                    },
-                    text: '로그아웃',
-                    icon: (
-                      <Icon
-                        type={isLoggedIn ? 'logout' : 'user'}
-                        className='w-6'
-                      />
-                    ),
-                  },
-                ]}
-                innerClassname='top-[-30%]'
-              />
-            ) : (
-              <Popup
-                position='right'
-                popupHandler={[
-                  {
-                    onClick: () => {
-                      navigate('/login');
-                      setShowLogin(false);
-                    },
-                    text: '로그인/회원가입',
-                    icon: <Icon type='user' className='w-6' />,
-                  },
-                ]}
-                innerClassname='top-[10px]'
-              />
-            ))}
+          {showLogin && (
+            <Popup
+              position='right'
+              popupHandler={[
+                {
+                  onClick: () => navigate(`/@${userInfo?.nickname}`),
+                  text: '마이페이지',
+                  icon: <Icon type='user' className='w-6' />,
+                },
+                {
+                  onClick: () => logout(),
+                  text: '로그아웃',
+                  icon: <Icon type='logout' className='w-6' />,
+                },
+              ]}
+              innerClassname='top-[-30%]'
+            />
+          )}
         </div>
       </div>
     </>

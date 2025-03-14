@@ -57,14 +57,16 @@ const HubApplySideBar = () => {
   return (
     <div className='flex w-full flex-col gap-[20px]'>
       <div className='flex w-full flex-col gap-[10px]'>
-        <div className='text-[14px] font-medium text-black'>👥 지원자 목록</div>
+        <div className='text-[16px] lg:text-[14px] font-medium text-black'>
+          👥 지원자 목록
+        </div>
         <SideBarApplicantList key={projectId} />
       </div>
       <div className='flex gap-[10px]'>
         {hubStatus === 'OPEN' && (
           <button
             onClick={handleCloseRecruitment}
-            className='bg-gradient-to-r from-[#FF8800] to-[#FFA9BE] w-[314px] h-[50px] rounded-md text-white'
+            className='bg-gradient-to-r from-[#FF8800] to-[#FFA9BE] w-full lg:w-[314px] h-[50px] rounded-md text-white'
           >
             마감
           </button>
@@ -73,7 +75,7 @@ const HubApplySideBar = () => {
         {hubStatus === 'CLOSED' && (
           <button
             onClick={handleOpenRecruitment}
-            className='bg-gradient-to-r from-[#000000] to-[#ffffff] w-[314px] h-[50px] rounded-md text-white'
+            className='bg-gradient-to-r from-[#000000] to-[#ffffff] w-full lg:w-[314px] h-[50px] rounded-md text-white'
           >
             오픈
           </button>
