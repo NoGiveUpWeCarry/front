@@ -57,6 +57,7 @@ const Message = memo(
             {message.type === 'image' && (
               <>
                 <img
+                  alt='message type: image'
                   onLoad={handleImageLoad}
                   onClick={openModal}
                   src={message.content}

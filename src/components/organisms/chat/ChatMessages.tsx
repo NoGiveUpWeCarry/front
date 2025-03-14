@@ -57,7 +57,9 @@ const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
   });
 
   useEffect(() => {
-    refetch();
+    if (currentChannelId) {
+      refetch();
+    }
   }, [currentChannelId]);
 
   useEffect(() => {

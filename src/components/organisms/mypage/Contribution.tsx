@@ -15,7 +15,7 @@ const Contribution = ({ clickHandler }: IProps) => {
 
   return (
     <div className='flex-1 sm:h-full rounded-[20px] bg-[#eeeeee] py-[10px] px-[10px]'>
-      <span className='text-[15px] font-medium text-darkgray'>
+      <span className='text-[15px] font-medium text-[#545454]'>
         PAD Contribution
       </span>
       <div className='grid grid-cols-2 gap-[10px] mt-[15px]'>

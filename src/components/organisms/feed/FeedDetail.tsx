@@ -3,7 +3,7 @@ import { Post } from '@/types/feed.type';
 
 interface FeedDetailProps {
   tags: Post['tags'];
-  date: Post['createdAt'];
+  // date: Post['createdAt'];
   title: Post['title'];
   content: Post['content'];
 }

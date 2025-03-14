@@ -67,7 +67,7 @@ const Feed = () => {
         </div>
       )}
       {hasNextPage && (
-        <div ref={observerRef} className='h-10 w-full'>
+        <div ref={observerRef} className='h-10 w-full' aria-hidden>
           로딩중
         </div>
       )}

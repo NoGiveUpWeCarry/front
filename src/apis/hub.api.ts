@@ -326,11 +326,11 @@ export const uploadHubImage = async (file: File) => {
   return response.data;
 };
 
-export interface statusRequest {
+export interface StatusRequest {
   recruiting: boolean;
 }
 
-export interface statusResponse {
+export interface StatusResponse {
   message: string;
   project: {
     projectId: number;
@@ -341,17 +341,17 @@ export interface statusResponse {
 
 export const fetchStatus = async (projectId: number, recruiting: boolean) => {
   const apiPath = `${API_PATH.projects}/${projectId}/status`;
-  const response = await fetcher<statusResponse>({
+  const response = await fetcher<StatusResponse>({
     url: apiPath,
     method: 'PATCH',
     data: {
       recruiting,
-    } as statusRequest,
+    } as StatusRequest,
   });
   return response.data;
 };
 
-export interface applyResponse {
+export interface ApplyResponse {
   message: {
     text: string;
     code: number;
@@ -359,18 +359,18 @@ export interface applyResponse {
   isApply: boolean;
 }
 
-export interface applyStatusResponse {
+export interface ApplyStatusResponse {
   status: string;
   applied_at: string;
 }
 
-export interface applyCancelResponse {
+export interface ApplyCancelResponse {
   message: string;
 }
 
 export const fetchApply = async (projectId: number) => {
   const apiPath = `${API_PATH.projects}/${projectId}/apply`;
-  const response = await fetcher<applyResponse>({
+  const response = await fetcher<ApplyResponse>({
     url: apiPath,
     method: 'POST',
     data: {
@@ -382,7 +382,7 @@ export const fetchApply = async (projectId: number) => {
 
 export const fetchApplyStatus = async (projectId: number) => {
   const apiPath = `${API_PATH.projects}/${projectId}/apply-status`;
-  const response = await fetcher<applyStatusResponse>({
+  const response = await fetcher<ApplyStatusResponse>({
     url: apiPath,
     method: 'GET',
     data: {
@@ -394,7 +394,7 @@ export const fetchApplyStatus = async (projectId: number) => {
 
 export const fetchCancelApply = async (projectId: number) => {
   const apiPath = `${API_PATH.projects}/${projectId}/cancel-apply`;
-  const response = await fetcher<applyCancelResponse>({
+  const response = await fetcher<ApplyCancelResponse>({
     url: apiPath,
     method: 'DELETE',
     data: {
@@ -404,7 +404,7 @@ export const fetchCancelApply = async (projectId: number) => {
   return response.data;
 };
 
-export interface applicantsResponse {
+export interface ApplicantsResponse {
   applicants: {
     userId: number;
     name: string;
@@ -420,7 +420,7 @@ export interface applicantsResponse {
 
 export const fetchApplicants = async (projectId: number) => {
   const apiPath = `${API_PATH.projects}/${projectId}/applicants`;
-  const response = await fetcher<applicantsResponse>({
+  const response = await fetcher<ApplicantsResponse>({
     url: apiPath,
     method: 'GET',
     data: {
@@ -430,7 +430,7 @@ export const fetchApplicants = async (projectId: number) => {
   return response.data;
 };
 
-export interface applicantsStatusResponse {
+export interface ApplicantsStatusResponse {
   message: string;
   application: {
     applicationId: number;
@@ -444,7 +444,7 @@ export const fetchApplicantsStatus = async (
   status: string
 ) => {
   const apiPath = `${API_PATH.projects}/${projectId}/applications/${userId}/status`;
-  const response = await fetcher<applicantsStatusResponse>({
+  const response = await fetcher<ApplicantsStatusResponse>({
     url: apiPath,
     method: 'PATCH',
     data: {

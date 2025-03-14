@@ -1,9 +1,10 @@
 import FeedView from '@/components/organisms/search/FeedView';
 import ProjectView from '@/components/organisms/search/ProjectView';
+import useAuthStore from '@/store/authStore';
 import { useSearchModal } from '@/store/modals/searchModalstore';
 import { useSearchTabsStore } from '@/store/searchTabsStore';
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
 
 const SearchPage = () => {
@@ -11,6 +12,7 @@ const SearchPage = () => {
   const query = new URLSearchParams(search);
   const keyword = query.get('q') as string;
 
+  const { isLoggedIn } = useAuthStore(useShallow((state) => state));
   const { keyword: searchKeyword } = useSearchModal();
 
   useEffect(() => {
@@ -39,12 +41,12 @@ const SearchPage = () => {
   if (!keyword) return null;
 
   return (
-    <div className='flex flex-col gap-5 px-5 md:px-0'>
-      <h1 className='flex gap-4 items-center text-[25px] font-semibold'>
+    <div className='flex flex-col gap-5'>
+      <h1 className='flex gap-4 items-center text-[25px] font-semibold px-5 md:px-0'>
         <span className='text-[#FFBA6C]'>&ldquo;{keyword}&rdquo;</span>
         <span>검색 결과</span>
       </h1>
-      <div className='flex items-center w-full'>
+      <div className='flex items-center w-full px-5 md:px-0'>
         <div className='flex'>
           {tabs.map((item) => (
             <button
@@ -59,7 +61,15 @@ const SearchPage = () => {
       </div>
       <div className='mt-5'>
         {activeTab === '피드' && <FeedView keyword={keyword} />}
-        {activeTab === '프로젝트' && <ProjectView keyword={keyword} />}
+        {activeTab === '프로젝트' && isLoggedIn ? (
+          <ProjectView keyword={keyword} />
+        ) : (
+          <div className='w-full flex justify-center'>
+            <Link to='/login' className='hover:text-blue-500'>
+              로그인하고 프로젝트보기 👉
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

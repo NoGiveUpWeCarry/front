@@ -6,14 +6,14 @@ interface CommentInputProps {
   onSubmit: (content: string) => void;
   userImage: string;
   isPending: boolean;
-  isLoggedIn: boolean;
+  // isLoggedIn: boolean;
 }
 
 const ChatInput = ({
   onSubmit,
   userImage,
   isPending,
-  isLoggedIn,
+  // isLoggedIn,
 }: CommentInputProps) => {
   const [comment, setComment] = useState<string>('');
 

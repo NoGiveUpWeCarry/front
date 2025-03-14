@@ -6,7 +6,7 @@ import MobileHamburgarMenu from '@/components/organisms/sides/MobileHamburgarMen
 import { useNotification } from '@/components/organisms/sse/NotificationProvider';
 import useAuthStore from '@/store/authStore';
 import { useSearchModal } from '@/store/modals/searchModalstore';
-import { useEffect, useRef, useState } from 'react';
+import { KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const MobileNav = () => {
@@ -40,6 +40,16 @@ const MobileNav = () => {
     };
   }, [isMenuOpen]);
 
+  const handleKeyEvent = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      if (!keyword) {
+        alert('검색어를 입력해주세요.');
+        return;
+      }
+      navigate(`/search?q=${keyword}&type=page`);
+    }
+  };
+
   return (
     <div
       className='mobile-nav border-b border-lightgray w-full h-full relative'
@@ -61,12 +71,7 @@ const MobileNav = () => {
               className='border-0 h-full !text-[16px] !pl-2'
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  e.preventDefault();
-                  navigate(`/search?q=${keyword}`);
-                }
-              }}
+              onKeyDown={handleKeyEvent}
             />
           </div>
           <div className='flex h-8 justify-end items-center gap-2'>

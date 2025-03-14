@@ -62,7 +62,7 @@ export const FeedFooter = ({
     <div className='flex w-full items-center justify-center lg:gap-[107px] gap-12'>
       <div className='flex items-center space-x-1'>
         <Icon type='comment' color='gray' className='w-[24px] h-[24px]' />
-        <span className='text-[#838383]'>{commentsCount}</span>
+        <span className='text-[#707070]'>{commentsCount}</span>
       </div>
       <div
         className={`flex items-center space-x-1 ${
@@ -75,11 +75,11 @@ export const FeedFooter = ({
           color={isLiked ? 'red' : 'gray'}
           className='w-[24px] h-[24px]'
         />
-        <span className='text-[#838383]'>{likesCount}</span>
+        <span className='text-[#707070]'>{likesCount}</span>
       </div>
       <div className='flex items-center space-x-1'>
         <Icon type='eye' color='gray' className='w-[24px] h-[24px]' />
-        <span className='text-[#838383]'>{viewsCount}</span>
+        <span className='text-[#707070]'>{viewsCount}</span>
       </div>
     </div>
   );

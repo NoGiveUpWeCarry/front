@@ -15,7 +15,7 @@ SettingsSection.Title = function ({ children }: { children: ReactNode }) {
 SettingsSection.Description = function ({ children }: { children: ReactNode }) {
   return (
     <>
-      <h2 className='mt-1 text-[16px] text-[#838383] font-normal'>
+      <h2 className='mt-1 text-[16px] text-[#707070] font-normal'>
         {children}
       </h2>
       <SettingsSection.Divider />
@@ -47,7 +47,11 @@ interface InputWithLabelProps extends InputHTMLAttributes<HTMLInputElement> {
   value?: string;
   onSetValue?: (value: string) => void;
   children?: ReactNode;
-  button?: { text: string; color: 'normal' | 'disabled'; onClick: () => void };
+  button?: {
+    text: string;
+    color: 'normal' | 'disabled' | null;
+    onClick: () => void;
+  };
 }
 
 SettingsSection.InputWithLabel = function ({
@@ -60,8 +64,8 @@ SettingsSection.InputWithLabel = function ({
   ...props
 }: InputWithLabelProps) {
   const buttonStyle = {
-    normal: 'bg-[#FF7E5F] text-white',
-    disabled: 'bg-[#CCCCCC] text-[#7D7D7D] w-[66px] h-10',
+    normal: 'bg-[#526931] text-white',
+    disabled: 'bg-[#CCCCCC] text-[#707070] w-[66px] h-10',
   };
 
   return (
@@ -85,7 +89,10 @@ SettingsSection.InputWithLabel = function ({
             radius='md'
             width='66px'
             height='40px'
-            className={cn('w-[66px] h-10', buttonStyle[button?.color])}
+            className={cn(
+              'w-[66px] h-10',
+              button?.color && buttonStyle[button?.color]
+            )}
             onClick={button.onClick}
           >
             {button?.text}
@@ -110,7 +117,7 @@ SettingsSection.TextWithToggle = function ({
     <div className='flex justify-between items-center'>
       <div className='flex flex-col gap-1 text-[15px] mr-[10px] sm:mr-0'>
         <strong className='text-black font-medium'>{title}</strong>
-        <span className='text-[#7D7D7D]'>{description}</span>
+        <span className='text-[#6b6b6b]'>{description}</span>
       </div>
       <Toggle {...rest} />
     </div>

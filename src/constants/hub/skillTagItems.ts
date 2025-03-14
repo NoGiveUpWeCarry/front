@@ -58,9 +58,9 @@ export const skillTagItems = {
   'Design Systems': '#DesignSystems',
 };
 
-export type skillTagItemsKey = keyof typeof skillTagItems;
+export type SkillTagItemsKey = keyof typeof skillTagItems;
 
-export const skillTagItmesColors: Record<skillTagItemsKey, string> = {
+export const skillTagItmesColors: Record<SkillTagItemsKey, string> = {
   // 개발자 스킬
   React: 'text-[#7d7d7d] text-[12px] rounded-full',
   TypeScript: 'text-[#7d7d7d] text-[12px] rounded-full',

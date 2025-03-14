@@ -10,7 +10,7 @@ const ContributionBox = ({ text, amount, onClick }: ContributionBoxProps) => {
       className='max-w-[260px] h-[80px] rounded-[5px] bg-white flex flex-col justify-between p-[10px]'
       onClick={onClick}
     >
-      <span className='text-darkgray font-medium text-[15px] text-left'>
+      <span className='text-[#545454] font-medium text-[15px] text-left'>
         {text}
       </span>
       <p className='w-full flex justify-end'>

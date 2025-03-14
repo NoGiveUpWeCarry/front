@@ -14,7 +14,6 @@ import { querySuccessHandler } from '@/utils/querySuccessHandler';
 
 interface PostFeedModalProps {
   onClose: () => void;
-  onSubmit: () => void;
   onRevise?: boolean;
 }
 

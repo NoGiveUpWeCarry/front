@@ -80,7 +80,7 @@ const FeedDetailFooter = ({
           onClick={handleLikeClick}
         >
           <Icon
-            type={'likeSolid'}
+            type='likeSolid'
             color={isLiked ? 'red' : 'black'}
             className='w-5 h-5 text-zinc-300'
           />

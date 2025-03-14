@@ -1,7 +1,7 @@
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import useFeedSearchStore from '@/store/feedSearchStore';
 
-export default function FeedSortToggle() {
+const FeedSortToggle = () => {
   const setLetest = useFeedSearchStore((state) => state.setLatest);
   const onChangeToggle = (value: string) => {
     setLetest(value === 'recent');
@@ -27,4 +27,6 @@ export default function FeedSortToggle() {
       </ToggleGroupItem>
     </ToggleGroup>
   );
-}
+};
+
+export default FeedSortToggle;
