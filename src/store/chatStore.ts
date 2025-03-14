@@ -248,40 +248,54 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
         const { socket, channels, currentChannelId } = get();
         if (!currentChannelId) return;
 
-        set((state) => {
-          if (message.type === 'exit') {
-            state.channels[message.channelId] = {
-              ...channels[message.channelId],
-              users: channels[message.channelId].users.filter(
-                (user) => user.userId !== message.userId
-              ),
-            };
-          }
-          state.hasNewMessage = true;
-        });
-
-        // 메시지 추가(깊은 복사를 해야 리렌더링이 유발됨.)
-        queryClient.setQueriesData(
-          { queryKey: ['messages', { channelId: currentChannelId }] },
-          (oldData: InfiniteData<FetchChannelMessagesResponse, PageParam>) => {
-            if (!oldData) return oldData;
-            return {
-              pages: oldData.pages.map((page, index) =>
-                index === oldData.pages.length - 1
-                  ? { ...page, messages: [...page.messages, message] }
-                  : page
-              ),
-              pageParams: oldData.pageParams.map((param, index) =>
-                index === oldData.pageParams.length - 1
-                  ? {
-                      ...param,
-                      cursors: { ...param.cursors, prev: message.messageId },
-                    }
-                  : param
-              ),
-            };
-          }
-        );
+        switch (message.type) {
+          case 'exit':
+            set((state) => {
+              if (message.type === 'exit') {
+                state.channels[message.channelId] = {
+                  ...channels[message.channelId],
+                  users: channels[message.channelId].users.filter(
+                    (user) => user.userId !== message.userId
+                  ),
+                };
+              }
+            });
+            break;
+          case 'image':
+          case 'text':
+            set((state) => {
+              state.hasNewMessage = true;
+            });
+            break;
+          default:
+            // 메시지 추가(깊은 복사를 해야 리렌더링이 유발됨.)
+            queryClient.setQueriesData(
+              { queryKey: ['messages', { channelId: currentChannelId }] },
+              (
+                oldData: InfiniteData<FetchChannelMessagesResponse, PageParam>
+              ) => {
+                if (!oldData) return oldData;
+                return {
+                  pages: oldData.pages.map((page, index) =>
+                    index === oldData.pages.length - 1
+                      ? { ...page, messages: [...page.messages, message] }
+                      : page
+                  ),
+                  pageParams: oldData.pageParams.map((param, index) =>
+                    index === oldData.pageParams.length - 1
+                      ? {
+                          ...param,
+                          cursors: {
+                            ...param.cursors,
+                            prev: message.messageId,
+                          },
+                        }
+                      : param
+                  ),
+                };
+              }
+            );
+        }
 
         socket!.emit('readMessage', {
           userId: useAuthStore.getState().userInfo.userId,
