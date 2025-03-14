@@ -17,6 +17,7 @@ import { immer } from 'zustand/middleware/immer';
 export interface ChatState {
   socket: Socket | null;
   messages: Record<string, ReceiveMessage[]>;
+  hasNewMessage: boolean;
   currentChannelId: number | null;
   channels: Record<Channel['channelId'], Channel>;
   channelSearchKeyword: string;
@@ -171,6 +172,7 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
     };
 
     return {
+      hasNewMessage: false,
       socket: null,
       messages: {},
       currentChannelId: null,
@@ -244,9 +246,7 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       },
       handleMessage: (message) => {
         const { socket, channels, currentChannelId } = get();
-        console.log({ currentChannelId });
         if (!currentChannelId) return;
-        console.log('handleMessage');
 
         set((state) => {
           if (message.type === 'exit') {
@@ -257,6 +257,7 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
               ),
             };
           }
+          state.hasNewMessage = true;
         });
 
         // 메시지 추가(깊은 복사를 해야 리렌더링이 유발됨.)
