@@ -1,5 +1,5 @@
 import Icon from '@/components/atoms/Icon';
-import SearchInput from '@/components/molecules/chat/SearchInput';
+import MessageSearchForm from '@/components/molecules/chat/MessageSearchForm';
 import { useSearchMessages } from '@/hooks/chat/useSearchMessages';
 import { useSearchStore } from '@/store/searchStore';
 import { Channel } from '@/types/channel.type';
@@ -60,7 +60,7 @@ const SearchMessage = ({ currentChannelId }: SearchMessageProps) => {
           />
         </button>
       </>
-      <SearchInput isFetching={isFetching} setState={setState} />
+      <MessageSearchForm isFetching={isFetching} setState={setState} />
     </div>
   );
 };
