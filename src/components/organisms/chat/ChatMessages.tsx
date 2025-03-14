@@ -6,15 +6,12 @@ import { useMessageScroll } from '@/hooks/chat/useMessageScroll';
 import { MessageList } from '@/components/organisms/chat/MessageList';
 import { NewMessageNotification } from '@/components/molecules/chat/NewMessageNotification';
 import LoadingDots from '@/components/molecules/LoadingDots';
-import { useChatStore } from '@/store/chatStore';
 
 interface ChatMessagesProps {
   currentChannelId: Channel['channelId'];
 }
 
 const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
-  const hasNewMessage = useChatStore((state) => state.hasNewMessage);
-
   const {
     setSearchState,
     searchMode,
@@ -49,7 +46,7 @@ const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
     searchCursor,
   });
 
-  const { loadNextRef, newMessageRef, scrollContainerRef, handleImageLoaded } =
+  const { loadNextRef, scrollContainerRef, handleImageLoaded } =
     useMessageScroll({
       messages,
       searchMode,
@@ -85,11 +82,7 @@ const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
         isFetchingNextPage={isFetchingNextPage}
         handleImageLoaded={handleImageLoaded}
       />
-      <NewMessageNotification
-        show={hasNewMessage}
-        onClick={handleNewMessageClick}
-        ref={newMessageRef}
-      />
+      <NewMessageNotification onClick={handleNewMessageClick} />
     </div>
   );
 };

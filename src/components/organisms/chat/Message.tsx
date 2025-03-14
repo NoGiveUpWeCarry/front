@@ -75,18 +75,6 @@ const Message = ({
             </>
           )}
           {message.type === 'text' && (
-            <>
-              <MessageBubble
-                content={content}
-                messageId={message.messageId}
-                isMyMessage={isMyMessage}
-              />
-              {isOpen && (
-                <ChatImageModal src={message.content} onClose={closeModal} />
-              )}
-            </>
-          )}
-          {message.type === 'text' && (
             <MessageBubble
               content={content}
               messageId={message.messageId}

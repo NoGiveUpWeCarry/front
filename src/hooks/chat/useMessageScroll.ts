@@ -1,7 +1,6 @@
 import { useInView } from 'react-intersection-observer';
 import { useState, useEffect, useRef } from 'react';
 import { ReceiveMessage } from '@/types/message.type';
-import { useChatStore } from '@/store/chatStore';
 
 interface UseMessageScrollProps {
   messages: ReceiveMessage[];
@@ -21,7 +20,6 @@ export const useMessageScroll = ({
   const totalImageCount = messages.filter(
     (message) => message.type === 'image'
   ).length;
-  const setState = useChatStore((state) => state.setState);
 
   const handleImageLoaded = () => {
     setImagesLoaded((prev) => prev + 1);
@@ -32,7 +30,6 @@ export const useMessageScroll = ({
   );
 
   const { ref: loadNextRef, inView: isTopInView } = useInView();
-  const { ref: newMessageRef, inView: isNewMessageInView } = useInView();
 
   useEffect(() => {
     if (isTopInView && !searchMode) {
@@ -40,12 +37,6 @@ export const useMessageScroll = ({
       setDirection('backward');
     }
   }, [isTopInView]);
-
-  useEffect(() => {
-    if (isNewMessageInView) {
-      setState({ hasNewMessage: false });
-    }
-  }, [isNewMessageInView]);
 
   // 스크롤 위치 조정
   useEffect(() => {
@@ -98,7 +89,6 @@ export const useMessageScroll = ({
   return {
     direction,
     loadNextRef,
-    newMessageRef,
     handleImageLoaded,
     scrollContainerRef,
   };
