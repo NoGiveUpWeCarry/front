@@ -174,8 +174,6 @@ const SideMenu = () => {
     };
   }, [showNotificationBox]);
 
-  console.log(userInfo?.profileUrl);
-
   return (
     <>
       {isSearchModalOpen && <SearchModal onClose={closeSearchModal} />}

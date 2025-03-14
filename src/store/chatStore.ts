@@ -82,13 +82,13 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
 
         // 체크 순서: 로그인 -> 소켓 연결 -> 현재 채널
         if (!user) {
-          console.log('User not logged in');
+          console.error('User not logged in');
           alertLoginRequired();
           return;
         }
 
         if (!socket) {
-          console.log('Socket not connected');
+          console.error('Socket not connected');
           alertSocketNotConnected();
           return;
         }
@@ -293,7 +293,7 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       handleChannelJoined: (channel) => {
         const { currentChannelId } = get();
         if (!currentChannelId) return;
-        console.log('channelJoined');
+
         const myUserId = useAuthStore.getState().userInfo?.userId;
         set((state) => {
           state.channels[channel.channelId] = formatChannelData(
@@ -339,7 +339,6 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       handleReadCounted: () => {
         const { currentChannelId } = get();
         if (!currentChannelId) return;
-        console.log('handleReadCounted');
 
         queryClient.invalidateQueries({
           queryKey: ['messages', { channelId: currentChannelId }],
@@ -348,7 +347,6 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       handleBroadcastChannelJoined: () => {
         const { currentChannelId } = get();
         if (!currentChannelId) return;
-        console.log('handleBroadcastChannelJoined');
 
         queryClient.invalidateQueries({
           queryKey: ['messages', { channelId: currentChannelId }],
