@@ -1,14 +1,14 @@
 import HighlightedText from '@/components/atoms/HighlightedText';
-import { useSearchStore } from '@/store/searchStore';
 import { ReceiveMessage } from '@/types/message.type';
 import { cn } from '@/utils/cn';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface MessageBubbleProps {
   content: ReceiveMessage['content'];
   className?: string;
   messageId: number;
   isMyMessage: boolean;
+  searchMessageId?: number | null;
 }
 
 const MessageBubble = ({
@@ -16,15 +16,21 @@ const MessageBubble = ({
   className,
   messageId,
   isMyMessage,
+  searchMessageId,
 }: MessageBubbleProps) => {
   const messageRef = useRef<HTMLDivElement>(null);
+  const isSearchMessage = searchMessageId === messageId;
 
-  const searchCursor = useSearchStore((state) => state.searchCursors?.search);
-  const isSearchMessage = searchCursor === messageId;
+  useEffect(() => {
+    messageRef.current?.scrollIntoView({
+      behavior: 'instant',
+      block: 'center',
+    });
+  }, [isSearchMessage]);
 
   return (
     <div
-      ref={messageRef}
+      ref={isSearchMessage ? messageRef : undefined}
       className={cn(
         'px-[10px] py-[7px] text-caption1 w-fit rounded-[5px]',
         isMyMessage ? 'bg-[#EAFBFF]' : 'bg-[#ffdfe7]',

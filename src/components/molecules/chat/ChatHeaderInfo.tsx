@@ -1,5 +1,5 @@
 import Title from '@/components/atoms/Title';
-import ChannelExitButton from '@/components/molecules/chat/ChannelExitButton';
+import SearchMessage from '@/components/organisms/chat/SearchMessage';
 import { useChatStore } from '@/store/chatStore';
 import { Channel } from '@/types/channel.type';
 
@@ -19,7 +19,7 @@ const ChatHeaderInfo = ({ currentChannelId }: ChatHeaderInfoProps) => {
           {channels[currentChannelId]?.users.length}명의 맴버가 있습니다.
         </div>
       </div>
-      <ChannelExitButton currentChannelId={currentChannelId} />
+      <SearchMessage currentChannelId={currentChannelId} />
     </div>
   );
 };

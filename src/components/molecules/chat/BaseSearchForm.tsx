@@ -1,17 +1,21 @@
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
-import { FormHTMLAttributes, InputHTMLAttributes } from 'react';
+import { FormHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 
-interface SearchInputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onSubmit'>,
-    Pick<FormHTMLAttributes<HTMLFormElement>, 'onSubmit'> {}
+interface BaseSearchFormProps
+  extends Pick<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'>,
+    Pick<FormHTMLAttributes<HTMLFormElement>, 'onSubmit'> {
+  children?: ReactNode;
+  className?: string;
+}
 
-const SearchInput = ({
+const BaseSearchForm = ({
   value,
-  onChange,
   onSubmit,
-  ...props
-}: SearchInputProps) => {
+  onChange,
+  children,
+  className,
+}: BaseSearchFormProps) => {
   return (
     <div className='relative'>
       <form onSubmit={onSubmit}>
@@ -21,14 +25,14 @@ const SearchInput = ({
         <Input
           type='text'
           placeholder='검색'
-          className='pl-[40px] placeholder-[#CCCCCC] bg-[#EDECF3]'
+          className={`pl-[40px] placeholder-[#CCCCCC] bg-[#EDECF3] ${className}`}
           value={value}
           onChange={onChange}
-          {...props}
         />
+        {children}
       </form>
     </div>
   );
 };
 
-export default SearchInput;
+export default BaseSearchForm;
