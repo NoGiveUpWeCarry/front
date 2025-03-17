@@ -1,8 +1,8 @@
 import { HubTagItemsKey } from '@/constants/hub/hubTagItems';
-import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
+import { MeetingTagItemskey } from '@/constants/hub/meetingTagItems';
 import { RoleItemKeys } from '@/constants/hub/roleItems';
-import { roleTagItemsKey } from '@/constants/hub/roleTagsItems';
-import { statusTagItemskey } from '@/constants/hub/statusTagItems';
+import { RoleTagItemsKey } from '@/constants/hub/roleTagsItems';
+import { StatusTagItemskey } from '@/constants/hub/statusTagItems';
 import {
   FollowUsers,
   MusicResponse,
@@ -222,15 +222,15 @@ export interface Project {
   thumbnailUrl: string;
   role: RoleItemKeys;
   skills: string[];
-  detailRoles: roleTagItemsKey[];
+  detailRoles: RoleTagItemsKey[];
   hubType: HubTagItemsKey;
   startDate: string;
   duration: string;
-  workType: meetingTagItemskey;
+  workType: MeetingTagItemskey;
   applyCount: number;
   bookmarkCount: number;
   viewCount: number;
-  status: statusTagItemskey;
+  status: StatusTagItemskey;
   createdAt: string;
 }
 
