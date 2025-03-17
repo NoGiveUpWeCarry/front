@@ -4,11 +4,24 @@ import MainSideBar from '@/components/organisms/sides/MainSideBar';
 import MobileNav from '@/components/organisms/sides/MobileNav';
 import useMobileNavStore from '@/store/mobileNavStore';
 import { useEffect } from 'react';
+import { useSearchModal } from '@/store/modals/searchModalstore';
+import SearchModal from '@/components/organisms/modals/SearchModal';
 
 const MainLayout = () => {
   const preventInfo = ['/login'];
   const location = useLocation();
   const { isNavShowed, setNavHide, setNavShow } = useMobileNavStore();
+
+  const { isModalOpen, openModal, closeModal } = useSearchModal();
+
+  useEffect(() => {
+    if (
+      window.location.href.includes('q=') &&
+      !window.location.href.includes('type=page')
+    ) {
+      openModal();
+    }
+  }, [location]);
 
   useEffect(() => {
     const isFeedDetailPage = /^\/feed\/\d+$/.test(location.pathname);
@@ -39,6 +52,7 @@ const MainLayout = () => {
       )}
       <div className='flex-1 overflow-y-auto'>
         <div className='max-w-[800px] w-full mx-auto lg:py-6 py-2'>
+          {isModalOpen && <SearchModal onClose={closeModal} />}
           <Outlet />
         </div>
       </div>
