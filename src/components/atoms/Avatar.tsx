@@ -34,7 +34,7 @@ const Avatar = ({
     <img
       src={src}
       className={cn(AvatarVariants({ size, className }))}
-      alt={'profile avatar' || props.alt}
+      alt={props.alt || 'profile avatar'}
       {...props}
     />
   );
