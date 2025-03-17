@@ -14,7 +14,7 @@ interface FeedDetailChatProps {
 
 const FeedDetailChat = ({ comments, feedId }: FeedDetailChatProps) => {
   const { userId, profileUrl } = useAuthStore((state) => state.userInfo);
-  const { isLoggedIn } = useAuthStore((state) => state);
+  // const { isLoggedIn } = useAuthStore((state) => state);
   const groupedComments = groupCommentsByDate(comments);
   const { mutate: postComment, isPending } = usePostFeedChat();
   const { mutate: deleteComment } = useDeleteFeedChat();
@@ -56,7 +56,7 @@ const FeedDetailChat = ({ comments, feedId }: FeedDetailChatProps) => {
         onSubmit={submitComment}
         userImage={profileUrl}
         isPending={isPending}
-        isLoggedIn={isLoggedIn}
+        // isLoggedIn={isLoggedIn}
       />
       {groupedComments && groupedComments.length > 0 ? (
         <div

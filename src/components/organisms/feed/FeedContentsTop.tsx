@@ -27,12 +27,7 @@ export const FeedContentsTop = () => {
           </Button>
         </div>
       </div>
-      {isModalOpen && (
-        <PostFeedModal
-          onClose={closePostModal}
-          // onSubmit={() => setIsSubmitted(true)}
-        />
-      )}
+      {isModalOpen && <PostFeedModal onClose={closePostModal} />}
     </>
   );
 };

@@ -12,19 +12,19 @@ import HubContentsUser from '@/components/organisms/hub/HubContentsUser';
 import HubApplySideBar from '@/components/organisms/sides/HubApplySideBar';
 import HubApplyUserSideBar from '@/components/organisms/sides/HubApplyUserSideBar';
 import { HubTagItemsKey } from '@/constants/hub/hubTagItems';
-import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
-import { RoleItemKeys } from '@/constants/hub/roleItems';
-import { roleTagItemsKey } from '@/constants/hub/roleTagsItems';
-import { skillTagItemsKey } from '@/constants/hub/skillTagItems';
-import { statusTagItemskey } from '@/constants/hub/statusTagItems';
+import { type MeetingTagItemskey } from '@/constants/hub/meetingTagItems';
+import { type RoleItemKeys } from '@/constants/hub/roleItems';
+import { type RoleTagItemsKey } from '@/constants/hub/roleTagsItems';
+import { type SkillTagItemsKey } from '@/constants/hub/skillTagItems';
+import { type StatusTagItemskey } from '@/constants/hub/statusTagItems';
 
 interface HubDetailProps {
   title: string;
   hubType: HubTagItemsKey;
-  workType: meetingTagItemskey;
-  status: statusTagItemskey;
-  detailRoles: roleTagItemsKey[];
-  skills: skillTagItemsKey[];
+  workType: MeetingTagItemskey;
+  status: StatusTagItemskey;
+  detailRoles: RoleTagItemsKey[];
+  skills: SkillTagItemsKey[];
   role: RoleItemKeys;
   startDate: string;
   duration: string;
@@ -83,7 +83,7 @@ const HubDetail = ({
             startDate={startDate}
             duration={duration}
             workType={workType}
-            role={role}
+            // role={role}
             detailRoles={detailRoles}
           />
           <HubSkill skills={skills} />
