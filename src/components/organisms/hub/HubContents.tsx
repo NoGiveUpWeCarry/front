@@ -1,7 +1,7 @@
 import { HubTagItemsKey } from '@/constants/hub/hubTagItems';
-import { roleTagItemsKey } from '@/constants/hub/roleTagsItems';
-import { meetingTagItemskey } from '@/constants/hub/meetingTagItems';
-import { statusTagItemskey } from '@/constants/hub/statusTagItems';
+import { RoleTagItemsKey } from '@/constants/hub/roleTagsItems';
+import { MeetingTagItemskey } from '@/constants/hub/meetingTagItems';
+import { StatusTagItemskey } from '@/constants/hub/statusTagItems';
 import { RoleItemKeys } from '@/constants/hub/roleItems';
 import { HubFooter } from '@/components/molecules/hub/ContentsFooter';
 import HubContentsUser from '@/components/organisms/hub/HubContentsUser';
@@ -11,9 +11,9 @@ import HubItem from '@/components/molecules/hub/HubItem';
 interface HubContentsProps {
   title: string;
   hubType: HubTagItemsKey;
-  workType: meetingTagItemskey;
-  detailRoles: roleTagItemsKey[];
-  status: statusTagItemskey;
+  workType: MeetingTagItemskey;
+  detailRoles: RoleTagItemsKey[];
+  status: StatusTagItemskey;
   role: RoleItemKeys;
   startDate: string;
   duration: string;
