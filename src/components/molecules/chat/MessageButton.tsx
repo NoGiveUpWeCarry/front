@@ -14,14 +14,13 @@ const MessageButton = ({ targetUserId }: MessageButtonProps) => {
 
   return (
     <Button
-      width='92px'
-      height='29px'
       radius='sm'
       variants='outline'
-      className='font-semibold text-[15px] flex items-center justify-center gap-[10px] border border-black'
+      className='font-semibold text-[15px] flex items-center justify-center gap-[10px] border border-black !px-3 !py-1'
       onClick={clickMessageButton}
     >
-      메세지 <EnvelopeIcon width={18} />
+      <span className='hidden sm:block'>메세지</span>{' '}
+      <EnvelopeIcon width={18} />
     </Button>
   );
 };

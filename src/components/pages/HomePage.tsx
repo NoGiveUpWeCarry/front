@@ -1,9 +1,9 @@
-import { FeedContentsTop } from '@/components/molecules/contents/FeedContentsTop';
-import Feed from '@/components/organisms/Feed';
+import Feed from '@/components/organisms/feed/Feed';
+import { FeedContentsTop } from '@/components/organisms/feed/FeedContentsTop';
 
 const HomePage = () => {
   return (
-    <div className='flex flex-col gap-[30px]'>
+    <div className='flex flex-col lg:gap-[30px] gap-3'>
       <FeedContentsTop />
       <Feed />
     </div>

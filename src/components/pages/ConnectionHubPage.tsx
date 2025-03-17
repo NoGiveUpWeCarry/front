@@ -1,5 +1,5 @@
-import { HubContentsTop } from '@/components/molecules/contents/HubContentTop';
 import Hub from '@/components/organisms/Hub';
+import { HubContentsTop } from '@/components/organisms/hub/HubContentTop';
 
 const ConnectionHubPage = () => {
   return (

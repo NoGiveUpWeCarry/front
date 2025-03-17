@@ -9,7 +9,7 @@ const ApplyFormTextArea = ({
 }) => {
   return (
     <>
-      <Label text='상세 설명' required />
+      <Label text='상세 설명' required aria-required />
       <div className='relative'>
         <textarea
           className='w-full h-[398px] bg-white rounded-[10px] border border-[#838383] outline-none resize-none p-5'

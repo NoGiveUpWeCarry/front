@@ -6,25 +6,20 @@ interface ToastProp {
   message: string;
 }
 
+const iconMap = {
+  info: <Info className='stroke-indigo-400' />,
+  error: <CircleAlert className='stroke-red-500' />,
+  success: <BadgeCheck className='stroke-green-500' />,
+  warning: <TriangleAlert className='stroke-yellow-500' />,
+};
+
 const Toast = ({ type, message }: ToastProp) => {
   const showToast = () => {
     toast(message, {
-      icon: () => {
-        switch (type) {
-          case 'info':
-            return <Info className='stroke-indigo-400' />;
-          case 'error':
-            return <CircleAlert className='stroke-red-500' />;
-          case 'success':
-            return <BadgeCheck className='stroke-green-500' />;
-          case 'warning':
-            return <TriangleAlert className='stroke-yellow-500' />;
-          default:
-            return null;
-        }
-      },
+      icon: () => iconMap[type] || null,
     });
   };
+
   showToast();
   return <ToastContainer />;
 };

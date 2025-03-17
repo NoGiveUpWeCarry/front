@@ -8,7 +8,7 @@ interface ChatImageModalProps
 const ChatImageModal = ({ src, ...props }: ChatImageModalProps) => {
   return (
     <Modal {...props}>
-      <img src={src} />
+      <img src={src} alt='chat image' />
     </Modal>
   );
 };

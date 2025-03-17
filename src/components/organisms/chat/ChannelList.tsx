@@ -1,41 +1,30 @@
 import Avatar from '@/components/atoms/Avatar';
 import Title from '@/components/atoms/Title';
+import ChannelExitButton from '@/components/molecules/chat/ChannelExitButton';
 import { ListItem } from '@/components/molecules/ListItem';
-import useAuthStore from '@/store/authStore';
 import { ChatState, useChatStore } from '@/store/chatStore';
 import { Channel } from '@/types/channel.type';
 import { formatDateFromNow } from '@/utils/format';
 import clsx from 'clsx';
-import { MouseEvent as ReactMouseEvent } from 'react';
 import { useShallow } from 'zustand/shallow';
 
 interface ChannelListProps {
   channels: ChatState['channels'];
+  currentChannelId: Channel['channelId'] | null;
 }
 
-const ChannelList = ({ channels }: ChannelListProps) => {
-  const { joinChannel, currentChannelId, messages } = useChatStore(
+const ChannelList = ({ channels, currentChannelId }: ChannelListProps) => {
+  const { setState, messages } = useChatStore(
     useShallow((state) => ({
-      joinChannel: state.joinChannel,
-      currentChannelId: state.currentChannelId,
+      setState: state.setState,
       messages: state.messages,
     }))
   );
-  const user = useAuthStore((state) => state.userInfo);
 
-  const switchChannel = (channelId: Channel['channelId']) => {
-    if (channelId === currentChannelId) return;
-    joinChannel(user.userId, channelId);
+  const handleChannelClick = (channelId: Channel['channelId']) => {
+    setState({ currentChannelId: channelId });
   };
 
-  const handleChannelClick = (
-    e: ReactMouseEvent,
-    channelId: Channel['channelId']
-  ) => {
-    if (e.button === 0) {
-      switchChannel(channelId);
-    }
-  };
   return (
     <ul className='grow flex flex-col gap-[24px] pb-[50px] overflow-y-scroll mr-[10px] hover:mr-0 scrollbar'>
       {Object.entries(channels).map(([_, channel]) => {
@@ -57,8 +46,8 @@ const ChannelList = ({ channels }: ChannelListProps) => {
         return (
           <li
             key={channel.channelId}
-            onClick={(e) => handleChannelClick(e, channel.channelId)}
-            className='group relative'
+            onClick={() => handleChannelClick(channel.channelId)}
+            className='group'
           >
             <ListItem
               className={clsx([
@@ -76,7 +65,7 @@ const ChannelList = ({ channels }: ChannelListProps) => {
                 />
               </ListItem.Col>
               <ListItem.Col className='w-[calc(100% - 40px)] flex-auto'>
-                <div className='flex justify-between gap-2'>
+                <div className='flex justify-between gap-2 h-8'>
                   <Title
                     size='xs'
                     fontWeight='medium'
@@ -85,11 +74,17 @@ const ChannelList = ({ channels }: ChannelListProps) => {
                   >
                     {channel.title}
                   </Title>
-                  <ListItem.Label
-                    className={clsx('text-caption1', 'text-mediumgray')}
-                  >
-                    {date}
-                  </ListItem.Label>
+                  <div className='w-[100px]'>
+                    <ListItem.Label
+                      className={clsx('text-caption1', 'text-mediumgray')}
+                    >
+                      {date}
+                    </ListItem.Label>
+                    <ChannelExitButton
+                      channelId={channel.channelId}
+                      className='sr-only group-hover:not-sr-only'
+                    />
+                  </div>
                 </div>
                 <ListItem.Subtitle
                   className={clsx('text-caption1', 'text-mediumgray')}

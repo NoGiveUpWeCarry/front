@@ -52,3 +52,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 - 에디터 이미지 크기 제한
 - 알림 최신순 정렬 (최신 알림이 위로 가게)
+
+## [0.2.0] - 2025-03-17
+
+### Added
+
+- 채팅 메시지 검색 기능 추가
+
+### Changed
+
+- 모바일 사이즈 대응
+- a11y 개선
+  - `img` 태그에 alt 속성 추가
+  - 컴포넌트 색상 대비를 좀 더 명확하게 수정
+  - `button` 태그에 aria-label 속성 추가
+- SEO 개선
+  - 메타 태그 설정
+  - robots.txt 파일 작성
+  - [이미지 사이즈 최적화](https://github.com/NoGiveUpWeCarry/front/pull/155)

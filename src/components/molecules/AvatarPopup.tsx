@@ -10,7 +10,7 @@ interface IProps {
   nickname: string;
   userId: number;
   profileUrl: string | null;
-  avatarSize?: 'xxs' | 'xs' | 'sm' | 'md' | 'lg';
+  avatarSize?: 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'gg';
   avatarClassname?: string;
   popupClassname?: string;
 }
@@ -24,7 +24,7 @@ const AvatarPopup = ({
   popupClassname,
 }: IProps) => {
   const navigate = useNavigate();
-  const { userInfo, isLoggedIn } = useAuthStore(useShallow((state) => state));
+  const { userInfo } = useAuthStore(useShallow((state) => state));
 
   const { isOpen, openModal, closeModal } = useModal();
 
@@ -34,7 +34,7 @@ const AvatarPopup = ({
     <div className='relative cursor-pointer flex items-center !h-fit'>
       <button
         onClick={() => {
-          if (!isLoggedIn) return null;
+          // if (!isLoggedIn) return null;
           if (userId === userInfo?.userId) {
             navigate(`/@${userInfo?.nickname}`);
           } else {

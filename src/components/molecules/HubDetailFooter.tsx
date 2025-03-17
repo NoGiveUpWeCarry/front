@@ -53,7 +53,7 @@ const HubDetailFooter = ({
   };
 
   return (
-    <div className='fixed bottom-[10px] bg-[#4B4B4B] ml-[20px] w-[760px] h-[40px] rounded-[10px] py-[10px] px-[200px] flex text-white text-heading2'>
+    <div className='fixed bottom-[10px] bg-[#4B4B4B] ml-[20px] w-[760px] h-[40px] rounded-[10px] py-[10px] px-[200px] hidden md:flex text-white text-heading2'>
       <div className='flex w-full justify-between'>
         <div
           className={`flex ${isLoading ? 'cursor-not-allowed' : 'cursor-pointer'}`}

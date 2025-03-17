@@ -3,11 +3,11 @@ export const meetingTagItems = {
   OFFLINE: 'OFFLINE',
 } as const;
 
-export type meetingTagItemskey = keyof typeof meetingTagItems;
+export type MeetingTagItemskey = keyof typeof meetingTagItems;
 
-export type meetingTagItemsValue =
+export type MeetingTagItemsValue =
   (typeof meetingTagItems)[keyof typeof meetingTagItems];
-export const meetingTagItemsColors: Record<meetingTagItemskey, string> = {
+export const meetingTagItemsColors: Record<MeetingTagItemskey, string> = {
   ONLINE:
     'bg-gradient-to-r from-[#039160] to-[#96FFDA] text-[14px] rounded-full',
   OFFLINE:

@@ -31,7 +31,9 @@ const FollowersModal = ({
   });
 
   useEffect(() => {
-    refetch();
+    if (active) {
+      refetch();
+    }
   }, [active]);
 
   if (!isOpen) return null;
@@ -66,7 +68,7 @@ const FollowersModal = ({
                     <Avatar size='xs' src={user?.profileUrl || undefined} />
                   ) : (
                     <div className='w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center overflow-hidden'>
-                      <img src={logoIcon} width={22} />
+                      <img src={logoIcon} width={22} alt='logo' />
                     </div>
                   )}
                 </ListItem.Col>

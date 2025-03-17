@@ -17,7 +17,7 @@ const InputDropdownItem = ({
   };
 
   return (
-    <ul className='absolute left-0 mt-2 w-fit border bg-white shadow rounded z-50 ml-[20px]'>
+    <ul className='absolute left-0 mt-2 w-fit border bg-white shadow rounded z-50'>
       {Object.keys(tagItem).map((key) => {
         const tagKey = key as TagItemKey;
         return (

@@ -1,13 +1,12 @@
 import { Outlet } from 'react-router-dom';
-import SideMenu from '@/components/organisms/sides/SideMenu';
+import { PropsWithChildren } from 'react';
 
-const SubLayout = () => {
+interface Props extends PropsWithChildren {}
+
+const SubLayout = ({ children }: Props) => {
   return (
-    <div className='min-h-screen flex px-[10px]'>
-      <div className='sticky top-0 h-screen w-[68px] '>
-        <SideMenu />
-      </div>
-
+    <div className='min-h-screen flex lg:px-[10px] flex-col lg:flex-row'>
+      <div className='sticky top-0 lg:w-[68px] w-0 z-10'>{children}</div>
       <div className='flex-1 overflow-y-auto'>
         <div className='max-w-[1240px] w-full mx-auto'>
           <Outlet />

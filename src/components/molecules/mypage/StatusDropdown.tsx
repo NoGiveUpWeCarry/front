@@ -22,9 +22,6 @@ const StatusDropdown = () => {
     selectedOption,
     setSelectedOption,
     toggleDropdown,
-    // onKeyDown,
-    // focusedIndex,
-    // setFocusedIndex,
   } = useDropdown<StatusOption>({ data: options, initialValue: options[0] });
 
   const [settingsForm] = useSettingsStore(
@@ -68,8 +65,6 @@ const StatusDropdown = () => {
         <Dropdown
           type='status'
           options={options}
-          // focusedIndex={focusedIndex!}
-          // setFocusedIndex={setFocusedIndex}
           onClickDropdownItem={handleClickItem}
         />
       )}

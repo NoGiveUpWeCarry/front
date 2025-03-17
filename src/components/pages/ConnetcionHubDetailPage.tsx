@@ -1,7 +1,7 @@
 import ConnectionHubDetail from '@/components/organisms/ConnectionHubDetail';
 import { useParams } from 'react-router-dom';
 
-function ConnetcionHubDetailPage() {
+const ConnetcionHubDetailPage = () => {
   const { projectId } = useParams<{ projectId: string }>();
 
   return (
@@ -9,6 +9,6 @@ function ConnetcionHubDetailPage() {
       <ConnectionHubDetail key={projectId} />
     </div>
   );
-}
+};
 
 export default ConnetcionHubDetailPage;

@@ -1,22 +1,20 @@
 import { searchChannelMessages } from '@/apis/channel.api';
-import { LIMIT } from '@/constants/limit';
 import { useSearchStore } from '@/store/searchStore';
 import { useQuery } from '@tanstack/react-query';
 
-export const useSearchMessagesQuery = (
-  currentChannelId: number,
-  keyword: string
-) => {
+interface QueryKey {
+  channelId: number;
+  cursor: number | null;
+  direction: 'backward' | 'forward';
+  keyword: string;
+}
+
+export const useSearchMessages = (queryKey: QueryKey) => {
+  const searchMode = useSearchStore((state) => state.searchMode);
+
   return useQuery({
-    queryKey: ['searchMessages', currentChannelId, keyword],
-    queryFn: () =>
-      searchChannelMessages({
-        channelId: currentChannelId,
-        cursor: useSearchStore.getState().searchCursors?.search || null,
-        limit: LIMIT.SEARCH_MESSAGES,
-        direction: useSearchStore.getState().searchDirection,
-        keyword: keyword,
-      }),
-    enabled: false,
+    queryKey: ['searchMessages', queryKey],
+    queryFn: () => searchChannelMessages(queryKey),
+    enabled: !!searchMode,
   });
 };
