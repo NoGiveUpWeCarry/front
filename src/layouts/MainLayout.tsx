@@ -27,7 +27,13 @@ const MainLayout = () => {
             <SideMenu />
           </div>
           <div className='lg:hidden w-full h-full bg-white'>
-            <MobileNav />
+            <MobileNav>
+              <MobileNav.Logo />
+              <MobileNav.Search />
+              <MobileNav.Actions />
+              <MobileNav.Notification />
+              <MobileNav.Menu />
+            </MobileNav>
           </div>
         </div>
       )}

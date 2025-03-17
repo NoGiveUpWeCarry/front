@@ -10,7 +10,7 @@ const MobileHamburgarMenu = () => {
   const { mutate } = useLogout();
 
   return (
-    <div className='absolute mt-1 px-1 w-full h-full'>
+    <div className='absolute mt-1 px-1 w-full h-full top-[50px]'>
       <nav className='w-full h-fit border rounded-2xl bg-white px-1 py-1 flex-col gap'>
         <button
           className='w-full px-2 py-[6px] flex items-center gap-2'
