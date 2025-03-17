@@ -83,7 +83,6 @@ const HubDetail = ({
             startDate={startDate}
             duration={duration}
             workType={workType}
-            // role={role}
             detailRoles={detailRoles}
           />
           <HubSkill skills={skills} />
