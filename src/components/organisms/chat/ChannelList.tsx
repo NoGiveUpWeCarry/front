@@ -47,7 +47,7 @@ const ChannelList = ({ channels, currentChannelId }: ChannelListProps) => {
           <li
             key={channel.channelId}
             onClick={() => handleChannelClick(channel.channelId)}
-            className='group relative'
+            className='group'
           >
             <ListItem
               className={clsx([

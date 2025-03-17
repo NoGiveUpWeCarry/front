@@ -17,8 +17,8 @@ const BaseSearchForm = ({
   className,
 }: BaseSearchFormProps) => {
   return (
-    <div className='relative'>
-      <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit}>
+      <div className='relative'>
         <button className='absolute top-1/2 left-[20px] transform -translate-y-1/2 -translate-x-1/2 w-[24px] h-[24px] text-[#CCCCCC]'>
           <Icon type='search' color='gray' className='text-[#CCCCCC]' />
         </button>
@@ -30,8 +30,8 @@ const BaseSearchForm = ({
           onChange={onChange}
         />
         {children}
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
 

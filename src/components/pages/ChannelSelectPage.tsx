@@ -19,7 +19,7 @@ const ChannelSelectPage = () => {
   const filteredChannels = filterChannels(debouncedKeyword, channels);
 
   return (
-    <div className='flex flex-col gap-[24px] flex-1 pt-[30px]'>
+    <div className='flex flex-col gap-[24px] flex-1 lg:pt-[61px] p-[10px] '>
       <ChannelSearchForm
         onChange={(e) => setKeyword(e.target.value)}
         value={keyword}
