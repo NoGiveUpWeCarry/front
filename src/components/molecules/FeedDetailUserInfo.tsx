@@ -28,8 +28,7 @@ const FeedDetailUserInfo = ({
   postId,
   userId,
 }: FeedDetailUserInfoProps) => {
-  const { isModalOpen, setIsSubmitted, openPostModal, closePostModal } =
-    usePostModal();
+  const { isModalOpen, openPostModal, closePostModal } = usePostModal();
   const [clicked, setClicked] = useState<boolean>(false);
   const navigate = useNavigate();
   const { mutate: deleteFeed } = useDeleteFeed();
@@ -109,7 +108,7 @@ const FeedDetailUserInfo = ({
       {isModalOpen && (
         <PostFeedModal
           onClose={closePostModal}
-          onSubmit={() => setIsSubmitted(true)}
+          // onSubmit={() => setIsSubmitted(true)}
           onRevise
         />
       )}

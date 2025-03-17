@@ -21,7 +21,7 @@ export const chatHandlers = [
       const cursor = url.searchParams.get('cursor')
         ? (Number(
             url.searchParams.get('cursor')
-          ) as SearchChannelMessagesResponse['cursors']['search'])
+          ) as SearchChannelMessagesResponse['cursor'])
         : null;
       const keyword = url.searchParams.get('keyword')
         ? (url.searchParams.get('keyword') as SearchState['searchKeyword'])
@@ -136,9 +136,9 @@ export const chatHandlers = [
 
         messages = messages.slice(0, limit);
 
-        let prev: SearchChannelMessagesResponse['cursors']['prev'] | null;
-        let next: SearchChannelMessagesResponse['cursors']['next'] | null;
-        let search: SearchChannelMessagesResponse['cursors']['search'] | null;
+        let prev: SearchChannelMessagesResponse['cursor'];
+        let next: SearchChannelMessagesResponse['cursor'];
+        let search: SearchChannelMessagesResponse['cursor'];
         if (messages.length) {
           next = null;
           prev = messages[messages.length - 1].messageId;
@@ -243,7 +243,7 @@ function infiniteScroll(
 }
 
 function searchMessage(
-  cursor: SearchChannelMessagesResponse['cursors']['next' | 'prev' | 'search'],
+  cursor: SearchChannelMessagesResponse['cursor'],
   messages: ReceiveMessage[],
   direction: SearchState['searchDirection'],
   keyword: SearchState['searchKeyword'],

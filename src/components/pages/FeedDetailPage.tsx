@@ -85,7 +85,7 @@ const FeedDetailPage = () => {
           >
             <FeedDetail
               tags={post.tags}
-              date={post.createdAt}
+              // date={post.createdAt}
               title={post.title}
               content={post.content}
             />

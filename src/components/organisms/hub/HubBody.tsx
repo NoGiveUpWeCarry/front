@@ -2,23 +2,23 @@ import Role from '@/components/atoms/Role';
 import HubContentsTime from '@/components/molecules/hub/HubContentsTime';
 import {
   meetingTagItemsColors,
-  meetingTagItemskey,
+  type MeetingTagItemskey,
 } from '@/constants/hub/meetingTagItems';
 import { RoleItemKeys } from '@/constants/hub/roleItems';
 import {
   roleTagItems,
   roleTagItemsColors,
-  roleTagItemsKey,
+  type RoleTagItemsKey,
 } from '@/constants/hub/roleTagsItems';
 import {
   statusTagItemsColors,
-  statusTagItemskey,
+  type StatusTagItemskey,
 } from '@/constants/hub/statusTagItems';
 
 interface HubBodyProps {
-  workType: meetingTagItemskey;
-  detailRoles: roleTagItemsKey[];
-  status: statusTagItemskey;
+  workType: MeetingTagItemskey;
+  detailRoles: RoleTagItemsKey[];
+  status: StatusTagItemskey;
   role: RoleItemKeys;
   startDate: string;
   duration: string;
