@@ -56,7 +56,7 @@ const FeedDetailChat = ({ comments, feedId }: FeedDetailChatProps) => {
         <div className='relative bg-lightgray w-full h-[600px] rounded-[20px] overflow-y-scroll px-4'>
           <div
             className={clsx(
-              'relative w-full rounded-xl overflow-y-hidden lg:p-4 lg:bg-transparent bg-white'
+              'relative w-full rounded-xl overflow-y-hidden lg:p-4 lg:bg-transparent'
             )}
           >
             <div

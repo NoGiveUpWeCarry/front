@@ -63,7 +63,7 @@ const FeedDetailFooter = ({
     );
   };
   return (
-    <div className='fixed md:absolute bottom-[10px] left-[50%] transform -translate-x-1/2 transition-all h-[40px] w-full text-white text-heading2 hidden md:flex justify-center'>
+    <div className='fixed lg:absolute bottom-[10px] left-[50%] transform -translate-x-1/2 transition-all h-[40px] w-full text-white text-heading2 flex justify-center'>
       <div className='flex justify-between bg-[rgb(75,75,75)] rounded-lg items-center px-2 w-80 py-1'>
         <div className='flex text-[18px] h-full items-center px-5'>
           <Icon
