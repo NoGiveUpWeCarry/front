@@ -12,7 +12,6 @@ interface FeedDetailUserInfoProps {
   userNickname: string;
   userProfileUrl: string;
   userRole: string;
-  title: string;
   createdAt: string;
   isWriter: boolean;
   postId: number;
@@ -22,7 +21,6 @@ const FeedDetailUserInfo = ({
   userNickname,
   userProfileUrl,
   userRole,
-  title,
   createdAt,
   isWriter,
   postId,
@@ -60,8 +58,6 @@ const FeedDetailUserInfo = ({
         <div className='flex flex-col justify-between'>
           <div className='flex text-caption1'>
             <p className='font-medium'>{userNickname}</p>
-            <p>님의 &nbsp;</p>
-            <p className='font-medium'>{title}</p>
           </div>
           <div className='text-caption1 flex'>
             <p className='font-medium'>{userRole}&nbsp;&nbsp;</p>

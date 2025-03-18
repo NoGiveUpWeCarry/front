@@ -1,21 +1,18 @@
 import { useState } from 'react';
 import Icon from '@/components/atoms/Icon';
 import Avatar from '@/components/atoms/Avatar';
+import useAuthStore from '@/store/authStore';
+import { useShallow } from 'zustand/shallow';
 
 interface CommentInputProps {
   onSubmit: (content: string) => void;
   userImage: string;
   isPending: boolean;
-  // isLoggedIn: boolean;
 }
 
-const ChatInput = ({
-  onSubmit,
-  userImage,
-  isPending,
-  // isLoggedIn,
-}: CommentInputProps) => {
+const ChatInput = ({ onSubmit, userImage, isPending }: CommentInputProps) => {
   const [comment, setComment] = useState<string>('');
+  const { isLoggedIn } = useAuthStore(useShallow((state) => state));
 
   const handleSubmit = () => {
     if (!comment.trim()) {
@@ -35,7 +32,7 @@ const ChatInput = ({
 
   return (
     <>
-      <div className='w-full h-[40px] flex gap-[10px] mb-[20px]'>
+      <div className='w-full h-[40px] flex gap-[10px] mb-20'>
         <Avatar
           src={userImage || undefined}
           alt='User Avatar'
@@ -47,7 +44,7 @@ const ChatInput = ({
             placeholder='내용을 입력해주세요.'
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            disabled={isPending}
+            disabled={isPending || !isLoggedIn}
             onKeyDown={handleKeyDown}
           />
           <div

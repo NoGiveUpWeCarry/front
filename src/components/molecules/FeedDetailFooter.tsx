@@ -63,12 +63,12 @@ const FeedDetailFooter = ({
     );
   };
   return (
-    <div className='fixed bottom-[10px] left-[30%] h-[40px] w-full text-white text-heading2 hidden md:flex'>
+    <div className='fixed md:absolute bottom-[10px] left-[50%] transform -translate-x-1/2 transition-all h-[40px] w-full text-white text-heading2 hidden md:flex justify-center'>
       <div className='flex justify-between bg-[rgb(75,75,75)] rounded-lg items-center px-2 w-80 py-1'>
         <div className='flex text-[18px] h-full items-center px-5'>
           <Icon
             type='chatBubbleOvalLeftEllipsis'
-            className='w-5 h-5 text-zinc-300'
+            className='w-5 h-5 text-zinc-300 mb-[2px]'
           />
           &nbsp;
           {commentCount}
@@ -91,10 +91,6 @@ const FeedDetailFooter = ({
           <Icon type='eye' className='w-5 h-5 text-zinc-300' />
           &nbsp;
           {viewCount}
-        </div>
-        <div className='flex text-[18px] h-full items-center px-5'>
-          <Icon type='eye' className='w-5 h-5 text-zinc-300' />
-          &nbsp;
         </div>
       </div>
     </div>
