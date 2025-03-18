@@ -1,17 +1,19 @@
+import { useEffect } from 'react';
+import { HubItem } from '@/mocks/mock-data/hubItem';
 import { useInfiniteFetchHubs } from '@/hooks/queries/hub.query';
+import useHubSearchStore from '@/store/hubSeartchStore';
 import { HubContents } from '@/components/organisms/hub/HubContents';
 import { useInView } from 'react-intersection-observer';
-import useHubSearchStore from '@/store/hubSeartchStore';
-import { useEffect } from 'react';
 
 const Hub = () => {
   const { sort, role, unit } = useHubSearchStore((state) => state);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteFetchHubs(sort, role || '', unit || '');
 
-  const flattenedData = data?.pages.flatMap((page) => page.projects) || [];
+  const flattenedData: HubItem[] =
+    data?.pages.flatMap((page) => page.projects) || [];
 
-  const { ref, inView } = useInView({
+  const { ref: observerRef, inView } = useInView({
     triggerOnce: false,
     threshold: 0.5,
   });
@@ -26,7 +28,12 @@ const Hub = () => {
     <div className='flex flex-col gap-8 w-full h-full'>
       {flattenedData.length ? (
         flattenedData.map((item) => (
-          <div key={item.projectId}>
+          <div
+            key={item.projectId}
+            onClick={(e) => {
+              if ((e.target as HTMLElement).closest('.bookmark-button')) return;
+            }}
+          >
             <HubContents {...item} />
           </div>
         ))
@@ -37,7 +44,7 @@ const Hub = () => {
       )}
 
       {hasNextPage && (
-        <div ref={ref} className='h-10 w-full text-center'>
+        <div ref={observerRef} className='h-10 w-full text-center'>
           로딩중...
         </div>
       )}
