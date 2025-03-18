@@ -25,7 +25,7 @@ const HubLayout = () => {
       </div>
 
       <div className='flex-1 overflow-y-auto'>
-        <div className='max-w-[800px] w-full mx-auto py-6'>
+        <div className='max-w-[658px] w-full mx-auto py-6'>
           <Outlet />
         </div>
       </div>
