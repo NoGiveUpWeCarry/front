@@ -1,7 +1,7 @@
-import Avatar from '@/components/atoms/Avatar';
-import Icon from '@/components/atoms/Icon';
+import NotificationList from '@/components/organisms/sides/NotificationList';
 import { useNotification } from '@/components/organisms/sse/NotificationProvider';
-import { useEffect, useRef } from 'react';
+import { useOutsideClick } from '@/hooks/useOutsideClick';
+import { useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 const SideMenuNotification = () => {
@@ -14,24 +14,11 @@ const SideMenuNotification = () => {
 
   const notificationRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        notificationRef.current &&
-        !notificationRef.current.contains(event.target as Node)
-      ) {
-        setShowNotificationBox(false);
-      }
-    };
-
-    if (showNotificationBox) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [showNotificationBox]);
+  useOutsideClick({
+    ref: notificationRef,
+    handler: () => setShowNotificationBox(false),
+    eventType: 'mousedown',
+  });
 
   if (!showNotificationBox) return null;
 
@@ -45,42 +32,10 @@ const SideMenuNotification = () => {
           <div className='text-[18px] font-semibold text-[#48484a]'>
             알림 📫
           </div>
-          {messages.length === 0 ? (
-            <div className='text-[16px] text-[#828282]'>
-              현재 새로운 알림이 없습니다.
-            </div>
-          ) : (
-            <div className='flex w-full flex-col gap-[20px]'>
-              {messages.map((message) => (
-                <div
-                  key={message.notificationId}
-                  className='flex w-full justify-start text-[14px] items-center gap-[10px]'
-                >
-                  <Avatar
-                    src={message.senderProfileUrl || undefined}
-                    size='xs'
-                  />
-                  <div>
-                    <div>{message.message}</div>
-                    <div className='text-[12px] text-gray-500'>
-                      {message.timestamp}
-                    </div>
-                  </div>
-                  <div
-                    onClick={() =>
-                      markNotificationAsRead(message.notificationId)
-                    }
-                  >
-                    <Icon
-                      type='trash'
-                      color='black'
-                      className='w-[20px] h-[20px] cursor-pointer'
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+          <NotificationList
+            messages={messages}
+            onDelete={markNotificationAsRead}
+          />
         </div>
       </div>
     </div>,
