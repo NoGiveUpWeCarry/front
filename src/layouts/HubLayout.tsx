@@ -14,7 +14,13 @@ const HubLayout = () => {
           <SideMenu />
         </div>
         <div className='block lg:hidden w-full h-full'>
-          <MobileNav />
+          <MobileNav>
+            <MobileNav.Logo />
+            <MobileNav.Search />
+            <MobileNav.Actions />
+            <MobileNav.Menu />
+            <MobileNav.Notification />
+          </MobileNav>
         </div>
       </div>
 

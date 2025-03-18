@@ -3,9 +3,19 @@ import { useChatStore } from '@/store/chatStore';
 import { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
 import useAuthStore from '@/store/authStore';
+import { useChannelId } from '@/hooks/chat/useChannelId';
+import queryClient from '@/utils/queryClient';
 
 export const useChat = () => {
   const location = useLocation();
+  const { currentChannelId } = useChannelId();
+
+  const { joinChannel, setState } = useChatStore(
+    useShallow((state) => ({
+      joinChannel: state.joinChannel,
+      setState: state.setState,
+    }))
+  );
 
   const { userInfo, isLoggedIn } = useAuthStore(
     useShallow((state) => ({
@@ -50,4 +60,17 @@ export const useChat = () => {
       window.history.replaceState({}, '');
     };
   }, []);
+
+  useEffect(() => {
+    if (currentChannelId) {
+      joinChannel(userInfo.userId, currentChannelId);
+      queryClient.invalidateQueries({
+        queryKey: ['messages', { channelId: currentChannelId }],
+      });
+    }
+    setState({ currentChannelId });
+    return () => {
+      setState({ currentChannelId: null });
+    };
+  }, [currentChannelId]);
 };

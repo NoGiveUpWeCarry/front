@@ -25,6 +25,8 @@ import {
   ArrowRightStartOnRectangleIcon,
   ListBulletIcon,
   H1Icon,
+  Bars3Icon,
+  ChevronUpIcon,
 } from '@heroicons/react/24/outline';
 import {
   UserCircleIcon,
@@ -33,16 +35,27 @@ import {
   BookmarkIcon as BookmarkSolidIcon,
   ChatBubbleOvalLeftEllipsisIcon,
   EyeIcon,
+  BellIcon as BellSolidIcon,
+  HomeIcon as HomeSolidIcon,
+  EnvelopeIcon as EnvelopeSolidIcon,
+  StarIcon as StarSolidIcon,
+  ArrowLeftStartOnRectangleIcon,
+  Cog6ToothIcon,
+  ChevronLeftIcon as BehindSolid,
 } from '@heroicons/react/24/solid';
 import { cva, VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/cn';
 
 type IconType =
   | 'bell'
+  | 'bellSolid'
   | 'mail'
+  | 'mailSolid'
   | 'home'
+  | 'homeSolid'
   | 'search'
   | 'star'
+  | 'starSolid'
   | 'plus'
   | 'xmark'
   | 'comment'
@@ -68,13 +81,19 @@ type IconType =
   | 'bookmarkSolid'
   | 'exit'
   | 'list'
-  | 'h1';
+  | 'h1'
+  | 'bar3'
+  | 'logOut'
+  | 'cog'
+  | 'behindSolid'
+  | 'up';
 
 const iconVariants = cva('', {
   variants: {
     color: {
       black: 'text-black',
       white: 'text-white',
+      lightgray: 'text-lightgray',
       gray: 'text-[#838383]',
       red: 'text-[#FF5E5E]',
     },
@@ -87,8 +106,6 @@ const iconVariants = cva('', {
 interface IconProps extends VariantProps<typeof iconVariants> {
   type: IconType;
   className?: string;
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
 }
 
 const Icon = ({ type, className = '', color }: IconProps) => {
@@ -166,6 +183,29 @@ const Icon = ({ type, className = '', color }: IconProps) => {
     ),
     list: <ListBulletIcon className={cn(iconVariants({ color }), className)} />,
     h1: <H1Icon className={cn(iconVariants({ color }), className)} />,
+    bar3: <Bars3Icon className={cn(iconVariants({ color }), className)} />,
+    bellSolid: (
+      <BellSolidIcon className={cn(iconVariants({ color }), className)} />
+    ),
+    homeSolid: (
+      <HomeSolidIcon className={cn(iconVariants({ color }), className)} />
+    ),
+    mailSolid: (
+      <EnvelopeSolidIcon className={cn(iconVariants({ color }), className)} />
+    ),
+    starSolid: (
+      <StarSolidIcon className={cn(iconVariants({ color }), className)} />
+    ),
+    logOut: (
+      <ArrowLeftStartOnRectangleIcon
+        className={cn(iconVariants({ color }), className)}
+      />
+    ),
+    cog: <Cog6ToothIcon className={cn(iconVariants({ color }), className)} />,
+    behindSolid: (
+      <BehindSolid className={cn(iconVariants({ color }), className)} />
+    ),
+    up: <ChevronUpIcon className={cn(iconVariants({ color }), className)} />,
   };
 
   return <>{icons[type]}</>;

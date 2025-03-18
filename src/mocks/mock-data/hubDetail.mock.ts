@@ -1,22 +1,28 @@
 import { hubTagItems, HubTagItemsKey } from '@/constants/hub/hubTagItems';
 import {
   meetingTagItems,
-  meetingTagItemskey,
+  type MeetingTagItemskey,
 } from '@/constants/hub/meetingTagItems';
-import { roleTagItems, roleTagItemsKey } from '@/constants/hub/roleTagsItems';
-import { skillTagItems, skillTagItemsKey } from '@/constants/hub/skillTagItems';
+import {
+  roleTagItems,
+  type RoleTagItemsKey,
+} from '@/constants/hub/roleTagsItems';
+import {
+  skillTagItems,
+  type SkillTagItemsKey,
+} from '@/constants/hub/skillTagItems';
 import {
   statusTagItems,
-  statusTagItemskey,
+  type StatusTagItemskey,
 } from '@/constants/hub/statusTagItems';
 import { DetailItem } from '@/mocks/mock-data/detailItem';
 import { fakerKO as faker } from '@faker-js/faker';
 
-const skillTagOptions = Object.keys(skillTagItems) as skillTagItemsKey[];
-const meetingTagOptions = Object.keys(meetingTagItems) as meetingTagItemskey[];
+const skillTagOptions = Object.keys(skillTagItems) as SkillTagItemsKey[];
+const meetingTagOptions = Object.keys(meetingTagItems) as MeetingTagItemskey[];
 const hubTagOptions = Object.keys(hubTagItems) as HubTagItemsKey[];
-const statusTagOptions = Object.keys(statusTagItems) as statusTagItemskey[];
-const roleTagOptions = Object.keys(roleTagItems) as roleTagItemsKey[];
+const statusTagOptions = Object.keys(statusTagItems) as StatusTagItemskey[];
+const roleTagOptions = Object.keys(roleTagItems) as RoleTagItemsKey[];
 
 const getRandomElements = <T>(array: T[], min: number, max: number): T[] => {
   const count = faker.number.int({ min, max });

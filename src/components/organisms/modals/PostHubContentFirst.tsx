@@ -29,6 +29,19 @@ interface PostHubContentFirstProps {
   onNext: () => void;
 }
 const PostHubContentFirst = ({ onNext }: PostHubContentFirstProps) => {
+  const [hubContent, setHubContent] = useState<Omit<HubState, 'content'>>({
+    title: '',
+    role: '',
+    hubType: 'PROJECT',
+    startDate: '',
+    duration: '',
+    durationType: '',
+    workType: 'OFFLINE',
+    recruiting: true,
+    skills: [],
+    detailRoles: [],
+  });
+
   const handleDurationChange = (
     type: 'duration' | 'durationType',
     value: string
@@ -62,19 +75,6 @@ const PostHubContentFirst = ({ onNext }: PostHubContentFirstProps) => {
     setSkills,
     setDetailRoles,
   } = useHubStore();
-
-  const [hubContent, setHubContent] = useState<Omit<HubState, 'content'>>({
-    title: '',
-    role: '',
-    hubType: 'PROJECT',
-    startDate: '',
-    duration: '',
-    durationType: '',
-    workType: 'OFFLINE',
-    recruiting: true,
-    skills: [],
-    detailRoles: [],
-  });
 
   const [errors, setErrors] = useState({
     title: false,

@@ -70,6 +70,7 @@ const Notifications = () => {
           setShowNotificationBox((prev) => !prev);
           setNewNotification(false);
         }}
+        aria-label='알림'
       >
         🔔 {newNotification && <span className='text-red-500'>*</span>}
       </button>

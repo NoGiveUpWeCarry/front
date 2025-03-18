@@ -7,7 +7,7 @@ interface HighlightedTextProps {
 
 const HighlightedText = ({ content }: HighlightedTextProps) => {
   const keyword = useSearchStore((state) => state.searchKeyword);
-  const regex = new RegExp(`(${keyword})`, 'gi');
+  const regex = new RegExp(`(${keyword})`, 'gi'); // keyword 로 정규식에 사용되는 특수 문자가 들어올 경우 에러가 발생함
   const parts = content.split(regex);
 
   return (

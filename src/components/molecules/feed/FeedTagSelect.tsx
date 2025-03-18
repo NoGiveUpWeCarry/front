@@ -9,7 +9,7 @@ import {
 import { tagItem } from '@/constants/tagItem';
 import useFeedSearchStore from '@/store/feedSearchStore';
 
-export function FeedTagSelect() {
+export const FeedTagSelect = () => {
   const setTags = useFeedSearchStore((state) => state.setTags);
 
   const handleChange = (value: string) => {
@@ -19,7 +19,7 @@ export function FeedTagSelect() {
 
   return (
     <Select onValueChange={handleChange}>
-      <SelectTrigger className='w-[110px] bg-white'>
+      <SelectTrigger className='w-[110px] bg-white h-11' aria-label='태그 선택'>
         <SelectValue placeholder='🏷️ 태그' />
       </SelectTrigger>
       <SelectContent>
@@ -34,4 +34,4 @@ export function FeedTagSelect() {
       </SelectContent>
     </Select>
   );
-}
+};

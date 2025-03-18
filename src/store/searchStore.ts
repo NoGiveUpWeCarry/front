@@ -1,15 +1,11 @@
-import {
-  FetchChannelMessagesRequest,
-  SearchChannelMessagesResponse,
-} from '@/types/message.type';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 export interface SearchState {
-  searchDirection: FetchChannelMessagesRequest['direction'];
-  searchCursors: SearchChannelMessagesResponse['cursors'];
   searchMode: boolean;
   searchKeyword: string;
+  searchDirection: 'backward' | 'forward';
+  searchCursor: number | null;
 }
 
 export interface SearchAction {
@@ -18,16 +14,16 @@ export interface SearchAction {
 
 type SearchStore = SearchState & SearchAction;
 
+export const initialState: SearchState = {
+  searchMode: false,
+  searchKeyword: '',
+  searchDirection: 'backward',
+  searchCursor: null,
+};
+
 export const useSearchStore = create<SearchStore>()(
   immer((set) => ({
-    searchDirection: 'backward',
-    searchCursors: {
-      prev: null,
-      next: null,
-      search: null,
-    },
-    searchMode: false,
-    searchKeyword: '',
+    ...initialState,
     setState: (state) => {
       set(() => ({ ...state }));
     },

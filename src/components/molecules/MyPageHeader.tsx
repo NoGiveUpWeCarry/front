@@ -14,6 +14,7 @@ import { useShallow } from 'zustand/shallow';
 import githubIcon from '@/assets/icons/github.svg';
 import linkedInIcon from '@/assets/icons/linkedin.svg';
 import notionIcon from '@/assets/icons/notion.svg';
+import MetaTag from '@/utils/MetaTags';
 
 const LINK_ICONS = {
   github: githubIcon,
@@ -65,6 +66,12 @@ const MyPageHeader = () => {
 
   return (
     <div className='h-[166px] flex items-center gap-7'>
+      <MetaTag
+        title={`@${nickname}`}
+        description={headerData?.introduce}
+        imgSrc={headerData?.profileUrl}
+        url={`/@${nickname}`}
+      />
       {headerData?.profileUrl ? (
         <div className='w-[120px] h-[120px] rounded-full'>
           <Avatar
@@ -100,7 +107,7 @@ const MyPageHeader = () => {
           <p
             className={cn(
               'text-body1 font-regular line-clamp-2',
-              headerData?.introduce ? 'text-black' : 'text-[#838383]'
+              headerData?.introduce ? 'text-black' : 'text-[#696969]'
             )}
           >
             {headerData?.introduce || '한 줄 소개가 없습니다.'}
@@ -116,6 +123,7 @@ const MyPageHeader = () => {
                   <Link to={link} key={link}>
                     <img
                       src={LINK_ICONS[items as keyof typeof LINK_ICONS]}
+                      alt={`link icon to ${items}`}
                       width={20}
                       height={20}
                     />

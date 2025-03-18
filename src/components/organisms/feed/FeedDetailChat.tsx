@@ -14,7 +14,7 @@ interface FeedDetailChatProps {
 
 const FeedDetailChat = ({ comments, feedId }: FeedDetailChatProps) => {
   const { userId, profileUrl } = useAuthStore((state) => state.userInfo);
-  const { isLoggedIn } = useAuthStore((state) => state);
+  // const { isLoggedIn } = useAuthStore((state) => state);
   const groupedComments = groupCommentsByDate(comments);
   const { mutate: postComment, isPending } = usePostFeedChat();
   const { mutate: deleteComment } = useDeleteFeedChat();
@@ -51,17 +51,17 @@ const FeedDetailChat = ({ comments, feedId }: FeedDetailChatProps) => {
   };
 
   return (
-    <div className='mt-3 w-full h-fit flex flex-col gap-[20px] px-[50px]'>
+    <div className='mt-3 w-full h-fit flex flex-col lg:gap-[20px] gap-2 lg:px-[50px] px-5'>
       <ChatInput
         onSubmit={submitComment}
         userImage={profileUrl}
         isPending={isPending}
-        isLoggedIn={isLoggedIn}
+        // isLoggedIn={isLoggedIn}
       />
       {groupedComments && groupedComments.length > 0 ? (
         <div
           className={clsx(
-            'relative w-full rounded-[20px] overflow-hidden p-4 mb-8'
+            'relative w-full rounded-xl overflow-hidden lg:p-4 mb-8 lg:bg-transparent bg-white'
           )}
         >
           <div

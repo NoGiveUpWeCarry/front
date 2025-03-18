@@ -31,6 +31,7 @@ const UrlInput = ({
           <button
             className='absolute top-1/2 right-0 transform -translate-y-1/2 px-2 text-[#838383] hover:text-black'
             onClick={onDelete}
+            aria-label='URL 삭제'
           >
             <XMarkIcon width={18} />
           </button>

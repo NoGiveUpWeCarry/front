@@ -12,34 +12,30 @@ export const useSearchByModal = (
   });
 };
 
-export const useSearchConnectionHub = (
-  keyword: string,
-  latest?: boolean,
-  cursor?: number
-) => {
+export const useSearchConnectionHub = (keyword: string) => {
   return useInfiniteQuery({
-    queryKey: ['get-search-hub', keyword],
-    queryFn: () => searchConnectionHub({ keyword, latest, cursor }),
+    queryKey: ['saerch-hub', keyword],
+    queryFn: ({ pageParam = 0 }) => searchConnectionHub({ keyword, pageParam }),
     getNextPageParam: (lastPage) => {
       const { pagination } = lastPage;
-      return pagination.lastCursor !== null ? pagination.lastCursor : undefined;
+      return String(pagination.lastCursor) === '0'
+        ? undefined
+        : pagination.lastCursor;
     },
-    initialPageParam: cursor || 1,
+    initialPageParam: 0,
   });
 };
 
-export const useSearchFeed = (
-  keyword: string,
-  latest?: boolean,
-  cursor?: number
-) => {
+export const useSearchFeed = (keyword: string) => {
   return useInfiniteQuery({
-    queryKey: ['get-search-feed', keyword],
-    queryFn: () => searchFeed({ keyword, latest, cursor }),
+    queryKey: ['search-feed', keyword],
+    queryFn: ({ pageParam = 0 }) => searchFeed({ keyword, pageParam }),
     getNextPageParam: (lastPage) => {
       const { pagination } = lastPage;
-      return pagination.lastCursor !== null ? pagination.lastCursor : undefined;
+      return String(pagination.lastCursor) === '0'
+        ? undefined
+        : pagination.lastCursor;
     },
-    initialPageParam: cursor || 1,
+    initialPageParam: 0,
   });
 };

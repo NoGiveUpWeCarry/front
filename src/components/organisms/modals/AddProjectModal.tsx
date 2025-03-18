@@ -126,6 +126,7 @@ const AddProjectModal = ({
                   ? URL.createObjectURL(projectForm.image)
                   : projectForm.image
               }
+              alt='project image'
             />
           ) : (
             <CameraIcon width={24} />
@@ -158,6 +159,7 @@ const AddProjectModal = ({
           <UrlInput
             icon={<img src={githubIcon} width={16} />}
             category='Github'
+            alt='Github'
             placeholder='Github URL을 입력해주세요'
             name='github'
             value={projectForm.github}
@@ -174,6 +176,7 @@ const AddProjectModal = ({
           <UrlInput
             icon={<img src={appleIcon} width={17} />}
             category='iOS'
+            alt='iOS'
             placeholder='iOS 앱 URL을 입력해주세요'
             name='ios'
             value={projectForm.ios}
@@ -182,6 +185,7 @@ const AddProjectModal = ({
           <UrlInput
             icon={<img src={androidIcon} width={16} />}
             category='Android'
+            alt='Android'
             placeholder='안드로이드 앱 URL을 입력해주세요'
             name='android'
             value={projectForm.android}

@@ -12,9 +12,9 @@ interface MenuProps {
 const Menu = ({ items }: MenuProps) => {
   return (
     <nav className='flex flex-col w-[68px] space-y-[80px] transition-all duration-300 ease-in-out items-center'>
-      {items.map((item) => (
+      {items.map((item, idx) => (
         <button
-          key={item.label}
+          key={idx}
           onClick={item.onClick}
           className='relative group flex items-center cursor-pointer transition-all duration-300 ease-in-out'
         >

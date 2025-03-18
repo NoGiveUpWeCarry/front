@@ -6,7 +6,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   width?: string;
   height?: string;
   variants?: 'filled' | 'outline' | 'text';
-  radius: 'sm' | 'md' | 'lg' | 'full';
+  radius?: 'sm' | 'md' | 'lg' | 'full';
   className?: string;
 }
 

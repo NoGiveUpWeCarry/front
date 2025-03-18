@@ -5,11 +5,16 @@ import ChatMessages from '@/components/organisms/chat/ChatMessages';
 import ChatMessagesWelcome from '@/components/molecules/chat/ChatMessagesWelcome';
 import ChatHeaderInfo from '@/components/molecules/chat/ChatHeaderInfo';
 import ChatHeaderWelcome from '@/components/molecules/chat/ChatHeaderWelcome';
-import { useChatStore } from '@/store/chatStore';
+import { useEffect } from 'react';
+import { initialState, useSearchStore } from '@/store/searchStore';
+import { useChannelId } from '@/hooks/chat/useChannelId';
 
 const ChatRoom = () => {
-  const currentChannelId = useChatStore((state) => state.currentChannelId);
-
+  const setState = useSearchStore((state) => state.setState);
+  const { currentChannelId } = useChannelId();
+  useEffect(() => {
+    setState({ ...initialState });
+  }, [currentChannelId]);
   return (
     <>
       <ChatHeader>

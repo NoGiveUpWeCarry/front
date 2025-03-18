@@ -1,17 +1,17 @@
 import Role from '@/components/atoms/Role';
 import {
   meetingTagItemsColors,
-  meetingTagItemskey,
+  type MeetingTagItemskey,
 } from '@/constants/hub/meetingTagItems';
 import { RoleItemKeys } from '@/constants/hub/roleItems';
 import {
   statusTagItemsColors,
-  statusTagItemskey,
+  type StatusTagItemskey,
 } from '@/constants/hub/statusTagItems';
 
 interface HubInfoTagProps {
-  workType: meetingTagItemskey;
-  status: statusTagItemskey;
+  workType: MeetingTagItemskey;
+  status: StatusTagItemskey;
   role: RoleItemKeys;
 }
 

@@ -57,7 +57,7 @@ const IntroductionTemplate = () => {
       />
       <div className='h-[250px] sm:py-[10px] flex sm:items-center flex-col sm:flex-row gap-[17px]'>
         <div className='flex flex-col gap-[10px] bg-status w-full sm:w-[230px] h-[130px] sm:h-[230px] rounded-[12px] sm:rounded-[20px] py-4 px-4 relative'>
-          <span className='text-[15px] font-semibold text-white'>
+          <span className='text-[15px] font-semibold text-[#3B5BA5]'>
             <span className='hidden sm:block'>{role}</span> Status
           </span>
           <div className='absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-row sm:flex-col text-center gap-3 sm:gap-0'>
@@ -66,7 +66,7 @@ const IntroductionTemplate = () => {
                 el.label.startsWith(profileInfo?.status as string)
               )?.label.slice(-2) || '👀'}
             </span>
-            <span className='text-white'>
+            <span className='text-[#3B5BA5] font-semibold'>
               {profileInfo?.status || '프로젝트 탐색 중'}
             </span>
           </div>

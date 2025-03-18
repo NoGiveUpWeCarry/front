@@ -51,11 +51,11 @@ export const roleTagItems = {
   로큰롤: '#로큰롤',
 } as const;
 
-export type roleTagItemsKey = keyof typeof roleTagItems;
-export type roleTagItemsValue =
+export type RoleTagItemsKey = keyof typeof roleTagItems;
+export type RoleTagItemsValue =
   (typeof roleTagItems)[keyof typeof roleTagItems];
 
-export const roleTagItemsColors: Record<roleTagItemsKey, string> = {
+export const roleTagItemsColors: Record<RoleTagItemsKey, string> = {
   '백엔드 개발자': 'text-[#7d7d7d] text-[12px] rounded-full',
   '서버/백엔드 개발자': 'text-[#7d7d7d] text-[12px] rounded-full',
   '프론트엔드 개발자': 'text-[#7d7d7d] text-[12px] rounded-full',

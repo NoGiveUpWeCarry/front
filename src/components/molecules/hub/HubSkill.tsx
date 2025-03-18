@@ -1,12 +1,12 @@
 import {
   skillTagItems,
-  skillTagItemsKey,
+  type SkillTagItemsKey,
   skillTagItmesColors,
 } from '@/constants/hub/skillTagItems';
 import { useNavigate } from 'react-router-dom';
 
 interface HubSkillProps {
-  skills: skillTagItemsKey[];
+  skills: SkillTagItemsKey[];
 }
 
 const HubSkill = ({ skills }: HubSkillProps) => {

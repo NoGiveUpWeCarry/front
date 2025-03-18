@@ -2,8 +2,8 @@ import { PropsWithChildren } from 'react';
 
 interface ModalSubContentProps extends PropsWithChildren {
   className?: string;
-  px?: string;
-  py?: string;
+  // px?: string;
+  // py?: string;
 }
 
 const ModalSubContent = ({
