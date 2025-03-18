@@ -5,6 +5,8 @@ import {
   useState,
   ReactNode,
   useMemo,
+  SetStateAction,
+  Dispatch,
 } from 'react';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 import {
@@ -29,6 +31,8 @@ interface NotificationContextType {
   newNotification: boolean;
   markNotificationAsRead: (notificationId: number) => void;
   setNewNotification: (value: boolean) => void;
+  setShowNotificationBox: Dispatch<SetStateAction<boolean>>;
+  showNotificationBox: boolean;
 }
 
 const NotificationContext = createContext<NotificationContextType | null>(null);
@@ -55,6 +59,7 @@ export const NotificationProvider = ({
   const [newNotification, setNewNotification] = useState<boolean>(false);
   const { data: missedNotifications } = useFetchMissedNotifications();
   const { mutate: markAsRead } = usePatchNotificationAsRead();
+  const [showNotificationBox, setShowNotificationBox] = useState(false);
 
   useEffect(() => {
     if (missedNotifications?.notifications) {
@@ -139,8 +144,10 @@ export const NotificationProvider = ({
       newNotification,
       markNotificationAsRead,
       setNewNotification,
+      setShowNotificationBox,
+      showNotificationBox,
     }),
-    [messages, newNotification]
+    [messages, newNotification, showNotificationBox]
   );
 
   return (

@@ -4,16 +4,13 @@ import { useNotification } from '@/components/organisms/sse/NotificationProvider
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-interface SideMenuNotificationProps {
-  showNotificationBox: boolean;
-  setShowNotificationBox: (show: boolean) => void;
-}
-
-const SideMenuNotification = ({
-  showNotificationBox,
-  setShowNotificationBox,
-}: SideMenuNotificationProps) => {
-  const { messages, markNotificationAsRead } = useNotification();
+const SideMenuNotification = () => {
+  const {
+    messages,
+    markNotificationAsRead,
+    showNotificationBox,
+    setShowNotificationBox,
+  } = useNotification();
 
   const notificationRef = useRef<HTMLDivElement | null>(null);
 

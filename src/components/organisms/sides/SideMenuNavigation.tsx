@@ -1,18 +1,20 @@
 import Menu from '@/components/molecules/Menu';
+import { useNotification } from '@/components/organisms/sse/NotificationProvider';
 import { useNavigate } from 'react-router-dom';
 
 interface SideMenuNavigationProps {
-  handleNotificationClick: () => void;
-  newNotification: boolean;
   openSearchModal: () => void;
 }
 
-const SideMenuNavigation = ({
-  handleNotificationClick,
-  newNotification,
-  openSearchModal,
-}: SideMenuNavigationProps) => {
+const SideMenuNavigation = ({ openSearchModal }: SideMenuNavigationProps) => {
   const navigate = useNavigate();
+
+  const { setNewNotification, setShowNotificationBox, newNotification } =
+    useNotification();
+  const handleNotificationClick = () => {
+    setShowNotificationBox((prev) => !prev);
+    setNewNotification(false);
+  };
 
   const menuItems: {
     type: 'bell' | 'mail' | 'home' | 'search' | 'star';
