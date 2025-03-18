@@ -14,9 +14,9 @@ import { useNotification } from '@/components/organisms/sse/NotificationProvider
 
 const SideMenu = () => {
   const navigate = useNavigate();
-  const { userInfo, logout } = useAuthStore((state) => state);
+  const { userInfo, logout, isLoggedIn } = useAuthStore((state) => state);
   const [showLogin, setShowLogin] = useState(false);
-  const loginRef = useRef(null);
+
   const {
     isOpen: isSearchModalOpen,
     openModal: openSearchModal,
@@ -142,7 +142,7 @@ const SideMenu = () => {
             document.body
           )}
 
-        <div className='relative' ref={loginRef}>
+        <div className='relative w-[50px] h-[50px]'>
           <Avatar
             size='sm'
             alt='User Avatar'
@@ -150,24 +150,40 @@ const SideMenu = () => {
             src={userInfo?.profileUrl || undefined}
             onClick={() => setShowLogin((prev) => !prev)}
           />
-          {showLogin && (
-            <Popup
-              position='right'
-              popupHandler={[
-                {
-                  onClick: () => navigate(`/@${userInfo?.nickname}`),
-                  text: '마이페이지',
-                  icon: <Icon type='user' className='w-6' />,
-                },
-                {
-                  onClick: () => logout(),
-                  text: '로그아웃',
-                  icon: <Icon type='logout' className='w-6' />,
-                },
-              ]}
-              innerClassname='top-[-30%]'
-            />
-          )}
+          {showLogin &&
+            (isLoggedIn ? (
+              <Popup
+                position='right'
+                popupHandler={[
+                  {
+                    onClick: () => navigate(`/@${userInfo?.nickname}`),
+                    text: '마이페이지',
+                    icon: <Icon type='user' className='w-6' />,
+                  },
+                  {
+                    onClick: () => logout(),
+                    text: '로그아웃',
+                    icon: <Icon type='logout' className='w-6' />,
+                  },
+                ]}
+                innerClassname='top-[-30%]'
+              />
+            ) : (
+              <Popup
+                position='right'
+                popupHandler={[
+                  {
+                    onClick: () => {
+                      navigate('/login');
+                      setShowLogin(false);
+                    },
+                    text: '로그인/회원가입',
+                    icon: <Icon type='user' className='w-6' />,
+                  },
+                ]}
+                innerClassname='top-[10px]'
+              />
+            ))}
         </div>
       </div>
     </>
