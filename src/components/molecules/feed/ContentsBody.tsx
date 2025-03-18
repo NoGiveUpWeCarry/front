@@ -7,26 +7,21 @@ interface ContentsBodyProps {
 
 const ContentsBody = ({ body }: ContentsBodyProps) => {
   const getTruncatedContent = (html: string) => {
-    const sanitizedHtml = DOMPurify.sanitize(html, {
-      ALLOWED_TAGS: [
-        'b',
-        'i',
-        'u',
-        'p',
-        'a',
-        'strong',
-        'em',
-        'span',
-        'ul',
-        'ol',
-        'li',
-        'br',
-      ], // img 제외
+    const modifiedHtml = html
+      .replace(/<br\s*\/?>/gi, ' ')
+      .replace(/<ul[^>]*>.*?<\/ul>/gi, '')
+      .replace(/<ol[^>]*>.*?<\/ol>/gi, '')
+      .replace(/<li[^>]*>/gi, '')
+      .replace(/<\/li>/gi, '')
+      .replace(/<(b|i|u|p|a|strong|em|span)>/gi, '<span>')
+      .replace(/<\/(b|i|u|p|a|strong|em)>/gi, '</span>');
+
+    const sanitizedHtml = DOMPurify.sanitize(modifiedHtml, {
+      ALLOWED_TAGS: ['span'],
       ALLOWED_ATTR: ['href', 'title'],
     });
     return parse(sanitizedHtml);
   };
-
   return (
     <div className='line-clamp-3 text-sm text-[rgb(72, 72, 74)]'>
       {getTruncatedContent(body)}
