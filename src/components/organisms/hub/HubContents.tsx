@@ -53,17 +53,25 @@ export const HubContents = ({
   projectId,
   isOwnConnectionHub,
 }: HubContentsProps) => {
+  const defaultUser = {
+    userId: null,
+    profileUrl: '',
+    nickname: 'Unknown User',
+    role: '',
+  };
+
+  const safeUser = user ?? defaultUser;
   return (
     <div className='flex flex-col w-full gap-[20px]'>
       {!hideUser && (
         <HubContentsUser
-          profileUrl={user!.profileUrl}
-          nickname={user!.nickname}
-          role={user!.role}
+          profileUrl={safeUser.profileUrl}
+          nickname={safeUser.nickname}
+          role={safeUser.role}
           createdAt={createdAt}
           isOwnConnectionHub={isOwnConnectionHub}
           projectId={projectId}
-          userId={user.userId}
+          userId={safeUser.userId ?? undefined}
         />
       )}
       <div className='w-full'>
