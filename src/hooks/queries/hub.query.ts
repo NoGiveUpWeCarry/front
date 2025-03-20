@@ -17,7 +17,7 @@ import {
   togledBookmark,
   uploadHubImage,
 } from '@/apis/hub.api';
-import { optimizeImage } from '@/constants/OptimizeImage';
+import { optimizeImage } from '@/utils/optimizeImage';
 import useAuthStore from '@/store/authStore';
 
 import queryClient from '@/utils/queryClient';
