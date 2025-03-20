@@ -40,7 +40,6 @@ const MyPageTemplate = () => {
         <div className='h-[38px]'>
           <Tabs>
             {Object.keys(MyPageTabs).map((tab, index) => {
-              console.log(window.innerWidth);
               const displayTab =
                 tab === '커넥션 허브' && window.innerWidth <= 410
                   ? '허브'
