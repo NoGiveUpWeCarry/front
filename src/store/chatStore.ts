@@ -179,8 +179,8 @@ export const useChatStore = create<ChatState & ChatAction & Handlers>()(
       channels: {},
       channelSearchKeyword: '',
       connectSocket: () => {
-        // const socketUrl = `${import.meta.env.VITE_BASE_SERVER_URL}/chat`;
-        const socketUrl = `${import.meta.env.VITE_LOCAL_URL}/chat`;
+        const socketUrl = `${import.meta.env.VITE_BASE_SERVER_URL}/chat`;
+        // const socketUrl = `${import.meta.env.VITE_LOCAL_URL}/chat`;
         const userId = useAuthStore.getState().userInfo?.userId;
 
         if (!userId) {
