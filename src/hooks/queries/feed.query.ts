@@ -243,9 +243,7 @@ export const usePostImage = (): UseMutationResult<
 > => {
   return useMutation({
     mutationFn: async ({ file }: UsePostImageParams) => {
-      console.log('🖼️ 원본 이미지 크기:', file.size / 760, 'KB');
       const optimizedFile = await optimizeImage(file);
-      console.log('🖼️ 최적화된 이미지 크기:', optimizedFile.size / 760, 'KB');
 
       return uploadImage(optimizedFile);
     },

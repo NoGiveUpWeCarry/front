@@ -23,7 +23,6 @@ const SearchResults = ({
   isFirstTab,
   isLoading,
 }: SearchResultsProps) => {
-  console.log(items);
   return (
     <div className='flex flex-col gap-2'>
       <p className='font-semibold text-[18px]'>{title}</p>

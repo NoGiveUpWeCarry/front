@@ -293,14 +293,7 @@ export const useHubPostImage = (): UseMutationResult<
 > => {
   return useMutation({
     mutationFn: async ({ file }: UsePostImageParams) => {
-      console.log('🖼️ 원본 이미지 크기:', (file.size / 1024).toFixed(2), 'KB');
       const optimizedFile = await optimizeImage(file);
-      console.log(
-        '🖼️ 최적화된 이미지 크기:',
-        (optimizedFile.size / 1024).toFixed(2),
-        'KB'
-      );
-
       return uploadHubImage(optimizedFile);
     },
     onError: (error) => {

@@ -33,10 +33,11 @@ const Popup = ({ popupHandler, position, innerClassname }: IProps) => {
   return (
     <div
       className={cn(
-        `absolute w-max left-full transition-opacity duration-300 z-50`,
+        `absolute w-max left-full transition-opacity duration-300`,
         popupStyle({ position }),
         innerClassname
       )}
+      style={{ zIndex: 10000 }}
     >
       <div
         className={`flex w-full bg-white rounded-xl items-center px-[10px] py-[10px] drop-shadow-lg ${position === 'right' && 'ml-4'}`}

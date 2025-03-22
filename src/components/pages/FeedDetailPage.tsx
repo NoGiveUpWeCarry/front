@@ -8,13 +8,14 @@ import useAuthStore from '@/store/authStore';
 import { useSearchModal } from '@/store/modals/searchModalstore';
 import MetaTag from '@/utils/MetaTags';
 import { Suspense, lazy, useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 const FeedDetailChat = lazy(() => {
   return import('@/components/organisms/feed/FeedDetailChat');
 });
 
 const FeedDetailPage = () => {
+  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { data: FeedData, isLoading: FeedLoading } = useFetchFeed(Number(id));
   const { data: ChatData, isLoading: ChatLoading } = useFetchFeedChat(
@@ -50,18 +51,18 @@ const FeedDetailPage = () => {
   }
 
   return (
-    <div className='flex w-full flex-col lg:gap-[20px] gap-3'>
+    <div className='flex w-full flex-col lg:gap-[20px] gap-3 relative'>
       <MetaTag
         title={post?.title}
         description={post?.title}
         imgSrc={post?.thumnailUrl}
         url={`/feed/${id}`}
       />
-      <div className='w-full flex pb-2 justify-between'>
-        <div className='w-6 h-6' onClick={() => window.history.back()}>
+      <div className='w-full flex pb-2 justify-between px-11'>
+        <button className='w-6 h-6' onClick={() => navigate(-1)}>
           <Icon type='behindSolid' />
-        </div>
-        <div className='font-bold text-md'>{FeedData?.post.userName}</div>
+        </button>
+        <div className='font-regular text-md'>피드 상세</div>
         <div></div>
       </div>
       {post && (
@@ -70,14 +71,13 @@ const FeedDetailPage = () => {
             userNickname={post.userName}
             userProfileUrl={post.userProfileUrl}
             userRole={post.userRole}
-            title={post.title}
             createdAt={post.createdAt}
             userId={post.userId}
             isWriter={userId === post.userId}
             postId={post.postId}
           />
           <div
-            className='w-full flex flex-col overflow-y-scroll [&::-webkit-scrollbar]:hidden  z-10 border-t-[1px]'
+            className='w-full flex flex-col overflow-y-scroll [&::-webkit-scrollbar]:hidden border-t-[1px] relative'
             style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
@@ -99,14 +99,14 @@ const FeedDetailPage = () => {
                 />
               )}
             </Suspense>
-            <FeedDetailFooter
-              commentCount={post.commentCount}
-              likeCount={post.likeCount}
-              viewCount={post.viewCount}
-              isLiked={post.isLiked}
-              postId={post.postId}
-            />
           </div>
+          <FeedDetailFooter
+            commentCount={post.commentCount}
+            likeCount={post.likeCount}
+            viewCount={post.viewCount}
+            isLiked={post.isLiked}
+            postId={post.postId}
+          />
         </>
       )}
     </div>
