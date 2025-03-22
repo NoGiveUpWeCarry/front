@@ -7,15 +7,8 @@ interface ContentsBodyProps {
 
 const ContentsBody = ({ body }: ContentsBodyProps) => {
   const getTruncatedContent = (html: string) => {
-    const newHtml = html.replaceAll('<br>', ' ');
-    const sanitizedHtml = DOMPurify.sanitize(newHtml, {
-      ALLOWED_TAGS: [],
-      ALLOWED_ATTR: [],
-    });
-
-    const textWithSpaces = sanitizedHtml.replace(/\.([^ ])/g, '. $1');
-
-    return parse(textWithSpaces);
+    const sanitizedHtml = DOMPurify.sanitize(html);
+    return parse(sanitizedHtml);
   };
   return (
     <div className='line-clamp-3 text-sm text-[rgb(72, 72, 74)]'>
