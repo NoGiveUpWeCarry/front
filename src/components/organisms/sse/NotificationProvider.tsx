@@ -5,6 +5,8 @@ import {
   useState,
   ReactNode,
   useMemo,
+  SetStateAction,
+  Dispatch,
 } from 'react';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 import {
@@ -14,7 +16,7 @@ import {
 import formatTimeAgo from '@/utils/formatTimeAgo';
 import useAuthStore from '@/store/authStore';
 
-interface NotificationProp {
+export interface NotificationMessage {
   notificationId: number;
   type: string;
   message: string;
@@ -25,10 +27,12 @@ interface NotificationProp {
 }
 
 interface NotificationContextType {
-  messages: NotificationProp[];
+  messages: NotificationMessage[];
   newNotification: boolean;
   markNotificationAsRead: (notificationId: number) => void;
   setNewNotification: (value: boolean) => void;
+  setShowNotificationBox: Dispatch<SetStateAction<boolean>>;
+  showNotificationBox: boolean;
 }
 
 const NotificationContext = createContext<NotificationContextType | null>(null);
@@ -51,10 +55,11 @@ export const NotificationProvider = ({
   children,
 }: NotificationProviderProps) => {
   const token = useAuthStore.getState().accessToken;
-  const [messages, setMessages] = useState<NotificationProp[]>([]);
+  const [messages, setMessages] = useState<NotificationMessage[]>([]);
   const [newNotification, setNewNotification] = useState<boolean>(false);
   const { data: missedNotifications } = useFetchMissedNotifications();
   const { mutate: markAsRead } = usePatchNotificationAsRead();
+  const [showNotificationBox, setShowNotificationBox] = useState(false);
 
   useEffect(() => {
     if (missedNotifications?.notifications) {
@@ -96,7 +101,7 @@ export const NotificationProvider = ({
     eventSource.addEventListener('message', (event) => {
       const data = JSON.parse(event.data);
 
-      const formattedData: NotificationProp = {
+      const formattedData: NotificationMessage = {
         notificationId: data.notificationId,
         type: data.type,
         message: data.message,
@@ -139,8 +144,10 @@ export const NotificationProvider = ({
       newNotification,
       markNotificationAsRead,
       setNewNotification,
+      setShowNotificationBox,
+      showNotificationBox,
     }),
-    [messages, newNotification]
+    [messages, newNotification, showNotificationBox]
   );
 
   return (
