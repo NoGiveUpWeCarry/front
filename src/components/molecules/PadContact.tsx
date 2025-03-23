@@ -79,7 +79,7 @@ const PadContact = () => {
       <div className='flex font-light text-[12px] cursor-pointer'>
         info@PAD.com
       </div>
-      <div className='flex font-thin text-[10px] w-full justify-between items-center'>
+      <div className='flex font-extralight text-[10px] w-full justify-between items-center'>
         © 2024 PAD. All Rights Reserved.
         <a href='https://github.com/NoGiveUpWeCarry'>
           <img

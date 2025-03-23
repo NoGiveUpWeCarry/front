@@ -33,7 +33,7 @@ const MainLayout = () => {
   }, [location.pathname, setNavHide, setNavShow]);
 
   return (
-    <div className='min-h-screen flex flex-col lg:flex-row lg:px-[10px]'>
+    <div className='min-h-screen flex flex-col lg:flex-row lg:px-[10px] font-pretendard'>
       {isNavShowed && (
         <div className='sticky top-0 w-full lg:w-[68px] h-[52px] lg:h-screen lg:px-4 flex items-center justify-between z-50'>
           <div className='hidden lg:block w-full h-full'>

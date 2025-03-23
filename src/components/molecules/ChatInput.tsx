@@ -1,23 +1,21 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Icon from '@/components/atoms/Icon';
 import Avatar from '@/components/atoms/Avatar';
+import useAuthStore from '@/store/authStore';
+import { useShallow } from 'zustand/shallow';
 
 interface CommentInputProps {
   onSubmit: (content: string) => void;
   userImage: string;
   isPending: boolean;
-  // isLoggedIn: boolean;
 }
 
-const ChatInput = ({
-  onSubmit,
-  userImage,
-  isPending,
-  // isLoggedIn,
-}: CommentInputProps) => {
+const ChatInput = ({ onSubmit, userImage, isPending }: CommentInputProps) => {
   const [comment, setComment] = useState<string>('');
+  const { isLoggedIn } = useAuthStore(useShallow((state) => state));
 
-  const handleSubmit = () => {
+  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!comment.trim()) {
       alert('댓글 내용을 입력해주세요.');
       return;
@@ -26,37 +24,32 @@ const ChatInput = ({
     setComment('');
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handleSubmit();
-    }
-  };
-
   return (
     <>
-      <div className='w-full h-[40px] flex gap-[10px] mb-[20px]'>
+      <div className='w-full h-[40px] flex gap-[10px] mb-20'>
         <Avatar
           src={userImage || undefined}
           alt='User Avatar'
           className='w-[40px] h-[40px] rounded-full'
         />
-        <div className='w-full bg-lightgray px-3 py-2 rounded-xl flex items-center justify-between'>
+        <form
+          className='w-full bg-lightgray px-3 py-2 rounded-xl flex items-center justify-between'
+          onSubmit={submitHandler}
+        >
           <input
             className='w-full bg-lightgray focus:outline-none'
             placeholder='내용을 입력해주세요.'
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            disabled={isPending}
-            onKeyDown={handleKeyDown}
+            disabled={isPending || !isLoggedIn}
           />
-          <div
+          <button
             className='bg-white w-[30px] h-[30px] flex items-center justify-center rounded-full cursor-pointer border'
-            onClick={handleSubmit}
+            type='submit'
           >
             <Icon type='arrowLongUp' className='w-[20px] h-[20px]' />
-          </div>
-        </div>
+          </button>
+        </form>
       </div>
     </>
   );
