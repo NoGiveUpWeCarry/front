@@ -38,7 +38,7 @@ const FeedListContent = ({
   createdAt,
 }: FeedContentsProps) => {
   return (
-    <div className='flex flex-col gap-3 rounded-[10px] p-5 w-full lg:hover:shadow-[4px_4px_6px_rgba(0,0,0,0.1)] lg:bg-transparent bg-white lg:m-0'>
+    <div className='flex flex-col gap-3 rounded-[10px] p-5 w-full lg:hover:shadow-[4px_4px_6px_rgba(0,0,0,0.1)] bg-white lg:m-0'>
       <ContentsUser
         userProfileUrl={user.avatarSrc}
         name={user.name}

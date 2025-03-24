@@ -7,7 +7,7 @@ interface ContentsBodyProps {
 
 const ContentsBody = ({ body }: ContentsBodyProps) => {
   const getTruncatedContent = (html: string) => {
-    const sanitizedHtml = DOMPurify.sanitize(html);
+    const sanitizedHtml = DOMPurify.sanitize(html, { FORBID_TAGS: ['img'] });
     return parse(sanitizedHtml);
   };
   return (
