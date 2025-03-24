@@ -20,7 +20,7 @@ import {
   Comment,
   uploadImage,
 } from '@/apis/feed.api';
-import { optimizeImage } from '@/utils/optimizeImage ';
+import { optimizeImage } from '@/utils/optimizeImage';
 import { querySuccessHandler } from '@/utils/querySuccessHandler';
 import {
   InfiniteData,

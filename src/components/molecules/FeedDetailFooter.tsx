@@ -92,6 +92,10 @@ const FeedDetailFooter = ({
           &nbsp;
           {viewCount}
         </div>
+        <div className='flex text-[18px] h-full items-center px-5'>
+          <Icon type='eye' className='w-5 h-5 text-zinc-300' />
+          &nbsp;
+        </div>
       </div>
     </div>
   );
