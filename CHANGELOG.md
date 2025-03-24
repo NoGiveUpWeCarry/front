@@ -70,3 +70,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   - 메타 태그 설정
   - robots.txt 파일 작성
   - [이미지 사이즈 최적화](https://github.com/NoGiveUpWeCarry/front/pull/155)
+
+## [0.2.1] - 2025-03-24
+
+### Fixed
+
+- [피드 페이지 UI 수정](https://github.com/NoGiveUpWeCarry/front/issues/165)
+- [레이아웃 UI 수정](https://github.com/NoGiveUpWeCarry/front/issues/162)
