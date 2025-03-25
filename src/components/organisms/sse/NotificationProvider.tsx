@@ -13,8 +13,8 @@ import {
   useFetchMissedNotifications,
   usePatchNotificationAsRead,
 } from '@/hooks/queries/notification.query';
-import formatTimeAgo from '@/utils/formatTimeAgo';
 import useAuthStore from '@/store/authStore';
+import { formatDateFromNow } from '@/utils/format';
 
 export interface NotificationMessage {
   notificationId: number;
@@ -71,7 +71,7 @@ export const NotificationProvider = ({
             message: notification.message,
             senderNickname: notification.sender.nickname,
             senderProfileUrl: notification.sender.profileUrl,
-            timestamp: formatTimeAgo(notification.createdAt),
+            timestamp: formatDateFromNow(notification.createdAt),
             isRead: notification.isRead,
           }))
           .filter(
@@ -107,7 +107,7 @@ export const NotificationProvider = ({
         message: data.message,
         senderNickname: data.senderNickname,
         senderProfileUrl: data.senderProfileUrl,
-        timestamp: formatTimeAgo(data.timestamp),
+        timestamp: formatDateFromNow(data.timestamp),
         isRead: data.isRead,
       };
 
