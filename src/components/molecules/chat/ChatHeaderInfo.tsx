@@ -30,12 +30,12 @@ const ChatHeaderInfo = ({ currentChannelId }: ChatHeaderInfoProps) => {
 
   return (
     <div className='flex justify-between flex-1 h-[76px] items-center'>
-      <div className='flex flex-col h-full justify-center'>
+      <div className='flex flex-col h-full justify-center w-full'>
         <Title
           size='md'
           fontWeight='bold'
           lineClamp={1}
-          className='text-ellipsis w-[500px]'
+          className='text-ellipsis w-[90%]'
         >
           {channel.title}
         </Title>
@@ -43,7 +43,9 @@ const ChatHeaderInfo = ({ currentChannelId }: ChatHeaderInfoProps) => {
           {channel.users.length}명의 맴버가 있습니다.
         </div>
       </div>
-      <SearchMessage currentChannelId={currentChannelId} />
+      <div className='flex-shrink-0'>
+        <SearchMessage currentChannelId={currentChannelId} />
+      </div>
     </div>
   );
 };
