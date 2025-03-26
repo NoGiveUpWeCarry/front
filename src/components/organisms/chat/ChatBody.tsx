@@ -1,8 +1,13 @@
-import { PropsWithChildren } from 'react';
-interface ChatBodyProps extends PropsWithChildren {}
+import ChatMessagesWelcome from '@/components/molecules/chat/ChatMessagesWelcome';
+import ChatMessages from '@/components/organisms/chat/ChatMessages';
+import { Channel } from '@/types/channel.type';
 
-const ChatBody = ({ children }: ChatBodyProps) => {
-  return children;
+interface ChatBodyProps {
+  currentChannelId: Channel['channelId'] | null;
+}
+
+const ChatBody = ({ currentChannelId }: ChatBodyProps) => {
+  if (!currentChannelId) return <ChatMessagesWelcome />;
+  return <ChatMessages currentChannelId={currentChannelId} />;
 };
-
 export default ChatBody;

@@ -1,6 +1,6 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useChatStore } from '@/store/chatStore';
-import { useEffect, Suspense } from 'react';
+import { useEffect } from 'react';
 
 const RootLayout = () => {
   const currentChannelId = useChatStore((state) => state.currentChannelId);
@@ -12,11 +12,7 @@ const RootLayout = () => {
     }
   }, [currentChannelId, navigate]);
 
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Outlet />
-    </Suspense>
-  );
+  return <Outlet />;
 };
 
 export default RootLayout;
