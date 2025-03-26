@@ -124,7 +124,7 @@ const SearchModal = ({ onClose }: ModalProps) => {
         <SearchInput value={keyword} onChange={handleKeywordChange} />
         <Tabs>
           <Tabs.Triggers
-            labels={[...Object.keys(TabNames)]}
+            labels={[...Object.keys(CATEGORY)]}
             divider={<VerticalDivider />}
             className='h-10 flex px-[5px] items-center bg-[#d1d1d1] rounded-[5px]'
           />
