@@ -77,3 +77,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 - [피드 페이지 UI 수정](https://github.com/NoGiveUpWeCarry/front/issues/165)
 - [레이아웃 UI 수정](https://github.com/NoGiveUpWeCarry/front/issues/162)
+
+## [0.2.2] - 2025-03-27
+
+### Fixed
+
+- 채팅페이지 새로고침시 발생했던 에러 해결
+
+### Changed
+
+- 채팅페이지 반응형 개선
