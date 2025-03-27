@@ -1,11 +1,11 @@
 import { fetchChannel } from '@/apis/channel.api';
 import { ChatState } from '@/store/chatStore';
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 export const useChannel = (
   currentChannelId: NonNullable<ChatState['currentChannelId']>
 ) => {
-  const { data, isFetching } = useQuery({
+  const { data, isFetching } = useSuspenseQuery({
     queryKey: ['channel', currentChannelId],
     queryFn: () => fetchChannel(currentChannelId),
   });

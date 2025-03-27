@@ -39,27 +39,25 @@ const SearchMessage = ({ currentChannelId }: SearchMessageProps) => {
 
   return (
     <div className='shrink-0 flex items-center gap-2'>
-      <>
-        <button
-          className='p-[5px] bg-[#333333] text-white rounded-full hover:bg-[#555555] disabled:bg-[#949494] disabled:text-[#c5c5c5]'
-          aria-label='이전 메시지'
-          disabled={isFetching || !!error}
-          onClick={onClickUp}
-        >
-          <Icon type='arrow' className='w-[20px] h-[20px] text-inherit' />
-        </button>
-        <button
-          className='p-[5px] bg-[#333333] text-white rounded-full hover:bg-[#555555] disabled:bg-[#949494] disabled:text-[#c5c5c5]'
-          aria-label='다음 메시지'
-          disabled={isFetching || !!error}
-          onClick={onClickDown}
-        >
-          <Icon
-            type='arrow'
-            className='transform rotate-180 w-[20px] h-[20px] text-inherit'
-          />
-        </button>
-      </>
+      <button
+        className='p-[5px] bg-[#333333] text-white rounded-full hover:bg-[#555555] disabled:bg-[#949494] disabled:text-[#c5c5c5]'
+        aria-label='이전 메시지'
+        disabled={isFetching || !!error}
+        onClick={onClickUp}
+      >
+        <Icon type='arrow' className='w-[20px] h-[20px] text-inherit' />
+      </button>
+      <button
+        className='p-[5px] bg-[#333333] text-white rounded-full hover:bg-[#555555] disabled:bg-[#949494] disabled:text-[#c5c5c5]'
+        aria-label='다음 메시지'
+        disabled={isFetching || !!error}
+        onClick={onClickDown}
+      >
+        <Icon
+          type='arrow'
+          className='transform rotate-180 w-[20px] h-[20px] text-inherit'
+        />
+      </button>
       <MessageSearchForm isFetching={isFetching} setState={setState} />
     </div>
   );
