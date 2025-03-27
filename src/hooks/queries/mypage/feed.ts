@@ -1,8 +1,8 @@
 import { getFeed } from '@/apis/mypage';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 export const useGetFeeds = (userId: number) => {
-  return useInfiniteQuery({
+  return useSuspenseInfiniteQuery({
     queryKey: ['get-feeds', userId],
     queryFn: ({ pageParam = 1 }) =>
       getFeed({ userId, page: pageParam, limit: 5 }),
