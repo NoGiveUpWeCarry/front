@@ -1,6 +1,6 @@
 import Button from '@/components/atoms/Button';
 import HorizontalDivider from '@/components/atoms/HorizontalDivider';
-import ApplyFormSection from '@/components/organisms/ApplyFormSection/ApplyFormSection';
+import ApplyFormSection from '@/components/organisms/apply/ApplyFormSection';
 import useApply from '@/hooks/mypage/useApply.business';
 import useApplyUI from '@/hooks/mypage/useApply.ui';
 import { useApplyFormStore } from '@/store/applyFormStore';

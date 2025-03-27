@@ -5,7 +5,7 @@ import useHubSearchStore from '@/store/hubSeartchStore';
 import { HubContents } from '@/components/organisms/hub/HubContents';
 import { useInView } from 'react-intersection-observer';
 
-const Hub = () => {
+const HubTemplate = () => {
   const { sort, role, unit } = useHubSearchStore((state) => state);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteFetchHubs(sort, role || '', unit || '');
@@ -52,4 +52,4 @@ const Hub = () => {
   );
 };
 
-export default Hub;
+export default HubTemplate;

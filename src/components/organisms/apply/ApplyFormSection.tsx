@@ -1,5 +1,5 @@
-import ApplyFormTextArea from '@/components/organisms/ApplyFormSection/ApplyFormTextArea';
-import ApplyFormInput from '@/components/organisms/ApplyFormSection/Input';
+import ApplyFormTextArea from '@/components/organisms/apply/ApplyFormTextArea';
+import ApplyFormInput from '@/components/organisms/apply/Input';
 import { ReactNode } from 'react';
 
 const ApplyFormSection = ({ children }: { children: ReactNode }) => {

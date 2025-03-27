@@ -6,7 +6,7 @@ export const useSearchByModal = (
   keyword: string
 ) => {
   return useQuery({
-    queryKey: ['search-modal', keyword],
+    queryKey: ['search-modal', keyword, category],
     queryFn: () => searchByModal({ category, keyword }),
     enabled: !!keyword,
   });

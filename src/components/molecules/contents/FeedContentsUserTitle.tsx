@@ -1,4 +1,4 @@
-import formatTimeAgo from '@/utils/formatTimeAgo';
+import { formatDateFromNow } from '@/utils/format';
 
 interface FeedContentsUserTitleProps {
   userNickname: string;
@@ -29,7 +29,7 @@ const FeedContentsUserTitle = ({
             •
           </span>
           <span className='text-slate-700 text-sm'>
-            {formatTimeAgo(createdAt)}
+            {formatDateFromNow(createdAt)}
           </span>
         </div>
       )}
