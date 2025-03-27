@@ -1,16 +1,15 @@
 import Button from '@/components/atoms/Button';
 import { cn } from '@/lib/utils';
-import { PropsWithChildren } from 'react';
+import { HTMLAttributes, PropsWithChildren } from 'react';
 
-interface IProps {
+interface IProps extends HTMLAttributes<HTMLButtonElement> {
   isActive: boolean;
-  onClick: () => void;
 }
 
-const TabsButton = ({
+const TabButton = ({
   isActive,
-  onClick,
   children,
+  ...rest
 }: PropsWithChildren<IProps>) => {
   return (
     <Button
@@ -22,11 +21,11 @@ const TabsButton = ({
         isActive ? 'bg-white font-medium' : 'bg-none text-darkgray font-normal',
         '!w-full'
       )}
-      onClick={onClick}
+      {...rest}
     >
       {children}
     </Button>
   );
 };
 
-export default TabsButton;
+export default TabButton;

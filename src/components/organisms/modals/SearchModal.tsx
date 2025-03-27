@@ -1,146 +1,140 @@
-import Icon from '@/components/atoms/Icon';
-import Input from '@/components/atoms/Input';
 import Modal from '@/components/organisms/modals/Modal';
 import { ModalProps } from '@/components/organisms/modals/modalProps';
-import Tabs from '@/components/organisms/Tabs';
-
+import { useTabContext } from '@/components/organisms/Tabs';
 import useDebounce from '@/hooks/useDebounce';
-import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTabs } from '@/hooks/useTabs';
 import { useSearchByModal } from '@/hooks/queries/search.query';
 import HorizontalDivider from '@/components/atoms/HorizontalDivider';
-import SearchResults from '@/components/molecules/search/SearchResults';
-import { useSearchTabsStore } from '@/store/searchTabsStore';
-import { useShallow } from 'zustand/shallow';
-import { useSearchModal } from '@/store/modals/searchModalstore';
+import Tabs from '@/components/organisms/Tabs';
+import VerticalDivider from '@/components/atoms/VerticalDivider';
+import { useMemo, useState } from 'react';
+import SearchInput from '@/components/molecules/search/SearchInput';
+import { SearchContext } from '@/hooks/context/useSearchContext';
+import SearchResultItem from '@/components/molecules/search/SearchResults';
 
 const CATEGORY = {
   전체: 'all',
   피드: 'feed',
   '커넥션 허브': 'connectionhub',
+} as const;
+
+enum TabNames {
+  '전체',
+  '피드',
+  '커넥션 허브',
+}
+
+interface SearchTabContentProps {
+  keyword: string;
+  onClose: () => void;
+}
+
+const SearchTabContent = ({ keyword, onClose }: SearchTabContentProps) => {
+  const navigate = useNavigate();
+  const { active, setActive } = useTabContext();
+
+  const { data, isLoading } = useSearchByModal(
+    CATEGORY[TabNames[active] as keyof typeof CATEGORY],
+    keyword
+  );
+
+  const feeds = { ...data?.feedResult };
+  const hubs = { ...data?.projectResult };
+
+  const handleNavigate = (path: string) => {
+    navigate(path);
+    onClose();
+  };
+
+  const searchContextValue = useMemo(
+    () => ({
+      isLoading,
+      keyword,
+      onNavigate: handleNavigate,
+    }),
+    [isLoading, keyword, handleNavigate]
+  );
+
+  if (!keyword) {
+    return (
+      <div className='mt-6 flex flex-col flex-1 h-full justify-center items-center text-[14px] pb-10'>
+        <span>피드나 프로젝트를 검색해보세요.</span>
+      </div>
+    );
+  }
+
+  const tabComponents = {
+    전체: (
+      <SearchContext.Provider value={searchContextValue}>
+        <SearchResultItem
+          title='피드'
+          onTabChange={() => setActive(TabNames['피드'])}
+          data={feeds}
+          type='feed'
+        />
+        <HorizontalDivider className='my-10' />
+        <SearchResultItem
+          title='커넥션 허브'
+          onTabChange={() => setActive(TabNames['커넥션 허브'])}
+          data={hubs}
+          type='project'
+        />
+      </SearchContext.Provider>
+    ),
+    피드: (
+      <SearchContext.Provider value={searchContextValue}>
+        <SearchResultItem
+          title='피드'
+          onTabChange={() => setActive(TabNames['피드'])}
+          data={feeds}
+          type='feed'
+        />
+      </SearchContext.Provider>
+    ),
+    '커넥션 허브': (
+      <SearchContext.Provider value={searchContextValue}>
+        <SearchResultItem
+          title='커넥션 허브'
+          onTabChange={() => setActive(TabNames['커넥션 허브'])}
+          data={hubs}
+          type='project'
+        />
+      </SearchContext.Provider>
+    ),
+  };
+
+  return (
+    <div className='mt-6 flex flex-col min-flex-1 text-[14px] pb-10 relative'>
+      <Tabs.Pannels components={Object.values(tabComponents)} />
+    </div>
+  );
 };
 
 const SearchModal = ({ onClose }: ModalProps) => {
-  const navigate = useNavigate();
-
-  const { tabs, active, setActive } = useTabs(['전체', '피드', '커넥션 허브']);
-  const [setActiveTab] = useSearchTabsStore(
-    useShallow((state) => [state.setActiveTab])
-  );
-  const [keyword, setKeyword] = useSearchModal(
-    useShallow((state) => [state.keyword, state.setKeyword])
-  );
+  const [keyword, setKeyword] = useState('');
   const debouncedKeyword = useDebounce(keyword, 300);
 
-  const prevActiveRef = useRef(active);
-
-  const { data, refetch, isLoading } = useSearchByModal(
-    CATEGORY[active as keyof typeof CATEGORY] as
-      | 'all'
-      | 'feed'
-      | 'connectionhub',
-    debouncedKeyword
-  );
-
-  const feeds = data?.feedResult?.feeds;
-  const hubs = data?.projectResult?.projects;
-
-  const closeHandler = () => {
-    const currentPath = window.location.pathname;
-    navigate(currentPath);
-    onClose();
-    setKeyword('');
+  const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value);
   };
 
-  // 값이 변경되었을 경우에만 실행
-  useEffect(() => {
-    if (prevActiveRef.current !== active) {
-      refetch();
-      prevActiveRef.current = active;
-    }
-  }, [active]);
-
   return (
-    <Modal onClose={closeHandler} className='!px-1 min-w-[600px] h-[560px]'>
+    <Modal onClose={onClose} className='!px-1 min-w-[600px] h-[560px]'>
       <div className='w-full h-full px-[50px] flex flex-col'>
-        <div className='mb-6 w-full h-6 flex items-center'>
-          <Icon type='search' className='w-6 h-6' color='gray' />
-          <Input
-            placeholder='검색어 입력'
-            bgColor='transparent'
-            className='border-0 h-full !text-[16px]'
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-            autoFocus
+        <SearchInput value={keyword} onChange={handleKeywordChange} />
+        <Tabs>
+          <Tabs.Triggers
+            labels={[...Object.keys(CATEGORY)]}
+            divider={<VerticalDivider />}
+            className='h-10 flex px-[5px] items-center bg-[#d1d1d1] rounded-[5px]'
           />
-        </div>
-        <div className='h-10'>
-          <Tabs>
-            {tabs.map((item, i) => (
-              <Tabs.TabItem
-                key={item as string}
-                hideDivider={i === 2}
-                onClick={() => setActive(item)}
-                isActive={active === item}
-              >
-                {item}
-              </Tabs.TabItem>
-            ))}
-          </Tabs>
-        </div>
-        <div
-          className='overflow-y-scroll'
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          {debouncedKeyword ? (
-            <div className='mt-6 flex flex-col min-flex-1 text-[14px] pb-10 relative'>
-              {active !== '커넥션 허브' && (
-                <SearchResults
-                  items={feeds as any[]}
-                  type='feed'
-                  title='피드'
-                  onNavigate={(id) => {
-                    navigate(`/feed/${id}?from=search`);
-                    onClose();
-                  }}
-                  isFirstTab={active === '전체'}
-                  hasMore={data?.feedResult?.hasMore as boolean}
-                  hasMoreNavigate={() => {
-                    setActiveTab('피드');
-                    navigate(`/search?q=${debouncedKeyword}&type=page`);
-                    onClose();
-                  }}
-                  isLoading={isLoading}
-                />
-              )}
-              {active === '전체' && <HorizontalDivider className='my-10' />}
-              {active !== '피드' && (
-                <SearchResults
-                  items={hubs as any[]}
-                  type='hub'
-                  title='커넥션 허브'
-                  onNavigate={(id) => {
-                    navigate(`/projects/${id}?from=search`);
-                    onClose();
-                  }}
-                  isFirstTab={active === '전체'}
-                  hasMore={data?.projectResult?.hasMore as boolean}
-                  hasMoreNavigate={() => {
-                    setActiveTab('프로젝트');
-                    navigate(`/search?q=${debouncedKeyword}&type=page`);
-                    onClose();
-                  }}
-                  isLoading={isLoading}
-                />
-              )}
-            </div>
-          ) : (
-            <div className='mt-6 flex flex-col flex-1 h-full justify-center items-center text-[14px] pb-10'>
-              <span>피드나 프로젝트를 검색해보세요.</span>
-            </div>
-          )}
-        </div>
+          <div
+            className='overflow-y-scroll'
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            <SearchTabContent keyword={debouncedKeyword} onClose={onClose} />
+          </div>
+        </Tabs>
       </div>
     </Modal>
   );
