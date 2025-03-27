@@ -1,4 +1,4 @@
-import formatTimeAgo from '@/utils/formatTimeAgo';
+import { formatDateFromNow } from '@/utils/format';
 interface ContentsUserTitleProps {
   nickname: string;
   role?: string;
@@ -17,7 +17,7 @@ const HubContentsUserTitle = ({
         <span className='text-gray-500 text-sm'>{role}</span>
         <span>•</span>
         <span className='text-gray-400 text-sm'>
-          {formatTimeAgo(createdAt)}
+          {formatDateFromNow(createdAt)}
         </span>
       </div>
     </div>

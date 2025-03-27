@@ -15,5 +15,8 @@ export default defineConfig(({ mode }) => {
         '@': '/src',
       },
     },
+    preview: {
+      port: 5173,
+    },
   };
 });
