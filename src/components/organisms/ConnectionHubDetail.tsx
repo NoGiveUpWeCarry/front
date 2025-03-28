@@ -4,8 +4,8 @@ import { useProjectStore } from '@/store/hubDetailStore';
 import { useLocation, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import HubDetail from '@/components/organisms/hub/HubDetail';
-import { useSearchModal } from '@/store/modals/searchModalstore';
 import MetaTag from '@/utils/MetaTags';
+import { useSearchModal } from '@/store/modals/searchModalstore';
 
 const ConnectionHubDetail = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -14,11 +14,11 @@ const ConnectionHubDetail = () => {
     isLoading: ProjectLoading,
     isError,
   } = useFetchHub(Number(projectId));
+  const { keyword } = useSearchModal();
 
   // 검색 관련 코드
   const location = useLocation();
   const query = new URLSearchParams(location.search);
-  const { keyword: searchKeyword } = useSearchModal();
 
   useEffect(() => {
     if (query.get('from') === 'search') {
@@ -26,7 +26,7 @@ const ConnectionHubDetail = () => {
         const currentUrl = window.location.href;
         const newUrl = currentUrl.includes('q=')
           ? currentUrl
-          : `${currentUrl}?q=${searchKeyword}`;
+          : `${currentUrl}?q=${keyword}`;
         window.history.pushState(null, '', newUrl);
       };
 
