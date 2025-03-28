@@ -58,7 +58,7 @@ const FeedContents = () => {
     }
   }, [inView, hasNextPage, isFetching, fetchNextPage]);
 
-  if (data === undefined) {
+  if (data === undefined || data?.pages[0].feeds.length === 0) {
     return <div className='flex justify-center'>피드가 존재하지 않습니다.</div>;
   }
 
