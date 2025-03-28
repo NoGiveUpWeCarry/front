@@ -3,21 +3,20 @@ import Button from '@/components/atoms/Button';
 import Input from '@/components/atoms/Input';
 import useAuthStore from '@/store/authStore';
 import { FormEvent, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const PadLoginPage = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const location = useLocation();
   const setLogin = useAuthStore((state) => state.login);
-  const redirectUrl = location.state?.prevUrl;
 
   const handleLogin = (e: FormEvent) => {
     e.preventDefault();
     login({ email, password }).then(({ user, accessToken }) => {
       setLogin(user, accessToken);
       alert('로그인 완료');
-      window.location.href = redirectUrl;
+      navigate('/');
     });
   };
 
