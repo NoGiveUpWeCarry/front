@@ -25,7 +25,7 @@ const FeedDetailPage = () => {
   // 검색 관련 코드
   const location = useLocation();
   const query = new URLSearchParams(location.search);
-  const { keyword: searchKeyword } = useSearchModal();
+  const { keyword } = useSearchModal();
 
   useEffect(() => {
     if (query.get('from') === 'search') {
@@ -33,7 +33,7 @@ const FeedDetailPage = () => {
         const currentUrl = window.location.href;
         const newUrl = currentUrl.includes('q=')
           ? currentUrl
-          : `${currentUrl}?q=${searchKeyword}`;
+          : `${currentUrl}?q=${keyword}`;
         window.history.pushState(null, '', newUrl);
       };
 
