@@ -18,6 +18,11 @@ const SideMenuProfile = () => {
 
   const [showLogin, setShowLogin] = useState(false);
 
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   return (
     <div className='relative w-[50px] h-[50px]'>
       <Avatar
@@ -38,7 +43,7 @@ const SideMenuProfile = () => {
                 icon: <Icon type='user' className='w-6' />,
               },
               {
-                onClick: () => logout(),
+                onClick: () => handleLogout(),
                 text: '로그아웃',
                 icon: <Icon type='logout' className='w-6' />,
               },
