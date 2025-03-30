@@ -20,7 +20,7 @@ const ChatForm = ({
   const { file, setFile } = useFileContext();
   const [text, setText] = useState('');
 
-  const submitFile = (file: File) => {
+  const submitFile = async (file: File) => {
     sendMessage({
       type: 'image',
       content: file,

@@ -1,4 +1,5 @@
 import { useFileContext } from '@/context/useFileContext';
+import { optimizeImage } from '@/utils/optimizeImage';
 import {
   ButtonHTMLAttributes,
   ChangeEvent,
@@ -17,9 +18,16 @@ const FileUploadButton = ({ accept, children, className, onChange }: Props) => {
   const inputId = useId();
   const { setFile } = useFileContext();
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) setFile(file);
+    if (file) {
+      if (file.type.match(/image\/*/)) {
+        const optimizedImage = await optimizeImage(file);
+        setFile(optimizedImage);
+      } else {
+        setFile(file);
+      }
+    }
     if (onChange) onChange(e);
   };
 
