@@ -11,16 +11,22 @@ import { useShallow } from 'zustand/shallow';
 
 export interface StatusOption extends IDropdown {
   statusId: string;
+  label: string;
 }
 
 const StatusDropdown = () => {
-  const options: StatusOption[] = STATUS_EMOJI;
+  const options: StatusOption[] = STATUS_EMOJI.map((el) => ({
+    id: el.id,
+    statusId: el.statusId,
+    label: el.label,
+    children: <div>{el.label}</div>,
+  }));
 
   const {
     openDropdown,
     onClickOption,
     selectedOption,
-    setSelectedOption,
+    selectOption,
     toggleDropdown,
   } = useDropdown<StatusOption>({ data: options, initialValue: options[0] });
 
@@ -30,8 +36,8 @@ const StatusDropdown = () => {
 
   useEffect(() => {
     if (settingsForm.status) {
-      setSelectedOption(
-        options.find((el) => el.label.includes(settingsForm.status))!
+      selectOption(
+        options.find((option) => option.label.includes(settingsForm.status))!
       );
     }
   }, [settingsForm]);
@@ -63,9 +69,10 @@ const StatusDropdown = () => {
       </button>
       {openDropdown && (
         <Dropdown
-          type='status'
           options={options}
           onClickDropdownItem={handleClickItem}
+          className='absolute bg-white w-[220px] h-30 top-20 rounded-[10px] border border-[#838383] text-[15px] overflow-hidden h-[138px] z-10'
+          itemClassName='py-[6px] px-3 cursor-pointer hover:bg-gray-200'
         />
       )}
     </div>

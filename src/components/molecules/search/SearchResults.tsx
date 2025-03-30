@@ -1,7 +1,7 @@
 import MoreButton from '@/components/molecules/MoreButton';
 import ShortFeed from '@/components/molecules/search/ShortFeed';
 import ShortProject from '@/components/molecules/search/ShortProject';
-import { useSearchContext } from '@/hooks/context/useSearchContext';
+import { useSearchContext } from '@/context/useSearchContext';
 import { useSearchModal } from '@/store/modals/searchModalstore';
 import { ProjectResult, FeedResult } from '@/types/search.type';
 

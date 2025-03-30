@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { PropsWithChildren, useState } from 'react';
 
-export interface IDropdown {
+export interface IDropdown extends PropsWithChildren {
   id: number;
-  label: string;
 }
 
 export const useDropdown = <T extends IDropdown = IDropdown>({
@@ -14,10 +13,10 @@ export const useDropdown = <T extends IDropdown = IDropdown>({
 }) => {
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [openDropdown, setOpenDropdown] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(initialValue);
+  const [selectedOption, selectOption] = useState(initialValue);
 
   const onClickOption = ({ id }: Pick<IDropdown, 'id'>) => {
-    setSelectedOption(data.find((el) => el.id === id) ?? null);
+    selectOption(data.find((el) => el.id === id) ?? null);
     setOpenDropdown(false);
   };
 
@@ -27,7 +26,7 @@ export const useDropdown = <T extends IDropdown = IDropdown>({
     focusedIndex,
     openDropdown,
     selectedOption,
-    setSelectedOption,
+    selectOption,
     onClickOption,
     toggleDropdown,
     setFocusedIndex,
