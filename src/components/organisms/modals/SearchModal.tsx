@@ -9,7 +9,7 @@ import Tabs from '@/components/organisms/Tabs';
 import VerticalDivider from '@/components/atoms/VerticalDivider';
 import { useMemo } from 'react';
 import SearchInput from '@/components/molecules/search/SearchInput';
-import { SearchContext } from '@/hooks/context/useSearchContext';
+import { SearchContext } from '@/context/useSearchContext';
 import SearchResultItem from '@/components/molecules/search/SearchResults';
 import { useSearchModal } from '@/store/modals/searchModalstore';
 
