@@ -16,10 +16,10 @@ const ChannelInfo = ({ channel }: { channel: Channel }) => {
   return (
     <div className='flex flex-col h-full justify-center w-full'>
       <Title
-        size='md'
+        size='sm'
         fontWeight='bold'
         lineClamp={1}
-        className='text-ellipsis w-[90%]'
+        className='text-ellipsis w-[90%] md:text-[25px]'
       >
         {channel.title}
       </Title>
