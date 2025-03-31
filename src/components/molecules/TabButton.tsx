@@ -19,7 +19,7 @@ const TabButton = ({
       variants='outline'
       className={cn(
         isActive ? 'bg-white font-medium' : 'bg-none text-darkgray font-normal',
-        '!w-full'
+        '!w-full my-1'
       )}
       {...rest}
     >

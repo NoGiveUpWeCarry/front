@@ -1,7 +1,8 @@
 import MoreButton from '@/components/molecules/MoreButton';
 import ShortFeed from '@/components/molecules/search/ShortFeed';
 import ShortProject from '@/components/molecules/search/ShortProject';
-import { useSearchContext } from '@/hooks/context/useSearchContext';
+import { useSearchContext } from '@/context/useSearchContext';
+import { useSearchModal } from '@/store/modals/searchModalstore';
 import { ProjectResult, FeedResult } from '@/types/search.type';
 
 // Types
@@ -99,6 +100,7 @@ const SearchResultItem = ({
   type,
 }: SearchResultItemProps) => {
   const { keyword, isLoading, onNavigate } = useSearchContext();
+  const { setKeyword: setSearchKeyword } = useSearchModal();
 
   const handleClickMore = () => {
     onNavigate(`/search?q=${keyword}&type=page`);
@@ -108,6 +110,7 @@ const SearchResultItem = ({
   const handleClickItem = (id: number) => {
     const basePath = type === 'feed' ? '/feed' : '/projects';
     onNavigate(`${basePath}/${id}?from=search`);
+    setSearchKeyword(keyword);
   };
 
   if (!items?.length) return <EmptyResults />;

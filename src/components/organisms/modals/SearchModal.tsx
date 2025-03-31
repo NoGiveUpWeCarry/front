@@ -7,10 +7,11 @@ import { useSearchByModal } from '@/hooks/queries/search.query';
 import HorizontalDivider from '@/components/atoms/HorizontalDivider';
 import Tabs from '@/components/organisms/Tabs';
 import VerticalDivider from '@/components/atoms/VerticalDivider';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import SearchInput from '@/components/molecules/search/SearchInput';
-import { SearchContext } from '@/hooks/context/useSearchContext';
+import { SearchContext } from '@/context/useSearchContext';
 import SearchResultItem from '@/components/molecules/search/SearchResults';
+import { useSearchModal } from '@/store/modals/searchModalstore';
 
 const CATEGORY = {
   전체: 'all',
@@ -115,15 +116,21 @@ const SearchTabContent = ({ keyword, onClose }: SearchTabContentProps) => {
 };
 
 const SearchModal = ({ onClose }: ModalProps) => {
-  const [keyword, setKeyword] = useState('');
+  const navigate = useNavigate();
+  const { keyword, setKeyword } = useSearchModal();
   const debouncedKeyword = useDebounce(keyword, 300);
 
   const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };
 
+  const handleCloseModal = () => {
+    onClose();
+    navigate(window.location.pathname);
+  };
+
   return (
-    <Modal onClose={onClose} className='!px-1 min-w-[600px] h-[560px]'>
+    <Modal onClose={handleCloseModal} className='!px-1 min-w-[600px] h-[560px]'>
       <div className='w-full h-full px-[50px] flex flex-col'>
         <SearchInput value={keyword} onChange={handleKeywordChange} />
         <Tabs>

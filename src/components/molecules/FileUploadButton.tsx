@@ -1,26 +1,49 @@
-import { ChangeEvent, cloneElement, ReactElement, useId } from 'react';
+import { useFileContext } from '@/context/useFileContext';
+import { optimizeImage } from '@/utils/optimizeImage';
+import {
+  ButtonHTMLAttributes,
+  ChangeEvent,
+  InputHTMLAttributes,
+  ReactElement,
+  useId,
+} from 'react';
 
-interface Props {
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  accept?: string;
-  className?: string;
-  children: ReactElement<HTMLLabelElement>;
+interface Props
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onChange'>,
+    Pick<InputHTMLAttributes<HTMLInputElement>, 'accept' | 'onChange'> {
+  children: ReactElement;
 }
 
-const FileUploadButton = ({ onChange, accept, children, className }: Props) => {
+const FileUploadButton = ({ accept, children, className, onChange }: Props) => {
   const inputId = useId();
-  const cloneChildren = cloneElement(children, { htmlFor: inputId });
+  const { setFile } = useFileContext();
+
+  const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.type.match(/image\/*/)) {
+        const optimizedImage = await optimizeImage(file);
+        setFile(optimizedImage);
+      } else {
+        setFile(file);
+      }
+    }
+    if (onChange) onChange(e);
+  };
+
   return (
-    <div className={className}>
+    <button className={className} type='button'>
       <input
         type='file'
         className='hidden'
         id={inputId}
         accept={accept}
-        onChange={onChange}
+        onChange={handleChange}
       />
-      {cloneChildren}
-    </div>
+      <label htmlFor={inputId} className='cursor-pointer'>
+        {children}
+      </label>
+    </button>
   );
 };
 

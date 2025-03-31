@@ -28,11 +28,7 @@ const FeedItem = ({
       onClick={navigateToDetail}
     >
       <FeedBody title={title} content={content} tags={tags} />
-      {thumnailUrl && (
-        <div className='w-full md:w-[200px] h-fit md:mr-10'>
-          <FeedContentsThumbnail thumbnailUrl={thumnailUrl} />
-        </div>
-      )}
+      <FeedContentsThumbnail thumbnailUrl={thumnailUrl} />
     </div>
   );
 };

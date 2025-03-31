@@ -9,15 +9,18 @@ const FeedContentsThumbnail = ({
   thumbnailUrl,
   alt = '',
 }: ContentsThumbnailProps) => {
+  if (!thumbnailUrl) return null;
+
   return (
-    <div className='flex md:w-60 w-full max-h-[110px]'>
-      {thumbnailUrl ? (
+    <div className='w-full md:w-[200px] h-fit md:mr-10'>
+      <div className='flex md:w-60 w-full max-h-[110px]'>
         <img
           src={thumbnailUrl}
           alt={alt}
           className='w-full object-cover rounded-[20px]'
+          loading='lazy'
         />
-      ) : null}
+      </div>
     </div>
   );
 };
