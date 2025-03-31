@@ -34,7 +34,7 @@ const Message = ({
       className={cn(
         'flex gap-[10px]',
         isMyMessage && 'flex-row-reverse ml-auto',
-        'max-w-[50%]',
+        'lg:max-w-[50%] max-w-[100%]',
         sameBefore ? 'mt-[10px]' : 'mt-[24px]'
       )}
     >

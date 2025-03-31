@@ -78,7 +78,7 @@ const ChatInput = ({ currentChannelId }: { currentChannelId: number }) => {
 
   return (
     <FileContext.Provider value={useMemo(() => ({ file, setFile }), [file])}>
-      <div className='pb-[50px] px-[56px] mt-[50px]'>
+      <div className='md:pb-[50px] md:px-[56px] md:mt-[50px]'>
         <FilePreview />
         <div className='flex items-center gap-[10px]'>
           <Avatar

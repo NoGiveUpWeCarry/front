@@ -9,7 +9,7 @@ interface ChatHeaderProps {
 const ChatHeader = ({ currentChannelId }: ChatHeaderProps) => {
   if (!currentChannelId) return <ChatHeaderWelcome />;
   return (
-    <div className='flex justify-between items-center border-b-[2px] border-solid border-b-[#CCCCCC] mb-[20px] px-[20px] py-[10px]'>
+    <div className='flex justify-between items-center border-b-[2px] border-solid border-b-[#CCCCCC] md:mb-[20px] px-[20px] py-[10px]'>
       <div className='flex h-full items-center w-full'>
         <Suspense fallback={<ChatHeaderWelcome />}>
           <ChatHeaderInfo currentChannelId={currentChannelId} />
