@@ -87,3 +87,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ### Changed
 
 - 채팅페이지 반응형 개선
+
+## [0.2.3] - 2025-03-31
+
+### Changed
+
+- 채팅방 반응형 개선
+- 로그아웃 시 홈페이지로 이동하도록 수결
+- 채팅방 이미지 전송 시 이미지 사이즈 최적화
+
+### Fixed
+
+- 피드, 프로젝트 검색 결과 표시 안 되는 문제 해결
