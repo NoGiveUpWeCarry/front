@@ -62,17 +62,9 @@ const SearchTabContent = ({ keyword, onClose }: SearchTabContentProps) => {
     [isLoading, keyword, handleNavigate]
   );
 
-  if (!keyword) {
-    return (
-      <div className='mt-6 flex flex-col flex-1 h-full justify-center items-center text-[14px] pb-10'>
-        <span>피드나 프로젝트를 검색해보세요.</span>
-      </div>
-    );
-  }
-
   const tabComponents = {
     전체: (
-      <SearchContext.Provider value={searchContextValue}>
+      <>
         <SearchResultItem
           title='피드'
           onTabChange={() => setActive(TabNames['피드'])}
@@ -86,33 +78,39 @@ const SearchTabContent = ({ keyword, onClose }: SearchTabContentProps) => {
           data={hubs}
           type='project'
         />
-      </SearchContext.Provider>
+      </>
     ),
     피드: (
-      <SearchContext.Provider value={searchContextValue}>
-        <SearchResultItem
-          title='피드'
-          onTabChange={() => setActive(TabNames['피드'])}
-          data={feeds}
-          type='feed'
-        />
-      </SearchContext.Provider>
+      <SearchResultItem
+        title='피드'
+        onTabChange={() => setActive(TabNames['피드'])}
+        data={feeds}
+        type='feed'
+      />
     ),
     '커넥션 허브': (
-      <SearchContext.Provider value={searchContextValue}>
-        <SearchResultItem
-          title='커넥션 허브'
-          onTabChange={() => setActive(TabNames['커넥션 허브'])}
-          data={hubs}
-          type='project'
-        />
-      </SearchContext.Provider>
+      <SearchResultItem
+        title='커넥션 허브'
+        onTabChange={() => setActive(TabNames['커넥션 허브'])}
+        data={hubs}
+        type='project'
+      />
     ),
   };
 
+  if (!keyword) {
+    return (
+      <div className='mt-6 flex flex-col flex-1 h-full justify-center items-center text-[14px] pb-10'>
+        <span>피드나 프로젝트를 검색해보세요.</span>
+      </div>
+    );
+  }
+
   return (
     <div className='mt-6 flex flex-col min-flex-1 text-[14px] pb-10 relative'>
-      <Tabs.Pannels components={Object.values(tabComponents)} />
+      <SearchContext.Provider value={searchContextValue}>
+        <Tabs.Pannels components={Object.values(tabComponents)} />
+      </SearchContext.Provider>
     </div>
   );
 };
