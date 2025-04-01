@@ -3,6 +3,7 @@ import Title from '@/components/atoms/Title';
 import ToggleButton from '@/components/molecules/ToggleButton';
 import SearchMessage from '@/components/organisms/chat/SearchMessage';
 import { useChannel } from '@/hooks/chat/useChannel';
+import useAuthStore from '@/store/authStore';
 import { useChatStore } from '@/store/chatStore';
 import { Channel } from '@/types/channel.type';
 import { useEffect, useState } from 'react';
@@ -13,6 +14,11 @@ interface ChatHeaderInfoProps {
 }
 
 const ChannelInfo = ({ channel }: { channel: Channel }) => {
+  const currentUserId = useAuthStore((state) => state.userInfo.userId);
+  const channelTitle =
+    channel.type === 'private'
+      ? channel.users.find((user) => user.userId !== currentUserId)?.name
+      : channel.title;
   return (
     <div className='flex flex-col h-full justify-center w-full'>
       <Title
@@ -21,7 +27,7 @@ const ChannelInfo = ({ channel }: { channel: Channel }) => {
         lineClamp={1}
         className='text-ellipsis w-[90%] md:text-[25px]'
       >
-        {channel.title}
+        {channelTitle ?? '채팅방'}
       </Title>
       <div className='text-caption1 text-[#838383]'>
         {channel.users.length}명의 맴버가 있습니다.
