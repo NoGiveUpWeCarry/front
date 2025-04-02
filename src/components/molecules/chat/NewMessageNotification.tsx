@@ -1,28 +1,29 @@
 import { useEffect } from 'react';
 import NewMessage from './NewMessage';
-import { useChatStore } from '@/store/chatStore';
 import { useInView } from 'react-intersection-observer';
 
 interface Props {
   onClick: () => void;
+  hasNewMessage: boolean;
+  setChatState: (state: Partial<{ hasNewMessage: boolean }>) => void;
 }
 
-export const NewMessageNotification = ({ onClick }: Props) => {
-  const setState = useChatStore((state) => state.setState);
-
-  const hasNewMessage = useChatStore((state) => state.hasNewMessage);
-
+export const NewMessageNotification = ({
+  onClick,
+  hasNewMessage,
+  setChatState,
+}: Props) => {
   const { ref: newMessageRef, inView: isNewMessageInView } = useInView();
 
   useEffect(() => {
     if (isNewMessageInView) {
-      setState({ hasNewMessage: false });
+      setChatState({ hasNewMessage: false });
     }
   }, [isNewMessageInView]);
 
   return (
     <>
-      <div ref={newMessageRef} />
+      <div ref={newMessageRef} className='sr-only w-1 h-1' />
       {hasNewMessage && !isNewMessageInView && <NewMessage onClick={onClick} />}
     </>
   );
