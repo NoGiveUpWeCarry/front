@@ -14,16 +14,18 @@ jobs:
     runs-on: ubuntu-latest # 실행될 인스턴스 OS와 버전
 
     steps:
-      - name: Chack out Git repository
+      - name: Check out Git repository
         uses: actions/checkout@v4
 
       - name: Execute Deployment Commands on EC2
         env:
           EC2_HOST: ${{ secrets.EC2_HOST }} # EC2 서버의 퍼블릭 IP
           EC2_USER: ${{ secrets.EC2_USER }} # EC2 접속 사용자 (ex: ubuntu, ec2-user 등)
+          EC2_FRONT_DIST: ${{ secrets.EC2_FRONT_DIST }} # EC2 프론트 빌드폴더 경로
+          EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }} 
         run: |
           # 비공개 키를 임시 파일로 저장
-          echo "${{ secrets.EC2_SSH_KEY }}" > ec2_key.pem
+          echo "$EC2_SSH_KEY" > ec2_key.pem
           chmod 600 ec2_key.pem
 
           # SSH를 통해 EC2 서버에 접속하여 명령 실행
@@ -34,9 +36,8 @@ jobs:
             git pull origin main
             pnpm install
             pnpm run build
-            cd /home/ubuntu
-            pm2 kill
-            pm2 start server.js
+            rm -rf /var/www/html/dist
+            mv $EC2_FRONT_DIST /var/www/html/
           EOF
 
           # 임시 키 파일 삭제
