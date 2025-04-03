@@ -24,7 +24,6 @@ const useAuthStore = create(
         (set, get) => ({
           setAccessToken: (token: string) => {
             set({ accessToken: token, isLoggedIn: !!token });
-            // localStorage.setItem('@token', token);
             sessionStorage.setItem('@token', token);
           },
           login: (user: User, token: string) => {
@@ -33,8 +32,7 @@ const useAuthStore = create(
               accessToken: token,
               userInfo: user,
             });
-            // localStorage.setItem('@token', token);
-            sessionStorage.setItem('@token', token); // 테스트 하기 위해 sessionStorage로 변경함
+            sessionStorage.setItem('@token', token);
           },
           logout: () => {
             set({

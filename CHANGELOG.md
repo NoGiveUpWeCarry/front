@@ -99,3 +99,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ### Fixed
 
 - 피드, 프로젝트 검색 결과 표시 안 되는 문제 해결
+
+## [0.2.4] - 2025-04-03
+
+### Fixed
+
+- 채팅페이지, 이미지 전송 시 크기 제한 1MB로 설정
+- "새로운 메시지가 왔습니다."버튼 클릭해도 사라지지 않는 버그 해결
