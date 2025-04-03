@@ -25,7 +25,7 @@ jobs:
           EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }} 
         run: |
           # 비공개 키를 임시 파일로 저장
-          echo "$EC2_SSH_KEY" > ec2_key.pem
+          echo $EC2_SSH_KEY > ec2_key.pem
           chmod 600 ec2_key.pem
 
           # SSH를 통해 EC2 서버에 접속하여 명령 실행
@@ -36,8 +36,8 @@ jobs:
             git pull origin main
             pnpm install
             pnpm run build
-            rm -rf /var/www/html/dist
-            mv $EC2_FRONT_DIST /var/www/html/
+            sudo rm -rf /var/www/html/dist
+            sudo mv $EC2_FRONT_DIST /var/www/html/
           EOF
 
           # 임시 키 파일 삭제
