@@ -37,7 +37,7 @@ jobs:
             pnpm install
             pnpm run build
             sudo rm -rf /var/www/html/dist
-            sudo mv "$EC2_FRONT_DIST" /var/www/html/
+            sudo mv "${{ secrets.EC2_FRONT_DIST }}" /var/www/html/
           EOF
 
           # 임시 키 파일 삭제
