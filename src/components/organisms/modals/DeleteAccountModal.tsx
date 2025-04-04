@@ -5,12 +5,14 @@ import { ModalProps } from '@/components/organisms/modals/modalProps';
 import { useDeleteAccount } from '@/hooks/queries/mypage/settings';
 import useAuthStore from '@/store/authStore';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
 
 const DeleteAccountModal = ({ onClose }: ModalProps) => {
   const [userInfo, logout] = useAuthStore(
     useShallow((state) => [state.userInfo, state.logout])
   );
+  const navigate = useNavigate();
 
   const { mutate } = useDeleteAccount();
 
@@ -26,7 +28,7 @@ const DeleteAccountModal = ({ onClose }: ModalProps) => {
     mutate(undefined, {
       onSuccess: () => {
         alert('탈퇴되었습니다.');
-        window.location.href = '/';
+        navigate('/');
         logout();
         onClose();
       },

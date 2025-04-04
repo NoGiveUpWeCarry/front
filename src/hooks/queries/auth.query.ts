@@ -61,14 +61,14 @@ export const useRoleMutation = (): UseMutationResult<
 
 export const useLogout = () => {
   const [logout] = useAuthStore(useShallow((state) => [state.logout]));
+  const navigate = useNavigate();
 
   return useMutation({
     mutationFn: () => fetchLogout(),
     onSuccess: () => {
       alert('로그아웃 되었습니다.');
       logout();
-
-      window.location.href = '/';
+      navigate('/');
     },
   });
 };
