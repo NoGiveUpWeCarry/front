@@ -11,7 +11,7 @@ const SideMenu = () => {
       <SideMenuLogo />
       <SideMenuNavigation>
         <SideMenuNav.Bell />
-        <SideMenuNav.Mail />
+        <SideMenuNav.Message />
         <SideMenuNav.Home />
         <SideMenuNav.Search />
         <SideMenuNav.ConnectionHub />

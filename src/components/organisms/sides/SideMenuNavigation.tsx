@@ -4,6 +4,13 @@ import { useNotification } from '@/components/organisms/sse/NotificationProvider
 import { useModal } from '@/hooks/useModal';
 import { useNavigate } from 'react-router-dom';
 
+interface SideMenuItemProps {
+  type: 'bell' | 'mail' | 'home' | 'search' | 'star';
+  label: string;
+  onClick?: () => void;
+  hasNotification?: boolean;
+}
+
 const SideMenuNavMain = ({ children }: React.PropsWithChildren) => {
   return (
     <nav className='flex flex-col w-[68px] space-y-[80px] transition-all duration-300 ease-in-out items-center'>
@@ -11,13 +18,6 @@ const SideMenuNavMain = ({ children }: React.PropsWithChildren) => {
     </nav>
   );
 };
-
-interface SideMenuItemProps {
-  type: 'bell' | 'mail' | 'home' | 'search' | 'star';
-  label: string;
-  onClick?: () => void;
-  hasNotification?: boolean;
-}
 
 export const SideMenuItem = ({
   onClick,
@@ -66,7 +66,7 @@ const SideMenuBell = () => {
   );
 };
 
-const SideMenuMail = () => {
+const SideMenuMessage = () => {
   const navigate = useNavigate();
   return (
     <SideMenuItem
@@ -111,7 +111,7 @@ const SideMenuConnectionHub = () => {
 
 export const SideMenuNav = Object.assign(SideMenuNavMain, {
   Bell: SideMenuBell,
-  Mail: SideMenuMail,
+  Message: SideMenuMessage,
   Home: SideMenuHome,
   Search: SideMenuSearch,
   ConnectionHub: SideMenuConnectionHub,
