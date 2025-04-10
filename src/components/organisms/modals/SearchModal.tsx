@@ -116,7 +116,6 @@ const SearchTabContent = ({ keyword, onClose }: SearchTabContentProps) => {
 };
 
 const SearchModal = ({ onClose }: ModalProps) => {
-  const navigate = useNavigate();
   const { keyword, setKeyword } = useSearchModal();
   const debouncedKeyword = useDebounce(keyword, 300);
 
@@ -126,7 +125,6 @@ const SearchModal = ({ onClose }: ModalProps) => {
 
   const handleCloseModal = () => {
     onClose();
-    navigate(window.location.pathname);
   };
 
   return (
