@@ -28,7 +28,8 @@ const Message = ({
   const channel = useChatStore((state) => state.channels[channelId]);
   const { closeModal, isOpen, openModal } = useModal();
 
-  const unreadCount = channel ? channel.users.length - message.readCount : 0;
+  let unreadCount = channel ? channel.users.length - message.readCount : 0;
+  if (unreadCount < 0) unreadCount = 0;
   return (
     <div
       className={cn(
