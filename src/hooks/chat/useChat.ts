@@ -5,17 +5,16 @@ import { useShallow } from 'zustand/shallow';
 import useAuthStore from '@/store/authStore';
 import { useChannelId } from '@/hooks/chat/useChannelId';
 import queryClient from '@/utils/queryClient';
+import { io } from 'socket.io-client';
+import { getSocketHandlers } from '@/socket/socketHandlers';
+import {
+  setupSocketEventHandlers,
+  removeSocketEventHandlers,
+} from '@/socket/socketUtils';
 
 export const useChat = () => {
   const location = useLocation();
   const { currentChannelId } = useChannelId();
-
-  const { joinChannel, setState } = useChatStore(
-    useShallow((state) => ({
-      joinChannel: state.joinChannel,
-      setState: state.setState,
-    }))
-  );
 
   const { userInfo, isLoggedIn } = useAuthStore(
     useShallow((state) => ({
@@ -25,15 +24,14 @@ export const useChat = () => {
   );
   const navigate = useNavigate();
 
-  const { createChannel, connectSocket, disconnectSocket, createGroup } =
-    useChatStore(
-      useShallow((state) => ({
-        createChannel: state.createChannel,
-        connectSocket: state.connectSocket,
-        disconnectSocket: state.disconnectSocket,
-        createGroup: state.createGroup,
-      }))
-    );
+  const { createChannel, createGroup, joinChannel, setState } = useChatStore(
+    useShallow((state) => ({
+      createChannel: state.createChannel,
+      createGroup: state.createGroup,
+      joinChannel: state.joinChannel,
+      setState: state.setState,
+    }))
+  );
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -41,7 +39,17 @@ export const useChat = () => {
       navigate('/login');
       return;
     }
-    connectSocket();
+    const socketUrl = `${import.meta.env.VITE_BASE_SERVER_URL}/chat`;
+    const userId = useAuthStore.getState().userInfo?.userId;
+
+    const socket = io(socketUrl, {
+      secure: true,
+      rejectUnauthorized: false, // 로컬 자체 서명된 인증서의 경우 false 설정
+      query: { userId },
+    });
+    setState({ socket });
+    const socketHandlers = getSocketHandlers(socket);
+    setupSocketEventHandlers(socket, socketHandlers);
 
     if (location.state?.targetUserId) {
       // 개인 채팅방 생성으로 넘어온 경우
@@ -56,7 +64,14 @@ export const useChat = () => {
     }
 
     return () => {
-      disconnectSocket();
+      removeSocketEventHandlers(socket, socketHandlers);
+      socket.disconnect();
+      setState({
+        socket: null,
+        currentChannelId: null,
+        messages: {},
+        channels: {},
+      });
       window.history.replaceState({}, '');
     };
   }, []);
