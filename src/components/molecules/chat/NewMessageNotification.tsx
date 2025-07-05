@@ -14,7 +14,6 @@ export const NewMessageNotification = ({
   setChatState,
 }: Props) => {
   const { ref: newMessageRef, inView: isNewMessageInView } = useInView();
-  console.log({ hasNewMessage, isNewMessageInView });
   useEffect(() => {
     if (isNewMessageInView) {
       setChatState({ hasNewMessage: false });

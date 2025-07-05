@@ -8,6 +8,12 @@ import useAuthStore from '@/store/authStore';
 import FileUploadDropdown from '@/components/organisms/chat/FileUploadDropdown';
 import FilePreview from '@/components/organisms/chat/FilePreview';
 import { FileContext, useFileContext } from '@/context/useFileContext';
+import queryClient from '@/utils/queryClient';
+import { InfiniteData } from '@tanstack/react-query';
+import {
+  FetchChannelMessagesResponse,
+  ReceiveMessage,
+} from '@/types/message.type';
 
 const ChatForm = ({
   currentChannelId,
@@ -38,6 +44,25 @@ const ChatForm = ({
       channelId: currentChannelId,
       userId: senderId,
     });
+    queryClient.setQueryData(
+      ['messages', { channelId: currentChannelId }],
+      (old: InfiniteData<FetchChannelMessagesResponse>) => {
+        const userInfo = useAuthStore.getState().userInfo;
+        const lastMessage: ReceiveMessage = {
+          type: 'text',
+          content: text,
+          channelId: currentChannelId,
+          userId: senderId,
+          messageId: old.pages[0].messages[0].messageId + 1,
+          date: new Date().toISOString(),
+          user: userInfo,
+          readCount: 1,
+        };
+
+        old.pages[0].messages.unshift(lastMessage);
+        return old;
+      }
+    );
 
     setText('');
   };

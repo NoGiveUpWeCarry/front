@@ -47,13 +47,12 @@ const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
     searchCursor,
   });
 
-  const { loadNextRef, scrollContainerRef, handleImageLoaded } =
-    useMessageScroll({
-      messages,
-      searchMode,
-      onFetchNext: fetchNextPage,
-      onFetchPrevious: fetchPreviousPage,
-    });
+  const { loadNextRef, scrollContainerRef } = useMessageScroll({
+    messages,
+    searchMode,
+    onFetchNext: fetchNextPage,
+    onFetchPrevious: fetchPreviousPage,
+  });
 
   const { hasNewMessage, setChatState } = useChatStore(
     useShallow((state) => ({
@@ -89,7 +88,6 @@ const ChatMessages = ({ currentChannelId }: ChatMessagesProps) => {
         loadNextRef={loadNextRef}
         showNextRef={hasNextPage && !isFetchingSearchMessages && !isFetching}
         isFetchingNextPage={isFetchingNextPage}
-        handleImageLoaded={handleImageLoaded}
       />
       <NewMessageNotification
         onClick={handleNewMessageClick}
