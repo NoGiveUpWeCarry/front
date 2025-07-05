@@ -14,14 +14,12 @@ interface MessageProps {
   sameBefore: boolean; // 한 유저가 연속으로 보낸 메시지인지 유무
   isMyMessage: boolean;
   searchMessageId?: number | null;
-  handleImageLoad: () => void;
 }
 
 const Message = ({
   message,
   sameBefore,
   isMyMessage,
-  handleImageLoad,
   searchMessageId,
 }: MessageProps) => {
   const { content, user, channelId } = message;
@@ -65,10 +63,9 @@ const Message = ({
             <>
               <img
                 alt='message type: image'
-                onLoad={handleImageLoad}
                 onClick={openModal}
                 src={message.content}
-                className='w-[300px] object-cover rounded-lg shadow'
+                className='h-[170px] object-cover rounded-lg shadow'
               />
               {isOpen && (
                 <ChatImageModal src={message.content} onClose={closeModal} />

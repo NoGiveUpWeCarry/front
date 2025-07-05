@@ -16,14 +16,6 @@ export const useMessageScroll = ({
 }: UseMessageScrollProps) => {
   const previousHeightRef = useRef(0);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
-  const [imagesLoaded, setImagesLoaded] = useState(0);
-  const totalImageCount = messages.filter(
-    (message) => message.type === 'image'
-  ).length;
-
-  const handleImageLoaded = () => {
-    setImagesLoaded((prev) => prev + 1);
-  };
 
   const [direction, setDirection] = useState<'backward' | 'forward'>(
     'backward'
@@ -63,33 +55,9 @@ export const useMessageScroll = ({
     });
   }, [messages, direction, searchMode]);
 
-  // 이미지 로딩 되고 나서 다시 스크롤 조정
-  useEffect(() => {
-    const scrollContainer = scrollContainerRef.current;
-    if (imagesLoaded !== totalImageCount || !scrollContainer) return;
-    const newHeight = scrollContainer.scrollHeight;
-    const heightDiff = newHeight - previousHeightRef.current;
-
-    if (!searchMode && heightDiff > 0) {
-      switch (direction) {
-        case 'backward': {
-          scrollContainer.scrollTop += heightDiff;
-          break;
-        }
-        case 'forward': {
-          scrollContainer.scrollTop -= heightDiff;
-          break;
-        }
-      }
-    }
-
-    previousHeightRef.current = newHeight;
-  }, [imagesLoaded, totalImageCount]);
-
   return {
     direction,
     loadNextRef,
-    handleImageLoaded,
     scrollContainerRef,
   };
 };
